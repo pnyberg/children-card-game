@@ -105,9 +105,9 @@ public class TheGame {
 
 		if (cardToPlay instanceof MonsterCard) {
 			addMinionToBoard(((MonsterCard)cardToPlay).toMinion());
-			System.out.println("Played " + cardToPlay.getName() + "!");
+			System.out.println("Played " + cardToPlay.getName() + ", it costs " + cardToPlay.getCost() + "!");
 		} else {
-			System.out.println("Cast " + cardToPlay.getName() + "!");
+			System.out.println("Cast " + cardToPlay.getName() + ", it costs " + cardToPlay.getCost() + "!");
 		}
 	}
 
@@ -228,23 +228,11 @@ public class TheGame {
 	public void showBoard() {
 		System.out.println("Player1 Health: " + playerHealth1);
 		System.out.println("----- BOARD -----");
-		System.out.print("Monsters Player1: ");
-		for (Minion monster : monstersPlayer1) {
-			System.out.print(monster.getName() + " ");
-		}
-		System.out.print('\n' + addSpaces(18));
-		for (Minion monster : monstersPlayer1) {
-			System.out.print("(A:" + monster.getCurrentAttack() + " H:" + monster.getCurrentHealth() + ") ");
-		}
-		System.out.print('\n' + "Monsters Player2: ");
-		for (Minion monster : monstersPlayer2) {
-			System.out.print(monster.getName() + " ");
-		}
-		System.out.print('\n' + addSpaces(18));
-		for (Minion monster : monstersPlayer2) {
-			System.out.print("(A:" + monster.getCurrentAttack() + " H:" + monster.getCurrentHealth() + ") ");
-		}
-		System.out.println("");
+
+		printBoardInfo(0);
+
+		printBoardInfo(1);
+
 		System.out.println("----- BOARD -----");
 		System.out.println("Player2 Health: " + playerHealth2);
 	}
@@ -257,7 +245,7 @@ public class TheGame {
 	public void printHelp() {
 		System.out.println("Following commands currently exists:");
 		System.out.println(" - draw = you draw a new card");
-		System.out.println(" - play [cardIndex] = you play a card from hand, [cardIndex] is the index of the card");
+		System.out.println(" - play [cardIndex] = you play a card from hand, [cardIndex] is the index of the card (check 'show hand' for indices)");
 		System.out.println(" - let [attackerIndex] attack [targetIndex] = your minion, [attackerIndex], attacks a target, which is either 'player' or an enemy minion");
 		System.out.println(" - show hand = print the players hands");
 		System.out.println(" - show board = print the board");
@@ -311,11 +299,12 @@ public class TheGame {
 	}
 
 	public void printHandInfo(int playerIndex) {
-		printIndexBar(playerIndex);
+		printHandIndexBar(playerIndex);
+
 		printHand(playerIndex);
 	}
 
-	public void printIndexBar(int playerIndex) {
+	public void printHandIndexBar(int playerIndex) {
 		System.out.print(addSpaces(19));
 
 		int size;
@@ -356,6 +345,51 @@ public class TheGame {
 			}
 		}
 
+		System.out.println("");
+	}
+
+	public void printBoardInfo(int playerIndex) {
+		printBoardIndexBar(playerIndex);
+
+		printBoard(playerIndex);
+	}
+
+	public void printBoardIndexBar(int playerIndex) {
+		System.out.print(addSpaces(21));
+
+		int size;
+
+		if (playerIndex == 0) {
+			size = monstersPlayer1.size();
+		} else {
+			size = monstersPlayer2.size();			
+		}
+
+		for (int i = 0 ; i < size ; i++) {
+			System.out.print("#" + i + addSpaces(9));
+		}
+		System.out.println("");
+	}
+
+	public void printBoard(int playerIndex) {
+		System.out.print("Monsters Player" + (playerIndex + 1) + ": ");
+		LinkedList<Minion> monsterList;
+
+		if (playerIndex == 0) {
+			monsterList = monstersPlayer1;
+		} else {
+			monsterList = monstersPlayer2;
+		}
+
+		for (Minion monster : monsterList) {
+			System.out.print(monster.getName() + " ");
+		}
+
+		System.out.print('\n' + addSpaces(18));
+
+		for (Minion monster : monsterList) {
+			System.out.print("(A:" + monster.getCurrentAttack() + " H:" + monster.getCurrentHealth() + ")" + addSpaces(2));
+		}
 		System.out.println("");
 	}
 
