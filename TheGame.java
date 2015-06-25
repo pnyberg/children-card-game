@@ -2,6 +2,8 @@ import java.util.LinkedList;
 import java.util.Scanner;
 
 public class TheGame {
+	private final int TARGETPLAYER = -1;
+
 	private LinkedList<Minion> monstersPlayer1;
 	private LinkedList<Minion> monstersPlayer2;
 
@@ -50,7 +52,7 @@ public class TheGame {
 		if (str.length == 1 && str[0].equals("draw")) {
 			drawCard();
 		} else if (str.length == 2 && str[0].equals("play")) {
-			playCard(str[1]);
+			playCardFromHand(str[1]);
 		} else if (str.length == 4 && str[0].equals("let") && str[2].equals("attack")) {
 			makeAttack(str[1], str[3]);
 		} else if (str.length == 2 && str[0].equals("show") && str[1].equals("hand")) {
@@ -81,11 +83,23 @@ public class TheGame {
 		}
 	}
 
-	public void playCard(String cardName) {
-		PlayCard cardToPlay = removeCardFromHand(cardName);
+	public void playCardFromHand(String raw) {
+		int length = raw.length();
+
+		if (length != 2 || raw.charAt(0) != '#') {
+			System.out.println("Card-choosing command not valid!");
+			return;
+		}
+
+		int cardIndex = Integer.parseInt(raw.substring(1, length));
+		playCardFromHand(cardIndex);
+	}
+
+	public void playCardFromHand(int cardIndex) {
+		PlayCard cardToPlay = removeCardFromHand(cardIndex);
 
 		if (cardToPlay == null) {
-			System.out.println("You do not have " + cardName + " in your hand!");
+			// if the cardIndex isn't valid
 			return;
 		}
 
@@ -97,29 +111,45 @@ public class TheGame {
 		}
 	}
 
-	public void makeAttack(String attacker, String target) {
-		Minion attackingMinion = getAttacker(attacker);
-		if (attackingMinion == null) {
-			System.out.println("The 'attacker' doesn't exist!");
+	public void makeAttack(String attackRaw, String targetRaw) {
+		int attackLength = attackRaw.length();
+		int targetLength = targetRaw.length();
+
+		if (attackLength != 2 || attackRaw.charAt(0) != '#') {
+			System.out.println("Card-choosing command not valid for Attacker!");
 			return;
 		}
 
-		if (target.equals("player")) {
-			attackEnemyPlayer(attackingMinion);
+		int cardIndex1 = Integer.parseInt(attackRaw.substring(1, attackLength));
+
+		if (targetRaw.equals("player")) {
+			makeAttack(cardIndex1, TARGETPLAYER);
 			return;
 		}
 
-		Minion targetMinion = getTarget(target);
-
-		if (targetMinion == null) {
-			System.out.println("The 'target' doesn't exist!");
+		if (targetLength != 2 || targetRaw.charAt(0) != '#') {
+			System.out.println("Card-choosing command not valid for Target!");
 			return;
 		}
 
-		minionDuel(attackingMinion, targetMinion);
+		int cardIndex2 = Integer.parseInt(targetRaw.substring(1, targetLength));
+		makeAttack(cardIndex1, cardIndex2);
 	}
 
-	public void minionDuel(Minion attackingMinion, Minion targetMinion) {
+	public void makeAttack(int attackerIndex, int targetIndex) {
+		if (targetIndex == TARGETPLAYER) {
+			attackEnemyPlayer(attackerIndex);
+			return;
+		}
+
+		minionDuel(attackerIndex, targetIndex);
+	}
+
+	public void minionDuel(int attackerIndex, int targetIndex) {
+		/* HERE */
+		Minion attackingMinion = getAttacker(attackerIndex);
+		Minion targetMinion = getTarget(targetIndex);
+
 		int damage1 = attackingMinion.getCurrentAttack();
 		int damage2 = targetMinion.getCurrentAttack();
 
@@ -134,19 +164,21 @@ public class TheGame {
 		System.out.println(attackingMinion.getName() + " is attacking " + targetMinion.getName());
 
 		if (!targetMinion.isAlive()) {
-			removeMinionFromBoard(targetMinion, (turn + 1) % 2);
+			removeMinionFromBoard(targetIndex, (turn + 1) % 2);
 			System.out.println(targetMinion.getName() + " died!");
 		}
 
 		if (!attackingMinion.isAlive()) {
-			removeMinionFromBoard(attackingMinion, turn);
+			removeMinionFromBoard(attackerIndex, turn);
 			System.out.println(attackingMinion.getName() + " died!");
 		}
 
 		System.out.println(attackingMinion.getName() + " HP: " + attackingMinion.getCurrentHealth() + " - " + targetMinion.getName() + " HP: " + targetMinion.getCurrentHealth());
 	}
 
-	public void attackEnemyPlayer(Minion attackingMinion) {
+	public void attackEnemyPlayer(int attackerIndex) {
+		Minion attackingMinion = getAttacker(attackerIndex);
+
 		int damage = attackingMinion.getCurrentAttack();
 		int health;
 
@@ -161,61 +193,36 @@ public class TheGame {
 		System.out.println("Player " + (((turn+1) % 2) + 1) + " takes " + damage + " damage, has " + health + " left!");
 	}
 
-	public Minion getAttacker(String name) {
-		return getMinion(name, turn);
+	public Minion getAttacker(int index) {
+		return getMinion(index, turn);
 	}
 
-	public Minion getTarget(String name) {
-		return getMinion(name, (turn + 1) % 2);
+	public Minion getTarget(int index) {
+		return getMinion(index, (turn + 1) % 2);
 	}
 
-	public Minion getMinion(String name, int turn) {
-		if (turn == 0) {
-			for (Minion monster : monstersPlayer1) {
-				if (monster.getName().equals(name)) {
-					return monster;
-				}
+	public Minion getMinion(int index, int turnIndex) {
+		if (turnIndex == 0) {
+			if (index >= 0 && index < monstersPlayer1.size()) {
+				return monstersPlayer1.get(index);
 			}
 		} else {
-			for (Minion monster : monstersPlayer2) {
-				if (monster.getName().equals(name)) {
-					return monster;
-				}
+			if (index >= 0 && index < monstersPlayer1.size()) {
+				return monstersPlayer1.get(index);
 			}
 		}
+
+		System.out.println(index + " is not a valid boardIndex for Player " + ((turnIndex + 1 ) % 2));
 
 		return null;
 	}
 
 	public void showHand() {
 		System.out.println("----- Hand -----");
-		System.out.print("Cards Player1: ");
-		for (PlayCard card : cardHand1) {
-			int amount = 15 - card.getName().length() + (card.getName().length() > 12 ? card.getName().length()-12 : 0);
-			System.out.print(card.getName() + addSpaces(amount));
-		}
-		System.out.print('\n' + addSpaces(14));
-		for (PlayCard card : cardHand1) {
-			if (card instanceof MonsterCard) {
-				System.out.print("(C:" + card.getCost() + " A:" + ((MonsterCard)card).getAttack() + " H:" + ((MonsterCard)card).getHealth() + ") ");
-			} else {
-				System.out.print(addSpaces(4) + "(C:" + card.getCost() + ")" + addSpaces(5));				
-			}
-		}
-		System.out.print('\n' + "Cards Player2: ");
-		for (PlayCard card : cardHand2) {
-			int amount = 15 - card.getName().length() + (card.getName().length() > 12 ? card.getName().length()-12 : 0);
-			System.out.print(card.getName() + addSpaces(amount));
-		}
-		System.out.print('\n' + addSpaces(14));
-		for (PlayCard card : cardHand2) {
-			if (card instanceof MonsterCard) {
-				System.out.print("(C:" + card.getCost() + " A:" + ((MonsterCard)card).getAttack() + " H:" + ((MonsterCard)card).getHealth() + ") ");
-			} else {
-				System.out.print(addSpaces(4) + "(C:" + card.getCost() + ")" + addSpaces(5));				
-			}
-		}
-		System.out.println("");
+
+		printHandInfo(0);
+
+		printHandInfo(1);
 	}
 
 	public void showBoard() {
@@ -250,8 +257,8 @@ public class TheGame {
 	public void printHelp() {
 		System.out.println("Following commands currently exists:");
 		System.out.println(" - draw = you draw a new card");
-		System.out.println(" - play [name] = you play a card from hand, [name] is the name of the card");
-		System.out.println(" - let [attacker] attack [target] = your minion, [attacker], attacks a target, which is either 'player' or an enemy minion");
+		System.out.println(" - play [cardIndex] = you play a card from hand, [cardIndex] is the index of the card");
+		System.out.println(" - let [attackerIndex] attack [targetIndex] = your minion, [attackerIndex], attacks a target, which is either 'player' or an enemy minion");
 		System.out.println(" - show hand = print the players hands");
 		System.out.println(" - show board = print the board");
 		System.out.println(" - end turn = end players turn");
@@ -271,20 +278,19 @@ public class TheGame {
 		}
 	}
 
-	public PlayCard removeCardFromHand(String name) {
+	public PlayCard removeCardFromHand(int index) {
 		if (turn == 0) {
-			for (int i = 0 ; i < cardHand1.size() ; i++) {
-				if (cardHand1.get(i).getName().equals(name)) {
-					return cardHand1.remove(i);
-				}
+			if (index >= 0 && index < cardHand1.size()) {
+				return cardHand1.remove(index);
 			}
 		} else {
-			for (int i = 0 ; i < cardHand2.size() ; i++) {
-				if (cardHand2.get(i).getName().equals(name)) {
-					return cardHand2.remove(i);
-				}
+			if (index >= 0 && index < cardHand2.size()) {
+				return cardHand2.remove(index);
 			}
 		}
+
+		System.out.println(index + " is not a valid cardIndex for Player " + ((turn + 1 ) % 2));
+
 		return null;
 	}
 
@@ -296,12 +302,61 @@ public class TheGame {
 		}
 	}
 
-	public void removeMinionFromBoard(Minion minion, int turnIndex) {
+	public void removeMinionFromBoard(int minionIndex, int turnIndex) {
 		if (turnIndex == 0) {
-			monstersPlayer1.remove(minion);
+			monstersPlayer1.remove(minionIndex);
 		} else {
-			monstersPlayer2.remove(minion);
+			monstersPlayer2.remove(minionIndex);
 		}
+	}
+
+	public void printHandInfo(int playerIndex) {
+		printIndexBar(playerIndex);
+		printHand(playerIndex);
+	}
+
+	public void printIndexBar(int playerIndex) {
+		System.out.print(addSpaces(19));
+
+		int size;
+
+		if (playerIndex == 0) {
+			size = cardHand1.size();
+		} else {
+			size = cardHand2.size();			
+		}
+
+		for (int i = 0 ; i < size ; i++) {
+			System.out.print("#" + i + addSpaces(12));
+		}
+		System.out.println("");
+	}
+
+	public void printHand(int playerIndex) {
+		System.out.print("Cards Player" + (playerIndex + 1) + ": ");
+		LinkedList<PlayCard> playCardList;
+
+		if (playerIndex == 0) {
+			playCardList = cardHand1;
+		} else {
+			playCardList = cardHand2;
+		}
+
+		for (PlayCard card : playCardList) {
+			int amount = 14 - card.getName().length() + (card.getName().length() > 12 ? card.getName().length()-12 : 0);
+			System.out.print(card.getName() + addSpaces(amount));
+		}
+
+		System.out.print('\n' + addSpaces(14));
+		for (PlayCard card : playCardList) {
+			if (card instanceof MonsterCard) {
+				System.out.print("(C:" + card.getCost() + " A:" + ((MonsterCard)card).getAttack() + " H:" + ((MonsterCard)card).getHealth() + ") ");
+			} else {
+				System.out.print(addSpaces(4) + "(C:" + card.getCost() + ")" + addSpaces(5));				
+			}
+		}
+
+		System.out.println("");
 	}
 
 	public String addSpaces(int number) {
