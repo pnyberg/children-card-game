@@ -105,7 +105,6 @@ public class TheGame {
 
 		if (cardToPlay instanceof MonsterCard) {
 			addMinionToBoard(((MonsterCard)cardToPlay).toMinion());
-			System.out.println("Played " + cardToPlay.getName() + ", it costs " + cardToPlay.getCost() + "!");
 		} else {
 			System.out.println("Cast " + cardToPlay.getName() + ", it costs " + cardToPlay.getCost() + "!");
 		}
@@ -146,7 +145,6 @@ public class TheGame {
 	}
 
 	public void minionDuel(int attackerIndex, int targetIndex) {
-		/* HERE */
 		Minion attackingMinion = getAttacker(attackerIndex);
 		Minion targetMinion = getTarget(targetIndex);
 
@@ -283,10 +281,19 @@ public class TheGame {
 	}
 
 	public void addMinionToBoard(Minion minion) {
+		LinkedList<Minion> monsterList;
 		if (turn == 0) {
-			monstersPlayer1.add(minion);
+			monsterList = monstersPlayer1;
 		} else {
-			monstersPlayer2.add(minion);
+			monsterList = monstersPlayer2;
+		}
+
+		if (monsterList.size < 7) {
+			monsterList.add(minion);
+
+			System.out.println("Played " + cardToPlay.getName() + ", it costs " + cardToPlay.getCost() + "!");
+		} else {
+			System.out.println("Can't play that minion, your side of the board is full!");
 		}
 	}
 
