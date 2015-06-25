@@ -125,7 +125,18 @@ public class TheGame {
 	}
 
 	public void attackEnemyPlayer(Minion attackingMinion) {
+		int damage = attackingMinion.getAttack();
+		int health;
+
+		if (turn == 0) {
+			playerHealth2 -= damage;
+			health = playerHealth2;
+		} else {
+			playerHealth1 -= damage;
+			health = playerHealth1;
+		}
 		System.out.println(attackingMinion.getName() + " is attacking Player " + (((turn+1) % 2) + 1));
+		System.out.println("Player " + (((turn+1) % 2) + 1) + " takes " + damamge + " damage, has " health + " left!");
 	}
 
 	public Minion getAttacker(String name) {
