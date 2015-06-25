@@ -1,5 +1,6 @@
 public class SpellCard extends PlayCard {
-	public static final int	DRAGON_POWER = 1;
+	public static final int	DRAGON_POWER = 1,
+							EMERALD_SCALE = 2;
 
 	private String name;
 
@@ -15,7 +16,12 @@ public class SpellCard extends PlayCard {
 			name = "Dragon Power";
 			cost = 2;
 			this.type = type;
+		} else if (type == EMERALD_SCALE) {
+			name = "Emerald Scale";
+			cost = 2;
+			this.type = type;
 		}
+
 	}
 
 	public String getName() {
