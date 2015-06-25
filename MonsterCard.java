@@ -12,6 +12,10 @@ public class MonsterCard extends PlayCard {
 		this.health = health;
 	}
 
+	public String getName() {
+		return name;
+	}
+
 	public int getCost() {
 		return cost;
 	}
@@ -22,5 +26,9 @@ public class MonsterCard extends PlayCard {
 
 	public int getHealth() {
 		return health;
+	}
+
+	public Minion toMinion() {
+		return new Minion(name, attack, health, false, false, false, false);
 	}
 }
