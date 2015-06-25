@@ -4,22 +4,22 @@ import java.util.Scanner;
 public class TheGame {
 	private final int TARGETPLAYER = -1;
 
-	private LinkedList<Minion> monstersPlayer1;
-	private LinkedList<Minion> monstersPlayer2;
+	private LinkedList<Minion> minionsOnBoard1;
+	private LinkedList<Minion> minionsOnBoard2;
 
-	private LinkedList<PlayCard> cardHand1;
-	private LinkedList<PlayCard> cardHand2;
+	private LinkedList<PlayCard> cardsInHand1;
+	private LinkedList<PlayCard> cardsInHand2;
 
 	private int turn;
 	private int playerHealth1;
 	private int playerHealth2;
 
 	public TheGame() {
-		monstersPlayer1 = new LinkedList<Minion>();
-		monstersPlayer2 = new LinkedList<Minion>();
+		minionsOnBoard1 = new LinkedList<Minion>();
+		minionsOnBoard2 = new LinkedList<Minion>();
 
-		cardHand1 = new LinkedList<PlayCard>();
-		cardHand2 = new LinkedList<PlayCard>();
+		cardsInHand1 = new LinkedList<PlayCard>();
+		cardsInHand2 = new LinkedList<PlayCard>();
 
 		turn = 0;
 		playerHealth1 = 30;
@@ -105,10 +105,6 @@ public class TheGame {
 			return;
 		}
 
-		playMinionFromHand(cardIndex);
-	}
-
-	public void playMinionFromHand(int cardIndex) {
 		PlayCard cardToPlay = getCardFromHand(cardIndex);
 
 		if (cardToPlay == null) {
@@ -132,10 +128,6 @@ public class TheGame {
 			return;
 		}
 
-		castSpellFromHand(cardIndex, str);
-	}
-
-	public void castSpellFromHand(int cardIndex, String[] str) {
 		PlayCard cardToPlay = getCardFromHand(cardIndex);
 
 		if (cardToPlay == null) {
@@ -299,21 +291,21 @@ public class TheGame {
 	public LinkedList<PlayCard> getCardList(int turnIndex) {
 		LinkedList<PlayCard> cardList;
 		if (turnIndex == 0) {
-			cardList = cardHand1;
+			cardList = cardsInHand1;
 		} else {
-			cardList = cardHand2;
+			cardList = cardsInHand2;
 		}
 		return cardList;
 	}
 
 	public LinkedList<Minion> getMinionList(int turnIndex) {
-		LinkedList<Minion> monsterList;
+		LinkedList<Minion> minionList;
 		if (turnIndex == 0) {
-			monsterList = monstersPlayer1;
+			minionList = minionsOnBoard1;
 		} else {
-			monsterList = monstersPlayer2;
+			minionList = minionsOnBoard2;
 		}
-		return monsterList;
+		return minionList;
 	}
 
 	public void addCardToHand(PlayCard cardToAdd) {
@@ -349,10 +341,10 @@ public class TheGame {
 	public void addMinionToBoard(MonsterCard monsterCard) {
 		Minion minion = monsterCard.toMinion();
 
-		LinkedList<Minion> monsterList = getMinionList(turn);
+		LinkedList<Minion> minionList = getMinionList(turn);
 
-		if (monsterList.size() < 7) {
-			monsterList.add(minion);
+		if (minionList.size() < 7) {
+			minionList.add(minion);
 
 			System.out.println("Played " + monsterCard.getName() + ", it costs " + monsterCard.getCost() + "!");
 		} else {
@@ -361,9 +353,9 @@ public class TheGame {
 	}
 
 	public void removeMinionFromBoard(int minionIndex, int turnIndex) {
-		LinkedList<Minion> monsterList = getMinionList(turnIndex);
+		LinkedList<Minion> minionList = getMinionList(turnIndex);
 
-		monsterList.remove(minionIndex);
+		minionList.remove(minionIndex);
 	}
 
 	public void printHandInfo(int turnIndex) {
@@ -415,11 +407,12 @@ public class TheGame {
 	public void printBoardIndexBar(int turnIndex) {
 		System.out.print(addSpaces(21));
 
-		LinkedList<Minion> monsterList = getMinionList(turnIndex);
-		int size = monsterList.size();
+		LinkedList<Minion> minionList = getMinionList(turnIndex);
+		int size = minionList.size();
 
 		for (int i = 0 ; i < size ; i++) {
-			int amount = 9 + (monsterList.get(i).getName().length() > 8 ? monsterList.get(i).getName().length()-8 : 0);
+			String name = minionList.get(i).getName();
+			int amount = 9 + (name.length() > 8 ? name.length()-8 : 0);
 			System.out.print("#" + i + addSpaces(amount));
 		}
 		System.out.println("");
@@ -428,17 +421,19 @@ public class TheGame {
 	public void printBoard(int turnIndex) {
 		System.out.print("Monsters Player" + (turnIndex + 1) + ": ");
 
-		LinkedList<Minion> monsterList = getMinionList(turnIndex);
+		LinkedList<Minion> minionList = getMinionList(turnIndex);
 
-		for (Minion monster : monsterList) {
-			int amount = 14 - monster.getName().length() + (monster.getName().length() > 12 ? monster.getName().length()-12 : 0);
+		for (Minion monster : minionList) {
+			int nameLength = monster.getName().length();
+			int amount = 14 - nameLength + (nameLength > 12 ? nameLength-12 : 0);
 			System.out.print(monster.getName() + addSpaces(amount));
 		}
 
 		System.out.print('\n' + addSpaces(18));
 
-		for (Minion monster : monsterList) {
-			int amount = 2 + (monster.getName().length() > 8 ? monster.getName().length()-8 : 0);
+		for (Minion monster : minionList) {
+			int nameLength = monster.getName().length();
+			int amount = 2 + (nameLength > 8 ? nameLength-8 : 0);
 			System.out.print("(A:" + monster.getCurrentAttack() + " H:" + monster.getCurrentHealth() + ")" + addSpaces(amount));
 		}
 		System.out.println("");
