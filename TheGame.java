@@ -116,16 +116,38 @@ public class TheGame {
 			return;
 		}
 
-		attack(attackingMinion, targetMinion);
+		minionDuel(attackingMinion, targetMinion);
 	}
 
-	public void attack(Minion attackingMinion, Minion targetMinion) {
+	public void minionDuel(Minion attackingMinion, Minion targetMinion) {
+		int damage1 = attackingMinion.getCurrentAttack();
+		int damage2 = targetMinion.getCurrentAttack();
+
+		if (!targetMinion.hasDivineShield()) {
+			targetMinion.takeDamage(damage1);
+		}
+
+		if (!attackingMinion.hasDivineShield()) {
+			attackingMinion.takeDamage(damage2);
+		}
 
 		System.out.println(attackingMinion.getName() + " is attacking " + targetMinion.getName());
+
+		if (!targetMinion.isAlive()) {
+			removeMinionFromBoard(targetMinion, (turn + 1) % 2);
+			System.out.println(targetMinion.getName() + " died!");
+		}
+
+		if (!attackingMinion.isAlive()) {
+			removeMinionFromBoard(attackingMinion, turn);
+			System.out.println(attackingMinion.getName() + " died!");
+		}
+
+		System.out.println(attackingMinion.getName() + " HP: " + attackingMinion.getCurrentHealth() + " - " + targetMinion.getName() + " HP: " + targetMinion.getCurrentHealth());
 	}
 
 	public void attackEnemyPlayer(Minion attackingMinion) {
-		int damage = attackingMinion.getAttack();
+		int damage = attackingMinion.getCurrentAttack();
 		int health;
 
 		if (turn == 0) {
@@ -136,7 +158,7 @@ public class TheGame {
 			health = playerHealth1;
 		}
 		System.out.println(attackingMinion.getName() + " is attacking Player " + (((turn+1) % 2) + 1));
-		System.out.println("Player " + (((turn+1) % 2) + 1) + " takes " + damamge + " damage, has " health + " left!");
+		System.out.println("Player " + (((turn+1) % 2) + 1) + " takes " + damage + " damage, has " + health + " left!");
 	}
 
 	public Minion getAttacker(String name) {
@@ -197,6 +219,7 @@ public class TheGame {
 	}
 
 	public void showBoard() {
+		System.out.println("Player1 Health: " + playerHealth1);
 		System.out.println("----- BOARD -----");
 		System.out.print("Monsters Player1: ");
 		for (Minion monster : monstersPlayer1) {
@@ -204,7 +227,7 @@ public class TheGame {
 		}
 		System.out.print('\n' + addSpaces(18));
 		for (Minion monster : monstersPlayer1) {
-			System.out.print("(A:" + monster.getAttack() + " H:" + monster.getHealth() + ") ");
+			System.out.print("(A:" + monster.getCurrentAttack() + " H:" + monster.getCurrentHealth() + ") ");
 		}
 		System.out.print('\n' + "Monsters Player2: ");
 		for (Minion monster : monstersPlayer2) {
@@ -212,9 +235,11 @@ public class TheGame {
 		}
 		System.out.print('\n' + addSpaces(18));
 		for (Minion monster : monstersPlayer2) {
-			System.out.print("(A:" + monster.getAttack() + " H:" + monster.getHealth() + ") ");
+			System.out.print("(A:" + monster.getCurrentAttack() + " H:" + monster.getCurrentHealth() + ") ");
 		}
 		System.out.println("");
+		System.out.println("----- BOARD -----");
+		System.out.println("Player2 Health: " + playerHealth2);
 	}
 
 	public void endTurn() {
@@ -268,6 +293,14 @@ public class TheGame {
 			monstersPlayer1.add(minion);
 		} else {
 			monstersPlayer2.add(minion);
+		}
+	}
+
+	public void removeMinionFromBoard(Minion minion, int turnIndex) {
+		if (turnIndex == 0) {
+			monstersPlayer1.remove(minion);
+		} else {
+			monstersPlayer2.remove(minion);
 		}
 	}
 
