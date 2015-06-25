@@ -419,7 +419,8 @@ public class TheGame {
 		int size = monsterList.size();
 
 		for (int i = 0 ; i < size ; i++) {
-			System.out.print("#" + i + addSpaces(9));
+			int amount = 9 + (monsterList.get(i).getName().length() > 8 ? monsterList.get(i).getName().length()-8 : 0);
+			System.out.print("#" + i + addSpaces(amount));
 		}
 		System.out.println("");
 	}
@@ -430,13 +431,15 @@ public class TheGame {
 		LinkedList<Minion> monsterList = getMinionList(turnIndex);
 
 		for (Minion monster : monsterList) {
-			System.out.print(monster.getName() + " ");
+			int amount = 14 - monster.getName().length() + (monster.getName().length() > 12 ? monster.getName().length()-12 : 0);
+			System.out.print(monster.getName() + addSpaces(amount));
 		}
 
 		System.out.print('\n' + addSpaces(18));
 
 		for (Minion monster : monsterList) {
-			System.out.print("(A:" + monster.getCurrentAttack() + " H:" + monster.getCurrentHealth() + ")" + addSpaces(2));
+			int amount = 2 + (monster.getName().length() > 8 ? monster.getName().length()-8 : 0);
+			System.out.print("(A:" + monster.getCurrentAttack() + " H:" + monster.getCurrentHealth() + ")" + addSpaces(amount));
 		}
 		System.out.println("");
 	}
