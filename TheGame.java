@@ -52,7 +52,9 @@ public class TheGame {
 		if (str.length == 1 && str[0].equals("draw")) {
 			drawCard();
 		} else if (str.length == 2 && str[0].equals("play")) {
-			playCardFromHand(str[1]);
+			playMinionFromHand(str[1]);
+		} else if (str.length > 1 && str[0].equals("cast")) {
+			castSpellFromHand(str);
 		} else if (str.length == 4 && str[0].equals("let") && str[2].equals("attack")) {
 			makeAttack(str[1], str[3]);
 		} else if (str.length == 2 && str[0].equals("show") && str[1].equals("hand")) {
@@ -75,28 +77,39 @@ public class TheGame {
 	public void drawCard() {
 		int randomizer = (int)(Math.random()*10);
 		if (randomizer < 3) {
-			addCardToHand(new MonsterCard("DragonLord", 1, 1, 1));
+			addCardToHand(new MonsterCard(MonsterCard.DRAGON_LORD));
 		} else if (randomizer < 7) {
-			addCardToHand(new SpellCard("DragonPower", 2));
+			addCardToHand(new SpellCard(SpellCard.DRAGON_POWER));
 		} else {
-			addCardToHand(new MonsterCard("DragonKing", 2, 2, 2));
+			addCardToHand(new MonsterCard(MonsterCard.DRAGON_KING));
 		}
 	}
 
-	public void playCardFromHand(String raw) {
+	public int getCardIndex(String raw) {
 		int length = raw.length();
 
 		if (length != 2 || raw.charAt(0) != '#') {
+			return -1;
+		}
+
+		int cardIndex = Integer.parseInt(raw.substring(1, length));
+
+		return cardIndex;
+	}
+
+	public void playMinionFromHand(String raw) {
+		int cardIndex = getCardIndex(raw);
+
+		if (cardIndex == -1) {
 			System.out.println("Card-choosing command not valid!");
 			return;
 		}
 
-		int cardIndex = Integer.parseInt(raw.substring(1, length));
-		playCardFromHand(cardIndex);
+		playMinionFromHand(cardIndex);
 	}
 
-	public void playCardFromHand(int cardIndex) {
-		PlayCard cardToPlay = removeCardFromHand(cardIndex);
+	public void playMinionFromHand(int cardIndex) {
+		PlayCard cardToPlay = getCardFromHand(cardIndex);
 
 		if (cardToPlay == null) {
 			// if the cardIndex isn't valid
@@ -105,8 +118,38 @@ public class TheGame {
 
 		if (cardToPlay instanceof MonsterCard) {
 			addMinionToBoard((MonsterCard)cardToPlay);
+			removeCardFromHand(cardIndex);
 		} else {
+			System.out.println("You cannot 'play' " + cardToPlay.getName() + ", this card is a spell!");
+		}
+	}
+
+	public void castSpellFromHand(String[] str) {
+		int cardIndex = getCardIndex(str[1]);
+
+		if (cardIndex == -1) {
+			System.out.println("Card-choosing command not valid!");
+			return;
+		}
+
+		castSpellFromHand(cardIndex, str);
+	}
+
+	public void castSpellFromHand(int cardIndex, String[] str) {
+		PlayCard cardToPlay = getCardFromHand(cardIndex);
+
+		if (cardToPlay == null) {
+			// if the cardIndex isn't valid
+			return;
+		}
+
+		if (cardToPlay instanceof SpellCard) {
 			System.out.println("Cast " + cardToPlay.getName() + ", it costs " + cardToPlay.getCost() + "!");
+			manageSpellEffect((SpellCard)cardToPlay);
+
+			removeCardFromHand(cardIndex);
+		} else {
+			System.out.println("You cannot 'cast' " + cardToPlay.getName() + ", this card is a minion!");
 		}
 	}
 
@@ -203,13 +246,7 @@ public class TheGame {
 	}
 
 	public Minion getMinion(int index, int turnIndex) {
-		LinkedList<Minion> monsterList;
-
-		if (turnIndex == 0) {
-			monsterList = monstersPlayer1;
-		} else {
-			monsterList = monstersPlayer2;
-		}
+		LinkedList<Minion> monsterList = getMinionList(turnIndex);
 
 		if (index >= 0 && index < monsterList.size()) {
 			return monsterList.get(index);
@@ -259,27 +296,38 @@ public class TheGame {
 
 	}
 
-	public void addCardToHand(PlayCard cardToAdd) {
-		if (turn == 0) {
-			cardHand1.add(cardToAdd);
-			System.out.println("Draw " + cardHand1.getLast().getName() + "!");
+	public LinkedList<Minion> getCardList(int turnIndex) {
+		LinkedList<PlayCard> cardList;
+		if (turnIndex == 0) {
+			cardList = cardHand1;
 		} else {
-			cardHand2.add(cardToAdd);
-			System.out.println("Draw " + cardHand2.getLast().getName() + "!");
+			cardList = cardHand2;
 		}
+		return cardList;
 	}
 
-	public PlayCard removeCardFromHand(int index) {
-		LinkedList<PlayCard> playCardList;
-
-		if (turn == 0) {
-			playCardList = cardHand1;
+	public LinkedList<Minion> getMinionList(int turnIndex) {
+		LinkedList<Minion> monsterList;
+		if (turnIndex == 0) {
+			monsterList = monstersPlayer1;
 		} else {
-			playCardList = cardHand2;
+			monsterList = monstersPlayer2;
 		}
+		return monsterList;
+	}
 
-		if (index >= 0 && index < playCardList.size()) {
-			return playCardList.remove(index);
+	public void addCardToHand(PlayCard cardToAdd) {
+		LinkedList<PlayCard> cardList = getCardList(turn);
+
+		cardList.add(cardToAdd);
+		System.out.println("Draw " + cardList.getLast().getName() + "!");
+	}
+
+	public PlayCard getCardFromHand(int index) {
+		LinkedList<PlayCard> cardList = getCardList(turn);
+
+		if (index >= 0 && index < cardList.size()) {
+			return cardList.get(index);
 		}
 
 		System.out.println(index + " is not a valid cardIndex for Player " + ((turn + 1) % 2));
@@ -287,16 +335,21 @@ public class TheGame {
 		return null;
 	}
 
+	public void removeCardFromHand(int index) {
+		LinkedList<PlayCard> cardList = getCardList(turn);
+
+		if (index >= 0 && index < cardList.size()) {
+			cardList.remove(index);
+			return;
+		}
+
+		System.out.println(index + " is not a valid cardIndex for Player " + ((turn + 1) % 2));
+	}
+
 	public void addMinionToBoard(MonsterCard monsterCard) {
 		Minion minion = monsterCard.toMinion();
 
-		LinkedList<Minion> monsterList;
-
-		if (turn == 0) {
-			monsterList = monstersPlayer1;
-		} else {
-			monsterList = monstersPlayer2;
-		}
+		LinkedList<Minion> monsterList = getMinionList(turn);
 
 		if (monsterList.size() < 7) {
 			monsterList.add(minion);
@@ -308,11 +361,9 @@ public class TheGame {
 	}
 
 	public void removeMinionFromBoard(int minionIndex, int turnIndex) {
-		if (turnIndex == 0) {
-			monstersPlayer1.remove(minionIndex);
-		} else {
-			monstersPlayer2.remove(minionIndex);
-		}
+		LinkedList<Minion> monsterList = getMinionList(turnIndex);
+
+		monsterList.remove(minionIndex);
 	}
 
 	public void printHandInfo(int turnIndex) {
@@ -324,13 +375,8 @@ public class TheGame {
 	public void printHandIndexBar(int turnIndex) {
 		System.out.print(addSpaces(19));
 
-		int size;
-
-		if (turnIndex == 0) {
-			size = cardHand1.size();
-		} else {
-			size = cardHand2.size();			
-		}
+		LinkedList<PlayCard> cardList = getCardList(turnIndex);
+		int size = cardList.size();
 
 		for (int i = 0 ; i < size ; i++) {
 			System.out.print("#" + i + addSpaces(12));
@@ -340,21 +386,16 @@ public class TheGame {
 
 	public void printHand(int turnIndex) {
 		System.out.print("Cards Player" + (turnIndex + 1) + ": ");
-		LinkedList<PlayCard> playCardList;
 
-		if (turnIndex == 0) {
-			playCardList = cardHand1;
-		} else {
-			playCardList = cardHand2;
-		}
+		LinkedList<PlayCard> cardList = getCardList(turnIndex);
 
-		for (PlayCard card : playCardList) {
+		for (PlayCard card : cardList) {
 			int amount = 14 - card.getName().length() + (card.getName().length() > 12 ? card.getName().length()-12 : 0);
 			System.out.print(card.getName() + addSpaces(amount));
 		}
 
 		System.out.print('\n' + addSpaces(14));
-		for (PlayCard card : playCardList) {
+		for (PlayCard card : cardList) {
 			if (card instanceof MonsterCard) {
 				System.out.print("(C:" + card.getCost() + " A:" + ((MonsterCard)card).getAttack() + " H:" + ((MonsterCard)card).getHealth() + ") ");
 			} else {
@@ -374,13 +415,8 @@ public class TheGame {
 	public void printBoardIndexBar(int turnIndex) {
 		System.out.print(addSpaces(21));
 
-		int size;
-
-		if (turnIndex == 0) {
-			size = monstersPlayer1.size();
-		} else {
-			size = monstersPlayer2.size();			
-		}
+		LinkedList<Minion> monsterList = getMinionList(turnIndex);
+		int size = monsterList.size();
 
 		for (int i = 0 ; i < size ; i++) {
 			System.out.print("#" + i + addSpaces(9));
@@ -390,13 +426,8 @@ public class TheGame {
 
 	public void printBoard(int turnIndex) {
 		System.out.print("Monsters Player" + (turnIndex + 1) + ": ");
-		LinkedList<Minion> monsterList;
 
-		if (turnIndex == 0) {
-			monsterList = monstersPlayer1;
-		} else {
-			monsterList = monstersPlayer2;
-		}
+		LinkedList<Minion> monsterList = getMinionList(turnIndex);
 
 		for (Minion monster : monsterList) {
 			System.out.print(monster.getName() + " ");
@@ -417,6 +448,16 @@ public class TheGame {
 		}
 
 		return builder.toString();
+	}
+
+	public void manageSpellEffect(SpellCard card) {
+		if (card.getType() == SpellCard.DRAGON_POWER) {
+			LinkedList<Minion> minionList = getMinionList(turn);
+			for (Minion minion : minionList) {
+				minion.addAttack(1);
+				minion.addHealth(1);
+			}
+		}
 	}
 
 	public static void main(String[] args) {

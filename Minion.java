@@ -15,8 +15,9 @@ public class Minion {
 		this.name = name;
 		this.normalAttack = attack;
 		this.currentAttack = normalAttack;
-		this.normalHealth = health;
-		this.currentHealth = normalHealth;
+		this.normalMaxHealth = health;
+		this.currentMaxHealth = normalMaxHealth;
+		this.currentHealth = normalMaxHealth;
 		this.taunt = taunt;
 		this.charge = charge;
 		this.divineShield = divineShield;
@@ -27,6 +28,15 @@ public class Minion {
 		currentHealth -= damage;
 
 		return isAlive();
+	}
+
+	public void addAttack(int add) {
+		currentAttack += add;
+	}
+
+	public void addHealth(int add) {
+		currentHealth += add;
+		currentMaxHealth += add;
 	}
 
 	public boolean isAlive() {
