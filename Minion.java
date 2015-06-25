@@ -3,7 +3,8 @@ public class Minion {
 
 	private int normalAttack;
 	private int currentAttack;
-	private int normalHealth;
+	private int normalMaxHealth;
+	private int currentMaxHealth;
 	private int currentHealth;
 
 	private boolean taunt;
@@ -55,8 +56,12 @@ public class Minion {
 		return currentAttack;
 	}
 
-	public int getNormalHealth() {
-		return normalHealth;
+	public int getNormalMaxHealth() {
+		return normalMaxHealth;
+	}
+
+	public int getCurrentMaxHealth() {
+		return currentMaxHealth;
 	}
 
 	public int getCurrentHealth() {

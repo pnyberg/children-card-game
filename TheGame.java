@@ -296,7 +296,7 @@ public class TheGame {
 
 	}
 
-	public LinkedList<Minion> getCardList(int turnIndex) {
+	public LinkedList<PlayCard> getCardList(int turnIndex) {
 		LinkedList<PlayCard> cardList;
 		if (turnIndex == 0) {
 			cardList = cardHand1;
