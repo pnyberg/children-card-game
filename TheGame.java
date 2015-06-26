@@ -14,6 +14,11 @@ public class TheGame {
 	private int playerHealth1;
 	private int playerHealth2;
 
+	private boolean handlingBattleCry;
+	private int playedMinionType;
+	private Minion minionTriedToPlay;
+	private int minionTriedToPlayCardIndex;
+
 	private int randomizer = 0; // temp -> pre-built-order 
 
 	public TheGame() {
@@ -26,6 +31,11 @@ public class TheGame {
 		turn = 0;
 		playerHealth1 = 30;
 		playerHealth2 = 30;
+
+		handlingBattleCry = false;
+		playedMinionType = -1;
+		minionTriedToPlay = null;
+		minionTriedToPlayCardIndex = -1;
 
 		start();
 	}
@@ -51,6 +61,15 @@ public class TheGame {
 
 		System.out.println();
 
+		/*HERE*/
+		if (handlingBattleCry) {
+			handleBattleCryCommands(str);
+		} else {
+			handleBasicCommands(str);
+		}
+	}
+
+	public void handleBasicCommands(String[] str) {
 		if (str.length == 1 && str[0].equals("draw")) {
 			drawCard();
 		} else if (str.length == 2 && str[0].equals("play")) {
@@ -72,7 +91,64 @@ public class TheGame {
 			System.out.println("");
 			System.exit(0);
 		} else {
+			String command = arrayToText(str);
 			System.out.println("Not a command: " + command);
+		}
+	}
+
+	public String arrayToText(String[] str) {
+		StringBuilder builder = new StringBuilder();
+
+		for (int i = 0 ; i < str.length ; i++) {
+			builder.append(str[i]);
+			if (i < (str.length)) {
+				builder.append(" ");
+			}
+		}
+
+		return builder.toString();
+	}
+
+	public void handleBattleCryCommands(String[] str) {
+		if (str.length == 2 && str[0].equals("show") && str[1].equals("board")) {
+			showBoard();
+			return;
+		} else if (str.length == 1 && str[0].equals("cancel")) {
+			handlingBattleCry = false;
+
+			System.out.println("Cancelling, minion will return to hand!");
+			return;
+		}
+
+		if (playedMinionType == MonsterCard.SORCERERS_DRAKE) {
+			if (str.length != 2 || !str[0].equals("target")) {
+				System.out.println("Target-choosing command not valid for battlecry!");
+				return;
+			}
+
+			int minionIndex = getAdressingIndex(str[1]);
+
+			if (minionIndex == -1) {
+				System.out.println("Target-choice not valid!");
+				return;
+			}
+
+			SpellEffect spellEffect = minionTriedToPlay.getBattleCryEffect();
+			BuffSingleMinion buffSingleMinion = (BuffSingleMinion)spellEffect;
+			LinkedList<Minion> minionList = getMinionList(turn);
+			Minion minion = minionList.get(minionIndex);
+			buffSingleMinion.effect(minion);
+
+			System.out.println(minion.getName() + " got buffed!");
+			handlingBattleCry = false;
+
+			minionList.add(minionTriedToPlay);
+
+			MonsterCard cardTriedToPlay = (MonsterCard)getCardFromHand(minionTriedToPlayCardIndex);
+
+			removeCardFromHand(minionTriedToPlayCardIndex);
+
+			System.out.println("Played " + cardTriedToPlay.getName() + ", it costs " + cardTriedToPlay.getCost() + "!");
 		}
 	}
 
@@ -81,7 +157,7 @@ public class TheGame {
 		if (randomizer == 0) {
 			addCardToHand(new MonsterCard(MonsterCard.DRAGON_LORD));
 		} else if (randomizer == 1) {
-			addCardToHand(new SpellCard(SpellCard.DRAGON_POWER));
+			addCardToHand(new MonsterCard(MonsterCard.SORCERERS_DRAKE));
 		} else if (randomizer == 2) {
 			addCardToHand(new SpellCard(SpellCard.EMERALD_SCALE));
 		} else if (randomizer == 3) {
@@ -89,7 +165,11 @@ public class TheGame {
 		} else if (randomizer == 4) {
 			addCardToHand(new SpellCard(SpellCard.FEATHER_OF_THE_FEATHER));
 		} else if (randomizer == 5) {
+			addCardToHand(new SpellCard(SpellCard.DRAGONS_BLOOD));
+		} else if (randomizer == 6) {
 			addCardToHand(new MonsterCard(MonsterCard.PRINCE_CRUSH));
+		} else if (randomizer == 7) {
+			addCardToHand(new SpellCard(SpellCard.DRAGON_POWER));
 		} else {
 			addCardToHand(new MonsterCard(MonsterCard.DRAGON_KING));
 		}
@@ -126,7 +206,11 @@ public class TheGame {
 
 		if (cardToPlay instanceof MonsterCard) {
 			addMinionToBoard((MonsterCard)cardToPlay);
-			removeCardFromHand(cardIndex);
+			if (!handlingBattleCry) {
+				removeCardFromHand(cardIndex);
+			} else {
+				minionTriedToPlayCardIndex = cardIndex;
+			}
 		} else {
 			System.out.println("You cannot 'play' " + cardToPlay.getName() + ", this card is a spell!");
 		}
@@ -313,6 +397,8 @@ public class TheGame {
 	}
 
 	public void endTurn() {
+		handleEndTurnActions(turn);
+
 		turn = (turn + 1) % 2;
 		System.out.println("Player " + (turn + 1) + "'s turn!");
 
@@ -324,6 +410,15 @@ public class TheGame {
 
 		for (Minion minion : minionList) {
 			minion.prepareMinion();
+		}
+	}
+
+	public void handleEndTurnActions(int turnIndex) {
+		for (Minion minion : minionsOnBoard1) {
+			minion.endTurnAction();
+		}
+		for (Minion minion : minionsOnBoard2) {
+			minion.endTurnAction();
 		}
 	}
 
@@ -391,12 +486,29 @@ public class TheGame {
 		System.out.println(index + " is not a valid cardIndex for Player " + ((turn + 1) % 2));
 	}
 
-	public void addMinionToBoard(MonsterCard monsterCard) {
-		Minion minion = monsterCard.toMinion();
+	public void manageBattleCry(Minion minion) {
+		playedMinionType = minion.getType();
+		minionTriedToPlay = minion;
 
+		if (playedMinionType == MonsterCard.SORCERERS_DRAKE) {
+			handlingBattleCry = true;
+
+			System.out.println("Which minion do you want to target?");
+		}
+	}
+
+	public void addMinionToBoard(MonsterCard monsterCard) {
 		LinkedList<Minion> minionList = getMinionList(turn);
 
 		if (minionList.size() < 7) {
+			Minion minion = monsterCard.toMinion();
+
+			manageBattleCry(minion);
+
+			if (handlingBattleCry) {
+				return;
+			}
+
 			minionList.add(minion);
 
 			System.out.println("Played " + monsterCard.getName() + ", it costs " + monsterCard.getCost() + "!");

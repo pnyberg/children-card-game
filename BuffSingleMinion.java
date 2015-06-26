@@ -9,7 +9,9 @@ public class BuffSingleMinion extends SpellEffect {
 	private boolean divineShield;
 	private boolean windfury;
 
-	public BuffSingleMinion(int additionalAttack, int additionalHealth, boolean taunt, boolean charge, boolean divineShield, boolean windfury) {
+	private boolean temporarily;
+
+	public BuffSingleMinion(int additionalAttack, int additionalHealth, boolean taunt, boolean charge, boolean divineShield, boolean windfury, boolean temporarily) {
 		this.additionalAttack = additionalAttack;
 		this.additionalHealth = additionalHealth;
 
@@ -17,9 +19,16 @@ public class BuffSingleMinion extends SpellEffect {
 		this.charge = charge;
 		this.divineShield = divineShield;
 		this.windfury = windfury;
+
+		this.temporarily = temporarily;
 	}
 
 	public void effect(Minion minion) {
+		if (temporarily) {
+			minion.setTempAttack(additionalAttack);
+			return;
+		}
+
 		minion.addAttack(additionalAttack);
 		minion.addHealth(additionalHealth);
 

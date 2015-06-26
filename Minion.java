@@ -1,8 +1,11 @@
 public class Minion {
 	private String name;
+	private int type;
 
 	private int normalAttack;
 	private int currentAttack;
+	private int tempAttack;
+
 	private int normalMaxHealth;
 	private int currentMaxHealth;
 	private int currentHealth;
@@ -12,20 +15,28 @@ public class Minion {
 	private boolean divineShield;
 	private boolean windfury;
 
+	private SpellEffect battleCryEffect;
+
 	private int attackAmount;
 
-	public Minion(String name, int attack, int health, boolean taunt, boolean charge, boolean divineShield, boolean windfury) {
+	public Minion(String name, int type, int attack, int health, boolean taunt, boolean charge, boolean divineShield, boolean windfury, SpellEffect battleCryEffect) {
 		this.name = name;
-		this.normalAttack = attack;
-		this.currentAttack = normalAttack;
-		this.normalMaxHealth = health;
-		this.currentMaxHealth = normalMaxHealth;
-		this.currentHealth = normalMaxHealth;
+		this.type = type;
+
+		normalAttack = attack;
+		currentAttack = attack;
+		tempAttack = 0;
+
+		normalMaxHealth = health;
+		currentMaxHealth = health;
+		currentHealth = health;
 
 		this.taunt = taunt;
 		this.charge = charge;
 		this.divineShield = divineShield;
 		this.windfury = windfury;
+
+		this.battleCryEffect = battleCryEffect;
 
 		if (charge) {
 			prepareMinion();
@@ -38,15 +49,20 @@ public class Minion {
 		attackAmount = (windfury ? 2 : 1);
 	}
 
+	public void endTurnAction() {
+		tempAttack = 0;
+	}
+
 	public int attack() {
 		attackAmount--;
-		return currentAttack;
+		return getCurrentAttack();
 	}
 
 	public boolean canAttack() {
 		return attackAmount > 0;
 	}
 
+ /*HERE*/
 	public String reasonForNotAttacking() {
 		if (attackAmount == -1) {
 			return "minion has summoning-sickness";
@@ -70,6 +86,10 @@ public class Minion {
 
 	public void addAttack(int add) {
 		currentAttack += add;
+	}
+
+	public void setTempAttack(int attack) {
+		tempAttack = attack;
 	}
 
 	public void addHealth(int add) {
@@ -102,11 +122,15 @@ public class Minion {
 	}
 
 	public boolean isBuffed() {
-		return normalAttack < currentAttack || normalMaxHealth < currentMaxHealth;
+		return normalAttack < getCurrentAttack() || normalMaxHealth < currentMaxHealth;
 	}
 
 	public String getName() {
 		return name;
+	}
+
+	public int getType() {
+		return type;
 	}
 
 	public int getNormalAttack() {
@@ -114,7 +138,11 @@ public class Minion {
 	}
 
 	public int getCurrentAttack() {
-		return currentAttack;
+		return currentAttack + tempAttack;
+	}
+
+	public int getTempAttack() {
+		return tempAttack;
 	}
 
 	public int getNormalMaxHealth() {
@@ -127,6 +155,10 @@ public class Minion {
 
 	public int getCurrentHealth() {
 		return currentHealth;
+	}
+
+	public SpellEffect getBattleCryEffect() {
+		return battleCryEffect;
 	}
 
 	public boolean hasTaunt() {

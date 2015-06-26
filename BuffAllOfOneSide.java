@@ -9,11 +9,13 @@ public class BuffAllOfOneSide extends SpellEffect {
 	private boolean divineShield;
 	private boolean windfury;
 
+	private boolean temporarily;
+
 	public BuffAllOfOneSide(int additionalAttack, int additionalHealth) {
-		this(additionalAttack, additionalHealth, false, false, false, false);
+		this(additionalAttack, additionalHealth, false, false, false, false, false);
 	}
 
-	public BuffAllOfOneSide(int additionalAttack, int additionalHealth, boolean taunt, boolean charge, boolean divineShield, boolean windfury) {
+	public BuffAllOfOneSide(int additionalAttack, int additionalHealth, boolean taunt, boolean charge, boolean divineShield, boolean windfury, boolean temporarily) {
 		this.additionalAttack = additionalAttack;
 		this.additionalHealth = additionalHealth;
 
@@ -21,10 +23,16 @@ public class BuffAllOfOneSide extends SpellEffect {
 		this.charge = charge;
 		this.divineShield = divineShield;
 		this.windfury = windfury;
+
+		this.temporarily = temporarily;
 	}
 
 	public void effect(LinkedList<Minion> minionList) {
 		for (Minion minion : minionList) {
+			if (temporarily) {
+				minion.setTempAttack(additionalAttack);
+				return;
+			}
 			minion.addAttack(additionalAttack);
 			minion.addHealth(additionalHealth);
 		}
