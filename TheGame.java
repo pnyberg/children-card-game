@@ -88,6 +88,8 @@ public class TheGame {
 			addCardToHand(new SpellCard(SpellCard.STAFF_OF_THE_EMPEROR));
 		} else if (randomizer == 4) {
 			addCardToHand(new SpellCard(SpellCard.FEATHER_OF_THE_FEATHER));
+		} else if (randomizer == 5) {
+			addCardToHand(new MonsterCard(MonsterCard.PRINCE_CRUSH));
 		} else {
 			addCardToHand(new MonsterCard(MonsterCard.DRAGON_KING));
 		}
@@ -182,12 +184,32 @@ public class TheGame {
 	}
 
 	public void makeAttack(int attackerIndex, int targetIndex) {
+		if (!validTarget(targetIndex)) {
+			System.out.println("You cannot attack that, you have a taunt in the way!");
+			return;
+		}
+
 		if (targetIndex == TARGETPLAYER) {
 			attackEnemyPlayer(attackerIndex);
 			return;
 		}
 
 		minionDuel(attackerIndex, targetIndex);
+	}
+
+	public boolean validTarget(int targetIndex) {
+		LinkedList<Minion> minionList = getMinionList((turn + 1) % 2);
+
+		if (targetIndex != TARGETPLAYER && minionList.get(targetIndex).hasTaunt()) {
+			return true;
+		}
+
+		for (Minion minion : minionList) {
+			if (minion.hasTaunt())
+				return false;
+		}
+
+		return true;
 	}
 
 	public void minionDuel(int attackerIndex, int targetIndex) {
@@ -216,9 +238,7 @@ public class TheGame {
 	}
 
 	public void handleDamage(Minion minion, int damage) {
-		if (!minion.hasDivineShield()) {
-			minion.takeDamage(damage);
-		}
+		minion.handleDamage(damage);
 	}
 
 	public void checkDeath(int minionIndex, int turnIndex) {
@@ -261,10 +281,10 @@ public class TheGame {
 	}
 
 	public Minion getMinion(int index, int turnIndex) {
-		LinkedList<Minion> monsterList = getMinionList(turnIndex);
+		LinkedList<Minion> minionList = getMinionList(turnIndex);
 
-		if (index >= 0 && index < monsterList.size()) {
-			return monsterList.get(index);
+		if (index >= 0 && index < minionList.size()) {
+			return minionList.get(index);
 		}
 
 		System.out.println(index + " is not a valid boardIndex for Player " + ((turnIndex + 1 ) % 2));
@@ -445,6 +465,10 @@ public class TheGame {
 		printBoardMinionNames(turnIndex, minionList);
 
 		printBoardMinionStats(minionList);
+
+		if (!minionList.isEmpty()) {
+			printBoardMinionEffects(minionList);
+		}
 	}
 
 	public void printBoardIndexBar(LinkedList<Minion> minionList) {
@@ -463,10 +487,10 @@ public class TheGame {
 	public void printBoardMinionNames(int turnIndex, LinkedList<Minion> minionList) {
 		System.out.print("Monsters Player" + (turnIndex + 1) + ": ");
 
-		for (Minion monster : minionList) {
-			int nameLength = monster.getName().length();
+		for (Minion minion : minionList) {
+			int nameLength = minion.getName().length();
 			int amount = 14 - nameLength + (nameLength > 12 ? nameLength-12 : 0);
-			System.out.print(monster.getName() + addSpaces(amount));
+			System.out.print(minion.getName() + addSpaces(amount));
 		}
 
 		System.out.println("");
@@ -475,13 +499,34 @@ public class TheGame {
 	public void printBoardMinionStats(LinkedList<Minion> minionList) {
 		System.out.print(addSpaces(18));
 
-		for (Minion monster : minionList) {
-			int nameLength = monster.getName().length();
+		for (Minion minion : minionList) {
+			int nameLength = minion.getName().length();
 			int amount = 1 + (nameLength > 8 ? nameLength-8 : 0);
-			boolean buffed = monster.isBuffed();
-			System.out.print("(A:" + monster.getCurrentAttack() + " H:" + monster.getCurrentHealth() + ")" + (buffed ? "*" : " ") + addSpaces(amount));
+			boolean buffed = minion.isBuffed();
+			System.out.print("(A:" + minion.getCurrentAttack() + " H:" + minion.getCurrentHealth() + ")" + (buffed ? "*" : " ") + addSpaces(amount));
 		}
 		System.out.println("");
+	}
+
+	public void printBoardMinionEffects(LinkedList<Minion> minionList) {
+		System.out.print(addSpaces(19));
+
+		for (Minion minion : minionList) {
+			int nameLength = minion.getName().length();
+			int amount = 4 + (nameLength > 8 ? nameLength-8 : 0);
+			System.out.print(getMinionEffects(minion) + addSpaces(amount));
+		}
+		System.out.println("");
+	}
+
+	public String getMinionEffects(Minion minion) {
+		char tauntChar = (minion.hasTaunt() ? 'T' : '*');
+		char chargeChar = (minion.hasCharge() ? 'C' : '*');
+		char divineShieldChar = (minion.hasDivineShield() ? 'S' : '*');
+		char windfuryChar = (minion.hasWindfury() ? 'W' : '*');
+		char deathrattleChar = (/*minion.hasDeathrattle()*/ false ? 'D' : '*');
+
+		return "[" + tauntChar + chargeChar + divineShieldChar + windfuryChar + deathrattleChar + "]";
 	}
 
 	public String addSpaces(int number) {
@@ -497,6 +542,11 @@ public class TheGame {
 		SpellEffect spellEffect = card.getSpellEffect();
 
 		if (spellEffect instanceof BuffAllOfOneSide) {
+			if (str.length != 2) {
+				System.out.println("Card-choosing command not valid for spell!");
+				return false;
+			}
+
 			BuffAllOfOneSide buffAllMinionsEffect = (BuffAllOfOneSide)spellEffect;
 			LinkedList<Minion> minionList = getMinionList(turn);
 			buffAllMinionsEffect.effect(minionList);

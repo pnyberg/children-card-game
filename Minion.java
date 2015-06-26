@@ -57,7 +57,12 @@ public class Minion {
 		}
 	}
 
-	public boolean takeDamage(int damage) {
+	public boolean handleDamage(int damage) {
+		if (divineShield) {
+			divineShield = false;
+			return true;
+		}
+
 		currentHealth -= damage;
 
 		return isAlive();
