@@ -189,13 +189,9 @@ public class TheGame {
 		int damage1 = attackingMinion.getCurrentAttack();
 		int damage2 = targetMinion.getCurrentAttack();
 
-		if (!targetMinion.hasDivineShield()) {
-			targetMinion.takeDamage(damage1);
-		}
+		handleDamage(targetMinion, damage1);
 
-		if (!attackingMinion.hasDivineShield()) {
-			attackingMinion.takeDamage(damage2);
-		}
+		handleDamage(attackingMinion, damage2);
 
 		System.out.println("(Player " + (turn + 1) + " #" + attackerIndex + ")" + attackingMinion.getName() + " is attacking (Player " + ((turn + 1) % 2 + 1) + " #" + attackerIndex + ")" + targetMinion.getName());
 
@@ -204,6 +200,12 @@ public class TheGame {
 		checkDeath(attackerIndex, turn);
 
 		System.out.println(attackingMinion.getName() + " HP: " + attackingMinion.getCurrentHealth() + " - " + targetMinion.getName() + " HP: " + targetMinion.getCurrentHealth());
+	}
+
+	public void handleDamage(Minion minion, int damage) {
+		if (!minion.hasDivineShield()) {
+			minion.takeDamage(damage);
+		}
 	}
 
 	public void checkDeath(int minionIndex, int turnIndex) {
@@ -219,17 +221,17 @@ public class TheGame {
 		Minion attackingMinion = getAttacker(attackerIndex);
 
 		int damage = attackingMinion.getCurrentAttack();
-		int health;
+		int playerNumber = (turn+1) % 2 + 1;
+
+		System.out.println(attackingMinion.getName() + " is attacking Player " + playerNumber;
 
 		if (turn == 0) {
 			playerHealth2 -= damage;
-			health = playerHealth2;
+			System.out.println("Player " + playerNumber + " takes " + damage + " damage, has " + playerHealth2 + " left!");
 		} else {
 			playerHealth1 -= damage;
-			health = playerHealth1;
+			System.out.println("Player " + playerNumber + " takes " + damage + " damage, has " + playerHealth1 + " left!");
 		}
-		System.out.println(attackingMinion.getName() + " is attacking Player " + (((turn+1) % 2) + 1));
-		System.out.println("Player " + (((turn+1) % 2) + 1) + " takes " + damage + " damage, has " + health + " left!");
 	}
 
 	public Minion getAttacker(int index) {
