@@ -2,7 +2,7 @@ import java.util.LinkedList;
 import java.util.Scanner;
 
 public class TheGame {
-	private final int TARGETPLAYER = -1;
+	private final int TARGETPLAYER = 10;
 
 	private LinkedList<Minion> minionsOnBoard1;
 	private LinkedList<Minion> minionsOnBoard2;
@@ -85,20 +85,20 @@ public class TheGame {
 		}
 	}
 
-	public int getCardIndex(String raw) {
+	public int getAdressingIndex(String raw) {
 		int length = raw.length();
 
 		if (length != 2 || raw.charAt(0) != '#') {
 			return -1;
 		}
 
-		int cardIndex = Integer.parseInt(raw.substring(1, length));
+		int adressingIndex = Integer.parseInt(raw.substring(1, length));
 
-		return cardIndex;
+		return adressingIndex;
 	}
 
 	public void playMinionFromHand(String raw) {
-		int cardIndex = getCardIndex(raw);
+		int cardIndex = getAdressingIndex(raw);
 
 		if (cardIndex == -1) {
 			System.out.println("Card-choosing command not valid!");
@@ -121,7 +121,7 @@ public class TheGame {
 	}
 
 	public void castSpellFromHand(String[] str) {
-		int cardIndex = getCardIndex(str[1]);
+		int cardIndex = getAdressingIndex(str[1]);
 
 		if (cardIndex == -1) {
 			System.out.println("Card-choosing command not valid!");
@@ -136,8 +136,11 @@ public class TheGame {
 		}
 
 		if (cardToPlay instanceof SpellCard) {
+			if (!manageSpellEffect((SpellCard)cardToPlay, str)) {
+				return;
+			}
+
 			System.out.println("Cast " + cardToPlay.getName() + ", it costs " + cardToPlay.getCost() + "!");
-			manageSpellEffect((SpellCard)cardToPlay);
 
 			removeCardFromHand(cardIndex);
 		} else {
@@ -146,28 +149,26 @@ public class TheGame {
 	}
 
 	public void makeAttack(String attackRaw, String targetRaw) {
-		int attackLength = attackRaw.length();
-		int targetLength = targetRaw.length();
+		int minionIndex1 = getAdressingIndex(attackRaw);
 
-		if (attackLength != 2 || attackRaw.charAt(0) != '#') {
+		if (minionIndex1 == -1) {
 			System.out.println("Card-choosing command not valid for Attacker!");
 			return;
 		}
 
-		int cardIndex1 = Integer.parseInt(attackRaw.substring(1, attackLength));
-
 		if (targetRaw.equals("player")) {
-			makeAttack(cardIndex1, TARGETPLAYER);
+			makeAttack(minionIndex1, TARGETPLAYER);
 			return;
 		}
 
-		if (targetLength != 2 || targetRaw.charAt(0) != '#') {
+		int minionIndex2 = getAdressingIndex(targetRaw);
+
+		if (minionIndex2 == -1) {
 			System.out.println("Card-choosing command not valid for Target!");
 			return;
 		}
 
-		int cardIndex2 = Integer.parseInt(targetRaw.substring(1, targetLength));
-		makeAttack(cardIndex1, cardIndex2);
+		makeAttack(minionIndex1, minionIndex2);
 	}
 
 	public void makeAttack(int attackerIndex, int targetIndex) {
@@ -277,7 +278,7 @@ public class TheGame {
 	public void printHelp() {
 		System.out.println("Following commands currently exists:");
 		System.out.println(" - draw = you draw a new card");
-		System.out.println(" - play [cardIndex] = you play a card from hand, [cardIndex] is the index of the card (check 'show hand' for indices)");
+		System.out.println(" - play [adressingIndex] = you play a card from hand, [adressingIndex] is the index of the card (check 'show hand' for indices)");
 		System.out.println(" - let [attackerIndex] attack [targetIndex] = your minion, [attackerIndex], attacks a target, which is either 'player' or an enemy minion");
 		System.out.println(" - show hand = print the players hands");
 		System.out.println(" - show board = print the board");
@@ -448,14 +449,36 @@ public class TheGame {
 		return builder.toString();
 	}
 
-	public void manageSpellEffect(SpellCard card) {
+	public boolean manageSpellEffect(SpellCard card, String[] str) {
 		if (card.getType() == SpellCard.DRAGON_POWER) {
 			LinkedList<Minion> minionList = getMinionList(turn);
 			for (Minion minion : minionList) {
 				minion.addAttack(1);
 				minion.addHealth(1);
 			}
+		} else if (card.getType() == SpellCard.EMERALD_SCALE) {
+			if (str.length != 3 || !str[2].equals("on")) {
+				System.out.println("Card-choosing command not valid for Attacker!");
+				return false;
+			}
+
+			int minionIndex = getAdressingIndex(str[3]);
+
+			if (minionIndex == -1) {
+				System.out.println("Card-choosing command not valid!");
+				return false;
+			}
+
+			LinkedList<Minion> minionList = getMinionList(turn);
+			Minion minion = minionList.get(minionIndex);
+
+			minion.addAttack(2);
+			minion.addHealth(2);
+		} else {
+			return false;
 		}
+
+		return true;
 	}
 
 	public static void main(String[] args) {
