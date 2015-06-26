@@ -44,6 +44,10 @@ public class Minion {
 		return currentHealth > 0;
 	}
 
+	public boolean isBuffed() {
+		return normalAttack < currentAttack || normalMaxHealth < currentMaxHealth;
+	}
+
 	public String getName() {
 		return name;
 	}

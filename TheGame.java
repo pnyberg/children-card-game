@@ -76,10 +76,12 @@ public class TheGame {
 
 	public void drawCard() {
 		int randomizer = (int)(Math.random()*10);
-		if (randomizer < 3) {
+		if (randomizer < 2) {
 			addCardToHand(new MonsterCard(MonsterCard.DRAGON_LORD));
-		} else if (randomizer < 7) {
+		} else if (randomizer < 5) {
 			addCardToHand(new SpellCard(SpellCard.DRAGON_POWER));
+		} else if (randomizer < 8) {
+			addCardToHand(new SpellCard(SpellCard.EMERALD_SCALE));
 		} else {
 			addCardToHand(new MonsterCard(MonsterCard.DRAGON_KING));
 		}
@@ -360,15 +362,18 @@ public class TheGame {
 	}
 
 	public void printHandInfo(int turnIndex) {
-		printHandIndexBar(turnIndex);
+		LinkedList<PlayCard> cardList = getCardList(turnIndex);
 
-		printHand(turnIndex);
+		printHandIndexBar(cardList);
+
+		printHandCardNames(turnIndex, cardList);
+
+		printHandCardStats(cardList);
 	}
 
-	public void printHandIndexBar(int turnIndex) {
+	public void printHandIndexBar(LinkedList<PlayCard> cardList) {
 		System.out.print(addSpaces(19));
 
-		LinkedList<PlayCard> cardList = getCardList(turnIndex);
 		int size = cardList.size();
 
 		for (int i = 0 ; i < size ; i++) {
@@ -377,17 +382,18 @@ public class TheGame {
 		System.out.println("");
 	}
 
-	public void printHand(int turnIndex) {
+	public void printHandCardNames(int turnIndex, LinkedList<PlayCard> cardList) {
 		System.out.print("Cards Player" + (turnIndex + 1) + ": ");
-
-		LinkedList<PlayCard> cardList = getCardList(turnIndex);
 
 		for (PlayCard card : cardList) {
 			int amount = 14 - card.getName().length() + (card.getName().length() > 12 ? card.getName().length()-12 : 0);
 			System.out.print(card.getName() + addSpaces(amount));
 		}
+		System.out.println("");
+	}
 
-		System.out.print('\n' + addSpaces(14));
+	public void printHandCardStats(LinkedList<PlayCard> cardList) {
+		System.out.print(addSpaces(14));
 		for (PlayCard card : cardList) {
 			if (card instanceof MonsterCard) {
 				System.out.print("(C:" + card.getCost() + " A:" + ((MonsterCard)card).getAttack() + " H:" + ((MonsterCard)card).getHealth() + ") ");
@@ -400,15 +406,18 @@ public class TheGame {
 	}
 
 	public void printBoardInfo(int turnIndex) {
-		printBoardIndexBar(turnIndex);
+		LinkedList<Minion> minionList = getMinionList(turnIndex);
 
-		printBoard(turnIndex);
+		printBoardIndexBar(minionList);
+
+		printBoardMinionNames(turnIndex, minionList);
+
+		printBoardMinionStats(minionList);
 	}
 
-	public void printBoardIndexBar(int turnIndex) {
-		System.out.print(addSpaces(21));
+	public void printBoardIndexBar(LinkedList<Minion> minionList) {
+		System.out.print(addSpaces(22));
 
-		LinkedList<Minion> minionList = getMinionList(turnIndex);
 		int size = minionList.size();
 
 		for (int i = 0 ; i < size ; i++) {
@@ -419,10 +428,8 @@ public class TheGame {
 		System.out.println("");
 	}
 
-	public void printBoard(int turnIndex) {
+	public void printBoardMinionNames(int turnIndex, LinkedList<Minion> minionList) {
 		System.out.print("Monsters Player" + (turnIndex + 1) + ": ");
-
-		LinkedList<Minion> minionList = getMinionList(turnIndex);
 
 		for (Minion monster : minionList) {
 			int nameLength = monster.getName().length();
@@ -430,12 +437,17 @@ public class TheGame {
 			System.out.print(monster.getName() + addSpaces(amount));
 		}
 
-		System.out.print('\n' + addSpaces(18));
+		System.out.println("");
+	}
+
+	public void printBoardMinionStats(LinkedList<Minion> minionList) {
+		System.out.print(addSpaces(18));
 
 		for (Minion monster : minionList) {
 			int nameLength = monster.getName().length();
-			int amount = 2 + (nameLength > 8 ? nameLength-8 : 0);
-			System.out.print("(A:" + monster.getCurrentAttack() + " H:" + monster.getCurrentHealth() + ")" + addSpaces(amount));
+			int amount = 1 + (nameLength > 8 ? nameLength-8 : 0);
+			boolean buffed = monster.isBuffed();
+			System.out.print("(A:" + monster.getCurrentAttack() + " H:" + monster.getCurrentHealth() + ")" + (buffed ? "*" : " ") + addSpaces(amount));
 		}
 		System.out.println("");
 	}
@@ -457,8 +469,8 @@ public class TheGame {
 				minion.addHealth(1);
 			}
 		} else if (card.getType() == SpellCard.EMERALD_SCALE) {
-			if (str.length != 3 || !str[2].equals("on")) {
-				System.out.println("Card-choosing command not valid for Attacker!");
+			if (str.length != 4 || !str[2].equals("on")) {
+				System.out.println("Card-choosing command not valid for spell!");
 				return false;
 			}
 
