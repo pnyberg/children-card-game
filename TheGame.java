@@ -380,12 +380,13 @@ public class TheGame {
 	}
 
 	public void printHandIndexBar(LinkedList<PlayCard> cardList) {
-		System.out.print(addSpaces(19));
+		System.out.print(addSpaces(15));
 
 		int size = cardList.size();
 
 		for (int i = 0 ; i < size ; i++) {
-			System.out.print("#" + i + addSpaces(12));
+			int lengthDiff = cardList.get(i).getName().length() - 2;
+			System.out.print(addSpaces(lengthDiff / 2 + lengthDiff % 2) + "#" + i + addSpaces(lengthDiff / 2 + 2));
 		}
 		System.out.println("");
 	}
@@ -401,12 +402,13 @@ public class TheGame {
 	}
 
 	public void printHandCardStats(LinkedList<PlayCard> cardList) {
-		System.out.print(addSpaces(14));
+		System.out.print(addSpaces(15));
 		for (PlayCard card : cardList) {
 			if (card instanceof MonsterCard) {
 				System.out.print("(C:" + card.getCost() + " A:" + ((MonsterCard)card).getAttack() + " H:" + ((MonsterCard)card).getHealth() + ") ");
 			} else {
-				System.out.print(addSpaces(4) + "(C:" + card.getCost() + ")" + addSpaces(5));				
+				int lengthDiff = card.getName().length() - 5;
+				System.out.print(addSpaces(lengthDiff / 2) + "(C:" + card.getCost() + ")" + addSpaces(lengthDiff / 2 + lengthDiff % 2 + 2));
 			}
 		}
 
