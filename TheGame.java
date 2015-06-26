@@ -86,6 +86,8 @@ public class TheGame {
 			addCardToHand(new SpellCard(SpellCard.EMERALD_SCALE));
 		} else if (randomizer == 3) {
 			addCardToHand(new SpellCard(SpellCard.STAFF_OF_THE_EMPEROR));
+		} else if (randomizer == 4) {
+			addCardToHand(new SpellCard(SpellCard.FEATHER_OF_THE_FEATHER));
 		} else {
 			addCardToHand(new MonsterCard(MonsterCard.DRAGON_KING));
 		}
@@ -192,7 +194,12 @@ public class TheGame {
 		Minion attackingMinion = getAttacker(attackerIndex);
 		Minion targetMinion = getTarget(targetIndex);
 
-		int damage1 = attackingMinion.getCurrentAttack();
+		if (!attackingMinion.canAttack()) {
+			System.out.println(attackingMinion.getName() + " cannot attack, " + attackingMinion.reasonForNotAttacking() + "!");
+			return;
+		}
+
+		int damage1 = attackingMinion.attack();
 		int damage2 = targetMinion.getCurrentAttack();
 
 		handleDamage(targetMinion, damage1);
@@ -226,7 +233,12 @@ public class TheGame {
 	public void attackEnemyPlayer(int attackerIndex) {
 		Minion attackingMinion = getAttacker(attackerIndex);
 
-		int damage = attackingMinion.getCurrentAttack();
+		if (!attackingMinion.canAttack()) {
+			System.out.println(attackingMinion.getName() + " cannot attack!");
+			return;
+		}
+
+		int damage = attackingMinion.attack();
 		int playerNumber = (turn+1) % 2 + 1;
 
 		System.out.println(attackingMinion.getName() + " is attacking Player " + playerNumber);
@@ -283,6 +295,16 @@ public class TheGame {
 	public void endTurn() {
 		turn = (turn + 1) % 2;
 		System.out.println("Player " + (turn + 1) + "'s turn!");
+
+		prepareTurn(turn);
+	}
+
+	public void prepareTurn(int turnIndex) {
+		LinkedList<Minion> minionList = getMinionList(turn);
+
+		for (Minion minion : minionList) {
+			minion.prepareMinion();
+		}
 	}
 
 	public void printHelp() {
@@ -474,11 +496,11 @@ public class TheGame {
 	public boolean manageSpellEffect(SpellCard card, String[] str) {
 		SpellEffect spellEffect = card.getSpellEffect();
 
-		if (spellEffect instanceof SpellEffect_BuffAllOfOneSide) {
-			SpellEffect_BuffAllOfOneSide buffAllMinionsEffect = (SpellEffect_BuffAllOfOneSide)spellEffect;
+		if (spellEffect instanceof BuffAllOfOneSide) {
+			BuffAllOfOneSide buffAllMinionsEffect = (BuffAllOfOneSide)spellEffect;
 			LinkedList<Minion> minionList = getMinionList(turn);
 			buffAllMinionsEffect.effect(minionList);
-		} else if (spellEffect instanceof SpellEffect_BuffSingleMinionOfOneSide) {
+		} else if (spellEffect instanceof BuffSingleMinion) {
 			if (str.length != 4 || !str[2].equals("on")) {
 				System.out.println("Card-choosing command not valid for spell!");
 				return false;
@@ -491,7 +513,7 @@ public class TheGame {
 				return false;
 			}
 
-			SpellEffect_BuffSingleMinionOfOneSide buffSingleMinion = (SpellEffect_BuffSingleMinionOfOneSide)spellEffect;
+			BuffSingleMinion buffSingleMinion = (BuffSingleMinion)spellEffect;
 			LinkedList<Minion> minionList = getMinionList(turn);
 			Minion minion = minionList.get(minionIndex);
 			buffSingleMinion.effect(minion);

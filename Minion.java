@@ -12,6 +12,8 @@ public class Minion {
 	private boolean divineShield;
 	private boolean windfury;
 
+	private int attackAmount;
+
 	public Minion(String name, int attack, int health, boolean taunt, boolean charge, boolean divineShield, boolean windfury) {
 		this.name = name;
 		this.normalAttack = attack;
@@ -19,10 +21,40 @@ public class Minion {
 		this.normalMaxHealth = health;
 		this.currentMaxHealth = normalMaxHealth;
 		this.currentHealth = normalMaxHealth;
+
 		this.taunt = taunt;
 		this.charge = charge;
 		this.divineShield = divineShield;
 		this.windfury = windfury;
+
+		if (charge) {
+			prepareMinion();
+		} else {
+			attackAmount = -1;
+		}
+	}
+
+	public void prepareMinion() {
+		attackAmount = (windfury ? 2 : 1);
+	}
+
+	public int attack() {
+		attackAmount--;
+		return currentAttack;
+	}
+
+	public boolean canAttack() {
+		return attackAmount > 0;
+	}
+
+	public String reasonForNotAttacking() {
+		if (attackAmount == -1) {
+			return "minion has summoning-sickness";
+		} else if (attackAmount == 0) {
+			return "minion has no more attacks this turn";
+		} else {
+			return "something is Albinoso wrongo :O";
+		}
 	}
 
 	public boolean takeDamage(int damage) {
@@ -38,6 +70,26 @@ public class Minion {
 	public void addHealth(int add) {
 		currentHealth += add;
 		currentMaxHealth += add;
+	}
+
+	public void setTaunt(boolean taunt) {
+		this.taunt = taunt;
+	}
+
+	public void setCharge(boolean charge) {
+		this.charge = charge;
+	}
+
+	public void setDivineShield(boolean divineShield) {
+		this.divineShield = divineShield;
+	}
+
+	public void setWindfury(boolean windfury) {
+		if (this.windfury != windfury) {
+			if (windfury) { attackAmount++; }
+			else { attackAmount--; }
+		}
+		this.windfury = windfury;
 	}
 
 	public boolean isAlive() {

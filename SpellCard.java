@@ -1,7 +1,8 @@
 public class SpellCard extends PlayCard {
 	public static final int	DRAGON_POWER = 1,
 							EMERALD_SCALE = 2,
-							STAFF_OF_THE_EMPEROR = 3;
+							STAFF_OF_THE_EMPEROR = 3,
+							FEATHER_OF_THE_FEATHER = 4;
 
 	private String name;
 
@@ -19,17 +20,22 @@ public class SpellCard extends PlayCard {
 			name = "Dragon Power";
 			cost = 2;
 			this.type = type;
-			spellEffect = new SpellEffect_BuffAllOfOneSide(1, 1);
+			spellEffect = new BuffAllOfOneSide(1, 1);
 		} else if (type == EMERALD_SCALE) {
 			name = "Emerald Scale";
 			cost = 2;
 			this.type = type;
-			spellEffect = new SpellEffect_BuffSingleMinionOfOneSide(2, 2, false, false, false, false);
+			spellEffect = new BuffSingleMinion(2, 2, false, false, false, false);
 		} else if (type == STAFF_OF_THE_EMPEROR) {
 			name = "Staff of the Emperor";
 			cost = 4;
 			this.type = type;
-			spellEffect = new SpellEffect_BuffSingleMinionOfOneSide(3, 3, true, false, true, false);
+			spellEffect = new BuffSingleMinion(3, 3, true, false, true, false);
+		} else if (type == FEATHER_OF_THE_FEATHER) {
+			name = "Feather of the Feather";
+			cost = 1;
+			this.type = type;
+			spellEffect = new BuffSingleMinion(0, 0, false, false, false, true);
 		}
 	}
 

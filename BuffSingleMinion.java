@@ -1,6 +1,6 @@
 import java.util.LinkedList;
 
-public class SpellEffect_BuffSingleMinionOfOneSide extends SpellEffect {
+public class BuffSingleMinion extends SpellEffect {
 	private int additionalAttack;
 	private int additionalHealth;
 
@@ -9,7 +9,7 @@ public class SpellEffect_BuffSingleMinionOfOneSide extends SpellEffect {
 	private boolean divineShield;
 	private boolean windfury;
 
-	public SpellEffect_BuffSingleMinionOfOneSide(int additionalAttack, int additionalHealth, boolean taunt, boolean charge, boolean divineShield, boolean windfury) {
+	public BuffSingleMinion(int additionalAttack, int additionalHealth, boolean taunt, boolean charge, boolean divineShield, boolean windfury) {
 		this.additionalAttack = additionalAttack;
 		this.additionalHealth = additionalHealth;
 
@@ -22,5 +22,10 @@ public class SpellEffect_BuffSingleMinionOfOneSide extends SpellEffect {
 	public void effect(Minion minion) {
 		minion.addAttack(additionalAttack);
 		minion.addHealth(additionalHealth);
+
+		if (taunt) { minion.setTaunt(taunt); }
+		if (charge) { minion.setCharge(charge); }
+		if (divineShield) { minion.setDivineShield(divineShield); }
+		if (windfury) { minion.setWindfury(windfury); }
 	}
 }
