@@ -1,0 +1,10 @@
+=== TODO ===
+* BattleCry (return minion, heal, swap att/def)
+* Deathrattle
+* Spell (heal)
+
+* EndTurn-effect
+* StartTurn-effect
+* TakeDmg-effect (deal / take + this/any minion)
+* Summon-minion-effect (own / any)
+* SpellCast-effect (own / enemy / any + minion / player)
