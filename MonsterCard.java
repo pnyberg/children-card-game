@@ -2,7 +2,9 @@ public class MonsterCard extends PlayCard {
 	public static final int	DRAGON_LORD = 1,
 							DRAGON_KING = 2,
 							PRINCE_CRUSH = 3,
-							SORCERERS_DRAKE = 4;
+							SORCERERS_DRAKE = 4,
+							DRAGON_LIEUTENANT = 5,
+							DRAGON_GRUNT = 6;
 
 	private String name;
 	private int type;
@@ -53,6 +55,20 @@ public class MonsterCard extends PlayCard {
 			health = 2;
 			initBasicEffect(false, false, false, false);
 			battleCryEffect = new BuffSingleMinion(2, 0, false, false, false, false, true);
+		} else if (type == DRAGON_LIEUTENANT) {
+			name = "Dragon Lieutenant";
+			cost = 3;
+			attack = 3;
+			health = 2;
+			initBasicEffect(false, false, false, false);
+			battleCryEffect = new SummonMinions(new int[] {DRAGON_GRUNT});
+		} else if (type == DRAGON_GRUNT) {
+			name = "Dragon Grunt";
+			cost = 1;
+			attack = 2;
+			health = 2;
+			initBasicEffect(false, false, false, false);
+			battleCryEffect = null;
 		}
 	}
 

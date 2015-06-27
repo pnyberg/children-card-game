@@ -25,7 +25,7 @@ public class BuffSingleMinion extends SpellEffect {
 
 	public void effect(Minion minion) {
 		if (temporarily) {
-			minion.setTempAttack(additionalAttack);
+			minion.addTempAttack(additionalAttack);
 			return;
 		}
 

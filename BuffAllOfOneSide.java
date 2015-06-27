@@ -30,7 +30,7 @@ public class BuffAllOfOneSide extends SpellEffect {
 	public void effect(LinkedList<Minion> minionList) {
 		for (Minion minion : minionList) {
 			if (temporarily) {
-				minion.setTempAttack(additionalAttack);
+				minion.addTempAttack(additionalAttack);
 				return;
 			}
 			minion.addAttack(additionalAttack);

@@ -88,8 +88,8 @@ public class Minion {
 		currentAttack += add;
 	}
 
-	public void setTempAttack(int attack) {
-		tempAttack = attack;
+	public void addTempAttack(int attack) {
+		tempAttack += attack;
 	}
 
 	public void addHealth(int add) {

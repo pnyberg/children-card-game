@@ -15,9 +15,14 @@ public class TheGame {
 	private int playerHealth2;
 
 	private boolean handlingBattleCry;
+
 	private int playedMinionType;
-	private Minion minionTriedToPlay;
 	private int minionTriedToPlayCardIndex;
+
+	private Minion minionTriedToPlay;
+
+	private LinkedList<Minion> minionTempList;
+
 
 	private int randomizer = 0; // temp -> pre-built-order 
 
@@ -36,6 +41,7 @@ public class TheGame {
 		playedMinionType = -1;
 		minionTriedToPlay = null;
 		minionTriedToPlayCardIndex = -1;
+		minionTempList = new LinkedList<Minion>();
 
 		start();
 	}
@@ -61,7 +67,6 @@ public class TheGame {
 
 		System.out.println();
 
-		/*HERE*/
 		if (handlingBattleCry) {
 			handleBattleCryCommands(str);
 		} else {
@@ -120,7 +125,12 @@ public class TheGame {
 			return;
 		}
 
-		if (playedMinionType == MonsterCard.SORCERERS_DRAKE) {
+		SpellEffect battleCryEffect = minionTriedToPlay.getBattleCryEffect();
+		if (battleCryEffect == null) {
+			return;
+		}
+
+		if (battleCryEffect instanceof BuffSingleMinion) {
 			if (str.length != 2 || !str[0].equals("target")) {
 				System.out.println("Target-choosing command not valid for battlecry!");
 				return;
@@ -133,8 +143,7 @@ public class TheGame {
 				return;
 			}
 
-			SpellEffect spellEffect = minionTriedToPlay.getBattleCryEffect();
-			BuffSingleMinion buffSingleMinion = (BuffSingleMinion)spellEffect;
+			BuffSingleMinion buffSingleMinion = (BuffSingleMinion)battleCryEffect;
 			LinkedList<Minion> minionList = getMinionList(turn);
 			Minion minion = minionList.get(minionIndex);
 			buffSingleMinion.effect(minion);
@@ -159,7 +168,7 @@ public class TheGame {
 		} else if (randomizer == 1) {
 			addCardToHand(new MonsterCard(MonsterCard.SORCERERS_DRAKE));
 		} else if (randomizer == 2) {
-			addCardToHand(new SpellCard(SpellCard.EMERALD_SCALE));
+			addCardToHand(new MonsterCard(MonsterCard.DRAGON_LIEUTENANT));
 		} else if (randomizer == 3) {
 			addCardToHand(new SpellCard(SpellCard.STAFF_OF_THE_EMPEROR));
 		} else if (randomizer == 4) {
@@ -170,6 +179,8 @@ public class TheGame {
 			addCardToHand(new MonsterCard(MonsterCard.PRINCE_CRUSH));
 		} else if (randomizer == 7) {
 			addCardToHand(new SpellCard(SpellCard.DRAGON_POWER));
+		} else if (randomizer == 8) {
+			addCardToHand(new SpellCard(SpellCard.EMERALD_SCALE));
 		} else {
 			addCardToHand(new MonsterCard(MonsterCard.DRAGON_KING));
 		}
@@ -490,11 +501,31 @@ public class TheGame {
 		playedMinionType = minion.getType();
 		minionTriedToPlay = minion;
 
-		if (playedMinionType == MonsterCard.SORCERERS_DRAKE) {
+		SpellEffect battleCryEffect = minion.getBattleCryEffect();
+
+		if (battleCryEffect instanceof BuffSingleMinion) {
 			handlingBattleCry = true;
 
 			System.out.println("Which minion do you want to target?");
+		} else if (battleCryEffect instanceof SummonMinions) {
+			SummonMinions summonMinions = (SummonMinions)battleCryEffect;
+			summonMinions.effect(minionTempList);
 		}
+	}
+
+	public void addBattleCryMinions() {
+		if (minionTempList.isEmpty()) {
+			return;
+		} 
+
+		LinkedList<Minion> minionsOnBoardList = getMinionList(turn);
+
+		while(!minionTempList.isEmpty() && minionsOnBoardList.size() < 7) {
+			Minion tempMinion = minionTempList.poll();
+			minionsOnBoardList.add(tempMinion);
+		}
+
+		minionTempList.clear();
 	}
 
 	public void addMinionToBoard(MonsterCard monsterCard) {
@@ -510,6 +541,8 @@ public class TheGame {
 			}
 
 			minionList.add(minion);
+
+			addBattleCryMinions();
 
 			System.out.println("Played " + monsterCard.getName() + ", it costs " + monsterCard.getCost() + "!");
 		} else {
