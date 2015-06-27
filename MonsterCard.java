@@ -4,7 +4,8 @@ public class MonsterCard extends PlayCard {
 							PRINCE_CRUSH = 3,
 							SORCERERS_DRAKE = 4,
 							DRAGON_LIEUTENANT = 5,
-							DRAGON_GRUNT = 6;
+							DRAGON_GRUNT = 6,
+							DISPATCHING_DRAKE = 7;
 
 	private String name;
 	private int type;
@@ -29,47 +30,46 @@ public class MonsterCard extends PlayCard {
 
 		if (type == DRAGON_LORD) {
 			name = "Dragon Lord";
-			cost = 1;
-			attack = 1;
-			health = 1;
+			initBasicStats(1, 1, 1);
 			initBasicEffect(false, false, false, false);
 			battleCryEffect = null;
 		} else if (type == DRAGON_KING) {
 			name = "Dragon King";
-			cost = 2;
-			attack = 2;
-			health = 2;
+			initBasicStats(2, 2, 2);
 			initBasicEffect(false, false, false, false);
 			battleCryEffect = null;
 		} else if (type == PRINCE_CRUSH) {
 			name = "Prince Crush";
-			cost = 3;
-			attack = 3;
-			health = 3;
+			initBasicStats(3, 3, 3);
 			initBasicEffect(false, true, false, false);
 			battleCryEffect = null;
 		} else if (type == SORCERERS_DRAKE) {
 			name = "Sorcerers Drake";
-			cost = 1;
-			attack = 1;
-			health = 2;
+			initBasicStats(1, 1, 2);
 			initBasicEffect(false, false, false, false);
 			battleCryEffect = new BuffSingleMinion(2, 0, false, false, false, false, true);
 		} else if (type == DRAGON_LIEUTENANT) {
 			name = "Dragon Lieutenant";
-			cost = 3;
-			attack = 3;
-			health = 2;
+			initBasicStats(3, 3, 2);
 			initBasicEffect(false, false, false, false);
 			battleCryEffect = new SummonMinions(new int[] {DRAGON_GRUNT});
 		} else if (type == DRAGON_GRUNT) {
 			name = "Dragon Grunt";
-			cost = 1;
-			attack = 2;
-			health = 2;
+			initBasicStats(1, 2, 2);
 			initBasicEffect(false, false, false, false);
 			battleCryEffect = null;
+		} else if (type == DISPATCHING_DRAKE) {
+			name = "Dispatching Drake";
+			initBasicStats(1, 2, 1);
+			initBasicEffect(false, false, false, false);
+			battleCryEffect = new PickUpMinion(-1);
 		}
+	}
+
+	private void initBasicStats(int cost, int attack, int health) {
+		this.cost = cost;
+		this.attack = attack;
+		this.health = health;
 	}
 
 	private void initBasicEffect(boolean taunt, boolean charge, boolean divineShield, boolean windfury) {
@@ -77,6 +77,10 @@ public class MonsterCard extends PlayCard {
 		this.charge = charge;
 		this.divineShield = divineShield;
 		this.windfury = windfury;
+	}
+
+	public void changeCost(int costChange) {
+		cost = (cost + costChange) < 0 ? 0 : cost + costChange;
 	}
 
 	public String getName() {

@@ -118,6 +118,9 @@ public class TheGame {
 		if (str.length == 2 && str[0].equals("show") && str[1].equals("board")) {
 			showBoard();
 			return;
+		} else if (str.length == 2 && str[0].equals("show") && str[1].equals("hand")) {
+			showHand();
+			return;
 		} else if (str.length == 1 && str[0].equals("cancel")) {
 			handlingBattleCry = false;
 
@@ -158,6 +161,37 @@ public class TheGame {
 			removeCardFromHand(minionTriedToPlayCardIndex);
 
 			System.out.println("Played " + cardTriedToPlay.getName() + ", it costs " + cardTriedToPlay.getCost() + "!");
+		} else if (battleCryEffect instanceof PickUpMinion) {
+			if (str.length != 3 || !str[0].equals("pick") || !str[1].equals("up")) {
+				System.out.println("Target-choosing command not valid for battlecry! (should be 'pick up [index]')");
+				return;
+			}
+
+			int minionIndex = getAdressingIndex(str[2]);
+
+			if (minionIndex == -1) {
+				System.out.println("Target-choice not valid!");
+				return;
+			}
+
+			PickUpMinion pickUpMinion = (PickUpMinion)battleCryEffect;
+			LinkedList<Minion> minionList = getMinionList(turn);
+			Minion minion = minionList.get(minionIndex);
+			LinkedList<PlayCard> cardHand = getCardList(turn);
+
+			pickUpMinion.effect(minion, cardHand);
+			removeMinionFromBoard(minionIndex, turn);
+
+			System.out.println(minion.getName() + " got picked up!");
+			handlingBattleCry = false;
+
+			minionList.add(minionTriedToPlay);
+
+			MonsterCard cardTriedToPlay = (MonsterCard)getCardFromHand(minionTriedToPlayCardIndex);
+
+			removeCardFromHand(minionTriedToPlayCardIndex);
+
+			System.out.println("Played " + cardTriedToPlay.getName() + ", it costs " + cardTriedToPlay.getCost() + "!");
 		}
 	}
 
@@ -166,7 +200,7 @@ public class TheGame {
 		if (randomizer == 0) {
 			addCardToHand(new MonsterCard(MonsterCard.DRAGON_LORD));
 		} else if (randomizer == 1) {
-			addCardToHand(new MonsterCard(MonsterCard.SORCERERS_DRAKE));
+			addCardToHand(new MonsterCard(MonsterCard.DISPATCHING_DRAKE));
 		} else if (randomizer == 2) {
 			addCardToHand(new MonsterCard(MonsterCard.DRAGON_LIEUTENANT));
 		} else if (randomizer == 3) {
@@ -181,6 +215,8 @@ public class TheGame {
 			addCardToHand(new SpellCard(SpellCard.DRAGON_POWER));
 		} else if (randomizer == 8) {
 			addCardToHand(new SpellCard(SpellCard.EMERALD_SCALE));
+		} else if (randomizer == 9) {
+			addCardToHand(new MonsterCard(MonsterCard.SORCERERS_DRAKE));
 		} else {
 			addCardToHand(new MonsterCard(MonsterCard.DRAGON_KING));
 		}
@@ -510,6 +546,10 @@ public class TheGame {
 		} else if (battleCryEffect instanceof SummonMinions) {
 			SummonMinions summonMinions = (SummonMinions)battleCryEffect;
 			summonMinions.effect(minionTempList);
+		} else if (battleCryEffect instanceof PickUpMinion) {
+			handlingBattleCry = true;
+
+			System.out.println("Which minion do you want to pick up?");
 		}
 	}
 
