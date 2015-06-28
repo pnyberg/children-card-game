@@ -5,7 +5,8 @@ public class MonsterCard extends PlayCard {
 							SORCERERS_DRAKE = 4,
 							DRAGON_LIEUTENANT = 5,
 							DRAGON_GRUNT = 6,
-							DISPATCHING_DRAKE = 7;
+							DISPATCHING_DRAKE = 7,
+							EARTHEN_RING_FARSEER = 8;
 
 	private String name;
 	private int type;
@@ -63,6 +64,11 @@ public class MonsterCard extends PlayCard {
 			initBasicStats(1, 2, 1);
 			initBasicEffect(false, false, false, false);
 			battleCryEffect = new PickUpMinion(-1);
+		} else if (type == EARTHEN_RING_FARSEER) {
+			name = "Earthen Ring Farseer";
+			initBasicStats(3, 3, 3);
+			initBasicEffect(false, false, false, false);
+			battleCryEffect = new HealMinion(3);
 		}
 	}
 

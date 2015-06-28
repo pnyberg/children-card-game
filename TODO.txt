@@ -1,5 +1,5 @@
 === TODO ===
-* BattleCry (return minion, heal, swap att/def)
+* BattleCry (heal, swap att/def)
 * Deathrattle
 * Spell (heal)
 
@@ -8,3 +8,5 @@
 * TakeDmg-effect (deal / take + this/any minion)
 * Summon-minion-effect (own / any)
 * SpellCast-effect (own / enemy / any + minion / player)
+
+* Multipla effecter

@@ -192,17 +192,45 @@ public class TheGame {
 			removeCardFromHand(minionTriedToPlayCardIndex);
 
 			System.out.println("Played " + cardTriedToPlay.getName() + ", it costs " + cardTriedToPlay.getCost() + "!");
+		} else if (battleCryEffect instanceof HealMinion) {
+			if (str.length != 2 || !str[0].equals("heal")) {
+				System.out.println("Target-choosing command not valid for battlecry! (should be 'heal [index]')");
+				return;
+			}
+
+			int minionIndex = getAdressingIndex(str[1]);
+
+			if (minionIndex == -1) {
+				System.out.println("Target-choice not valid!");
+				return;
+			}
+
+			HealMinion healMinion = (HealMinion)battleCryEffect;
+			LinkedList<Minion> minionList = getMinionList(turn);
+			Minion minion = minionList.get(minionIndex);
+			healMinion.effect(minion);
+
+			System.out.println(minion.getName() + " got healed!");
+			handlingBattleCry = false;
+
+			minionList.add(minionTriedToPlay);
+
+			MonsterCard cardTriedToPlay = (MonsterCard)getCardFromHand(minionTriedToPlayCardIndex);
+
+			removeCardFromHand(minionTriedToPlayCardIndex);
+
+			System.out.println("Played " + cardTriedToPlay.getName() + ", it costs " + cardTriedToPlay.getCost() + "!");
 		}
 	}
 
 	public void drawCard() {
 //		int randomizer = (int)(Math.random()*10);
 		if (randomizer == 0) {
-			addCardToHand(new MonsterCard(MonsterCard.DRAGON_LORD));
+			addCardToHand(new MonsterCard(MonsterCard.DRAGON_KING));
 		} else if (randomizer == 1) {
-			addCardToHand(new MonsterCard(MonsterCard.DISPATCHING_DRAKE));
+			addCardToHand(new MonsterCard(MonsterCard.EARTHEN_RING_FARSEER));
 		} else if (randomizer == 2) {
-			addCardToHand(new MonsterCard(MonsterCard.DRAGON_LIEUTENANT));
+			addCardToHand(new MonsterCard(MonsterCard.DRAGON_LORD));
 		} else if (randomizer == 3) {
 			addCardToHand(new SpellCard(SpellCard.STAFF_OF_THE_EMPEROR));
 		} else if (randomizer == 4) {
@@ -217,8 +245,10 @@ public class TheGame {
 			addCardToHand(new SpellCard(SpellCard.EMERALD_SCALE));
 		} else if (randomizer == 9) {
 			addCardToHand(new MonsterCard(MonsterCard.SORCERERS_DRAKE));
+		} else if (randomizer == 10) {
+			addCardToHand(new MonsterCard(MonsterCard.DISPATCHING_DRAKE));
 		} else {
-			addCardToHand(new MonsterCard(MonsterCard.DRAGON_KING));
+			addCardToHand(new MonsterCard(MonsterCard.DRAGON_LIEUTENANT));
 		}
 
 		randomizer++; // pre-build-order
@@ -550,6 +580,10 @@ public class TheGame {
 			handlingBattleCry = true;
 
 			System.out.println("Which minion do you want to pick up?");
+		} else if (battleCryEffect instanceof HealMinion) {
+			handlingBattleCry = true;
+
+			System.out.println("Which minion do you want to heal?");
 		}
 	}
 

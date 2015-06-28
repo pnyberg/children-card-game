@@ -84,6 +84,10 @@ public class Minion {
 		return isAlive();
 	}
 
+	public void heal(int healAmount) {
+		currentHealth = (currentHealth + healAmount) > currentMaxHealth ? currentMaxHealth : (currentHealth + healAmount);
+	}
+
 	public void addAttack(int add) {
 		currentAttack += add;
 	}
