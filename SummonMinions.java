@@ -1,19 +1,36 @@
 import java.util.LinkedList;
 
 public class SummonMinions extends SpellEffect {
-	LinkedList<Minion> minionList;
+	LinkedList<Minion> friendlyMinionList;
+	LinkedList<Minion> enemyMinionList;
 
-	public SummonMinions(int[] minionsToBeSummonedTypes) {
-		minionList = new LinkedList<Minion>();
-		for (int minionType : minionsToBeSummonedTypes) {
-			Minion minion = new MonsterCard(minionType).toMinion();
-			minionList.add(minion);
+	public SummonMinions(int[] friendlyMinionsToBeSummonedTypes, int[] enemyMinionsToBeSummonedTypes) {
+		friendlyMinionList = new LinkedList<Minion>();
+		enemyMinionList = new LinkedList<Minion>();
+
+		arrayToList(friendlyMinionsToBeSummonedTypes, friendlyMinionList);
+
+		arrayToList(enemyMinionsToBeSummonedTypes, enemyMinionList);
+	}
+
+	private void arrayToList(int[] array, LinkedList<Minion> list) {
+		if (array != null) {
+			for (int minionType : array) {
+				Minion minion = new MonsterCard(minionType).toMinion();
+				list.add(minion);
+			}
 		}
 	}
 
-	public void effect(LinkedList<Minion> minionsToBeSummonedList) {
-		for (Minion minion : minionList) {
-			minionsToBeSummonedList.add(minion);
+	public void effect(LinkedList<Minion> friendlyMinionsToBeSummonedList, LinkedList<Minion> enemyMinionsToBeSummonedList) {
+		listTransfer(friendlyMinionList, friendlyMinionsToBeSummonedList);
+
+		listTransfer(enemyMinionList, enemyMinionsToBeSummonedList);
+	}
+
+	private void listTransfer(LinkedList<Minion> from, LinkedList<Minion> to) {
+		for (Minion minion : from) {
+			to.add(minion);
 		}
 	}
 }

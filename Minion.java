@@ -16,10 +16,11 @@ public class Minion {
 	private boolean windfury;
 
 	private SpellEffect battleCryEffect;
+	private SpellEffect deathRattleEffect;
 
 	private int attackAmount;
 
-	public Minion(String name, int type, int attack, int health, boolean taunt, boolean charge, boolean divineShield, boolean windfury, SpellEffect battleCryEffect) {
+	public Minion(String name, int type, int attack, int health, boolean taunt, boolean charge, boolean divineShield, boolean windfury, SpellEffect battleCryEffect, SpellEffect deathRattleEffect) {
 		this.name = name;
 		this.type = type;
 
@@ -37,6 +38,7 @@ public class Minion {
 		this.windfury = windfury;
 
 		this.battleCryEffect = battleCryEffect;
+		this.deathRattleEffect = deathRattleEffect;
 
 		if (charge) {
 			prepareMinion();
@@ -65,11 +67,11 @@ public class Minion {
  /*HERE*/
 	public String reasonForNotAttacking() {
 		if (attackAmount == -1) {
-			return "minion has summoning-sickness";
+			return name + " cannot attack, minion has summoning-sickness!";
 		} else if (attackAmount == 0) {
-			return "minion has no more attacks this turn";
+			return name + " cannot attack, minion has no more attacks this turn!";
 		} else {
-			return "something is Albinoso wrongo :O";
+			return name + " cannot attack, something is Albinoso wrongo :O";
 		}
 	}
 
@@ -165,6 +167,10 @@ public class Minion {
 		return battleCryEffect;
 	}
 
+	public SpellEffect getDeathRattleEffect() {
+		return deathRattleEffect;
+	}
+
 	public boolean hasTaunt() {
 		return taunt;
 	}
@@ -179,5 +185,13 @@ public class Minion {
 
 	public boolean hasWindfury() {
 		return windfury;
+	}
+
+	public boolean hasBattleCry() {
+		return battleCryEffect != null;
+	}
+
+	public boolean hasDeathRattle() {
+		return deathRattleEffect != null;
 	}
 }

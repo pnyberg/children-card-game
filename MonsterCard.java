@@ -6,7 +6,9 @@ public class MonsterCard extends PlayCard {
 							DRAGON_LIEUTENANT = 5,
 							DRAGON_GRUNT = 6,
 							DISPATCHING_DRAKE = 7,
-							EARTHEN_RING_FARSEER = 8;
+							EARTHEN_RING_FARSEER = 8,
+							SLUDGE_BELCHER = 9,
+							SLIME = 10;
 
 	private String name;
 	private int type;
@@ -21,6 +23,7 @@ public class MonsterCard extends PlayCard {
 	private boolean windfury;
 
 	private SpellEffect battleCryEffect;
+	private SpellEffect deathRattleEffect;
 
 	public MonsterCard(int type) {
 		setStats(type);
@@ -34,41 +37,61 @@ public class MonsterCard extends PlayCard {
 			initBasicStats(1, 1, 1);
 			initBasicEffect(false, false, false, false);
 			battleCryEffect = null;
+			deathRattleEffect = null;
 		} else if (type == DRAGON_KING) {
 			name = "Dragon King";
-			initBasicStats(2, 2, 2);
+			initBasicStats(6, 5, 5);
 			initBasicEffect(false, false, false, false);
 			battleCryEffect = null;
+			deathRattleEffect = null;
 		} else if (type == PRINCE_CRUSH) {
 			name = "Prince Crush";
 			initBasicStats(3, 3, 3);
 			initBasicEffect(false, true, false, false);
 			battleCryEffect = null;
+			deathRattleEffect = null;
 		} else if (type == SORCERERS_DRAKE) {
 			name = "Sorcerers Drake";
 			initBasicStats(1, 1, 2);
 			initBasicEffect(false, false, false, false);
 			battleCryEffect = new BuffSingleMinion(2, 0, false, false, false, false, true);
+			deathRattleEffect = null;
 		} else if (type == DRAGON_LIEUTENANT) {
 			name = "Dragon Lieutenant";
 			initBasicStats(3, 3, 2);
 			initBasicEffect(false, false, false, false);
-			battleCryEffect = new SummonMinions(new int[] {DRAGON_GRUNT});
+			battleCryEffect = new SummonMinions(new int[] {DRAGON_GRUNT}, null);
+			deathRattleEffect = null;
 		} else if (type == DRAGON_GRUNT) {
 			name = "Dragon Grunt";
 			initBasicStats(1, 2, 2);
 			initBasicEffect(false, false, false, false);
 			battleCryEffect = null;
+			deathRattleEffect = null;
 		} else if (type == DISPATCHING_DRAKE) {
 			name = "Dispatching Drake";
 			initBasicStats(1, 2, 1);
 			initBasicEffect(false, false, false, false);
 			battleCryEffect = new PickUpMinion(-1);
+			deathRattleEffect = null;
 		} else if (type == EARTHEN_RING_FARSEER) {
 			name = "Earthen Ring Farseer";
 			initBasicStats(3, 3, 3);
 			initBasicEffect(false, false, false, false);
 			battleCryEffect = new HealMinion(3);
+			deathRattleEffect = null;
+		} else if (type == SLUDGE_BELCHER) {
+			name = "Sludge Belcher";
+			initBasicStats(5, 3, 5);
+			initBasicEffect(true, false, false, false);
+			battleCryEffect = null;
+			deathRattleEffect = new SummonMinions(new int[] {SLIME}, null);
+		} else if (type == SLIME) {
+			name = "Slime";
+			initBasicStats(1, 1, 2);
+			initBasicEffect(true, false, false, false);
+			battleCryEffect = null;
+			deathRattleEffect = null;
 		}
 	}
 
@@ -110,6 +133,6 @@ public class MonsterCard extends PlayCard {
 	}
 
 	public Minion toMinion() {
-		return new Minion(name, type, attack, health, taunt, charge, divineShield, windfury, battleCryEffect);
+		return new Minion(name, type, attack, health, taunt, charge, divineShield, windfury, battleCryEffect, deathRattleEffect);
 	}
 }

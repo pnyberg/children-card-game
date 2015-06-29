@@ -1,7 +1,8 @@
 === TODO ===
-* BattleCry (heal, swap att/def)
+* BattleCry (swap att/def)
 * Deathrattle
 * Spell (heal)
+* Weapon
 
 * EndTurn-effect
 * StartTurn-effect

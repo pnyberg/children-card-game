@@ -21,7 +21,8 @@ public class TheGame {
 
 	private Minion minionTriedToPlay;
 
-	private LinkedList<Minion> minionTempList;
+	private LinkedList<Minion> minionTempList1;
+	private LinkedList<Minion> minionTempList2;
 
 
 	private int randomizer = 0; // temp -> pre-built-order 
@@ -41,7 +42,9 @@ public class TheGame {
 		playedMinionType = -1;
 		minionTriedToPlay = null;
 		minionTriedToPlayCardIndex = -1;
-		minionTempList = new LinkedList<Minion>();
+
+		minionTempList1 = new LinkedList<Minion>();
+		minionTempList2 = new LinkedList<Minion>();
 
 		start();
 	}
@@ -228,7 +231,7 @@ public class TheGame {
 		if (randomizer == 0) {
 			addCardToHand(new MonsterCard(MonsterCard.DRAGON_KING));
 		} else if (randomizer == 1) {
-			addCardToHand(new MonsterCard(MonsterCard.EARTHEN_RING_FARSEER));
+			addCardToHand(new MonsterCard(MonsterCard.SLUDGE_BELCHER));
 		} else if (randomizer == 2) {
 			addCardToHand(new MonsterCard(MonsterCard.DRAGON_LORD));
 		} else if (randomizer == 3) {
@@ -247,6 +250,8 @@ public class TheGame {
 			addCardToHand(new MonsterCard(MonsterCard.SORCERERS_DRAKE));
 		} else if (randomizer == 10) {
 			addCardToHand(new MonsterCard(MonsterCard.DISPATCHING_DRAKE));
+		} else if (randomizer == 11) {
+			addCardToHand(new MonsterCard(MonsterCard.EARTHEN_RING_FARSEER));
 		} else {
 			addCardToHand(new MonsterCard(MonsterCard.DRAGON_LIEUTENANT));
 		}
@@ -378,7 +383,7 @@ public class TheGame {
 		Minion targetMinion = getTarget(targetIndex);
 
 		if (!attackingMinion.canAttack()) {
-			System.out.println(attackingMinion.getName() + " cannot attack, " + attackingMinion.reasonForNotAttacking() + "!");
+			System.out.println(attackingMinion.reasonForNotAttacking());
 			return;
 		}
 
@@ -406,8 +411,12 @@ public class TheGame {
 		Minion minion = getMinion(minionIndex, turnIndex);
 
 		if (!minion.isAlive()) {
+			manageDeathRattle(minion, turnIndex);
 			removeMinionFromBoard(minionIndex, turnIndex);
 			System.out.println("(Player " + (turnIndex + 1) + " #" + minionIndex + ")" + minion.getName() + " died!");
+
+			addSummonedMinions(turn);
+			addSummonedMinions((turn + 1) % 2);
 		}
 	}
 
@@ -415,7 +424,7 @@ public class TheGame {
 		Minion attackingMinion = getAttacker(attackerIndex);
 
 		if (!attackingMinion.canAttack()) {
-			System.out.println(attackingMinion.getName() + " cannot attack!");
+			System.out.println(attackingMinion.reasonForNotAttacking());
 			return;
 		}
 
@@ -533,6 +542,16 @@ public class TheGame {
 		return minionList;
 	}
 
+	public LinkedList<Minion> getTempMinionList(int turnIndex) {
+		LinkedList<Minion> tempMinionList;
+		if (turnIndex == 0) {
+			tempMinionList = minionTempList1;
+		} else {
+			tempMinionList = minionTempList2;
+		}
+		return tempMinionList;
+	}
+
 	public void addCardToHand(PlayCard cardToAdd) {
 		LinkedList<PlayCard> cardList = getCardList(turn);
 
@@ -563,7 +582,7 @@ public class TheGame {
 		System.out.println(index + " is not a valid cardIndex for Player " + ((turn + 1) % 2));
 	}
 
-	public void manageBattleCry(Minion minion) {
+	public void manageBattleCry(Minion minion, int turn) {
 		playedMinionType = minion.getType();
 		minionTriedToPlay = minion;
 
@@ -575,7 +594,10 @@ public class TheGame {
 			System.out.println("Which minion do you want to target?");
 		} else if (battleCryEffect instanceof SummonMinions) {
 			SummonMinions summonMinions = (SummonMinions)battleCryEffect;
-			summonMinions.effect(minionTempList);
+			LinkedList<Minion> friendlyPlayerMinionTempList = getTempMinionList(turn);
+			LinkedList<Minion> enemyPlayerMinionTempList = getTempMinionList((turn + 1) % 2);
+
+			summonMinions.effect(friendlyPlayerMinionTempList, enemyPlayerMinionTempList);
 		} else if (battleCryEffect instanceof PickUpMinion) {
 			handlingBattleCry = true;
 
@@ -587,40 +609,55 @@ public class TheGame {
 		}
 	}
 
-	public void addBattleCryMinions() {
-		if (minionTempList.isEmpty()) {
-			return;
-		} 
+	public void manageDeathRattle(Minion minion, int turnIndex) {
+		SpellEffect deathRattleEffect = minion.getDeathRattleEffect();
 
-		LinkedList<Minion> minionsOnBoardList = getMinionList(turn);
+		if (deathRattleEffect instanceof BuffSingleMinion) {
+			// nothing yet
+		} else if (deathRattleEffect instanceof SummonMinions) {
+			SummonMinions summonMinions = (SummonMinions)deathRattleEffect;
+			LinkedList<Minion> friendlyPlayerMinionTempList = getTempMinionList(turnIndex);
+			LinkedList<Minion> enemyPlayerMinionTempList = getTempMinionList((turnIndex + 1) % 2);
 
-		while(!minionTempList.isEmpty() && minionsOnBoardList.size() < 7) {
-			Minion tempMinion = minionTempList.poll();
-			minionsOnBoardList.add(tempMinion);
+			summonMinions.effect(friendlyPlayerMinionTempList, enemyPlayerMinionTempList);
 		}
-
-		minionTempList.clear();
 	}
 
 	public void addMinionToBoard(MonsterCard monsterCard) {
-		LinkedList<Minion> minionList = getMinionList(turn);
+		LinkedList<Minion> minionsOnBoardList = getMinionList(turn);
 
-		if (minionList.size() < 7) {
+		if (minionsOnBoardList.size() < 7) {
 			Minion minion = monsterCard.toMinion();
 
-			manageBattleCry(minion);
+			manageBattleCry(minion, turn);
 
 			if (handlingBattleCry) {
 				return;
 			}
 
-			minionList.add(minion);
+			minionsOnBoardList.add(minion);
 
-			addBattleCryMinions();
+			addSummonedMinions(turn);
+			addSummonedMinions((turn + 1) % 2);
 
 			System.out.println("Played " + monsterCard.getName() + ", it costs " + monsterCard.getCost() + "!");
 		} else {
 			System.out.println("Can't play that minion, your side of the board is full!");
+		}
+	}
+
+	public void addSummonedMinions(int turnIndex) {
+		LinkedList<Minion> minionsOnBoard = getMinionList(turnIndex);
+		LinkedList<Minion> minionTempList = getTempMinionList(turnIndex);
+
+		if (!minionTempList.isEmpty()) {
+			while(!minionTempList.isEmpty() && minionsOnBoard.size() < 7) {
+				Minion tempMinion = minionTempList.poll();
+				minionsOnBoard.add(tempMinion);
+				System.out.println(tempMinion.getName() + " got summoned!");
+			}
+
+			minionTempList.clear();
 		}
 	}
 
@@ -691,38 +728,41 @@ public class TheGame {
 	}
 
 	public void printBoardIndexBar(LinkedList<Minion> minionList) {
-		System.out.print(addSpaces(22));
+		System.out.print(addSpaces(19));
 
 		int size = minionList.size();
 
 		for (int i = 0 ; i < size ; i++) {
-			String name = minionList.get(i).getName();
-			int amount = 9 + (name.length() > 8 ? name.length()-8 : 0);
-			System.out.print("#" + i + addSpaces(amount));
+			int nameLength = minionList.get(i).getName().length();
+			int preAmount = 4 + (nameLength > 10 ? (nameLength - 9) / 2 : 0);
+			int postAmount = 6 + (nameLength > 9 ? (nameLength - 9) / 2 + (nameLength - 9) % 2 : 0);
+			System.out.print(addSpaces(preAmount) + "#" + i + addSpaces(postAmount));
 		}
 		System.out.println("");
 	}
 
 	public void printBoardMinionNames(int turnIndex, LinkedList<Minion> minionList) {
-		System.out.print("Monsters Player" + (turnIndex + 1) + ": ");
+		System.out.print("Monsters Player " + (turnIndex + 1) + ": ");
 
 		for (Minion minion : minionList) {
 			int nameLength = minion.getName().length();
-			int amount = 14 - nameLength + (nameLength > 12 ? nameLength-12 : 0);
-			System.out.print(minion.getName() + addSpaces(amount));
+			int preAmount = nameLength < 9 ? (7 - nameLength) / 2 : 0;
+			int postAmount = 3 + (nameLength < 9 ? (7 - nameLength) / 2 + (7 - nameLength) % 2 : 0);
+			System.out.print(addSpaces(preAmount) + minion.getName() + addSpaces(postAmount));
 		}
 
 		System.out.println("");
 	}
 
 	public void printBoardMinionStats(LinkedList<Minion> minionList) {
-		System.out.print(addSpaces(18));
+		System.out.print(addSpaces(19));
 
 		for (Minion minion : minionList) {
 			int nameLength = minion.getName().length();
-			int amount = 1 + (nameLength > 8 ? nameLength-8 : 0);
+			int preAmount = (nameLength > 10 ? (nameLength - 9) / 2 : 0);
+			int postAmount = 2 + (nameLength > 9 ? (nameLength - 9) / 2 + (nameLength - 9) % 2 : 0);
 			boolean buffed = minion.isBuffed();
-			System.out.print("(A:" + minion.getCurrentAttack() + " H:" + minion.getCurrentHealth() + ")" + (buffed ? "*" : " ") + addSpaces(amount));
+			System.out.print(addSpaces(preAmount) + "(A:" + minion.getCurrentAttack() + " H:" + minion.getCurrentHealth() + ")" + (buffed ? "*" : " ") + addSpaces(postAmount));
 		}
 		System.out.println("");
 	}
@@ -732,8 +772,9 @@ public class TheGame {
 
 		for (Minion minion : minionList) {
 			int nameLength = minion.getName().length();
-			int amount = 4 + (nameLength > 8 ? nameLength-8 : 0);
-			System.out.print(getMinionEffects(minion) + addSpaces(amount));
+			int preAmount = 1 + (nameLength > 10 ? (nameLength - 9) / 2 : 0);
+			int postAmount = 4 + (nameLength > 9 ? (nameLength - 9) / 2 + (nameLength - 9) % 2 : 0);
+			System.out.print(addSpaces(preAmount) + getMinionEffects(minion) + addSpaces(postAmount));
 		}
 		System.out.println("");
 	}
@@ -743,7 +784,7 @@ public class TheGame {
 		char chargeChar = (minion.hasCharge() ? 'C' : '*');
 		char divineShieldChar = (minion.hasDivineShield() ? 'S' : '*');
 		char windfuryChar = (minion.hasWindfury() ? 'W' : '*');
-		char deathrattleChar = (/*minion.hasDeathrattle()*/ false ? 'D' : '*');
+		char deathrattleChar = (minion.hasDeathRattle() ? 'D' : '*');
 
 		return "[" + tauntChar + chargeChar + divineShieldChar + windfuryChar + deathrattleChar + "]";
 	}
