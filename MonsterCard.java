@@ -8,7 +8,9 @@ public class MonsterCard extends PlayCard {
 							DISPATCHING_DRAKE = 7,
 							EARTHEN_RING_FARSEER = 8,
 							SLUDGE_BELCHER = 9,
-							SLIME = 10;
+							SLIME = 10,
+							NOVICE_ENGINEER = 11,
+							LOOT_HOARDER = 12;
 
 	private String name;
 	private int type;
@@ -92,6 +94,18 @@ public class MonsterCard extends PlayCard {
 			initBasicEffect(true, false, false, false);
 			battleCryEffect = null;
 			deathRattleEffect = null;
+		} else if (type == NOVICE_ENGINEER) {
+			name = "Novice Engineer";
+			initBasicStats(2, 1, 1);
+			initBasicEffect(false, false, false, false);
+			battleCryEffect = new DrawCards(1);
+			deathRattleEffect = null;
+		} else if (type == LOOT_HOARDER) {
+			name = "Loot Hoarder";
+			initBasicStats(2, 2, 1);
+			initBasicEffect(false, false, false, false);
+			battleCryEffect = null;
+			deathRattleEffect = new DrawCards(1);
 		}
 	}
 

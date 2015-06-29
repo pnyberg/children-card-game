@@ -131,6 +131,7 @@ public class TheGame {
 			return;
 		}
 
+		// necessary?
 		SpellEffect battleCryEffect = minionTriedToPlay.getBattleCryEffect();
 		if (battleCryEffect == null) {
 			return;
@@ -229,11 +230,11 @@ public class TheGame {
 	public void drawCard() {
 //		int randomizer = (int)(Math.random()*10);
 		if (randomizer == 0) {
-			addCardToHand(new MonsterCard(MonsterCard.DRAGON_KING));
+			addCardToHand(new MonsterCard(MonsterCard.NOVICE_ENGINEER));
 		} else if (randomizer == 1) {
-			addCardToHand(new MonsterCard(MonsterCard.SLUDGE_BELCHER));
+			addCardToHand(new MonsterCard(MonsterCard.LOOT_HOARDER));
 		} else if (randomizer == 2) {
-			addCardToHand(new MonsterCard(MonsterCard.DRAGON_LORD));
+			addCardToHand(new MonsterCard(MonsterCard.SLUDGE_BELCHER));
 		} else if (randomizer == 3) {
 			addCardToHand(new SpellCard(SpellCard.STAFF_OF_THE_EMPEROR));
 		} else if (randomizer == 4) {
@@ -252,6 +253,10 @@ public class TheGame {
 			addCardToHand(new MonsterCard(MonsterCard.DISPATCHING_DRAKE));
 		} else if (randomizer == 11) {
 			addCardToHand(new MonsterCard(MonsterCard.EARTHEN_RING_FARSEER));
+		} else if (randomizer == 12) {
+			addCardToHand(new MonsterCard(MonsterCard.DRAGON_KING));
+		} else if (randomizer == 13) {
+			addCardToHand(new MonsterCard(MonsterCard.DRAGON_LORD));
 		} else {
 			addCardToHand(new MonsterCard(MonsterCard.DRAGON_LIEUTENANT));
 		}
@@ -582,7 +587,7 @@ public class TheGame {
 		System.out.println(index + " is not a valid cardIndex for Player " + ((turn + 1) % 2));
 	}
 
-	public void manageBattleCry(Minion minion, int turn) {
+	public void manageBattleCry(Minion minion, int turnIndex) {
 		playedMinionType = minion.getType();
 		minionTriedToPlay = minion;
 
@@ -594,8 +599,8 @@ public class TheGame {
 			System.out.println("Which minion do you want to target?");
 		} else if (battleCryEffect instanceof SummonMinions) {
 			SummonMinions summonMinions = (SummonMinions)battleCryEffect;
-			LinkedList<Minion> friendlyPlayerMinionTempList = getTempMinionList(turn);
-			LinkedList<Minion> enemyPlayerMinionTempList = getTempMinionList((turn + 1) % 2);
+			LinkedList<Minion> friendlyPlayerMinionTempList = getTempMinionList(turnIndex);
+			LinkedList<Minion> enemyPlayerMinionTempList = getTempMinionList((turnIndex + 1) % 2);
 
 			summonMinions.effect(friendlyPlayerMinionTempList, enemyPlayerMinionTempList);
 		} else if (battleCryEffect instanceof PickUpMinion) {
@@ -606,6 +611,15 @@ public class TheGame {
 			handlingBattleCry = true;
 
 			System.out.println("Which minion do you want to heal?");
+		} else if (battleCryEffect instanceof DrawCards) {
+			DrawCards drawCards = (DrawCards)battleCryEffect;
+			LinkedList<PlayCard> cardHand = getCardList(turnIndex);
+			LinkedList<PlayCard> deck = new LinkedList<PlayCard>();
+			deck.add(new MonsterCard(MonsterCard.EARTHEN_RING_FARSEER));
+			deck.add(new MonsterCard(MonsterCard.DRAGON_LIEUTENANT));
+			deck.add(new MonsterCard(MonsterCard.SLUDGE_BELCHER));
+
+			drawCards.effect(cardHand, deck);
 		}
 	}
 
@@ -620,6 +634,15 @@ public class TheGame {
 			LinkedList<Minion> enemyPlayerMinionTempList = getTempMinionList((turnIndex + 1) % 2);
 
 			summonMinions.effect(friendlyPlayerMinionTempList, enemyPlayerMinionTempList);
+		} else if (deathRattleEffect instanceof DrawCards) {
+			DrawCards drawCards = (DrawCards)deathRattleEffect;
+			LinkedList<PlayCard> cardHand = getCardList(turnIndex);
+			LinkedList<PlayCard> deck = new LinkedList<PlayCard>();
+			deck.add(new MonsterCard(MonsterCard.EARTHEN_RING_FARSEER));
+			deck.add(new MonsterCard(MonsterCard.DRAGON_LIEUTENANT));
+			deck.add(new MonsterCard(MonsterCard.SLUDGE_BELCHER));
+
+			drawCards.effect(cardHand, deck);
 		}
 	}
 
