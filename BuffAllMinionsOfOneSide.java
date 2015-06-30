@@ -1,6 +1,6 @@
 import java.util.LinkedList;
 
-public class BuffAllOfOneSide extends SpellEffect {
+public class BuffAllMinionsOfOneSide extends SpellEffect {
 	private int additionalAttack;
 	private int additionalHealth;
 
@@ -11,11 +11,11 @@ public class BuffAllOfOneSide extends SpellEffect {
 
 	private boolean temporarily;
 
-	public BuffAllOfOneSide(int additionalAttack, int additionalHealth) {
+	public BuffAllMinionsOfOneSide(int additionalAttack, int additionalHealth) {
 		this(additionalAttack, additionalHealth, false, false, false, false, false);
 	}
 
-	public BuffAllOfOneSide(int additionalAttack, int additionalHealth, boolean taunt, boolean charge, boolean divineShield, boolean windfury, boolean temporarily) {
+	public BuffAllMinionsOfOneSide(int additionalAttack, int additionalHealth, boolean taunt, boolean charge, boolean divineShield, boolean windfury, boolean temporarily) {
 		this.additionalAttack = additionalAttack;
 		this.additionalHealth = additionalHealth;
 

@@ -1,4 +1,4 @@
-public class Minion {
+public class Minion extends Character {
 	private String name;
 	private int type;
 
@@ -64,7 +64,6 @@ public class Minion {
 		return attackAmount > 0;
 	}
 
- /*HERE*/
 	public String reasonForNotAttacking() {
 		if (attackAmount == -1) {
 			return name + " cannot attack, minion has summoning-sickness!";
@@ -81,9 +80,13 @@ public class Minion {
 			return true;
 		}
 
-		currentHealth -= damage;
+		takeDamage(damage);
 
 		return isAlive();
+	}
+
+	public void takeDamage(int damageAmount) {
+		currentHealth -= damageAmount;		
 	}
 
 	public void heal(int healAmount) {

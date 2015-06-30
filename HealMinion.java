@@ -7,7 +7,7 @@ public class HealMinion extends SpellEffect {
 		this.healAmount = healAmount;
 	}
 
-	public void effect(Minion minion) {
-		minion.heal(healAmount);
+	public void effect(Character character) {
+		character.heal(healAmount);
 	}
 }

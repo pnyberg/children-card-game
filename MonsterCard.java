@@ -1,5 +1,5 @@
 public class MonsterCard extends PlayCard {
-	public static final int	DRAGON_LORD = 1,
+	public static final int	ELVEN_ARCHER = 1,
 							DRAGON_KING = 2,
 							PRINCE_CRUSH = 3,
 							SORCERERS_DRAKE = 4,
@@ -34,11 +34,11 @@ public class MonsterCard extends PlayCard {
 	private void setStats(int type) {
 		this.type = type;
 
-		if (type == DRAGON_LORD) {
-			name = "Dragon Lord";
+		if (type == ELVEN_ARCHER) {
+			name = "Elven Archer";
 			initBasicStats(1, 1, 1);
 			initBasicEffect(false, false, false, false);
-			battleCryEffect = null;
+			battleCryEffect = new DealDamage(1);
 			deathRattleEffect = null;
 		} else if (type == DRAGON_KING) {
 			name = "Dragon King";
