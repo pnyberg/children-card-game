@@ -321,7 +321,7 @@ public class TheGame {
 		} else if (randomizer == 5) {
 			addCardToHand(new SpellCard(SpellCard.DRAGONS_BLOOD));
 		} else if (randomizer == 6) {
-			addCardToHand(new MonsterCard(MonsterCard.PRINCE_CRUSH));
+			addCardToHand(new MonsterCard(MonsterCard.WOLFRIDER));
 		} else if (randomizer == 7) {
 			addCardToHand(new SpellCard(SpellCard.DRAGON_POWER));
 		} else if (randomizer == 8) {
@@ -333,13 +333,13 @@ public class TheGame {
 		} else if (randomizer == 11) {
 			addCardToHand(new MonsterCard(MonsterCard.EARTHEN_RING_FARSEER));
 		} else if (randomizer == 12) {
-			addCardToHand(new MonsterCard(MonsterCard.DRAGON_KING));
+			addCardToHand(new MonsterCard(MonsterCard.BLOODFEN_RAPTOR));
 		} else if (randomizer == 13) {
 			addCardToHand(new SpellCard(SpellCard.STAFF_OF_THE_EMPEROR));
 		} else if (randomizer == 14) {
 			addCardToHand(new SpellCard(SpellCard.FEATHER_OF_THE_FEATHER));
 		} else {
-			addCardToHand(new MonsterCard(MonsterCard.DRAGON_LIEUTENANT));
+			addCardToHand(new MonsterCard(MonsterCard.MURLOC_TIDEHUNTER));
 		}
 
 		randomizer++; // pre-build-order
@@ -746,7 +746,7 @@ public class TheGame {
 			LinkedList<PlayCard> cardHand = getCardList(turnIndex);
 			LinkedList<PlayCard> deck = new LinkedList<PlayCard>();
 			deck.add(new MonsterCard(MonsterCard.EARTHEN_RING_FARSEER));
-			deck.add(new MonsterCard(MonsterCard.DRAGON_LIEUTENANT));
+			deck.add(new MonsterCard(MonsterCard.MURLOC_TIDEHUNTER));
 			deck.add(new MonsterCard(MonsterCard.SLUDGE_BELCHER));
 
 			drawCards.effect(cardHand, deck);
@@ -769,7 +769,7 @@ public class TheGame {
 			LinkedList<PlayCard> cardHand = getCardList(turnIndex);
 			LinkedList<PlayCard> deck = new LinkedList<PlayCard>();
 			deck.add(new MonsterCard(MonsterCard.EARTHEN_RING_FARSEER));
-			deck.add(new MonsterCard(MonsterCard.DRAGON_LIEUTENANT));
+			deck.add(new MonsterCard(MonsterCard.MURLOC_TIDEHUNTER));
 			deck.add(new MonsterCard(MonsterCard.SLUDGE_BELCHER));
 
 			drawCards.effect(cardHand, deck);
