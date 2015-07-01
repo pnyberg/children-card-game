@@ -10,7 +10,8 @@ public class MonsterCard extends PlayCard {
 							SLUDGE_BELCHER = 9,
 							SLIME = 10,
 							NOVICE_ENGINEER = 11,
-							LOOT_HOARDER = 12;
+							LOOT_HOARDER = 12,
+							UNSTABLE_GHOUL = 13;
 
 	private String name;
 	private int type;
@@ -106,6 +107,12 @@ public class MonsterCard extends PlayCard {
 			initBasicEffect(false, false, false, false);
 			battleCryEffect = null;
 			deathRattleEffect = new DrawCards(1);
+		} else if (type == UNSTABLE_GHOUL) {
+			name = "Unstable Ghoul";
+			initBasicStats(2, 1, 3);
+			initBasicEffect(true, false, false, false);
+			battleCryEffect = null;
+			deathRattleEffect = new DealDamageToAllMinions(1);
 		}
 	}
 

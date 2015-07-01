@@ -276,12 +276,12 @@ public class TheGame {
 			DealDamage dealDamage = (DealDamage)battleCryEffect;
 			int turnIndex = getTurnIndex(str[1]);
 
-			LinkedList<Minion> minionList = getMinionList(turnIndex);
 			Character character;
 
 			if (minionIndex == TARGETPLAYER) {
 				character = getPlayer(turnIndex);
 			} else {
+				LinkedList<Minion> minionList = getMinionList(turnIndex);
 				character = minionList.get(minionIndex);
 			}
 
@@ -290,6 +290,7 @@ public class TheGame {
 			System.out.println(character.getName() + " took damage!");
 			handlingBattleCry = false;
 
+			LinkedList<Minion> minionList = getMinionList(turn);
 			minionList.add(minionTriedToPlay);
 
 			MonsterCard cardTriedToPlay = (MonsterCard)getCardFromHand(minionTriedToPlayCardIndex);
@@ -297,6 +298,10 @@ public class TheGame {
 			removeCardFromHand(minionTriedToPlayCardIndex);
 
 			System.out.println("Played " + cardTriedToPlay.getName() + ", it costs " + cardTriedToPlay.getCost() + "!");
+
+			if (minionIndex != TARGETPLAYER) {
+				checkDeath(minionIndex, turnIndex);
+			}
 		}
 	}
 
@@ -308,11 +313,11 @@ public class TheGame {
 		} else if (randomizer == 1) {
 			addCardToHand(new MonsterCard(MonsterCard.LOOT_HOARDER));
 		} else if (randomizer == 2) {
-			addCardToHand(new MonsterCard(MonsterCard.NOVICE_ENGINEER));
+			addCardToHand(new MonsterCard(MonsterCard.UNSTABLE_GHOUL));
 		} else if (randomizer == 3) {
 			addCardToHand(new MonsterCard(MonsterCard.SLUDGE_BELCHER));
 		} else if (randomizer == 4) {
-			addCardToHand(new SpellCard(SpellCard.FEATHER_OF_THE_FEATHER));
+			addCardToHand(new MonsterCard(MonsterCard.NOVICE_ENGINEER));
 		} else if (randomizer == 5) {
 			addCardToHand(new SpellCard(SpellCard.DRAGONS_BLOOD));
 		} else if (randomizer == 6) {
@@ -331,6 +336,8 @@ public class TheGame {
 			addCardToHand(new MonsterCard(MonsterCard.DRAGON_KING));
 		} else if (randomizer == 13) {
 			addCardToHand(new SpellCard(SpellCard.STAFF_OF_THE_EMPEROR));
+		} else if (randomizer == 14) {
+			addCardToHand(new SpellCard(SpellCard.FEATHER_OF_THE_FEATHER));
 		} else {
 			addCardToHand(new MonsterCard(MonsterCard.DRAGON_LIEUTENANT));
 		}
@@ -489,20 +496,44 @@ public class TheGame {
 		minion.handleDamage(damage);
 	}
 
-	public void checkDeath(int minionIndex, int turnIndex) {
-		Minion minion = getMinion(minionIndex, turnIndex);
+	public void checkDeathBoard() {
+		checkDeathInList(turn);
+		checkDeathInList((turn + 1) % 2);
+	}
 
-		if (!minion.isAlive()) {
-			manageDeathRattle(minion, turnIndex);
-			removeMinionFromBoard(minionIndex, turnIndex);
-			System.out.println("(Player " + (turnIndex + 1) + " #" + minionIndex + ")" + minion.getName() + " died!");
+	public void checkDeathInList(int turnIndex) {
+		LinkedList<Minion> minionList = getMinionList(turnIndex);
 
-			addSummonedMinions(turn);
-			addSummonedMinions((turn + 1) % 2);
+		for (int i = 0 ; i < minionList.size() ; i++) {
+			checkDeath(i, turnIndex);
 		}
 	}
 
 //#500
+	public void checkDeath(int minionIndex, int turnIndex) {
+		Minion minion = getMinion(minionIndex, turnIndex);
+
+		if (!minion.isAlive()) {
+			removeMinionFromBoard(minionIndex, turnIndex);
+			manageDeathRattle(minion, turnIndex);
+			System.out.println("(Player " + (turnIndex + 1) + " #" + minionIndex + ")" + minion.getName() + " died!");
+
+			addSummonedMinions(turn);
+			addSummonedMinions((turn + 1) % 2);
+
+			checkChainReactionDeath(minion);
+		}
+	}
+
+	/*HERE*/
+	public void checkChainReactionDeath(Minion minion) {
+		SpellEffect deathRattleEffect = minion.getDeathRattleEffect();
+
+		if (deathRattleEffect instanceof DealDamageToAllMinions) {
+			// should I use this?
+		}
+	}
+
 	public void attackEnemyPlayer(int attackerIndex) {
 		Minion attackingMinion = getAttacker(attackerIndex);
 
@@ -578,6 +609,7 @@ public class TheGame {
 		}
 	}
 
+//#600
 	public void handleEndTurnActions(int turnIndex) {
 		for (Minion minion : minionsOnBoard1) {
 			minion.endTurnAction();
@@ -601,7 +633,6 @@ public class TheGame {
 
 	}
 
-//#600
 	public int getTurnIndex(String player) {
 		int turnIndex = turn;
 		if (player.equals("enemy")) {
@@ -681,6 +712,7 @@ public class TheGame {
 		System.out.println(index + " is not a valid cardIndex for Player " + ((turn + 1) % 2));
 	}
 
+//#700
 	public void manageBattleCry(Minion minion, int turnIndex) {
 		playedMinionType = minion.getType();
 		minionTriedToPlay = minion;
@@ -721,7 +753,6 @@ public class TheGame {
 		}
 	}
 
-//#700
 	public void manageDeathRattle(Minion minion, int turnIndex) {
 		SpellEffect deathRattleEffect = minion.getDeathRattleEffect();
 
@@ -742,6 +773,14 @@ public class TheGame {
 			deck.add(new MonsterCard(MonsterCard.SLUDGE_BELCHER));
 
 			drawCards.effect(cardHand, deck);
+		} else if (deathRattleEffect instanceof DealDamageToAllMinions) {
+			DealDamageToAllMinions dealDamageToAllMinions = (DealDamageToAllMinions)deathRattleEffect;
+			LinkedList<Minion> friendlyMinionList = getMinionList(turnIndex);
+			LinkedList<Minion> enemyMinionList = getMinionList((turnIndex + 1) % 2);
+
+			dealDamageToAllMinions.effect(friendlyMinionList, enemyMinionList);
+
+			checkDeathBoard();
 		}
 	}
 
@@ -768,6 +807,7 @@ public class TheGame {
 		}
 	}
 
+//#800
 	public void addSummonedMinions(int turnIndex) {
 		LinkedList<Minion> minionsOnBoard = getMinionList(turnIndex);
 		LinkedList<Minion> minionTempList = getTempMinionList(turnIndex);
@@ -799,7 +839,6 @@ public class TheGame {
 		printHandCardStats(cardList);
 	}
 
-//#800
 	public void printHandIndexBar(LinkedList<PlayCard> cardList) {
 		System.out.print(addSpaces(15));
 
@@ -864,6 +903,7 @@ public class TheGame {
 		System.out.println("");
 	}
 
+//#900
 	public void printBoardMinionNames(int turnIndex, LinkedList<Minion> minionList) {
 		System.out.print("Monsters Player " + (turnIndex + 1) + ": ");
 
@@ -902,7 +942,6 @@ public class TheGame {
 		System.out.println("");
 	}
 
-//#900
 	public String getMinionEffects(Minion minion) {
 		char tauntChar = (minion.hasTaunt() ? 'T' : '*');
 		char chargeChar = (minion.hasCharge() ? 'C' : '*');
