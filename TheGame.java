@@ -499,17 +499,6 @@ public class TheGame {
 
 			addSummonedMinions(turn);
 			addSummonedMinions((turn + 1) % 2);
-
-			checkChainReactionDeath(minion);
-		}
-	}
-
-	/*HERE*/
-	public void checkChainReactionDeath(Minion minion) {
-		SpellEffect deathRattleEffect = minion.getDeathRattleEffect();
-
-		if (deathRattleEffect instanceof DealDamageToAllMinions) {
-			// should I use this?
 		}
 	}
 
@@ -858,8 +847,18 @@ public class TheGame {
 		int size = cardList.size();
 
 		for (int i = 0 ; i < size ; i++) {
-			int lengthDiff = cardList.get(i).getName().length() - 2;
-			System.out.print(addSpaces(lengthDiff / 2 + lengthDiff % 2) + "#" + i + addSpaces(lengthDiff / 2 + 2));
+			PlayCard card = cardList.get(i);
+			int nameLength = card.getName().length();
+
+			if (card instanceof MonsterCard) {
+				int preAmount = (nameLength > 12 ? (nameLength - 1) / 2 : 6);
+				int postAmount = 3 + (nameLength > 12 ? (nameLength - 3) / 2 + (nameLength - 3) % 2 : 5);
+				System.out.print(addSpaces(preAmount) + "#" + i + addSpaces(postAmount));
+			} else {
+				int preAmount = (nameLength - 1) / 2;
+				int postAmount = 3 + (nameLength - 3) / 2 + (nameLength - 3) % 2;
+				System.out.print(addSpaces(preAmount) + "#" + i + addSpaces(postAmount));
+			}
 		}
 		System.out.println("");
 	}
@@ -868,8 +867,17 @@ public class TheGame {
 		System.out.print("Cards Player" + (turnIndex + 1) + ": ");
 
 		for (PlayCard card : cardList) {
-			int amount = 14 - card.getName().length() + (card.getName().length() > 12 ? card.getName().length()-12 : 0);
-			System.out.print(card.getName() + addSpaces(amount));
+			int nameLength = card.getName().length();
+
+			if (card instanceof MonsterCard) {
+				int preAmount = nameLength < 13 ? (13 - nameLength) / 2 : 0;
+				int postAmount = 3 + (nameLength < 13 ? (13 - nameLength) / 2 + (13 - nameLength) % 2 : 0);
+				System.out.print(addSpaces(preAmount) + card.getName() + addSpaces(postAmount));
+			} else {
+				int preAmount = 0;
+				int postAmount = 3;
+				System.out.print(addSpaces(preAmount) + card.getName() + addSpaces(postAmount));
+			}
 		}
 		System.out.println("");
 	}
@@ -879,11 +887,13 @@ public class TheGame {
 		for (PlayCard card : cardList) {
 			int nameLength = card.getName().length();
 			if (card instanceof MonsterCard) {
-				int lengthDiff = nameLength - 13; /*HERE: vad om lengthDiff < 0? */
-				System.out.print(addSpaces(lengthDiff / 2) + "(C:" + card.getCost() + " A:" + ((MonsterCard)card).getAttack() + " H:" + ((MonsterCard)card).getHealth() + ")" + addSpaces(lengthDiff / 2 + lengthDiff % 2 + 2));
+				int preAmount = nameLength > 13 ? (nameLength - 13) / 2 : 0;
+				int postAmount = 3 + (nameLength > 13 ? (nameLength - 13) / 2 + (nameLength - 13) % 2 : 0);
+				System.out.print(addSpaces(preAmount) + "(C:" + card.getCost() + " A:" + ((MonsterCard)card).getAttack() + " H:" + ((MonsterCard)card).getHealth() + ")" + addSpaces(postAmount));
 			} else {
-				int lengthDiff = nameLength - 5;
-				System.out.print(addSpaces(lengthDiff / 2) + "(C:" + card.getCost() + ")" + addSpaces(lengthDiff / 2 + lengthDiff % 2 + 2));
+				int preAmount = (nameLength - 5) / 2;
+				int postAmount = 3 + (nameLength - 5) / 2 + (nameLength - 5) % 2;
+				System.out.print(addSpaces(preAmount) + "(C:" + card.getCost() + ")" + addSpaces(postAmount));
 			}
 		}
 
