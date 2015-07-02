@@ -119,7 +119,6 @@ public class TheGame {
 		return builder.toString();
 	}
 
-//#200 - seriously long method, split it up?
 	public void handleBattleCryCommands(String[] str) {
 		if (str.length == 2 && str[0].equals("show") && str[1].equals("board")) {
 			showBoard();
@@ -135,145 +134,56 @@ public class TheGame {
 		}
 
 		SpellEffect battleCryEffect = minionTriedToPlay.getBattleCryEffect();
-		// necessary?
-//		if (battleCryEffect == null) {
-//			return;
-//		}
 
 		if (battleCryEffect instanceof BuffSingleMinion) {
-			if (str.length != 3 || !str[0].equals("target")) {
-				System.out.println("Target-choosing command not valid for battlecry! (should be 'target [player] [index]')");
-				return;
-			}
-
-			if (!str[1].equals("self") && !str[1].equals("enemy")) {
-				System.out.println("Must say if target is 'self' or 'enemy'");
-				return;
-			}
-
-			int minionIndex = getAdressingIndex(str[2]);
+			int minionIndex = getBattleCryTargetIndex(str, new String[]{"target"});
 
 			if (minionIndex == -1) {
-				System.out.println("Target-choice not valid!");
 				return;
 			}
 
-			BuffSingleMinion buffSingleMinion = (BuffSingleMinion)battleCryEffect;
 			int turnIndex = getTurnIndex(str[1]);
-
 			LinkedList<Minion> minionList = getMinionList(turnIndex);
+
 			Minion minion = minionList.get(minionIndex);
+
+			BuffSingleMinion buffSingleMinion = (BuffSingleMinion)battleCryEffect;
 			buffSingleMinion.effect(minion);
 
 			System.out.println(minion.getName() + " got buffed!");
 			handlingBattleCry = false;
 
-			minionList.add(minionTriedToPlay);
-
-			MonsterCard cardTriedToPlay = (MonsterCard)getCardFromHand(minionTriedToPlayCardIndex);
-
-			removeCardFromHand(minionTriedToPlayCardIndex);
-
-			System.out.println("Played " + cardTriedToPlay.getName() + ", it costs " + cardTriedToPlay.getCost() + "!");
+			addMinionToBoardRemoveFromHand(minionList);
 		} else if (battleCryEffect instanceof PickUpMinion) {
-			if (str.length != 4 || !str[0].equals("pick") || !str[1].equals("up")) {
-				System.out.println("Target-choosing command not valid for battlecry! (should be 'pick up [player] [index]')");
-				return;
-			}
-
-			if (!str[2].equals("self") && !str[2].equals("enemy")) {
-				System.out.println("Must say if target is 'self' or 'enemy'");
-				return;
-			}
-
-			int minionIndex = getAdressingIndex(str[3]);
+			int minionIndex = getBattleCryTargetIndex(str, new String[]{"pick", "up"});
 
 			if (minionIndex == -1) {
-				System.out.println("Target-choice not valid!");
 				return;
 			}
 
-			PickUpMinion pickUpMinion = (PickUpMinion)battleCryEffect;
 			int turnIndex = getTurnIndex(str[2]);
-
 			LinkedList<Minion> minionList = getMinionList(turnIndex);
-			Minion minion = minionList.get(minionIndex);
+
 			LinkedList<PlayCard> cardHand = getCardList(turnIndex);
 
+			Minion minion = minionList.get(minionIndex);
+
+			PickUpMinion pickUpMinion = (PickUpMinion)battleCryEffect;
 			pickUpMinion.effect(minion, cardHand);
+
 			removeMinionFromBoard(minionIndex, turnIndex);
 
 			System.out.println(minion.getName() + " got picked up!");
 			handlingBattleCry = false;
 
-			minionList.add(minionTriedToPlay);
-
-			MonsterCard cardTriedToPlay = (MonsterCard)getCardFromHand(minionTriedToPlayCardIndex);
-
-			removeCardFromHand(minionTriedToPlayCardIndex);
-
-			System.out.println("Played " + cardTriedToPlay.getName() + ", it costs " + cardTriedToPlay.getCost() + "!");
+			addMinionToBoardRemoveFromHand(minionList);
 		} else if (battleCryEffect instanceof HealMinion) {
-			if (str.length != 3 || !str[0].equals("heal")) {
-				System.out.println("Target-choosing command not valid for battlecry! (should be 'heal [player] [index]')");
-				return;
-			}
-
-			if (!str[1].equals("self") && !str[1].equals("enemy")) {
-				System.out.println("Must say if target is 'self' or 'enemy'");
-				return;
-			}
-
-			int minionIndex = getAdressingIndex(str[2]);
+			int minionIndex = getBattleCryTargetIndex(str, new String[]{"heal"});
 
 			if (minionIndex == -1) {
-				System.out.println("Target-choice not valid!");
 				return;
 			}
 
-			HealMinion healMinion = (HealMinion)battleCryEffect;
-			int turnIndex = getTurnIndex(str[1]);
-
-			LinkedList<Minion> minionList = getMinionList(turnIndex);
-			Character character;
-
-			if (minionIndex == TARGETPLAYER) {
-				character = getPlayer(turnIndex);
-			} else {
-				character = minionList.get(minionIndex);
-			}
-
-			healMinion.effect(character);
-
-			System.out.println(character.getName() + " got healed!");
-			handlingBattleCry = false;
-
-			minionList.add(minionTriedToPlay);
-
-			MonsterCard cardTriedToPlay = (MonsterCard)getCardFromHand(minionTriedToPlayCardIndex);
-
-			removeCardFromHand(minionTriedToPlayCardIndex);
-
-			System.out.println("Played " + cardTriedToPlay.getName() + ", it costs " + cardTriedToPlay.getCost() + "!");
-		} else if (battleCryEffect instanceof DealDamage) {
-			if (str.length != 3 || !str[0].equals("target")) {
-				System.out.println("Target-choosing command not valid for battlecry! (should be 'target [player] [index]')");
-				return;
-			}
-
-			if (!str[1].equals("self") && !str[1].equals("enemy")) {
-				System.out.println("Must say if target is 'self' or 'enemy'");
-				return;
-			}
-
-			int minionIndex = getAdressingIndex(str[2]);
-
-			if (minionIndex == -1) {
-				System.out.println("Target-choice not valid!");
-				return;
-			}
-
-			DealDamage dealDamage = (DealDamage)battleCryEffect;
 			int turnIndex = getTurnIndex(str[1]);
 
 			Character character;
@@ -285,19 +195,40 @@ public class TheGame {
 				character = minionList.get(minionIndex);
 			}
 
+			HealMinion healMinion = (HealMinion)battleCryEffect;
+			healMinion.effect(character);
+
+			System.out.println(character.getName() + " got healed!");
+			handlingBattleCry = false;
+
+			LinkedList<Minion> minionList = getMinionList(turn);
+			addMinionToBoardRemoveFromHand(minionList);
+		} else if (battleCryEffect instanceof DealDamage) {
+			int minionIndex = getBattleCryTargetIndex(str, new String[]{"target"});
+
+			if (minionIndex == -1) {
+				return;
+			}
+
+			int turnIndex = getTurnIndex(str[1]);
+
+			Character character;
+
+			if (minionIndex == TARGETPLAYER) {
+				character = getPlayer(turnIndex);
+			} else {
+				LinkedList<Minion> minionList = getMinionList(turnIndex);
+				character = minionList.get(minionIndex);
+			}
+
+			DealDamage dealDamage = (DealDamage)battleCryEffect;
 			dealDamage.effect(character);
 
 			System.out.println(character.getName() + " took damage!");
 			handlingBattleCry = false;
 
 			LinkedList<Minion> minionList = getMinionList(turn);
-			minionList.add(minionTriedToPlay);
-
-			MonsterCard cardTriedToPlay = (MonsterCard)getCardFromHand(minionTriedToPlayCardIndex);
-
-			removeCardFromHand(minionTriedToPlayCardIndex);
-
-			System.out.println("Played " + cardTriedToPlay.getName() + ", it costs " + cardTriedToPlay.getCost() + "!");
+			addMinionToBoardRemoveFromHand(minionList);
 
 			if (minionIndex != TARGETPLAYER) {
 				checkDeath(minionIndex, turnIndex);
@@ -305,7 +236,54 @@ public class TheGame {
 		}
 	}
 
-//#300
+//#200 - seriously long method, split it up?
+	public int getBattleCryTargetIndex(String[] commandArray, String[] keyWordArray) {
+		int lengthOfDefiningCommand = keyWordArray.length;
+
+		if (!checkLengthAndKeyWords(commandArray, keyWordArray)) {
+			System.out.println("Target-choosing command not valid for battlecry! (should be '" + arrayToText(keyWordArray) + " [player] [index]')");
+			return -1;
+		}
+
+		if (!commandArray[lengthOfDefiningCommand].equals("self") && !commandArray[lengthOfDefiningCommand].equals("enemy")) {
+			System.out.println("Must say if target is 'self' or 'enemy'");
+			return-1;
+		}
+
+		int minionIndex = getAdressingIndex(commandArray[lengthOfDefiningCommand + 1]);
+
+		if (minionIndex == -1) {
+			System.out.println("Target-choice not valid!");
+			return -1;
+		}
+
+		return minionIndex;
+	}
+
+	public boolean checkLengthAndKeyWords(String[] commandArray, String[] keyWordArray) {
+		if (commandArray.length != (keyWordArray.length + 2)) {
+			return false;
+		}
+
+		for (int i = 0 ; i < keyWordArray.length ; i++) {
+			if (!commandArray[i].equals(keyWordArray[i])) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	public void addMinionToBoardRemoveFromHand(LinkedList<Minion> minionList) {
+		minionList.add(minionTriedToPlay);
+
+		MonsterCard cardTriedToPlay = (MonsterCard)getCardFromHand(minionTriedToPlayCardIndex);
+
+		removeCardFromHand(minionTriedToPlayCardIndex);
+
+		System.out.println("Played " + cardTriedToPlay.getName() + ", it costs " + cardTriedToPlay.getCost() + "!");
+	}
+
 	public void drawCard() {
 //		int randomizer = (int)(Math.random()*10);
 		if (randomizer == 0) {
@@ -345,6 +323,7 @@ public class TheGame {
 		randomizer++; // pre-build-order
 	}
 
+//#300
 	public int getAdressingIndex(String raw) {
 		int length = raw.length();
 
