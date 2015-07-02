@@ -877,10 +877,12 @@ public class TheGame {
 	public void printHandCardStats(LinkedList<PlayCard> cardList) {
 		System.out.print(addSpaces(15));
 		for (PlayCard card : cardList) {
+			int nameLength = card.getName().length();
 			if (card instanceof MonsterCard) {
-				System.out.print("(C:" + card.getCost() + " A:" + ((MonsterCard)card).getAttack() + " H:" + ((MonsterCard)card).getHealth() + ") ");
+				int lengthDiff = nameLength - 13; /*HERE: vad om lengthDiff < 0? */
+				System.out.print(addSpaces(lengthDiff / 2) + "(C:" + card.getCost() + " A:" + ((MonsterCard)card).getAttack() + " H:" + ((MonsterCard)card).getHealth() + ")" + addSpaces(lengthDiff / 2 + lengthDiff % 2 + 2));
 			} else {
-				int lengthDiff = card.getName().length() - 5;
+				int lengthDiff = nameLength - 5;
 				System.out.print(addSpaces(lengthDiff / 2) + "(C:" + card.getCost() + ")" + addSpaces(lengthDiff / 2 + lengthDiff % 2 + 2));
 			}
 		}
