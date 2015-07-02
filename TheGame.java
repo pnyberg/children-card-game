@@ -191,8 +191,7 @@ public class TheGame {
 			if (minionIndex == TARGETPLAYER) {
 				character = getPlayer(turnIndex);
 			} else {
-				LinkedList<Minion> minionList = getMinionList(turnIndex);
-				character = minionList.get(minionIndex);
+				character = getMinion(minionIndex, turnIndex);
 			}
 
 			HealMinion healMinion = (HealMinion)battleCryEffect;
@@ -217,8 +216,7 @@ public class TheGame {
 			if (minionIndex == TARGETPLAYER) {
 				character = getPlayer(turnIndex);
 			} else {
-				LinkedList<Minion> minionList = getMinionList(turnIndex);
-				character = minionList.get(minionIndex);
+				character = getMinion(minionIndex, turnIndex);
 			}
 
 			DealDamage dealDamage = (DealDamage)battleCryEffect;
@@ -287,17 +285,17 @@ public class TheGame {
 	public void drawCard() {
 //		int randomizer = (int)(Math.random()*10);
 		if (randomizer == 0) {
-			addCardToHand(new MonsterCard(MonsterCard.ELVEN_ARCHER));
+			addCardToHand(new MonsterCard(MonsterCard.MANA_TIDE_TOTEM));
 		} else if (randomizer == 1) {
 			addCardToHand(new MonsterCard(MonsterCard.LOOT_HOARDER));
 		} else if (randomizer == 2) {
-			addCardToHand(new MonsterCard(MonsterCard.UNSTABLE_GHOUL));
+			addCardToHand(new MonsterCard(MonsterCard.ELVEN_ARCHER));
 		} else if (randomizer == 3) {
 			addCardToHand(new MonsterCard(MonsterCard.SLUDGE_BELCHER));
 		} else if (randomizer == 4) {
 			addCardToHand(new MonsterCard(MonsterCard.NOVICE_ENGINEER));
 		} else if (randomizer == 5) {
-			addCardToHand(new SpellCard(SpellCard.DRAGONS_BLOOD));
+			addCardToHand(new MonsterCard(MonsterCard.UNSTABLE_GHOUL));
 		} else if (randomizer == 6) {
 			addCardToHand(new MonsterCard(MonsterCard.WOLFRIDER));
 		} else if (randomizer == 7) {
@@ -316,6 +314,8 @@ public class TheGame {
 			addCardToHand(new SpellCard(SpellCard.STAFF_OF_THE_EMPEROR));
 		} else if (randomizer == 14) {
 			addCardToHand(new SpellCard(SpellCard.FEATHER_OF_THE_FEATHER));
+		} else if (randomizer == 15) {
+			addCardToHand(new SpellCard(SpellCard.DRAGONS_BLOOD));
 		} else {
 			addCardToHand(new MonsterCard(MonsterCard.MURLOC_TIDEHUNTER));
 		}
@@ -588,13 +588,23 @@ public class TheGame {
 		}
 	}
 
-//#600
 	public void handleEndTurnActions(int turnIndex) {
-		for (Minion minion : minionsOnBoard1) {
+		LinkedList<Minion> minionsOtherPlayer = getMinionList((turnIndex + 1) % 2);
+
+		handleEndTurnActionsForList(turnIndex);
+		handleEndTurnActionsForList((turnIndex + 1) % 2);
+	}
+
+//#600
+	public void handleEndTurnActionsForList(int turnIndex) {
+		LinkedList<Minion> minionList = getMinionList(turnIndex);
+
+		for (int i = 0 ; i < minionList.size() ; i++) {
+			Minion minion = minionList.get(i);
 			minion.endTurnAction();
-		}
-		for (Minion minion : minionsOnBoard2) {
-			minion.endTurnAction();
+			if (minion.hasEndTurnEffect()) {
+				manageEndTurnEffect(i, turnIndex);
+			}
 		}
 	}
 
@@ -763,6 +773,31 @@ public class TheGame {
 		}
 	}
 
+	/*HERE*/
+	public void manageStartTurnEffect() {
+	}
+
+	public void manageEndTurnEffect(int minionIndex, int turnIndex) {
+		Minion minion = getMinion(minionIndex, turnIndex);
+		TurnEffect endTurnEffect = minion.getEndTurnEffect();
+
+		if (turn != turnIndex && !endTurnEffect.activeOnBothTurns()) {
+			return;
+		}
+
+		if (endTurnEffect instanceof DrawCardsTurnEffect) {
+			DrawCardsTurnEffect drawCardsTurnEffect = (DrawCardsTurnEffect)endTurnEffect;
+			LinkedList<PlayCard> cardHand = getCardList(turnIndex);
+			LinkedList<PlayCard> deck = new LinkedList<PlayCard>();
+			deck.add(new MonsterCard(MonsterCard.EARTHEN_RING_FARSEER));
+			deck.add(new MonsterCard(MonsterCard.MURLOC_TIDEHUNTER));
+			deck.add(new MonsterCard(MonsterCard.SLUDGE_BELCHER));
+
+			drawCardsTurnEffect.effect(cardHand, deck);
+		}
+	}
+
+//#800
 	public void addMinionToBoard(MonsterCard monsterCard) {
 		LinkedList<Minion> minionsOnBoardList = getMinionList(turn);
 
@@ -786,7 +821,6 @@ public class TheGame {
 		}
 	}
 
-//#800
 	public void addSummonedMinions(int turnIndex) {
 		LinkedList<Minion> minionsOnBoard = getMinionList(turnIndex);
 		LinkedList<Minion> minionTempList = getTempMinionList(turnIndex);
@@ -973,8 +1007,7 @@ public class TheGame {
 			BuffSingleMinion buffSingleMinion = (BuffSingleMinion)spellEffect;
 			int turnIndex = getTurnIndex(str[1]);
 
-			LinkedList<Minion> minionList = getMinionList(turnIndex);
-			Minion minion = minionList.get(minionIndex);
+			Minion minion = getMinion(minionIndex, turnIndex);
 			buffSingleMinion.effect(minion);
 		} else {
 			return false;

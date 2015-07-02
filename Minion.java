@@ -18,9 +18,12 @@ public class Minion extends Character {
 	private SpellEffect battleCryEffect;
 	private SpellEffect deathRattleEffect;
 
+	private TurnEffect startTurnEffect;
+	private TurnEffect endTurnEffect;
+
 	private int attackAmount;
 
-	public Minion(String name, int type, int attack, int health, boolean taunt, boolean charge, boolean divineShield, boolean windfury, SpellEffect battleCryEffect, SpellEffect deathRattleEffect) {
+	public Minion(String name, int type, int attack, int health, boolean taunt, boolean charge, boolean divineShield, boolean windfury, SpellEffect battleCryEffect, SpellEffect deathRattleEffect, TurnEffect startTurnEffect, TurnEffect endTurnEffect) {
 		this.name = name;
 		this.type = type;
 
@@ -39,6 +42,9 @@ public class Minion extends Character {
 
 		this.battleCryEffect = battleCryEffect;
 		this.deathRattleEffect = deathRattleEffect;
+
+		this.startTurnEffect = startTurnEffect;
+		this.endTurnEffect = endTurnEffect;
 
 		if (charge) {
 			prepareMinion();
@@ -174,6 +180,14 @@ public class Minion extends Character {
 		return deathRattleEffect;
 	}
 
+	public TurnEffect getStartTurnEffect() {
+		return startTurnEffect;
+	}
+
+	public TurnEffect getEndTurnEffect() {
+		return endTurnEffect;
+	}
+
 	public boolean hasTaunt() {
 		return taunt;
 	}
@@ -196,5 +210,13 @@ public class Minion extends Character {
 
 	public boolean hasDeathRattle() {
 		return deathRattleEffect != null;
+	}
+
+	public boolean hasStartTurnEffect() {
+		return startTurnEffect != null;
+	}
+
+	public boolean hasEndTurnEffect() {
+		return endTurnEffect != null;
 	}
 }

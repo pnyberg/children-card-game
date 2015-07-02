@@ -25,7 +25,7 @@ public class MonsterCard extends PlayCard {
 							CHILLWIND_YETI = 24,
 							DRAGONLING_MECHANIC = 25,
 							MECHANICAL_DRAGONLING = 26,
-							DISPATCHING_DRAKE = 27,
+							MANA_TIDE_TOTEM = 27,
 							EARTHEN_RING_FARSEER = 28,
 							SLUDGE_BELCHER = 29,
 							SLIME = 30,
@@ -33,7 +33,8 @@ public class MonsterCard extends PlayCard {
 							UNSTABLE_GHOUL = 32,
 							SORCERERS_DRAKE = 33,
 							NOVICE_ENGINEER = 34,
-							DRAGON_GRUNT = 35;
+							DRAGON_GRUNT = 35,
+							DISPATCHING_DRAKE = 36;
 
 	private String name;
 	private int type;
@@ -50,6 +51,9 @@ public class MonsterCard extends PlayCard {
 	private SpellEffect battleCryEffect;
 	private SpellEffect deathRattleEffect;
 
+	private TurnEffect startTurnEffect;
+	private TurnEffect endTurnEffect;
+
 	public MonsterCard(int type) {
 		setStats(type);
 	}
@@ -57,203 +61,141 @@ public class MonsterCard extends PlayCard {
 	private void setStats(int type) {
 		this.type = type;
 
+		taunt = false;
+		charge = false;
+		divineShield = false;
+		windfury = false;
+
+		battleCryEffect = null;
+		deathRattleEffect = null;
+		startTurnEffect = null;
+		endTurnEffect = null;
+
 		if (type == ELVEN_ARCHER) {
 			name = "Elven Archer";
 			initBasicStats(1, 1, 1);
-			initBasicEffectTCSW(false, false, false, false);
 			battleCryEffect = new DealDamage(1);
-			deathRattleEffect = null;
 		} else if (type == GOLDSHIRE_FOOTMAN) {
 			name = "Goldshire Footman";
 			initBasicStats(1, 1, 2);
-			initBasicEffectTCSW(true, false, false, false);
-			battleCryEffect = null;
-			deathRattleEffect = null;
+			taunt = true;
 		} else if (type == GRIMSCALE_ORACLE) {
 			name = "Grimscale Oracle";
 			initBasicStats(1, 1, 1);
-			initBasicEffectTCSW(false, false, false, false);
-			battleCryEffect = null;
-			deathRattleEffect = null;
 		} else if (type == MURLOC_RAIDER) {
 			name = "Murloc Raider";
 			initBasicStats(1, 2, 1);
-			initBasicEffectTCSW(false, false, false, false);
-			battleCryEffect = null;
-			deathRattleEffect = null;
 		} else if (type == STONETUSK_BOAR) {
 			name = "Stonetusk Boar";
 			initBasicStats(1, 1, 1);
-			initBasicEffectTCSW(false, true, false, false);
-			battleCryEffect = null;
-			deathRattleEffect = null;
+			charge = true;
 		} else if (type == VODOO_DOCTOR) {
 			name = "Vodoo Doctor";
 			initBasicStats(1, 2, 1);
-			initBasicEffectTCSW(false, false, false, false);
 			battleCryEffect = new HealMinion(2);
-			deathRattleEffect = null;
 		} else if (type == ACIDIC_SWAMP_OOZE) {
 			name = "Acidic Swamp Ooze";
 			initBasicStats(2, 3, 2);
-			initBasicEffectTCSW(false, false, false, false);
-			battleCryEffect = null;
-			deathRattleEffect = null;
 		} else if (type == BLOODFEN_RAPTOR) {
 			name = "Bloodfen Raptor";
 			initBasicStats(2, 3, 2);
-			initBasicEffectTCSW(false, false, false, false);
-			battleCryEffect = null;
-			deathRattleEffect = null;
 		} else if (type == BLUEGILL_WARRIOR) {
 			name = "Bluegill Warrior";
 			initBasicStats(2, 2, 1);
-			initBasicEffectTCSW(false, true, false, false);
-			battleCryEffect = null;
-			deathRattleEffect = null;
+			charge = true;
 		} else if (type == FROSTWOLF_GRUNT) {
 			name = "Frostwolf Grunt";
 			initBasicStats(2, 2, 2);
-			initBasicEffectTCSW(true, false, false, false);
-			battleCryEffect = null;
-			deathRattleEffect = null;
+			taunt = true;
 		} else if (type == KOBOLD_GEOMANCER) {
 			name = "Kobold Geomancer";
 			initBasicStats(2, 2, 2);
-			initBasicEffectTCSW(false, false, false, false);
-			battleCryEffect = null;
-			deathRattleEffect = null;
 		} else if (type == RIVER_CROCOLISK) {
 			name = "River Crocolisk";
 			initBasicStats(2, 2, 3);
-			initBasicEffectTCSW(false, false, false, false);
-			battleCryEffect = null;
-			deathRattleEffect = null;
 		} else if (type == DALARAN_MAGE) {
 			name = "Dalaran Mage";
 			initBasicStats(3, 1, 4);
-			initBasicEffectTCSW(false, false, false, false);
-			battleCryEffect = null;
-			deathRattleEffect = null;
 		} else if (type == IRONFORGE_RIFLEMAN) {
 			name = "Ironforge Rifleman";
 			initBasicStats(3, 2, 2);
-			initBasicEffectTCSW(false, false, false, false);
 			battleCryEffect = new DealDamage(1);
-			deathRattleEffect = null;
 		} else if (type == IRONFUR_GRIZZLY) {
 			name = "Ironfur Grizzly";
 			initBasicStats(3, 3, 3);
-			initBasicEffectTCSW(true, false, false, false);
-			battleCryEffect = null;
-			deathRattleEffect = null;
+			taunt = true;
 		} else if (type == MAGMA_RAGER) {
 			name = "Magma Rager";
 			initBasicStats(3, 5, 1);
-			initBasicEffectTCSW(false, false, false, false);
-			battleCryEffect = null;
-			deathRattleEffect = null;
 		} else if (type == RAID_LEADER) {
 			name = "Raid Leader";
 			initBasicStats(3, 2, 2);
-			initBasicEffectTCSW(false, false, false, false);
-			battleCryEffect = null;
-			deathRattleEffect = null;
 		} else if (type == SHATTERED_SUN_CLERIC) {
 			name = "Shattered Sun Cleric";
 			initBasicStats(3, 3, 2);
-			initBasicEffectTCSW(false, false, false, false);
 			battleCryEffect = new BuffSingleMinion(1, 1, false, false, false, false, false);
-			deathRattleEffect = null;
 		} else if (type == SILVERBACK_PATRIARCH) {
 			name = "Silverback Patriarch";
 			initBasicStats(3, 1, 4);
-			initBasicEffectTCSW(true, false, false, false);
-			battleCryEffect = null;
-			deathRattleEffect = null;
+			taunt = true;
 		} else if (type == WOLFRIDER) {
 			name = "Wolfrider";
 			initBasicStats(3, 3, 1);
-			initBasicEffectTCSW(false, true, false, false);
-			battleCryEffect = null;
-			deathRattleEffect = null;
+			charge = true;
 		} else if (type == CHILLWIND_YETI) {
 			name = "Chillwind Yeti";
 			initBasicStats(4, 4, 5);
-			initBasicEffectTCSW(false, false, false, false);
-			battleCryEffect = null;
-			deathRattleEffect = null;
 		} else if (type == DRAGONLING_MECHANIC) {
 			name = "Dragonling Mechanic";
 			initBasicStats(4, 2, 4);
-			initBasicEffectTCSW(false, false, false, false);
 			battleCryEffect = new SummonMinions(new int[] {MECHANICAL_DRAGONLING}, null);
-			deathRattleEffect = null;
 		} else if (type == MECHANICAL_DRAGONLING) {
 			name = "Mechanical Dragonling";
 			initBasicStats(1, 2, 1);
-			initBasicEffectTCSW(false, false, false, false);
-			battleCryEffect = null;
-			deathRattleEffect = null;
+		} else if (type == MANA_TIDE_TOTEM) {
+			name = "Mana Tide Totem";
+			initBasicStats(3, 0, 3);
+			endTurnEffect = new DrawCardsTurnEffect(1, false);
 		} else if (type == SORCERERS_DRAKE) {
 			name = "Sorcerers Drake";
 			initBasicStats(1, 1, 2);
-			initBasicEffectTCSW(false, false, false, false);
 			battleCryEffect = new BuffSingleMinion(2, 0, false, false, false, false, true);
-			deathRattleEffect = null;
 		} else if (type == MURLOC_TIDEHUNTER) {
 			name = "Murloc Tidehunter";
 			initBasicStats(2, 2, 1);
-			initBasicEffectTCSW(false, false, false, false);
 			battleCryEffect = new SummonMinions(new int[] {MURLOC_SCOUT}, null);
-			deathRattleEffect = null;
 		} else if (type == MURLOC_SCOUT) {
 			name = "Murloc Scout";
 			initBasicStats(0, 1, 1);
-			initBasicEffectTCSW(false, false, false, false);
-			battleCryEffect = null;
-			deathRattleEffect = null;
 		} else if (type == DISPATCHING_DRAKE) {
 			name = "Dispatching Drake";
 			initBasicStats(1, 2, 1);
-			initBasicEffectTCSW(false, false, false, false);
 			battleCryEffect = new PickUpMinion(-1);
-			deathRattleEffect = null;
 		} else if (type == EARTHEN_RING_FARSEER) {
 			name = "Earthen Ring Farseer";
 			initBasicStats(3, 3, 3);
-			initBasicEffectTCSW(false, false, false, false);
 			battleCryEffect = new HealMinion(3);
-			deathRattleEffect = null;
 		} else if (type == SLUDGE_BELCHER) {
 			name = "Sludge Belcher";
 			initBasicStats(5, 3, 5);
-			initBasicEffectTCSW(true, false, false, false);
-			battleCryEffect = null;
+			taunt = true;
 			deathRattleEffect = new SummonMinions(new int[] {SLIME}, null);
 		} else if (type == SLIME) {
 			name = "Slime";
 			initBasicStats(1, 1, 2);
-			initBasicEffectTCSW(true, false, false, false);
-			battleCryEffect = null;
-			deathRattleEffect = null;
+			taunt = true;
 		} else if (type == NOVICE_ENGINEER) {
 			name = "Novice Engineer";
 			initBasicStats(2, 1, 1);
-			initBasicEffectTCSW(false, false, false, false);
 			battleCryEffect = new DrawCards(1);
-			deathRattleEffect = null;
 		} else if (type == LOOT_HOARDER) {
 			name = "Loot Hoarder";
 			initBasicStats(2, 2, 1);
-			initBasicEffectTCSW(false, false, false, false);
-			battleCryEffect = null;
 			deathRattleEffect = new DrawCards(1);
 		} else if (type == UNSTABLE_GHOUL) {
 			name = "Unstable Ghoul";
 			initBasicStats(2, 1, 3);
-			initBasicEffectTCSW(true, false, false, false);
-			battleCryEffect = null;
+			taunt = true;
 			deathRattleEffect = new DealDamageToAllMinions(1);
 		}
 	}
@@ -262,13 +204,6 @@ public class MonsterCard extends PlayCard {
 		this.cost = cost;
 		this.attack = attack;
 		this.health = health;
-	}
-
-	private void initBasicEffectTCSW(boolean taunt, boolean charge, boolean divineShield, boolean windfury) {
-		this.taunt = taunt;
-		this.charge = charge;
-		this.divineShield = divineShield;
-		this.windfury = windfury;
 	}
 
 	public void changeCost(int costChange) {
@@ -296,6 +231,6 @@ public class MonsterCard extends PlayCard {
 	}
 
 	public Minion toMinion() {
-		return new Minion(name, type, attack, health, taunt, charge, divineShield, windfury, battleCryEffect, deathRattleEffect);
+		return new Minion(name, type, attack, health, taunt, charge, divineShield, windfury, battleCryEffect, deathRattleEffect, startTurnEffect, endTurnEffect);
 	}
 }

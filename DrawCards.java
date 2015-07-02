@@ -1,7 +1,7 @@
 import java.util.LinkedList;
 
 public class DrawCards extends SpellEffect {
-	int drawAmount;
+	private int drawAmount;
 
 	public DrawCards(int drawAmount) {
 		this.drawAmount = drawAmount;
