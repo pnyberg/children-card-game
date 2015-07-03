@@ -14,6 +14,7 @@ public class Minion extends Character {
 	private boolean charge;
 	private boolean divineShield;
 	private boolean windfury;
+	private boolean cannotAttack;
 
 	private SpellEffect battleCryEffect;
 	private SpellEffect deathRattleEffect;
@@ -23,7 +24,7 @@ public class Minion extends Character {
 
 	private int attackAmount;
 
-	public Minion(String name, int type, int attack, int health, boolean taunt, boolean charge, boolean divineShield, boolean windfury, SpellEffect battleCryEffect, SpellEffect deathRattleEffect, TurnEffect startTurnEffect, TurnEffect endTurnEffect) {
+	public Minion(String name, int type, int attack, int health, boolean taunt, boolean charge, boolean divineShield, boolean windfury, boolean cannotAttack, SpellEffect battleCryEffect, SpellEffect deathRattleEffect, TurnEffect startTurnEffect, TurnEffect endTurnEffect) {
 		this.name = name;
 		this.type = type;
 
@@ -39,6 +40,7 @@ public class Minion extends Character {
 		this.charge = charge;
 		this.divineShield = divineShield;
 		this.windfury = windfury;
+		this.cannotAttack = cannotAttack;
 
 		this.battleCryEffect = battleCryEffect;
 		this.deathRattleEffect = deathRattleEffect;
@@ -67,7 +69,7 @@ public class Minion extends Character {
 	}
 
 	public boolean canAttack() {
-		return attackAmount > 0;
+		return attackAmount > 0 && !cannotAttack;
 	}
 
 	public String reasonForNotAttacking() {
@@ -130,6 +132,10 @@ public class Minion extends Character {
 			else { attackAmount--; }
 		}
 		this.windfury = windfury;
+	}
+
+	public void setCannotAttack(boolean cannotAttack) {
+		this.cannotAttack = cannotAttack;
 	}
 
 	public boolean isAlive() {
@@ -202,6 +208,10 @@ public class Minion extends Character {
 
 	public boolean hasWindfury() {
 		return windfury;
+	}
+
+	public boolean hasCannotAttack() {
+		return cannotAttack;
 	}
 
 	public boolean hasBattleCry() {

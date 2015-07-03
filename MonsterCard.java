@@ -35,7 +35,21 @@ public class MonsterCard extends PlayCard {
 							NOVICE_ENGINEER = 34,
 							DRAGON_GRUNT = 35,
 							DISPATCHING_DRAKE = 36,
-							RAGNAROS = 37;
+							RAGNAROS = 37,
+							YSERA = 38, // not done
+							KELTHUZAD = 39, // not done
+							EMPEROR_THAURISSAN = 40, // not done
+							ALEXSTRASZA = 41, // not done
+							SYLVANAS_WINDRUNNER = 42,
+							CAIRE_BLOODHOOF = 43,
+							BAINE_BLOODHOOF = 44,
+							ALAKIR = 45,
+							KING_KRUSH = 46,
+							MALGANIS = 47, // not done
+							DEATHWING = 48, // not done
+							MALYGOS = 49, // not done
+							DR_BOOM = 50,
+							BOOM_BOT = 51;
 
 	private String name;
 	private int type;
@@ -48,6 +62,7 @@ public class MonsterCard extends PlayCard {
 	private boolean charge;
 	private boolean divineShield;
 	private boolean windfury;
+	private boolean cannotAttack;
 
 	private SpellEffect battleCryEffect;
 	private SpellEffect deathRattleEffect;
@@ -66,6 +81,7 @@ public class MonsterCard extends PlayCard {
 		charge = false;
 		divineShield = false;
 		windfury = false;
+		cannotAttack = false;
 
 		battleCryEffect = null;
 		deathRattleEffect = null;
@@ -201,7 +217,34 @@ public class MonsterCard extends PlayCard {
 		} else if (type == RAGNAROS) {
 			name = "Ragnaros";
 			initBasicStats(8, 8, 8);
-			endTurnEffect = new DealRandomDamageTurnEffect(8, false, true);
+			cannotAttack = true;
+			endTurnEffect = new DealDamageRandomTurnEffect(8, false, true);
+		} else if (type == CAIRE_BLOODHOOF) {
+			name = "Cairne Bloodhoof";
+			initBasicStats(6, 4, 5);
+			deathRattleEffect = new SummonMinions(new int[] {BAINE_BLOODHOOF}, null);
+		} else if (type == CAIRE_BLOODHOOF) {
+			name = "Baine Bloodhoof";
+			initBasicStats(4, 4, 5);
+		} else if (type == ALAKIR) {
+			name = "Al'Akir";
+			initBasicStats(8, 3, 5);
+			charge = true;
+			taunt = true;
+			divineShield = true;
+			windfury = true;
+		} else if (type == KING_KRUSH) {
+			name = "King Krush";
+			initBasicStats(8, 8, 8);
+			charge = true;
+		} else if (type == DR_BOOM) {
+			name = "Dr. Boom";
+			initBasicStats(7, 7, 7);
+			battleCryEffect = new SummonMinions(new int[] {BOOM_BOT, BOOM_BOT}, null);
+		} else if (type == BOOM_BOT) {
+			name = "Boom Bot";
+			initBasicStats(1, 1, 1);
+			deathRattleEffect = new DealRandomDamageRandomly(1, 3, true);
 		}
 	}
 
@@ -236,6 +279,6 @@ public class MonsterCard extends PlayCard {
 	}
 
 	public Minion toMinion() {
-		return new Minion(name, type, attack, health, taunt, charge, divineShield, windfury, battleCryEffect, deathRattleEffect, startTurnEffect, endTurnEffect);
+		return new Minion(name, type, attack, health, taunt, charge, divineShield, windfury, cannotAttack, battleCryEffect, deathRattleEffect, startTurnEffect, endTurnEffect);
 	}
 }

@@ -1,11 +1,11 @@
 import java.util.LinkedList;
 
-public class DealRandomDamageTurnEffect extends TurnEffect {
+public class DealDamageRandomTurnEffect extends TurnEffect {
 	private int damageAmount;
 	private boolean activeOnBothTurns;
 	private boolean enemiesOnly;
 
-	public DealRandomDamageTurnEffect(int damageAmount, boolean activeOnBothTurns, boolean enemiesOnly) {
+	public DealDamageRandomTurnEffect(int damageAmount, boolean activeOnBothTurns, boolean enemiesOnly) {
 		this.damageAmount = damageAmount;
 		this.activeOnBothTurns = activeOnBothTurns;
 		this.enemiesOnly = enemiesOnly;
