@@ -16,6 +16,7 @@ public class TheGame {
 	private Player player2;
 
 	private boolean handlingBattleCry;
+	private boolean emptyHand;
 
 	private int playedMinionType;
 	private int minionTriedToPlayCardIndex;
@@ -277,7 +278,7 @@ public class TheGame {
 		} else if (randomizer == 1) {
 			addCardToHand(new MonsterCard(MonsterCard.RAGNAROS));
 		} else if (randomizer == 2) {
-			addCardToHand(new MonsterCard(MonsterCard.ELVEN_ARCHER));
+			addCardToHand(new MonsterCard(MonsterCard.DEATHWING));
 		} else if (randomizer == 3) {
 			addCardToHand(new MonsterCard(MonsterCard.MANA_TIDE_TOTEM));
 		} else if (randomizer == 4) {
@@ -289,7 +290,7 @@ public class TheGame {
 		} else if (randomizer == 7) {
 			addCardToHand(new MonsterCard(MonsterCard.SORCERERS_DRAKE));
 		} else if (randomizer == 8) {
-			addCardToHand(new SpellCard(SpellCard.EMERALD_SCALE));
+			addCardToHand(new MonsterCard(MonsterCard.ELVEN_ARCHER));
 		} else if (randomizer == 9) {
 			addCardToHand(new MonsterCard(MonsterCard.LOOT_HOARDER));
 		} else if (randomizer == 10) {
@@ -308,6 +309,8 @@ public class TheGame {
 			addCardToHand(new SpellCard(SpellCard.DRAGON_POWER));
 		} else if (randomizer == 17) {
 			addCardToHand(new MonsterCard(MonsterCard.DISPATCHING_DRAKE));
+		} else if (randomizer == 18) {
+			addCardToHand(new SpellCard(SpellCard.EMERALD_SCALE));
 		} else {
 			addCardToHand(new MonsterCard(MonsterCard.MURLOC_TIDEHUNTER));
 		}
@@ -673,7 +676,11 @@ public class TheGame {
 		LinkedList<PlayCard> cardList = getCardList(turn);
 
 		if (index >= 0 && index < cardList.size()) {
-			cardList.remove(index);
+			if (emptyHand) {
+				cardList.clear();
+			} else {
+				cardList.remove(index);
+			}
 			return;
 		}
 
@@ -722,6 +729,15 @@ public class TheGame {
 			deck.add(new MonsterCard(MonsterCard.SLUDGE_BELCHER));
 
 			drawCards.effect(cardHand, deck);
+		} else if (battleCryEffect instanceof DestroyAllMinions) {
+			DestroyAllMinions destroyAllMinions = (DestroyAllMinions)battleCryEffect;
+
+			LinkedList<Minion> friendlyMinionList = getMinionList(turnIndex);
+			LinkedList<Minion> enemyMinionList = getMinionList((turnIndex + 1) % 2);
+
+			emptyHand = true;
+
+			destroyAllMinions.effect(friendlyMinionList, enemyMinionList);
 		}
 	}
 

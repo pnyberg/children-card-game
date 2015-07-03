@@ -1,13 +1,15 @@
 === TODO ===
 * BattleCry (swap att/def)
-* Deathrattle
 * Spell (heal)
 * Weapon
+* SpellDamage
 
-* EndTurn-effect
 * StartTurn-effect
 * TakeDmg-effect (deal / take + this/any minion)
 * Summon-minion-effect (own / any)
 * SpellCast-effect (own / enemy / any + minion / player)
 
 * Multipla effecter
+
+
+* Ordning på hantering (ex Boom Bot attackerar Boom Bot där båda träffar andra, som dör, t ex Boom Bots)

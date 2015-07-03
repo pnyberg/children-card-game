@@ -46,7 +46,7 @@ public class MonsterCard extends PlayCard {
 							ALAKIR = 45,
 							KING_KRUSH = 46,
 							MALGANIS = 47, // not done
-							DEATHWING = 48, // not done
+							DEATHWING = 48, // not done - separate effect to discard hand
 							MALYGOS = 49, // not done
 							DR_BOOM = 50,
 							BOOM_BOT = 51;
@@ -245,6 +245,10 @@ public class MonsterCard extends PlayCard {
 			name = "Boom Bot";
 			initBasicStats(1, 1, 1);
 			deathRattleEffect = new DealRandomDamageRandomly(1, 3, true);
+		} else if (type == DEATHWING) {
+			name = "Deathwing";
+			initBasicStats(10, 12, 12);
+			battleCryEffect = new DestroyAllMinions();
 		}
 	}
 
