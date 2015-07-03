@@ -135,57 +135,32 @@ public class TheGame {
 
 		SpellEffect battleCryEffect = minionTriedToPlay.getBattleCryEffect();
 
-		if (battleCryEffect instanceof BuffSingleMinion) {
-			int minionIndex = getBattleCryTargetIndex(str, new String[]{"target"});
+		handleBattleCryEffectTargeting(str, battleCryEffect);
+	}
 
-			if (minionIndex == -1) {
-				return;
-			}
+	public void handleBattleCryEffectTargeting(String[] str, SpellEffect battleCryEffect) {
+		String[] array;
 
-			int turnIndex = getTurnIndex(str[1]);
-			LinkedList<Minion> minionList = getMinionList(turnIndex);
-
-			Minion minion = minionList.get(minionIndex);
-
-			BuffSingleMinion buffSingleMinion = (BuffSingleMinion)battleCryEffect;
-			buffSingleMinion.effect(minion);
-
-			System.out.println(minion.getName() + " got buffed!");
-			handlingBattleCry = false;
-
-			addMinionToBoardRemoveFromHand(minionList);
+		if (battleCryEffect instanceof BuffSingleMinion || battleCryEffect instanceof DealDamage) {
+			array = new String[]{"target"};
 		} else if (battleCryEffect instanceof PickUpMinion) {
-			int minionIndex = getBattleCryTargetIndex(str, new String[]{"pick", "up"});
-
-			if (minionIndex == -1) {
-				return;
-			}
-
-			int turnIndex = getTurnIndex(str[2]);
-			LinkedList<Minion> minionList = getMinionList(turnIndex);
-
-			LinkedList<PlayCard> cardHand = getCardList(turnIndex);
-
-			Minion minion = minionList.get(minionIndex);
-
-			PickUpMinion pickUpMinion = (PickUpMinion)battleCryEffect;
-			pickUpMinion.effect(minion, cardHand);
-
-			removeMinionFromBoard(minionIndex, turnIndex);
-
-			System.out.println(minion.getName() + " got picked up!");
-			handlingBattleCry = false;
-
-			addMinionToBoardRemoveFromHand(minionList);
+			array = new String[]{"pick", "up"};
 		} else if (battleCryEffect instanceof HealMinion) {
-			int minionIndex = getBattleCryTargetIndex(str, new String[]{"heal"});
+			array = new String[]{"heal"};
+		} else {
+			return;
+		}
 
-			if (minionIndex == -1) {
-				return;
-			}
+		int minionIndex = getBattleCryTargetIndex(str, array);
 
-			int turnIndex = getTurnIndex(str[1]);
+		if (minionIndex == -1) {
+			return;
+		}
 
+		int arrayLength = array.length;
+		int turnIndex = getTurnIndex(str[arrayLength]);
+
+		if (battleCryEffect instanceof HealMinion) {
 			Character character;
 
 			if (minionIndex == TARGETPLAYER) {
@@ -195,22 +170,11 @@ public class TheGame {
 			}
 
 			HealMinion healMinion = (HealMinion)battleCryEffect;
+
 			healMinion.effect(character);
 
 			System.out.println(character.getName() + " got healed!");
-			handlingBattleCry = false;
-
-			LinkedList<Minion> minionList = getMinionList(turn);
-			addMinionToBoardRemoveFromHand(minionList);
 		} else if (battleCryEffect instanceof DealDamage) {
-			int minionIndex = getBattleCryTargetIndex(str, new String[]{"target"});
-
-			if (minionIndex == -1) {
-				return;
-			}
-
-			int turnIndex = getTurnIndex(str[1]);
-
 			Character character;
 
 			if (minionIndex == TARGETPLAYER) {
@@ -220,17 +184,144 @@ public class TheGame {
 			}
 
 			DealDamage dealDamage = (DealDamage)battleCryEffect;
+
 			dealDamage.effect(character);
 
 			System.out.println(character.getName() + " took damage!");
-			handlingBattleCry = false;
+		} else {
+			LinkedList<Minion> minionTargetList = getMinionList(turnIndex);
 
-			LinkedList<Minion> minionList = getMinionList(turn);
-			addMinionToBoardRemoveFromHand(minionList);
+			Minion targetMinion = minionTargetList.get(minionIndex);
 
-			if (minionIndex != TARGETPLAYER) {
-				checkDeath(minionIndex, turnIndex);
+			if (battleCryEffect instanceof BuffSingleMinion) {
+				BuffSingleMinion buffSingleMinion = (BuffSingleMinion)battleCryEffect;
+
+				buffSingleMinion.effect(targetMinion);
+
+				System.out.println(targetMinion.getName() + " got buffed!");
+			} else if (battleCryEffect instanceof PickUpMinion) {
+				PickUpMinion pickUpMinion = (PickUpMinion)battleCryEffect;
+				LinkedList<PlayCard> cardHand = getCardList(turnIndex);
+
+				pickUpMinion.effect(targetMinion, cardHand);
+
+				removeMinionFromBoard(minionIndex, turnIndex);
+
+				System.out.println(targetMinion.getName() + " got picked up!");
 			}
+		}
+
+		LinkedList<Minion> minionList = getMinionList(turn);
+		addMinionToBoardRemoveFromHand(minionList);
+
+		handlingBattleCry = false;
+
+		if (minionIndex != TARGETPLAYER) {
+			checkDeath(minionIndex, turnIndex);
+		}
+	}
+
+/*	public void battleCryBuffSingleMinion(String[] str, SpellEffect battleCryEffect) {
+		int minionIndex = getBattleCryTargetIndex(str, new String[]{"target"});
+
+		if (minionIndex == -1) {
+			return;
+		}
+
+		int turnIndex = getTurnIndex(str[1]);
+		LinkedList<Minion> minionList = getMinionList(turnIndex);
+
+		Minion minion = minionList.get(minionIndex);
+
+		BuffSingleMinion buffSingleMinion = (BuffSingleMinion)battleCryEffect;
+		buffSingleMinion.effect(minion);
+
+		System.out.println(minion.getName() + " got buffed!");
+		handlingBattleCry = false;
+
+		addMinionToBoardRemoveFromHand(minionList);
+	}
+
+	public void battleCryPickUpMinion(String[] str, SpellEffect battleCryEffect) {
+		int minionIndex = getBattleCryTargetIndex(str, new String[]{"pick", "up"});
+
+		if (minionIndex == -1) {
+			return;
+		}
+
+		int turnIndex = getTurnIndex(str[2]);
+		LinkedList<Minion> minionList = getMinionList(turnIndex);
+
+		LinkedList<PlayCard> cardHand = getCardList(turnIndex);
+
+		Minion minion = minionList.get(minionIndex);
+
+		PickUpMinion pickUpMinion = (PickUpMinion)battleCryEffect;
+		pickUpMinion.effect(minion, cardHand);
+
+		removeMinionFromBoard(minionIndex, turnIndex);
+
+		System.out.println(minion.getName() + " got picked up!");
+		handlingBattleCry = false;
+
+		addMinionToBoardRemoveFromHand(minionList);
+	}
+
+	public void battleCryHealMinion(String[] str, SpellEffect battleCryEffect) {
+		int minionIndex = getBattleCryTargetIndex(str, new String[]{"heal"});
+
+		if (minionIndex == -1) {
+			return;
+		}
+
+		int turnIndex = getTurnIndex(str[1]);
+
+		Character character;
+
+		if (minionIndex == TARGETPLAYER) {
+			character = getPlayer(turnIndex);
+		} else {
+			character = getMinion(minionIndex, turnIndex);
+		}
+
+		HealMinion healMinion = (HealMinion)battleCryEffect;
+		healMinion.effect(character);
+
+		System.out.println(character.getName() + " got healed!");
+		handlingBattleCry = false;
+
+		LinkedList<Minion> minionList = getMinionList(turn);
+		addMinionToBoardRemoveFromHand(minionList);
+	}
+*/
+	public void battleCryDealDamage(String[] str, SpellEffect battleCryEffect) {
+		int minionIndex = getBattleCryTargetIndex(str, new String[]{"target"});
+
+		if (minionIndex == -1) {
+			return;
+		}
+
+		int turnIndex = getTurnIndex(str[1]);
+
+		Character character;
+
+		if (minionIndex == TARGETPLAYER) {
+			character = getPlayer(turnIndex);
+		} else {
+			character = getMinion(minionIndex, turnIndex);
+		}
+
+		DealDamage dealDamage = (DealDamage)battleCryEffect;
+		dealDamage.effect(character);
+
+		System.out.println(character.getName() + " took damage!");
+		handlingBattleCry = false;
+
+		LinkedList<Minion> minionList = getMinionList(turn);
+		addMinionToBoardRemoveFromHand(minionList);
+
+		if (minionIndex != TARGETPLAYER) {
+			checkDeath(minionIndex, turnIndex);
 		}
 	}
 
@@ -285,13 +376,13 @@ public class TheGame {
 	public void drawCard() {
 //		int randomizer = (int)(Math.random()*10);
 		if (randomizer == 0) {
-			addCardToHand(new MonsterCard(MonsterCard.MANA_TIDE_TOTEM));
+			addCardToHand(new MonsterCard(MonsterCard.RAGNAROS));
 		} else if (randomizer == 1) {
-			addCardToHand(new MonsterCard(MonsterCard.LOOT_HOARDER));
+			addCardToHand(new MonsterCard(MonsterCard.DISPATCHING_DRAKE));
 		} else if (randomizer == 2) {
 			addCardToHand(new MonsterCard(MonsterCard.ELVEN_ARCHER));
 		} else if (randomizer == 3) {
-			addCardToHand(new MonsterCard(MonsterCard.SLUDGE_BELCHER));
+			addCardToHand(new MonsterCard(MonsterCard.MANA_TIDE_TOTEM));
 		} else if (randomizer == 4) {
 			addCardToHand(new MonsterCard(MonsterCard.NOVICE_ENGINEER));
 		} else if (randomizer == 5) {
@@ -299,13 +390,13 @@ public class TheGame {
 		} else if (randomizer == 6) {
 			addCardToHand(new MonsterCard(MonsterCard.WOLFRIDER));
 		} else if (randomizer == 7) {
-			addCardToHand(new SpellCard(SpellCard.DRAGON_POWER));
+			addCardToHand(new MonsterCard(MonsterCard.SORCERERS_DRAKE));
 		} else if (randomizer == 8) {
 			addCardToHand(new SpellCard(SpellCard.EMERALD_SCALE));
 		} else if (randomizer == 9) {
-			addCardToHand(new MonsterCard(MonsterCard.SORCERERS_DRAKE));
+			addCardToHand(new MonsterCard(MonsterCard.LOOT_HOARDER));
 		} else if (randomizer == 10) {
-			addCardToHand(new MonsterCard(MonsterCard.DISPATCHING_DRAKE));
+			addCardToHand(new MonsterCard(MonsterCard.SLUDGE_BELCHER));
 		} else if (randomizer == 11) {
 			addCardToHand(new MonsterCard(MonsterCard.EARTHEN_RING_FARSEER));
 		} else if (randomizer == 12) {
@@ -316,6 +407,8 @@ public class TheGame {
 			addCardToHand(new SpellCard(SpellCard.FEATHER_OF_THE_FEATHER));
 		} else if (randomizer == 15) {
 			addCardToHand(new SpellCard(SpellCard.DRAGONS_BLOOD));
+		} else if (randomizer == 16) {
+			addCardToHand(new SpellCard(SpellCard.DRAGON_POWER));
 		} else {
 			addCardToHand(new MonsterCard(MonsterCard.MURLOC_TIDEHUNTER));
 		}
@@ -488,7 +581,6 @@ public class TheGame {
 		}
 	}
 
-//#500
 	public void checkDeath(int minionIndex, int turnIndex) {
 		Minion minion = getMinion(minionIndex, turnIndex);
 
@@ -502,6 +594,7 @@ public class TheGame {
 		}
 	}
 
+//#500
 	public void attackEnemyPlayer(int attackerIndex) {
 		Minion attackingMinion = getAttacker(attackerIndex);
 
@@ -584,7 +677,6 @@ public class TheGame {
 		handleEndTurnActionsForList((turnIndex + 1) % 2);
 	}
 
-//#600
 	public void handleEndTurnActionsForList(int turnIndex) {
 		LinkedList<Minion> minionList = getMinionList(turnIndex);
 
@@ -597,6 +689,7 @@ public class TheGame {
 		}
 	}
 
+//#600
 	public void printHelp() {
 		System.out.println("Following commands currently exists:");
 		System.out.println(" - draw = you draw a new card");
@@ -698,9 +791,11 @@ public class TheGame {
 		SpellEffect battleCryEffect = minion.getBattleCryEffect();
 
 		if (battleCryEffect instanceof BuffSingleMinion) {
-			handlingBattleCry = true;
+			if (minionExists()) {
+				handlingBattleCry = true;
 
-			System.out.println("Which minion do you want to target?");
+				System.out.println("Which minion do you want to target?");
+			}
 		} else if (battleCryEffect instanceof SummonMinions) {
 			SummonMinions summonMinions = (SummonMinions)battleCryEffect;
 			LinkedList<Minion> friendlyPlayerMinionTempList = getTempMinionList(turnIndex);
@@ -708,13 +803,15 @@ public class TheGame {
 
 			summonMinions.effect(friendlyPlayerMinionTempList, enemyPlayerMinionTempList);
 		} else if (battleCryEffect instanceof PickUpMinion) {
-			handlingBattleCry = true;
+			if (minionExists()) {
+				handlingBattleCry = true;
 
-			System.out.println("Which minion do you want to pick up?");
+				System.out.println("Which minion do you want to pick up?");
+			}
 		} else if (battleCryEffect instanceof HealMinion) {
 			handlingBattleCry = true;
 
-			System.out.println("Which minion do you want to heal?");
+			System.out.println("Which character do you want to heal?");
 		} else if (battleCryEffect instanceof DealDamage) {
 			handlingBattleCry = true;
 
@@ -729,6 +826,10 @@ public class TheGame {
 
 			drawCards.effect(cardHand, deck);
 		}
+	}
+
+	public boolean minionExists() {
+		return !minionsOnBoard1.isEmpty() || !minionsOnBoard2.isEmpty();
 	}
 
 	public void manageDeathRattle(Minion minion, int turnIndex) {
@@ -783,6 +884,9 @@ public class TheGame {
 			deck.add(new MonsterCard(MonsterCard.SLUDGE_BELCHER));
 
 			drawCardsTurnEffect.effect(cardHand, deck);
+		} else if (endTurnEffect instanceof DealRandomDamageTurnEffect) {
+			System.out.println("dealing damage randomly");
+			/*HERE*/
 		}
 	}
 
@@ -900,6 +1004,7 @@ public class TheGame {
 		System.out.println("");
 	}
 
+//#900
 	public void printBoardInfo(int turnIndex) {
 		LinkedList<Minion> minionList = getMinionList(turnIndex);
 
@@ -928,7 +1033,6 @@ public class TheGame {
 		System.out.println("");
 	}
 
-//#900
 	public void printBoardMinionNames(int turnIndex, LinkedList<Minion> minionList) {
 		System.out.print("Monsters Player " + (turnIndex + 1) + ": ");
 

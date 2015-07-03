@@ -34,7 +34,8 @@ public class MonsterCard extends PlayCard {
 							SORCERERS_DRAKE = 33,
 							NOVICE_ENGINEER = 34,
 							DRAGON_GRUNT = 35,
-							DISPATCHING_DRAKE = 36;
+							DISPATCHING_DRAKE = 36,
+							RAGNAROS = 37;
 
 	private String name;
 	private int type;
@@ -197,6 +198,10 @@ public class MonsterCard extends PlayCard {
 			initBasicStats(2, 1, 3);
 			taunt = true;
 			deathRattleEffect = new DealDamageToAllMinions(1);
+		} else if (type == RAGNAROS) {
+			name = "Ragnaros";
+			initBasicStats(8, 8, 8);
+			endTurnEffect = new DealRandomDamageTurnEffect(8, false, true);
 		}
 	}
 
