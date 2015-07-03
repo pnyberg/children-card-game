@@ -274,10 +274,7 @@ public class TheGame {
 //		int randomizer = (int)(Math.random()*10);
 		if (randomizer == 0) {
 			addCardToHand(new MonsterCard(MonsterCard.DR_BOOM));
-			addCardToHand(new MonsterCard(MonsterCard.DR_BOOM));
 		} else if (randomizer == 1) {
-			addCardToHand(new MonsterCard(MonsterCard.DR_BOOM));
-			addCardToHand(new MonsterCard(MonsterCard.DR_BOOM));
 			addCardToHand(new MonsterCard(MonsterCard.RAGNAROS));
 		} else if (randomizer == 2) {
 			addCardToHand(new MonsterCard(MonsterCard.ELVEN_ARCHER));

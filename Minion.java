@@ -94,7 +94,9 @@ public class Minion extends Character {
 	}
 
 	public void takeDamage(int damageAmount) {
-		currentHealth -= damageAmount;		
+		currentHealth -= damageAmount;
+
+		System.out.println(name + " takes " + damageAmount + " damage!");	
 	}
 
 	public void heal(int healAmount) {

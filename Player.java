@@ -10,7 +10,9 @@ public class Player extends Character {
 	}
 
 	public void takeDamage(int damageAmount) {
-		health -= damageAmount;		
+		health -= damageAmount;
+
+		System.out.println(name + " takes " + damageAmount + " damage!");	
 	}
 
 	public void heal(int healAmount) {
