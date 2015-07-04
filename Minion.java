@@ -116,6 +116,10 @@ public class Minion extends Character {
 		currentMaxHealth += add;
 	}
 
+	public void kill() {
+		currentHealth = 0;
+	}
+
 	public void setTaunt(boolean taunt) {
 		this.taunt = taunt;
 	}

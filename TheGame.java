@@ -737,12 +737,28 @@ public class TheGame {
 
 			emptyHand = true;
 
+			killAllMinions(turn);
+			checkDeathBoard();
+
 			destroyAllMinions.effect(friendlyMinionList, enemyMinionList);
 		}
 	}
 
 	public boolean minionExists() {
 		return !minionsOnBoard1.isEmpty() || !minionsOnBoard2.isEmpty();
+	}
+
+	public void killAllMinions(int turnIndex) {
+		LinkedList<Minion> friendlyMinionList = getMinionList(turnIndex);
+		LinkedList<Minion> enemyMinionList = getMinionList((turnIndex + 1) % 2);
+
+		for(int i = 0 ; i < friendlyMinionList.size() ; i++) {
+			friendlyMinionList.get(i).kill();
+		}
+
+		for(int i = 0 ; i < enemyMinionList.size() ; i++) {
+			enemyMinionList.get(i).kill();
+		}
 	}
 
 	public void manageDeathRattle(Minion minion, int turnIndex) {

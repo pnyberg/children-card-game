@@ -21,7 +21,7 @@ public class SpellCard extends PlayCard {
 			name = "Dragon Power";
 			cost = 2;
 			this.type = type;
-			spellEffect = new BuffAllOfOneSide(1, 1);
+			spellEffect = new BuffAllMinionsOfOneSide(1, 1);
 		} else if (type == EMERALD_SCALE) {
 			name = "Emerald Scale";
 			cost = 2;
