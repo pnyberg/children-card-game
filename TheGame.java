@@ -280,9 +280,9 @@ public class TheGame {
 		} else if (randomizer == 2) {
 			addCardToHand(new MonsterCard(MonsterCard.DEATHWING));
 		} else if (randomizer == 3) {
-			addCardToHand(new MonsterCard(MonsterCard.MANA_TIDE_TOTEM));
+			addCardToHand(new MonsterCard(MonsterCard.EMPEROR_THAURISSAN));
 		} else if (randomizer == 4) {
-			addCardToHand(new MonsterCard(MonsterCard.NOVICE_ENGINEER));
+			addCardToHand(new MonsterCard(MonsterCard.DISPATCHING_DRAKE));
 		} else if (randomizer == 5) {
 			addCardToHand(new MonsterCard(MonsterCard.UNSTABLE_GHOUL));
 		} else if (randomizer == 6) {
@@ -308,9 +308,13 @@ public class TheGame {
 		} else if (randomizer == 16) {
 			addCardToHand(new SpellCard(SpellCard.DRAGON_POWER));
 		} else if (randomizer == 17) {
-			addCardToHand(new MonsterCard(MonsterCard.DISPATCHING_DRAKE));
+			addCardToHand(new MonsterCard(MonsterCard.CHILLWIND_YETI));
 		} else if (randomizer == 18) {
 			addCardToHand(new SpellCard(SpellCard.EMERALD_SCALE));
+		} else if (randomizer == 19) {
+			addCardToHand(new MonsterCard(MonsterCard.MANA_TIDE_TOTEM));
+		} else if (randomizer == 20) {
+			addCardToHand(new MonsterCard(MonsterCard.NOVICE_ENGINEER));
 		} else {
 			addCardToHand(new MonsterCard(MonsterCard.MURLOC_TIDEHUNTER));
 		}
@@ -831,6 +835,11 @@ public class TheGame {
 			deck.add(new MonsterCard(MonsterCard.SLUDGE_BELCHER));
 
 			drawCardsTurnEffect.effect(cardHand, deck);
+		} else if (endTurnEffect instanceof HandCostTurnEffect) {
+			HandCostTurnEffect handCostTurnEffect = (HandCostTurnEffect)endTurnEffect;
+			LinkedList<PlayCard> cardHand = getCardList(turnIndex);
+
+			handCostTurnEffect.effect(cardHand);
 		} else if (endTurnEffect instanceof DealDamageRandomTurnEffect) {
 			int targetChoice;
 			Character character;

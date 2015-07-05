@@ -45,6 +45,10 @@ public class SpellCard extends PlayCard {
 		}
 	}
 
+	public void changeCost(int costChange) {
+		cost = (cost + costChange) < 0 ? 0 : cost + costChange;
+	}
+
 	public String getName() {
 		return name;
 	}

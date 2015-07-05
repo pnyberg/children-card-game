@@ -13,3 +13,4 @@
 
 
 * Ordning på hantering (ex Boom Bot attackerar Boom Bot där båda träffar andra, som dör, t ex Boom Bots)
+* Effekter ska hanteras i den ordningen minionsen spelades (dvs, den Sylvanas som spelades först aktiveras först)

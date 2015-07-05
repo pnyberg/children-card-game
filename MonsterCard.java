@@ -41,7 +41,7 @@ public class MonsterCard extends PlayCard {
 							EMPEROR_THAURISSAN = 40, // not done
 							ALEXSTRASZA = 41, // not done
 							SYLVANAS_WINDRUNNER = 42,
-							CAIRE_BLOODHOOF = 43,
+							CAIRNE_BLOODHOOF = 43,
 							BAINE_BLOODHOOF = 44,
 							ALAKIR = 45,
 							KING_KRUSH = 46,
@@ -219,11 +219,11 @@ public class MonsterCard extends PlayCard {
 			initBasicStats(8, 8, 8);
 			cannotAttack = true;
 			endTurnEffect = new DealDamageRandomTurnEffect(8, false, true);
-		} else if (type == CAIRE_BLOODHOOF) {
+		} else if (type == CAIRNE_BLOODHOOF) {
 			name = "Cairne Bloodhoof";
 			initBasicStats(6, 4, 5);
 			deathRattleEffect = new SummonMinions(new int[] {BAINE_BLOODHOOF}, null);
-		} else if (type == CAIRE_BLOODHOOF) {
+		} else if (type == BAINE_BLOODHOOF) {
 			name = "Baine Bloodhoof";
 			initBasicStats(4, 4, 5);
 		} else if (type == ALAKIR) {
@@ -249,6 +249,10 @@ public class MonsterCard extends PlayCard {
 			name = "Deathwing";
 			initBasicStats(10, 12, 12);
 			battleCryEffect = new DestroyAllMinions();
+		} else if (type == EMPEROR_THAURISSAN) {
+			name = "Emperor Thaurissan";
+			initBasicStats(6, 5, 5);
+			endTurnEffect = new HandCostTurnEffect(-1, false);
 		}
 	}
 

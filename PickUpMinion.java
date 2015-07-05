@@ -1,7 +1,7 @@
 import java.util.LinkedList;
 
 public class PickUpMinion extends SpellEffect {
-	int costChange;
+	private int costChange;
 
 	public PickUpMinion(int costChange) {
 		this.costChange = costChange;
