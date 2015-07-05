@@ -478,11 +478,13 @@ public class TheGame {
 		LinkedList<Minion> minionList = getMinionList(turnIndex);
 
 		for (int i = 0 ; i < minionList.size() ; i++) {
-			checkDeath(i, turnIndex);
+			if (checkDeath(i, turnIndex)) {
+				i--;
+			}
 		}
 	}
 
-	public void checkDeath(int minionIndex, int turnIndex) {
+	public boolean checkDeath(int minionIndex, int turnIndex) {
 		Minion minion = getMinion(minionIndex, turnIndex);
 
 		if (!minion.isAlive()) {
@@ -492,7 +494,10 @@ public class TheGame {
 
 			addSummonedMinions(turn);
 			addSummonedMinions((turn + 1) % 2);
+
+			return true;
 		}
+		return false;
 	}
 
 //#500
@@ -737,28 +742,14 @@ public class TheGame {
 
 			emptyHand = true;
 
-			killAllMinions(turn);
-			checkDeathBoard();
-
 			destroyAllMinions.effect(friendlyMinionList, enemyMinionList);
+
+			checkDeathBoard();
 		}
 	}
 
 	public boolean minionExists() {
 		return !minionsOnBoard1.isEmpty() || !minionsOnBoard2.isEmpty();
-	}
-
-	public void killAllMinions(int turnIndex) {
-		LinkedList<Minion> friendlyMinionList = getMinionList(turnIndex);
-		LinkedList<Minion> enemyMinionList = getMinionList((turnIndex + 1) % 2);
-
-		for(int i = 0 ; i < friendlyMinionList.size() ; i++) {
-			friendlyMinionList.get(i).kill();
-		}
-
-		for(int i = 0 ; i < enemyMinionList.size() ; i++) {
-			enemyMinionList.get(i).kill();
-		}
 	}
 
 	public void manageDeathRattle(Minion minion, int turnIndex) {

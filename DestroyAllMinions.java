@@ -5,7 +5,12 @@ public class DestroyAllMinions extends SpellEffect {
 	}
 
 	public void effect(LinkedList<Minion> friendlyMinions, LinkedList<Minion> enemyMinions) {
-		friendlyMinions.clear();
-		enemyMinions.clear();
+		for(Minion minion : friendlyMinions) {
+			minion.kill();
+		}
+
+		for(Minion minion : enemyMinions) {
+			minion.kill();
+		}
 	}
 }
