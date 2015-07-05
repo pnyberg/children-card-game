@@ -38,7 +38,7 @@ public class MonsterCard extends PlayCard {
 							RAGNAROS = 37,
 							YSERA = 38, // not done
 							KELTHUZAD = 39, // not done
-							EMPEROR_THAURISSAN = 40, // not done
+							EMPEROR_THAURISSAN = 40,
 							ALEXSTRASZA = 41, // not done
 							SYLVANAS_WINDRUNNER = 42,
 							CAIRNE_BLOODHOOF = 43,
@@ -253,6 +253,10 @@ public class MonsterCard extends PlayCard {
 			name = "Emperor Thaurissan";
 			initBasicStats(6, 5, 5);
 			endTurnEffect = new HandCostTurnEffect(-1, false);
+		} else if (type == SYLVANAS_WINDRUNNER) {
+			name = "Sylvanas Windrunner";
+			initBasicStats(6, 5, 5);
+			deathRattleEffect = new MindControlRandom();
 		}
 	}
 

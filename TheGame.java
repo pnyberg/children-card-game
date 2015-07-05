@@ -274,17 +274,17 @@ public class TheGame {
 	public void drawCard() {
 //		int randomizer = (int)(Math.random()*10);
 		if (randomizer == 0) {
-			addCardToHand(new MonsterCard(MonsterCard.DR_BOOM));
+			addCardToHand(new MonsterCard(MonsterCard.SYLVANAS_WINDRUNNER));
 		} else if (randomizer == 1) {
 			addCardToHand(new MonsterCard(MonsterCard.RAGNAROS));
 		} else if (randomizer == 2) {
 			addCardToHand(new MonsterCard(MonsterCard.DEATHWING));
 		} else if (randomizer == 3) {
-			addCardToHand(new MonsterCard(MonsterCard.EMPEROR_THAURISSAN));
+			addCardToHand(new MonsterCard(MonsterCard.DR_BOOM));
 		} else if (randomizer == 4) {
 			addCardToHand(new MonsterCard(MonsterCard.DISPATCHING_DRAKE));
 		} else if (randomizer == 5) {
-			addCardToHand(new MonsterCard(MonsterCard.UNSTABLE_GHOUL));
+			addCardToHand(new MonsterCard(MonsterCard.EMPEROR_THAURISSAN));
 		} else if (randomizer == 6) {
 			addCardToHand(new MonsterCard(MonsterCard.WOLFRIDER));
 		} else if (randomizer == 7) {
@@ -315,6 +315,8 @@ public class TheGame {
 			addCardToHand(new MonsterCard(MonsterCard.MANA_TIDE_TOTEM));
 		} else if (randomizer == 20) {
 			addCardToHand(new MonsterCard(MonsterCard.NOVICE_ENGINEER));
+		} else if (randomizer == 21) {
+			addCardToHand(new MonsterCard(MonsterCard.UNSTABLE_GHOUL));
 		} else {
 			addCardToHand(new MonsterCard(MonsterCard.MURLOC_TIDEHUNTER));
 		}
@@ -784,6 +786,20 @@ public class TheGame {
 			dealDamageToAllMinions.effect(friendlyMinionList, enemyMinionList);
 
 			checkDeathBoard();
+		} else if (deathRattleEffect instanceof MindControlRandom) {
+			MindControlRandom mindControlRandom = (MindControlRandom)deathRattleEffect;
+			LinkedList<Minion> friendlyMinionList = getMinionList(turnIndex);
+			LinkedList<Minion> enemyMinionList = getMinionList((turnIndex + 1) % 2);
+
+			int enemyMinionListSize = enemyMinionList.size();
+			if (enemyMinionListSize == 0) {
+				return;
+			}
+
+			int randomIndex = ((int)(Math.random() * 100)) % enemyMinionListSize;
+			Minion stolenMinion = enemyMinionList.remove(randomIndex);
+
+			mindControlRandom.effect(stolenMinion, friendlyMinionList);
 		} else if (deathRattleEffect instanceof DealRandomDamageRandomly) {
 			DealRandomDamageRandomly dealRandomDamageRandomly = (DealRandomDamageRandomly)deathRattleEffect;
 
@@ -814,6 +830,7 @@ public class TheGame {
 		}
 	}
 
+//#800
 	/*HERE*/
 	public void manageStartTurnEffect() {
 	}
@@ -869,7 +886,6 @@ public class TheGame {
 		}
 	}
 
-//#800
 	public void addMinionToBoard(MonsterCard monsterCard) {
 		LinkedList<Minion> minionsOnBoardList = getMinionList(turn);
 
