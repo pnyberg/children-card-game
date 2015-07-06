@@ -16,37 +16,51 @@ public class Minion extends Character {
 	private boolean windfury;
 	private boolean cannotAttack;
 
+	private boolean originallyTaunt;
+	private boolean originallyCharge;
+	private boolean originallyDivineShield;
+	private boolean originallyWindfury;
+	private boolean originallyCannotAttack;
+
 	private SpellEffect battleCryEffect;
 	private SpellEffect deathRattleEffect;
+
+	private SpellEffect originallyBattleCryEffect;
+	private SpellEffect originallyDeathRattleEffect;
 
 	private TurnEffect startTurnEffect;
 	private TurnEffect endTurnEffect;
 
+	private TurnEffect originallyStartTurnEffect;
+	private TurnEffect originallyEndTurnEffect;
+
 	private int attackAmount;
+	private boolean restoredThisTurn;
 
 	public Minion(String name, int type, int attack, int health, boolean taunt, boolean charge, boolean divineShield, boolean windfury, boolean cannotAttack, SpellEffect battleCryEffect, SpellEffect deathRattleEffect, TurnEffect startTurnEffect, TurnEffect endTurnEffect) {
 		this.name = name;
 		this.type = type;
 
 		normalAttack = attack;
-		currentAttack = attack;
+		normalMaxHealth = health;
+
+		originallyTaunt = taunt;
+		originallyCharge = charge;
+		originallyDivineShield = divineShield;
+		originallyWindfury = windfury;
+		originallyCannotAttack = cannotAttack;
+
+		originallyBattleCryEffect = battleCryEffect;
+		originallyDeathRattleEffect = deathRattleEffect;
+
+		originallyStartTurnEffect = startTurnEffect;
+		originallyEndTurnEffect = endTurnEffect;
+
+		initSpecialStats();
+
 		tempAttack = 0;
 
-		normalMaxHealth = health;
-		currentMaxHealth = health;
-		currentHealth = health;
-
-		this.taunt = taunt;
-		this.charge = charge;
-		this.divineShield = divineShield;
-		this.windfury = windfury;
-		this.cannotAttack = cannotAttack;
-
-		this.battleCryEffect = battleCryEffect;
-		this.deathRattleEffect = deathRattleEffect;
-
-		this.startTurnEffect = startTurnEffect;
-		this.endTurnEffect = endTurnEffect;
+		restoredThisTurn = false;
 
 		if (charge) {
 			prepareMinion();
@@ -55,12 +69,38 @@ public class Minion extends Character {
 		}
 	}
 
+	public void restore() {
+		initSpecialStats();
+
+		restoredThisTurn = true;
+	}
+
+	public void initSpecialStats() {
+		taunt = originallyTaunt;
+		charge = originallyCharge;
+		divineShield = originallyDivineShield;
+		windfury = originallyWindfury;
+		cannotAttack = originallyCannotAttack;
+
+		battleCryEffect = originallyBattleCryEffect;
+		deathRattleEffect = originallyDeathRattleEffect;
+
+		startTurnEffect = originallyStartTurnEffect;
+		endTurnEffect = originallyEndTurnEffect;
+
+		currentAttack = normalAttack;
+
+		currentMaxHealth = normalMaxHealth;
+		currentHealth = normalMaxHealth;
+	}
+
 	public void prepareMinion() {
 		attackAmount = (windfury ? 2 : 1);
 	}
 
 	public void endTurnAction() {
 		tempAttack = 0;
+		restoredThisTurn = false;
 	}
 
 	public int attack() {
@@ -142,6 +182,10 @@ public class Minion extends Character {
 
 	public void setCannotAttack(boolean cannotAttack) {
 		this.cannotAttack = cannotAttack;
+	}
+
+	public void setRestoredThisTurn(boolean restoredThisTurn) {
+		this.restoredThisTurn = restoredThisTurn;
 	}
 
 	public boolean isAlive() {
@@ -234,5 +278,9 @@ public class Minion extends Character {
 
 	public boolean hasEndTurnEffect() {
 		return endTurnEffect != null;
+	}
+
+	public boolean restoredThisTurn() {
+		return restoredThisTurn;
 	}
 }

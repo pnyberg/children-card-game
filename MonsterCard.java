@@ -37,7 +37,7 @@ public class MonsterCard extends PlayCard {
 							DISPATCHING_DRAKE = 36,
 							RAGNAROS = 37,
 							YSERA = 38, // not done
-							KELTHUZAD = 39, // not done
+							KELTHUZAD = 39,
 							EMPEROR_THAURISSAN = 40,
 							ALEXSTRASZA = 41, // not done
 							SYLVANAS_WINDRUNNER = 42,
@@ -46,10 +46,15 @@ public class MonsterCard extends PlayCard {
 							ALAKIR = 45,
 							KING_KRUSH = 46,
 							MALGANIS = 47, // not done
-							DEATHWING = 48, // not done - separate effect to discard hand
+							DEATHWING = 48,
 							MALYGOS = 49, // not done
 							DR_BOOM = 50,
-							BOOM_BOT = 51;
+							BOOM_BOT = 51,
+							VOLJIN = 52, // not done
+							PROPHET_VELEN = 53, // not done
+							GAHZRILLA = 54, // not done
+							ARCHMAGE_ANTONIDAS = 55, // not done
+							BLOODMAGE_THALNOS = 56; // not done
 
 	private String name;
 	private int type;
@@ -257,6 +262,10 @@ public class MonsterCard extends PlayCard {
 			name = "Sylvanas Windrunner";
 			initBasicStats(6, 5, 5);
 			deathRattleEffect = new MindControlRandom();
+		} else if (type == KELTHUZAD) {
+			name = "Kel'Thuzad";
+			initBasicStats(8, 6, 8);
+			endTurnEffect = new ReviveFriendlyMinionsTurnEffect(true);
 		}
 	}
 

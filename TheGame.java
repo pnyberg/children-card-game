@@ -26,6 +26,9 @@ public class TheGame {
 	private LinkedList<Minion> minionTempList1;
 	private LinkedList<Minion> minionTempList2;
 
+	private LinkedList<Minion> minionDeadList1;
+	private LinkedList<Minion> minionDeadList2;
+
 
 	private int randomizer = 0; // temp -> pre-built-order 
 
@@ -47,6 +50,9 @@ public class TheGame {
 
 		minionTempList1 = new LinkedList<Minion>();
 		minionTempList2 = new LinkedList<Minion>();
+
+		minionDeadList1 = new LinkedList<Minion>();
+		minionDeadList2 = new LinkedList<Minion>();
 
 		start();
 	}
@@ -274,7 +280,8 @@ public class TheGame {
 	public void drawCard() {
 //		int randomizer = (int)(Math.random()*10);
 		if (randomizer == 0) {
-			addCardToHand(new MonsterCard(MonsterCard.SYLVANAS_WINDRUNNER));
+			addCardToHand(new MonsterCard(MonsterCard.KELTHUZAD));
+			addCardToHand(new MonsterCard(MonsterCard.KELTHUZAD));
 		} else if (randomizer == 1) {
 			addCardToHand(new MonsterCard(MonsterCard.RAGNAROS));
 		} else if (randomizer == 2) {
@@ -298,7 +305,7 @@ public class TheGame {
 		} else if (randomizer == 11) {
 			addCardToHand(new MonsterCard(MonsterCard.EARTHEN_RING_FARSEER));
 		} else if (randomizer == 12) {
-			addCardToHand(new MonsterCard(MonsterCard.BLOODFEN_RAPTOR));
+			addCardToHand(new MonsterCard(MonsterCard.SYLVANAS_WINDRUNNER));
 		} else if (randomizer == 13) {
 			addCardToHand(new SpellCard(SpellCard.STAFF_OF_THE_EMPEROR));
 		} else if (randomizer == 14) {
@@ -317,6 +324,8 @@ public class TheGame {
 			addCardToHand(new MonsterCard(MonsterCard.NOVICE_ENGINEER));
 		} else if (randomizer == 21) {
 			addCardToHand(new MonsterCard(MonsterCard.UNSTABLE_GHOUL));
+		} else if (randomizer == 22) {
+			addCardToHand(new MonsterCard(MonsterCard.BLOODFEN_RAPTOR));
 		} else {
 			addCardToHand(new MonsterCard(MonsterCard.MURLOC_TIDEHUNTER));
 		}
@@ -501,6 +510,8 @@ public class TheGame {
 			addSummonedMinions(turn);
 			addSummonedMinions((turn + 1) % 2);
 
+			addToDeadList(minion, turnIndex);
+
 			return true;
 		}
 		return false;
@@ -587,6 +598,9 @@ public class TheGame {
 
 		handleEndTurnActionsForList(turnIndex);
 		handleEndTurnActionsForList((turnIndex + 1) % 2);
+
+		minionDeadList1.clear();
+		minionDeadList2.clear();
 	}
 
 	public void handleEndTurnActionsForList(int turnIndex) {
@@ -594,10 +608,10 @@ public class TheGame {
 
 		for (int i = 0 ; i < minionList.size() ; i++) {
 			Minion minion = minionList.get(i);
-			minion.endTurnAction();
-			if (minion.hasEndTurnEffect()) {
+			if (minion.hasEndTurnEffect() && !minion.restoredThisTurn()) {
 				manageEndTurnEffect(i, turnIndex);
 			}
+			minion.endTurnAction();
 		}
 	}
 
@@ -662,6 +676,16 @@ public class TheGame {
 			tempMinionList = minionTempList2;
 		}
 		return tempMinionList;
+	}
+
+	public LinkedList<Minion> getDeadMinionList(int turnIndex) {
+		LinkedList<Minion> deadMinionList;
+		if (turnIndex == 0) {
+			deadMinionList = minionDeadList1;
+		} else {
+			deadMinionList = minionDeadList2;
+		}
+		return deadMinionList;
 	}
 
 	public void addCardToHand(PlayCard cardToAdd) {
@@ -883,6 +907,12 @@ public class TheGame {
 			if (targetChoice != TARGETPLAYER) {
 				checkDeath(targetChoice, enemyTurn);
 			}
+		} else if (endTurnEffect instanceof ReviveFriendlyMinionsTurnEffect) {
+			ReviveFriendlyMinionsTurnEffect reviveFriendlyMinionsTurnEffect = (ReviveFriendlyMinionsTurnEffect)endTurnEffect;
+			LinkedList<Minion> minionList = getMinionList(turnIndex);
+			LinkedList<Minion> deadMinions = getDeadMinionList(turnIndex);
+
+			reviveFriendlyMinionsTurnEffect.effect(deadMinions, minionList);
 		}
 	}
 
@@ -922,6 +952,12 @@ public class TheGame {
 
 			minionTempList.clear();
 		}
+	}
+
+	public void addToDeadList(Minion minion, int turnIndex) {
+		LinkedList<Minion> deadMinionList = getDeadMinionList(turnIndex);
+
+		deadMinionList.add(minion);
 	}
 
 	public void removeMinionFromBoard(int minionIndex, int turnIndex) {
