@@ -1,10 +1,16 @@
 import java.util.LinkedList;
 
-public class DestroyAllMinions extends SpellEffect {
+public class DestroyAllMinionsTurnEffect extends TurnEffect {
+	private boolean activeOnBothTurns;
 	private boolean emptyHand;
 
-	public DestroyAllMinions(boolean emptyHand) {
+	public DestroyAllMinionsTurnEffect(boolean activeOnBothTurns, boolean emptyHand) {
 		this.emptyHand = emptyHand;
+		this.activeOnBothTurns = activeOnBothTurns;
+	}
+
+	public boolean activeOnBothTurns() {
+		return activeOnBothTurns;
 	}
 
 	public boolean shouldEmptyHand() {

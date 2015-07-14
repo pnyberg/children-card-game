@@ -39,7 +39,7 @@ public class MonsterCard extends PlayCard {
 							YSERA = 38, // not done
 							KELTHUZAD = 39,
 							EMPEROR_THAURISSAN = 40,
-							ALEXSTRASZA = 41, // not done
+							ALEXSTRASZA = 41,
 							SYLVANAS_WINDRUNNER = 42,
 							CAIRNE_BLOODHOOF = 43,
 							BAINE_BLOODHOOF = 44,
@@ -54,7 +54,51 @@ public class MonsterCard extends PlayCard {
 							PROPHET_VELEN = 53, // not done
 							GAHZRILLA = 54, // not done
 							ARCHMAGE_ANTONIDAS = 55, // not done
-							BLOODMAGE_THALNOS = 56; // not done
+							BLOODMAGE_THALNOS = 56, // not done
+							TWILIGHT_DRAKE = 57, // not done
+							BOLIVAR_FORDRAGON = 58, // not done
+							SHRINKMEISTER = 59, // not done
+							IMP_MASTER = 60, // not done
+							GRUUL = 61, // not done
+							WATER_ELEMENTAL = 62, // not done
+							EARTH_ELEMENTAL = 63, // not done
+							FIRE_ELEMENTAL = 64,
+							DOOMSAYER = 65,
+							ACOLYTE_OF_PAIN = 66, // not done
+							KNIFE_JUGGLER = 67, // not done
+							SHIELDMAIDEN = 68, // not done
+							IMP_GANG_BOSS = 69, // not done
+							BLOOD_IMP = 70, // not done
+							ONYXIA = 71, // not done
+							ILLIDAN_STORMRAGE = 72, // not done
+							LOATHEB = 73, // not done
+							NERUBIAN_WEBLORD = 74, // not done
+							VENTURE_CO_MERCENARY = 75, // not done
+							SAVANNAH_HIGHMANE = 76, // not done
+							SEA_GIANT = 77, // not done
+							MOUNTAIN_GIANT = 78, // not done
+							MOLTEN_GIANT = 79, // not done
+							CLOCKWORK_GIANT = 80, // not done
+							ALARMO_BOT = 81, // not done
+							PILOTED_SHREDDER = 82, // not done
+							MAD_BOMBER = 83, // not done
+							SUCCUBUS = 84, // not done
+							DEATHLORD = 85, // not done
+							FAERIE_DRAGON = 86, // not done
+							MANA_ADDICT = 87, // not done
+							TINKERTOWN_TECHNICHIAN = 88, // not done
+							LEPER_GNOME = 89, // not done
+							LEPER_GNOME_BOT = 90, // not done
+							NIGHTBLADE = 91,
+							NAGA_ORACLE = 92, // not done
+							CRUEL_TASKMASTER = 93, // not done
+							MIND_CONTROL_TECH = 94, // not done
+							CABAL_SHADOWPRIEST = 95, // not done
+							STORMWIND_CHAMPION = 96, // not done
+							FROSTWOLF_WARLORD = 97, // not done
+							VOID_TERROR = 98, // not done
+							ENHANCO_MECHANIC = 99, // not done
+							LOREWALKER_CHO = 100; // not done
 
 	private String name;
 	private int type;
@@ -253,7 +297,7 @@ public class MonsterCard extends PlayCard {
 		} else if (type == DEATHWING) {
 			name = "Deathwing";
 			initBasicStats(10, 12, 12);
-			battleCryEffect = new DestroyAllMinions();
+			battleCryEffect = new DestroyAllMinions(true);
 		} else if (type == EMPEROR_THAURISSAN) {
 			name = "Emperor Thaurissan";
 			initBasicStats(6, 5, 5);
@@ -274,6 +318,22 @@ public class MonsterCard extends PlayCard {
 			name = "Alexstrasza";
 			initBasicStats(9, 8, 8);
 			battleCryEffect = new SetHealthPlayer(15);
+		} else if (type == DOOMSAYER) {
+			name = "Doomsayer";
+			initBasicStats(2, 0, 7);
+			startTurnEffect = new DestroyAllMinionsTurnEffect(false, false);
+		} else if (type == FIRE_ELEMENTAL) {
+			name = "Fire Elemental";
+			initBasicStats(6, 6, 5);
+			battleCryEffect = new DealDamage(3);
+		} else if (type == BLOOD_IMP) {
+			name = "Blood Imp";
+			initBasicStats(1, 3, 2);
+			battleCryEffect = new DealDamageToPlayer(3, true, false);			
+		} else if (type == NIGHTBLADE) {
+			name = "Nightblade";
+			initBasicStats(5, 4, 4);
+			battleCryEffect = new DealDamageToPlayer(3, false, true);			
 		}
 	}
 

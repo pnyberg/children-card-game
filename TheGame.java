@@ -301,9 +301,12 @@ public class TheGame {
 	public void drawCard() {
 //		int randomizer = (int)(Math.random()*10);
 		if (randomizer == 0) {
+			addCardToHand(new MonsterCard(MonsterCard.BLOOD_IMP));
+			addCardToHand(new MonsterCard(MonsterCard.NIGHTBLADE));
+		} else if (randomizer == 1) {
+			addCardToHand(new MonsterCard(MonsterCard.DOOMSAYER));
 			addCardToHand(new MonsterCard(MonsterCard.ALEXSTRASZA));
 			addCardToHand(new MonsterCard(MonsterCard.VOLJIN));
-		} else if (randomizer == 1) {
 			addCardToHand(new MonsterCard(MonsterCard.RAGNAROS));
 		} else if (randomizer == 2) {
 			addCardToHand(new MonsterCard(MonsterCard.DEATHWING));
@@ -395,6 +398,7 @@ public class TheGame {
 		}
 	}
 
+//#400
 	public void castSpellFromHand(String[] str) {
 		int cardIndex = getAdressingIndex(str[1]);
 
@@ -423,7 +427,6 @@ public class TheGame {
 		}
 	}
 
-//#400
 	public void makeAttack(String attackRaw, String targetRaw) {
 		int minionIndex1 = getAdressingIndex(attackRaw);
 
@@ -501,6 +504,7 @@ public class TheGame {
 		System.out.println(attackingMinion.getName() + " HP: " + attackingMinion.getCurrentHealth() + " - " + targetMinion.getName() + " HP: " + targetMinion.getCurrentHealth());
 	}
 
+//#500
 	public void handleDamage(Minion minion, int damage) {
 		minion.handleDamage(damage);
 	}
@@ -538,7 +542,6 @@ public class TheGame {
 		return false;
 	}
 
-//#500
 	public void attackEnemyPlayer(int attackerIndex) {
 		Minion attackingMinion = getAttacker(attackerIndex);
 
@@ -597,11 +600,14 @@ public class TheGame {
 		System.out.println("Player2 Health: " + player2.getHealth());
 	}
 
+//#600
 	public void endTurn() {
 		handleEndTurnActions(turn);
 
 		turn = (turn + 1) % 2;
 		System.out.println("Player " + (turn + 1) + "'s turn!");
+
+		handleStartTurnActions(turn);
 
 		prepareTurn(turn);
 	}
@@ -614,9 +620,23 @@ public class TheGame {
 		}
 	}
 
-	public void handleEndTurnActions(int turnIndex) {
-		LinkedList<Minion> minionsOtherPlayer = getMinionList((turnIndex + 1) % 2);
+	public void handleStartTurnActions(int turnIndex) {
+		handleStartTurnActionsForList(turnIndex);
+		handleStartTurnActionsForList((turnIndex + 1) % 2);
+	}
 
+	public void handleStartTurnActionsForList(int turnIndex) {
+		LinkedList<Minion> minionList = getMinionList(turnIndex);
+
+		for (int i = 0 ; i < minionList.size() ; i++) {
+			Minion minion = minionList.get(i);
+			if (minion.hasStartTurnEffect()) {
+				manageStartTurnEffect(i, turnIndex);
+			}
+		}
+	}
+
+	public void handleEndTurnActions(int turnIndex) {
 		handleEndTurnActionsForList(turnIndex);
 		handleEndTurnActionsForList((turnIndex + 1) % 2);
 
@@ -649,7 +669,6 @@ public class TheGame {
 //		System.out.println(" - ");
 	}
 
-//#600
 	public int getTurnIndex(String player) {
 		int turnIndex = turn;
 		if (player.equals("enemy")) {
@@ -679,6 +698,7 @@ public class TheGame {
 		return cardList;
 	}
 
+//#700
 	public LinkedList<Minion> getMinionList(int turnIndex) {
 		LinkedList<Minion> minionList;
 		if (turnIndex == 0) {
@@ -743,7 +763,6 @@ public class TheGame {
 		System.out.println(index + " is not a valid cardIndex for Player " + ((turn + 1) % 2));
 	}
 
-//#700
 	public void manageBattleCry(Minion minion, int turnIndex) {
 		playedMinionType = minion.getType();
 		minionTriedToPlay = minion;
@@ -799,7 +818,7 @@ public class TheGame {
 			LinkedList<Minion> friendlyMinionList = getMinionList(turnIndex);
 			LinkedList<Minion> enemyMinionList = getMinionList((turnIndex + 1) % 2);
 
-			emptyHand = true;
+			emptyHand = destroyAllMinions.shouldEmptyHand();
 
 			destroyAllMinions.effect(friendlyMinionList, enemyMinionList);
 
@@ -807,6 +826,7 @@ public class TheGame {
 		}
 	}
 
+//#800
 	public boolean minionExists() {
 		return !minionsOnBoard1.isEmpty() || !minionsOnBoard2.isEmpty();
 	}
@@ -883,9 +903,27 @@ public class TheGame {
 		}
 	}
 
-//#800
-	/*HERE*/
-	public void manageStartTurnEffect() {
+//#900
+	public void manageStartTurnEffect(int minionIndex, int turnIndex) {
+		Minion minion = getMinion(minionIndex, turnIndex);
+		TurnEffect startTurnEffect = minion.getStartTurnEffect();
+
+		if (turn != turnIndex && !startTurnEffect.activeOnBothTurns()) {
+			return;
+		}
+
+		if (startTurnEffect instanceof DestroyAllMinionsTurnEffect) {
+			DestroyAllMinionsTurnEffect destroyAllMinionsTurnEffect = (DestroyAllMinionsTurnEffect)startTurnEffect;
+
+			LinkedList<Minion> friendlyMinionList = getMinionList(turnIndex);
+			LinkedList<Minion> enemyMinionList = getMinionList((turnIndex + 1) % 2);
+
+			emptyHand = destroyAllMinionsTurnEffect.shouldEmptyHand();
+
+			destroyAllMinionsTurnEffect.effect(friendlyMinionList, enemyMinionList);
+
+			checkDeathBoard();
+		}
 	}
 
 	public void manageEndTurnEffect(int minionIndex, int turnIndex) {
@@ -968,6 +1006,7 @@ public class TheGame {
 		}
 	}
 
+//#1000
 	public void addSummonedMinions(int turnIndex) {
 		LinkedList<Minion> minionsOnBoard = getMinionList(turnIndex);
 		LinkedList<Minion> minionTempList = getTempMinionList(turnIndex);
@@ -1046,7 +1085,6 @@ public class TheGame {
 		System.out.println("");
 	}
 
-//#900
 	public void printHandCardStats(LinkedList<PlayCard> cardList) {
 		System.out.print(addSpaces(15));
 		for (PlayCard card : cardList) {
@@ -1065,6 +1103,7 @@ public class TheGame {
 		System.out.println("");
 	}
 
+//#1100
 	public void printBoardInfo(int turnIndex) {
 		LinkedList<Minion> minionList = getMinionList(turnIndex);
 
@@ -1141,7 +1180,6 @@ public class TheGame {
 		return "[" + tauntChar + chargeChar + divineShieldChar + windfuryChar + deathrattleChar + "]";
 	}
 
-//#1000
 	public String addSpaces(int number) {
 		StringBuilder builder = new StringBuilder();
 		for (int i = 0 ; i < number ; i++) {
@@ -1151,6 +1189,7 @@ public class TheGame {
 		return builder.toString();
 	}
 
+//#1200
 	public boolean manageSpellEffect(SpellCard card, String[] str) {
 		SpellEffect spellEffect = card.getSpellEffect();
 
