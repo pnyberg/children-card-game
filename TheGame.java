@@ -154,6 +154,10 @@ public class TheGame {
 			array = new String[]{"pick", "up"};
 		} else if (battleCryEffect instanceof HealMinion) {
 			array = new String[]{"heal"};
+		} else if (battleCryEffect instanceof SwapHealthMinion) {
+			array = new String[]{"swap", "health"};
+		} else if (battleCryEffect instanceof SetHealthPlayer) {
+			array = new String[]{"set", "health"};
 		} else {
 			return;
 		}
@@ -164,6 +168,8 @@ public class TheGame {
 			return;
 		}
 
+		// the last token in the command is the targetingindex
+		// the array is all but one of the tokens (therefore targetindex is on position 'arraylength')
 		int arrayLength = array.length;
 		int turnIndex = getTurnIndex(str[arrayLength]);
 
@@ -181,6 +187,14 @@ public class TheGame {
 			healMinion.effect(character);
 
 			System.out.println(character.getName() + " got healed!");
+		} else if (battleCryEffect instanceof SetHealthPlayer) {
+			Player player = getPlayer(turnIndex);
+
+			SetHealthPlayer setHealthPlayer = (SetHealthPlayer)battleCryEffect;
+
+			setHealthPlayer.effect(player);
+
+			System.out.println(player.getName() + " got changed health!");
 		} else if (battleCryEffect instanceof DealDamage) {
 			Character character;
 
@@ -196,6 +210,7 @@ public class TheGame {
 
 			System.out.println(character.getName() + " took damage!");
 		} else {
+			// BuffSingelMinion, PickUpMinion and SwapHealthMinion only handle minions, so they can have the same base-code
 			LinkedList<Minion> minionTargetList = getMinionList(turnIndex);
 
 			Minion targetMinion = minionTargetList.get(minionIndex);
@@ -215,6 +230,12 @@ public class TheGame {
 				removeMinionFromBoard(minionIndex, turnIndex);
 
 				System.out.println(targetMinion.getName() + " got picked up!");
+			} else if (battleCryEffect instanceof SwapHealthMinion) {
+				SwapHealthMinion swapHealthMinion = (SwapHealthMinion)battleCryEffect;
+
+				swapHealthMinion.effect(minionTriedToPlay, targetMinion);
+
+				System.out.println(targetMinion.getName() + " got swaped health with " + minionTriedToPlay.getName() + "!"); // HERE
 			}
 		}
 
@@ -280,8 +301,8 @@ public class TheGame {
 	public void drawCard() {
 //		int randomizer = (int)(Math.random()*10);
 		if (randomizer == 0) {
-			addCardToHand(new MonsterCard(MonsterCard.KELTHUZAD));
-			addCardToHand(new MonsterCard(MonsterCard.KELTHUZAD));
+			addCardToHand(new MonsterCard(MonsterCard.ALEXSTRASZA));
+			addCardToHand(new MonsterCard(MonsterCard.VOLJIN));
 		} else if (randomizer == 1) {
 			addCardToHand(new MonsterCard(MonsterCard.RAGNAROS));
 		} else if (randomizer == 2) {
@@ -735,12 +756,6 @@ public class TheGame {
 
 				System.out.println("Which minion do you want to target?");
 			}
-		} else if (battleCryEffect instanceof SummonMinions) {
-			SummonMinions summonMinions = (SummonMinions)battleCryEffect;
-			LinkedList<Minion> friendlyPlayerMinionTempList = getTempMinionList(turnIndex);
-			LinkedList<Minion> enemyPlayerMinionTempList = getTempMinionList((turnIndex + 1) % 2);
-
-			summonMinions.effect(friendlyPlayerMinionTempList, enemyPlayerMinionTempList);
 		} else if (battleCryEffect instanceof PickUpMinion) {
 			if (minionExists()) {
 				handlingBattleCry = true;
@@ -755,6 +770,20 @@ public class TheGame {
 			handlingBattleCry = true;
 
 			System.out.println("Which character do you want to deal damage to?");
+		} else if (battleCryEffect instanceof SwapHealthMinion) {
+			handlingBattleCry = true;
+
+			System.out.println("Which minion do you want to swap health with?");
+		} else if (battleCryEffect instanceof SetHealthPlayer) {
+			handlingBattleCry = true;
+
+			System.out.println("Which player do you want to set health = 15?");
+		} else if (battleCryEffect instanceof SummonMinions) {
+			SummonMinions summonMinions = (SummonMinions)battleCryEffect;
+			LinkedList<Minion> friendlyPlayerMinionTempList = getTempMinionList(turnIndex);
+			LinkedList<Minion> enemyPlayerMinionTempList = getTempMinionList((turnIndex + 1) % 2);
+
+			summonMinions.effect(friendlyPlayerMinionTempList, enemyPlayerMinionTempList);
 		} else if (battleCryEffect instanceof DrawCards) {
 			DrawCards drawCards = (DrawCards)battleCryEffect;
 			LinkedList<PlayCard> cardHand = getCardList(turnIndex);

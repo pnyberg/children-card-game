@@ -19,6 +19,10 @@ public class Player extends Character {
 		health = (health + healAmount) > maxHealth ? maxHealth : (health + healAmount);
 	}
 
+	public void setHealth(int healthAmount) {
+		health = healthAmount;
+	}
+
 	public int getHealth() {
 		return health;
 	}

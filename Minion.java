@@ -90,8 +90,7 @@ public class Minion extends Character {
 
 		currentAttack = normalAttack;
 
-		currentMaxHealth = normalMaxHealth;
-		currentHealth = normalMaxHealth;
+		setHealth(normalMaxHealth);
 	}
 
 	public void prepareMinion() {
@@ -154,6 +153,11 @@ public class Minion extends Character {
 	public void addHealth(int add) {
 		currentHealth += add;
 		currentMaxHealth += add;
+	}
+
+	public void setHealth(int newHealth) {
+		currentHealth = newHealth;
+		currentMaxHealth = newHealth;
 	}
 
 	public void kill() {

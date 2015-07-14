@@ -50,7 +50,7 @@ public class MonsterCard extends PlayCard {
 							MALYGOS = 49, // not done
 							DR_BOOM = 50,
 							BOOM_BOT = 51,
-							VOLJIN = 52, // not done
+							VOLJIN = 52,
 							PROPHET_VELEN = 53, // not done
 							GAHZRILLA = 54, // not done
 							ARCHMAGE_ANTONIDAS = 55, // not done
@@ -266,6 +266,14 @@ public class MonsterCard extends PlayCard {
 			name = "Kel'Thuzad";
 			initBasicStats(8, 6, 8);
 			endTurnEffect = new ReviveFriendlyMinionsTurnEffect(true);
+		} else if (type == VOLJIN) {
+			name = "Vol'Jin";
+			initBasicStats(5, 6, 2);
+			battleCryEffect = new SwapHealthMinion();
+		} else if (type == ALEXSTRASZA) {
+			name = "Alexstrasza";
+			initBasicStats(9, 8, 8);
+			battleCryEffect = new SetHealthPlayer(15);
 		}
 	}
 
