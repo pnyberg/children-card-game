@@ -339,9 +339,9 @@ public class MonsterCard extends PlayCard {
 			initBasicStats(1, 2, 1);
 			deathRattleEffect = new DealDamageToPlayer(2, false, true);
 		} else if (type == ALARMO_BOT) {
-			name = "ALarm'O Bot";
+			name = "Alarm'O Bot";
 			initBasicStats(3, 0, 3);
-			startTurnEffect = new SummonRandomMinionFromHandTurnEffect(false, false);
+			startTurnEffect = new SummonRandomMinionFromHandTurnEffect(false, false, true);
 		}
 	}
 

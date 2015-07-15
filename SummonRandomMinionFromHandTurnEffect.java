@@ -3,10 +3,12 @@ import java.util.LinkedList;
 public class SummonRandomMinionFromHandTurnEffect extends TurnEffect {
 	private boolean bothPlayers;
 	private boolean activeOnBothTurns;
+	private boolean returnMinion;
 
-	public SummonRandomMinionFromHandTurnEffect(boolean activeOnBothTurns, boolean bothPlayers) {
+	public SummonRandomMinionFromHandTurnEffect(boolean activeOnBothTurns, boolean bothPlayers, boolean returnMinion) {
 		this.activeOnBothTurns = activeOnBothTurns;
 		this.bothPlayers = bothPlayers;
+		this.returnMinion = returnMinion;
 	}
 
 	public boolean activeOnBothTurns() {
@@ -17,17 +19,17 @@ public class SummonRandomMinionFromHandTurnEffect extends TurnEffect {
 		return bothPlayers;
 	}
 
-	public MonsterCard effect(LinkedList<PlayCard> hand) {
-		PlayCard card;
-		MonsterCard returnCard;
+	public boolean shouldReturnMinion() {
+		return returnMinion;
+	}
 
+	public int effect(LinkedList<PlayCard> hand) {
 		while (true) {
 			int index = (int)(Math.random() * 100) % hand.size();
-			card = hand.get(index);
+			PlayCard card = hand.get(index);
 
 			if (card instanceof MonsterCard) {
-				returnCard = (MonsterCard)card;
-				return returnCard;
+				return index;
 			}
 		}
 	}
