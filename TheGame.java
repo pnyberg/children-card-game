@@ -301,8 +301,8 @@ public class TheGame {
 	public void drawCard() {
 //		int randomizer = (int)(Math.random()*10);
 		if (randomizer == 0) {
-			addCardToHand(new MonsterCard(MonsterCard.BLOOD_IMP));
-			addCardToHand(new MonsterCard(MonsterCard.NIGHTBLADE));
+			addCardToHand(new MonsterCard(MonsterCard.ALARMO_BOT));
+			addCardToHand(new MonsterCard(MonsterCard.LEPER_GNOME));
 		} else if (randomizer == 1) {
 			addCardToHand(new MonsterCard(MonsterCard.DOOMSAYER));
 			addCardToHand(new MonsterCard(MonsterCard.ALEXSTRASZA));
@@ -310,6 +310,8 @@ public class TheGame {
 			addCardToHand(new MonsterCard(MonsterCard.RAGNAROS));
 		} else if (randomizer == 2) {
 			addCardToHand(new MonsterCard(MonsterCard.DEATHWING));
+			addCardToHand(new MonsterCard(MonsterCard.BLOOD_IMP));
+			addCardToHand(new MonsterCard(MonsterCard.NIGHTBLADE));
 		} else if (randomizer == 3) {
 			addCardToHand(new MonsterCard(MonsterCard.DR_BOOM));
 		} else if (randomizer == 4) {
@@ -912,6 +914,18 @@ public class TheGame {
 			if (targetChoice != TARGETPLAYER) {
 				checkDeath(targetChoice, enemyTurn);
 			}
+		} else if (deathRattleEffect instanceof DealDamageToPlayer) {
+			DealDamageToPlayer dealDamageToPlayer = (DealDamageToPlayer)deathRattleEffect;
+
+			if (dealDamageToPlayer.damageSelf()) {
+				Player self = getPlayer(turnIndex);
+				dealDamageToPlayer.effect(self);
+			}
+
+			if (dealDamageToPlayer.damageEnemy()) {
+				Player enemy = getPlayer((turnIndex + 1) % 2);
+				dealDamageToPlayer.effect(enemy);
+			}
 		}
 	}
 
@@ -935,6 +949,16 @@ public class TheGame {
 			destroyAllMinionsTurnEffect.effect(friendlyMinionList, enemyMinionList);
 
 			checkDeathBoard();
+		} else if (startTurnEffect instanceof SummonRandomMinionFromHandTurnEffect) {
+			SummonRandomMinionFromHandTurnEffect summonRandomMinionFromHandTurnEffect = (SummonRandomMinionFromHandTurnEffect)startTurnEffect;
+			MonsterCard cardToPlay = null;
+			LinkedList<PlayCard> friendlyHandLIst = getCardList(turnIndex);
+
+
+			cardToPlay = summonRandomMinionFromHandTurnEffect.effect(friendlyHandLIst);
+
+			// playCard
+			System.out.println(cardToPlay.getName());
 		}
 	}
 

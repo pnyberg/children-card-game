@@ -68,7 +68,7 @@ public class MonsterCard extends PlayCard {
 							KNIFE_JUGGLER = 67, // not done
 							SHIELDMAIDEN = 68, // not done
 							IMP_GANG_BOSS = 69, // not done
-							BLOOD_IMP = 70, // not done
+							BLOOD_IMP = 70,
 							ONYXIA = 71, // not done
 							ILLIDAN_STORMRAGE = 72, // not done
 							LOATHEB = 73, // not done
@@ -87,7 +87,7 @@ public class MonsterCard extends PlayCard {
 							FAERIE_DRAGON = 86, // not done
 							MANA_ADDICT = 87, // not done
 							TINKERTOWN_TECHNICHIAN = 88, // not done
-							LEPER_GNOME = 89, // not done
+							LEPER_GNOME = 89,
 							LEPER_GNOME_BOT = 90, // not done
 							NIGHTBLADE = 91,
 							NAGA_ORACLE = 92, // not done
@@ -334,6 +334,14 @@ public class MonsterCard extends PlayCard {
 			name = "Nightblade";
 			initBasicStats(5, 4, 4);
 			battleCryEffect = new DealDamageToPlayer(3, false, true);			
+		} else if (type == LEPER_GNOME) {
+			name = "Leper Gnome";
+			initBasicStats(1, 2, 1);
+			deathRattleEffect = new DealDamageToPlayer(2, false, true);
+		} else if (type == ALARMO_BOT) {
+			name = "ALarm'O Bot";
+			initBasicStats(3, 0, 3);
+			startTurnEffect = new SummonRandomMinionFromHandTurnEffect(false, false);
 		}
 	}
 
