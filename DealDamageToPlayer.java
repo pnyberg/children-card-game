@@ -11,6 +11,14 @@ public class DealDamageToPlayer extends SpellEffect {
 		this.enemy = enemy;
 	}
 
+	public boolean damageSelf() {
+		return self;
+	}
+
+	public boolean damageEnemy() {
+		return enemy;
+	}
+
 	public void effect(Player player) {
 		player.takeDamage(damageAmount);
 	}

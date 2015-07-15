@@ -812,6 +812,18 @@ public class TheGame {
 			deck.add(new MonsterCard(MonsterCard.SLUDGE_BELCHER));
 
 			drawCards.effect(cardHand, deck);
+		} else if (battleCryEffect instanceof DealDamageToPlayer) {
+			DealDamageToPlayer dealDamageToPlayer = (DealDamageToPlayer)battleCryEffect;
+
+			if (dealDamageToPlayer.damageSelf()) {
+				Player self = getPlayer(turnIndex);
+				dealDamageToPlayer.effect(self);
+			}
+
+			if (dealDamageToPlayer.damageEnemy()) {
+				Player enemy = getPlayer((turnIndex + 1) % 2);
+				dealDamageToPlayer.effect(enemy);
+			}
 		} else if (battleCryEffect instanceof DestroyAllMinions) {
 			DestroyAllMinions destroyAllMinions = (DestroyAllMinions)battleCryEffect;
 
