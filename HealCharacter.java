@@ -1,9 +1,9 @@
 import java.util.LinkedList;
 
-public class HealMinion extends SpellEffect {
+public class HealCharacter extends SpellEffect {
 	int healAmount;
 
-	public HealMinion(int healAmount) {
+	public HealCharacter(int healAmount) {
 		this.healAmount = healAmount;
 	}
 

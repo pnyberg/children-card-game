@@ -15,3 +15,8 @@
 * Ordning på hantering (ex Boom Bot attackerar Boom Bot där båda träffar andra, som dör, t ex Boom Bots)
 * Effekter ska hanteras i den ordningen minionsen spelades (dvs, den Sylvanas som spelades först aktiveras först)
 * Buffar visas med '+' och debuffar visar med '-', istället för bara visa buff med *
+
+
+* Funderingar
+- Hur dubbelstjäls en minion av att två sylvanas kolliderar
+- Vad händer om en Doomsayer summonas av en Alarm'O Bot

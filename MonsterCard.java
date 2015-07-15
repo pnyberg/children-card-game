@@ -79,7 +79,7 @@ public class MonsterCard extends PlayCard {
 							MOUNTAIN_GIANT = 78, // not done
 							MOLTEN_GIANT = 79, // not done
 							CLOCKWORK_GIANT = 80, // not done
-							ALARMO_BOT = 81, // not done
+							ALARMO_BOT = 81,
 							PILOTED_SHREDDER = 82, // not done
 							MAD_BOMBER = 83, // not done
 							SUCCUBUS = 84, // not done
@@ -158,7 +158,7 @@ public class MonsterCard extends PlayCard {
 		} else if (type == VODOO_DOCTOR) {
 			name = "Vodoo Doctor";
 			initBasicStats(1, 2, 1);
-			battleCryEffect = new HealMinion(2);
+			battleCryEffect = new HealCharacter(2);
 		} else if (type == ACIDIC_SWAMP_OOZE) {
 			name = "Acidic Swamp Ooze";
 			initBasicStats(2, 3, 2);
@@ -240,7 +240,7 @@ public class MonsterCard extends PlayCard {
 		} else if (type == EARTHEN_RING_FARSEER) {
 			name = "Earthen Ring Farseer";
 			initBasicStats(3, 3, 3);
-			battleCryEffect = new HealMinion(3);
+			battleCryEffect = new HealCharacter(3);
 		} else if (type == SLUDGE_BELCHER) {
 			name = "Sludge Belcher";
 			initBasicStats(5, 3, 5);
@@ -329,7 +329,7 @@ public class MonsterCard extends PlayCard {
 		} else if (type == BLOOD_IMP) {
 			name = "Blood Imp";
 			initBasicStats(1, 3, 2);
-			battleCryEffect = new DealDamageToPlayer(3, true, false);			
+			battleCryEffect = new DealDamageToPlayer(3, true, false);
 		} else if (type == NIGHTBLADE) {
 			name = "Nightblade";
 			initBasicStats(5, 4, 4);
@@ -342,6 +342,10 @@ public class MonsterCard extends PlayCard {
 			name = "Alarm'O Bot";
 			initBasicStats(3, 0, 3);
 			startTurnEffect = new SummonRandomMinionFromHandTurnEffect(false, false, true);
+		} else if (type == FROSTWOLF_WARLORD) {
+			name = "Frostwolf Warlord";
+			initBasicStats(5, 4, 4);
+			battleCryEffect = new BuffAccordingToBoard(1, 1, true, false, false, false);
 		}
 	}
 

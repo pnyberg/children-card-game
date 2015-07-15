@@ -159,7 +159,7 @@ public class TheGame {
 			array = new String[]{"target"};
 		} else if (battleCryEffect instanceof PickUpMinion) {
 			array = new String[]{"pick", "up"};
-		} else if (battleCryEffect instanceof HealMinion) {
+		} else if (battleCryEffect instanceof HealCharacter) {
 			array = new String[]{"heal"};
 		} else if (battleCryEffect instanceof SwapHealthMinion) {
 			array = new String[]{"swap", "health"};
@@ -180,7 +180,7 @@ public class TheGame {
 		int arrayLength = array.length;
 		int turnIndex = getTurnIndex(str[arrayLength]);
 
-		if (battleCryEffect instanceof HealMinion) {
+		if (battleCryEffect instanceof HealCharacter) {
 			Character character;
 
 			if (minionIndex == TARGETPLAYER) {
@@ -189,9 +189,9 @@ public class TheGame {
 				character = getMinion(minionIndex, turnIndex);
 			}
 
-			HealMinion healMinion = (HealMinion)battleCryEffect;
+			HealCharacter healCharacter = (HealCharacter)battleCryEffect;
 
-			healMinion.effect(character);
+			healCharacter.effect(character);
 
 			System.out.println(character.getName() + " got healed!");
 		} else if (battleCryEffect instanceof SetHealthPlayer) {
@@ -322,9 +322,10 @@ public class TheGame {
 //		int randomizer = (int)(Math.random()*10);
 		if (randomizer == 0) {
 			addCardToHand(new MonsterCard(MonsterCard.ALARMO_BOT));
-			addCardToHand(new MonsterCard(MonsterCard.LEPER_GNOME));
-		} else if (randomizer == 1) {
 			addCardToHand(new MonsterCard(MonsterCard.DOOMSAYER));
+			addCardToHand(new MonsterCard(MonsterCard.FROSTWOLF_WARLORD));
+		} else if (randomizer == 1) {
+			addCardToHand(new MonsterCard(MonsterCard.LEPER_GNOME));
 			addCardToHand(new MonsterCard(MonsterCard.ALEXSTRASZA));
 			addCardToHand(new MonsterCard(MonsterCard.VOLJIN));
 			addCardToHand(new MonsterCard(MonsterCard.RAGNAROS));
@@ -653,7 +654,9 @@ public class TheGame {
 		for (int i = 0 ; i < minionList.size() ; i++) {
 			Minion minion = minionList.get(i);
 			if (minion.hasStartTurnEffect()) {
-				manageStartTurnEffect(i, turnIndex);
+				boolean minionRemovedFromBoard = manageStartTurnEffect(i, turnIndex);
+
+				if (minionRemovedFromBoard) { i--; }
 			}
 		}
 	}
@@ -805,13 +808,33 @@ public class TheGame {
 
 				System.out.println("Which minion do you want to target?");
 			}
+		} else if (battleCryEffect instanceof BuffAccordingToBoard) {
+			BuffAccordingToBoard buffAccordingToBoard = (BuffAccordingToBoard)battleCryEffect;
+
+			/*HERE*/
+			if (!buffAccordingToBoard.buffSelf() && minionExists()) {
+				// not implemented yet
+				/*handlingBattleCry = true;
+
+				System.out.println("Which minion do you want to target?");*/
+			} else {
+				if (buffAccordingToBoard.buffAccordingToFriendlyBoard()) {
+					LinkedList<Minion> friendlyMinionList = getMinionList(turnIndex);
+					buffAccordingToBoard.effect(minion, friendlyMinionList);
+				}
+
+				if (buffAccordingToBoard.buffAccordingToEnemyBoard()) {
+					LinkedList<Minion> enemyMinionList = getMinionList((turnIndex + 1) % 2);
+					buffAccordingToBoard.effect(minion, enemyMinionList);
+				}
+			}
 		} else if (battleCryEffect instanceof PickUpMinion) {
 			if (minionExists()) {
 				handlingBattleCry = true;
 
 				System.out.println("Which minion do you want to pick up?");
 			}
-		} else if (battleCryEffect instanceof HealMinion) {
+		} else if (battleCryEffect instanceof HealCharacter) {
 			handlingBattleCry = true;
 
 			System.out.println("Which character do you want to heal?");
@@ -868,6 +891,7 @@ public class TheGame {
 		}
 	}
 
+	/*HERE*/ // does it matter if there is an enemy minion or a friendly one?
 	public boolean minionExists() {
 		return !minionsOnBoard1.isEmpty() || !minionsOnBoard2.isEmpty();
 	}
@@ -957,12 +981,12 @@ public class TheGame {
 	}
 
 //#900
-	public void manageStartTurnEffect(int minionIndex, int turnIndex) {
+	public boolean manageStartTurnEffect(int minionIndex, int turnIndex) {
 		Minion minion = getMinion(minionIndex, turnIndex);
 		TurnEffect startTurnEffect = minion.getStartTurnEffect();
 
 		if (turn != turnIndex && !startTurnEffect.activeOnBothTurns()) {
-			return;
+			return false;
 		}
 
 		if (startTurnEffect instanceof DestroyAllMinionsTurnEffect) {
@@ -991,8 +1015,12 @@ public class TheGame {
 
 				handList.add(monsterCard);
 				removeMinionFromBoard(minionIndex, turnIndex);
+
+				return true;
 			}
 		}
+
+		return false;
 	}
 
 	public void summonMinionFromHand(SummonRandomMinionFromHandTurnEffect summonRandomMinionFromHandTurnEffect, int turnIndex) {
