@@ -410,6 +410,7 @@ public class TheGame {
 	public void drawCard() {
 //		int randomizer = (int)(Math.random()*10);
 		if (randomizer == 0) {
+			addCardToHand(new MonsterCard(MonsterCard.BARON_GEDDON));
 			addCardToHand(new MonsterCard(MonsterCard.SAVANNAH_HIGHMANE));
 			addCardToHand(new MonsterCard(MonsterCard.TWILIGHT_DRAKE));
 			addCardToHand(new MonsterCard(MonsterCard.ALDOR_PEACEKEEPER));
@@ -921,7 +922,6 @@ public class TheGame {
 		} else if (battleCryEffect instanceof BuffAccordingToBoard) {
 			BuffAccordingToBoard buffAccordingToBoard = (BuffAccordingToBoard)battleCryEffect;
 
-			/*HERE*/
 			if (!buffAccordingToBoard.buffSelf() && minionExists()) {
 				// not implemented yet
 				/*handlingBattleCry = true;
@@ -944,7 +944,6 @@ public class TheGame {
 		} else if (battleCryEffect instanceof BuffAccordingToHand) {
 			BuffAccordingToHand buffAccordingToHand = (BuffAccordingToHand)battleCryEffect;
 
-			/*HERE*/
 			if (!buffAccordingToHand.buffSelf() && minionExists()) {
 				// not implemented yet
 				/*handlingBattleCry = true;
@@ -1188,6 +1187,7 @@ public class TheGame {
 		System.out.println(cardToPlay.getName() + " got summoned!");
 	}
 
+//#1200
 	public void manageEndTurnEffect(int minionIndex, int turnIndex) {
 		Minion minion = getMinion(minionIndex, turnIndex);
 		TurnEffect endTurnEffect = minion.getEndTurnEffect();
@@ -1210,6 +1210,19 @@ public class TheGame {
 			LinkedList<PlayCard> cardHand = getCardList(turnIndex);
 
 			handCostTurnEffect.effect(cardHand);
+		} else if (endTurnEffect instanceof DealDamageToAllCharactersTurnEffect) {
+			DealDamageToAllCharactersTurnEffect dealDamageToAllCharactersTurnEffect = (DealDamageToAllCharactersTurnEffect)endTurnEffect;
+
+			LinkedList<Minion> friendlyMinionList = getMinionList(turnIndex);
+			LinkedList<Minion> enemyMinionList = getMinionList((turnIndex + 1) % 2);
+			Player self = getPlayer(turnIndex);
+			Player enemy = getPlayer((turnIndex + 1) % 2);
+
+			dealDamageToAllCharactersTurnEffect.effect(friendlyMinionList, minionIndex, enemyMinionList, self, enemy);
+
+			if (dealDamageToAllCharactersTurnEffect.damageBoard()) {
+				checkDeathBoard();
+			}
 		} else if (endTurnEffect instanceof DealDamageRandomTurnEffect) {
 			int targetChoice;
 			Character character;
@@ -1274,7 +1287,6 @@ public class TheGame {
 		}
 	}
 
-//#1200
 	public void addSummonedMinions(int turnIndex) {
 		LinkedList<Minion> minionsOnBoard = getMinionList(turnIndex);
 		LinkedList<Minion> minionTempList = getTempMinionList(turnIndex);

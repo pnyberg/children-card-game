@@ -134,7 +134,7 @@ public class MonsterCard extends PlayCard {
 							BARON_GEDDON = 130, // not done
 							MALORNE = 131, // not done
 							ALDOR_PEACEKEEPER = 132,
-							CRAZED_ALCHEMIST = 133, // not done
+							CRAZED_ALCHEMIST = 133,
 							HOGGER = 134,
 							GNOLL = 204,
 							FACELESS_MANIPULATOR = 135, // not done
@@ -522,6 +522,10 @@ public class MonsterCard extends PlayCard {
 			name = "Crazed Alchemist";
 			initBasicStats(2, 2, 2);
 			battleCryEffect = new SwapAttackHealthMinion();
+		} else if (type == BARON_GEDDON) {
+			name = "Baron Geddon";
+			initBasicStats(7, 7, 5);
+			endTurnEffect = new DealDamageToAllCharactersTurnEffect(2, true, true, true, false);
 		}
 	}
 
