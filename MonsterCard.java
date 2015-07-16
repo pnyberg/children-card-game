@@ -57,7 +57,7 @@ public class MonsterCard extends PlayCard {
 							BLOODMAGE_THALNOS = 56, // not done - dubbla effekter
 							TWILIGHT_DRAKE = 57, // not done
 							BOLIVAR_FORDRAGON = 58, // not done
-							SHRINKMEISTER = 59, // not done
+							SHRINKMEISTER = 59,
 							IMP_MASTER = 60, // not done
 							GRUUL = 61,
 							WATER_ELEMENTAL = 62, // not done
@@ -75,7 +75,8 @@ public class MonsterCard extends PlayCard {
 							LOATHEB = 73, // not done
 							NERUBIAN_WEBLORD = 74, // not done
 							VENTURE_CO_MERCENARY = 75, // not done
-							SAVANNAH_HIGHMANE = 76, // not done
+							SAVANNAH_HIGHMANE = 76,
+							SAVANNAH_HYENA = 202,
 							SEA_GIANT = 77,
 							MOUNTAIN_GIANT = 78,
 							MOLTEN_GIANT = 79,
@@ -477,6 +478,15 @@ public class MonsterCard extends PlayCard {
 			name = "Shrinkmeister";
 			initBasicStats(2, 3, 2);
 			battleCryEffect = new BuffSingleMinion(-2, 0, false, false, false, false, true);
+		} else if (type == SAVANNAH_HIGHMANE) {
+			name = "Savannah Highmane";
+			minionType = Minion.BEAST;
+			initBasicStats(6, 6, 5);
+			deathRattleEffect = new SummonMinions(new int[] {SAVANNAH_HYENA, SAVANNAH_HYENA}, null);
+		} else if (type == SAVANNAH_HYENA) {
+			name = "Savannah Hyena";
+			minionType = Minion.BEAST;
+			initBasicStats(2, 2, 2);
 		}
 	}
 

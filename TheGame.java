@@ -390,19 +390,14 @@ public class TheGame {
 	public void drawCard() {
 //		int randomizer = (int)(Math.random()*10);
 		if (randomizer == 0) {
+			addCardToHand(new MonsterCard(MonsterCard.SAVANNAH_HIGHMANE));
+		} else if (randomizer == 1) {
 			addCardToHand(new MonsterCard(MonsterCard.GRUUL));
 			addCardToHand(new MonsterCard(MonsterCard.SHRINKMEISTER));
 			addCardToHand(new MonsterCard(MonsterCard.ALEXSTRASZA));
 			addCardToHand(new MonsterCard(MonsterCard.MOLTEN_GIANT));
 			addCardToHand(new MonsterCard(MonsterCard.SEA_GIANT));
 			addCardToHand(new MonsterCard(MonsterCard.MOUNTAIN_GIANT));
-			addCardToHand(new MonsterCard(MonsterCard.CLOCKWORK_GIANT));
-		} else if (randomizer == 1) {
-			addCardToHand(new MonsterCard(MonsterCard.SHRINKMEISTER));
-			addCardToHand(new MonsterCard(MonsterCard.SHRINKMEISTER));
-			addCardToHand(new MonsterCard(MonsterCard.NIGHTBLADE));
-			addCardToHand(new MonsterCard(MonsterCard.LEPER_GNOME));
-			addCardToHand(new MonsterCard(MonsterCard.RAGNAROS));
 		} else if (randomizer == 2) {
 			addCardToHand(new MonsterCard(MonsterCard.ONYXIA));
 			addCardToHand(new MonsterCard(MonsterCard.ALARMO_BOT));
@@ -411,6 +406,10 @@ public class TheGame {
 			addCardToHand(new MonsterCard(MonsterCard.DEATHWING));
 			addCardToHand(new MonsterCard(MonsterCard.BLOOD_IMP));
 		} else if (randomizer == 3) {
+			addCardToHand(new MonsterCard(MonsterCard.CLOCKWORK_GIANT));
+			addCardToHand(new MonsterCard(MonsterCard.NIGHTBLADE));
+			addCardToHand(new MonsterCard(MonsterCard.LEPER_GNOME));
+			addCardToHand(new MonsterCard(MonsterCard.RAGNAROS));
 			addCardToHand(new MonsterCard(MonsterCard.DR_BOOM));
 		} else if (randomizer == 4) {
 			addCardToHand(new MonsterCard(MonsterCard.DISPATCHING_DRAKE));
@@ -849,7 +848,7 @@ public class TheGame {
 			return cardList.get(index);
 		}
 
-		System.out.println(index + " is not a valid cardIndex for Player " + ((turn + 1) % 2));
+		System.out.println(index + " is not a valid cardIndex for Player " + (turnIndex + 1));
 
 		return null;
 	}
