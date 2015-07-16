@@ -135,7 +135,8 @@ public class MonsterCard extends PlayCard {
 							MALORNE = 131, // not done
 							ALDOR_PEACEKEEPER = 132, // not done
 							CRAZED_ALCHEMIST = 133, // not done
-							HOGGER = 134, // not done
+							HOGGER = 134,
+							GNOLL = 204,
 							FACELESS_MANIPULATOR = 135, // not done
 							SPELLBREAKER = 136, // not done
 							FELGUARD = 137, // not done
@@ -501,6 +502,14 @@ public class MonsterCard extends PlayCard {
 			name = "Imp";
 			minionType = Minion.DEMON;
 			initBasicStats(1, 1, 1);
+		} else if (type == HOGGER) {
+			name = "Hogger";
+			initBasicStats(5, 4, 4);
+			endTurnEffect = new SummonMinionTurnEffect(new int[] {GNOLL}, null, false);
+		} else if (type == GNOLL) {
+			name = "Gnoll";
+			initBasicStats(2, 2, 2);
+			taunt = true;
 		}
 	}
 

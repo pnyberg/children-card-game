@@ -392,6 +392,7 @@ public class TheGame {
 		if (randomizer == 0) {
 			addCardToHand(new MonsterCard(MonsterCard.SAVANNAH_HIGHMANE));
 			addCardToHand(new MonsterCard(MonsterCard.TWILIGHT_DRAKE));
+			addCardToHand(new MonsterCard(MonsterCard.HOGGER));
 			addCardToHand(new MonsterCard(MonsterCard.IMP_MASTER));
 		} else if (randomizer == 1) {
 			addCardToHand(new MonsterCard(MonsterCard.GRUUL));
@@ -742,6 +743,9 @@ public class TheGame {
 	public void handleEndTurnActions(int turnIndex) {
 		handleEndTurnActionsForList(turnIndex);
 		handleEndTurnActionsForList((turnIndex + 1) % 2);
+
+		addSummonedMinions(turnIndex);
+		addSummonedMinions((turnIndex + 1) % 2);
 
 		minionDeadList1.clear();
 		minionDeadList2.clear();
