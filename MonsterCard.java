@@ -133,7 +133,7 @@ public class MonsterCard extends PlayCard {
 							STEALTH_WORGEN = 129, // not done
 							BARON_GEDDON = 130, // not done
 							MALORNE = 131, // not done
-							ALDOR_PEACEKEEPER = 132, // not done
+							ALDOR_PEACEKEEPER = 132,
 							CRAZED_ALCHEMIST = 133, // not done
 							HOGGER = 134,
 							GNOLL = 204,
@@ -518,6 +518,10 @@ public class MonsterCard extends PlayCard {
 			name = "Aldor Peacekeeper";
 			initBasicStats(3, 3, 3);
 			battleCryEffect = new SetStatsSingleMinion(1, -1);
+		} else if (type == CRAZED_ALCHEMIST) {
+			name = "Crazed Alchemist";
+			initBasicStats(2, 2, 2);
+			battleCryEffect = new SwapAttackHealthMinion();
 		}
 	}
 

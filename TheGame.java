@@ -224,7 +224,7 @@ public class TheGame {
 	public void handleBattleCryEffectTargeting(String[] str, SpellEffect battleCryEffect) {
 		String[] array;
 
-		if (battleCryEffect instanceof BuffSingleMinion || battleCryEffect instanceof DealDamage || battleCryEffect instanceof SetStatsSingleMinion) {
+		if (battleCryEffect instanceof BuffSingleMinion || battleCryEffect instanceof DealDamage || battleCryEffect instanceof SetStatsSingleMinion || battleCryEffect instanceof SwapAttackHealthMinion) {
 			array = new String[]{"target"};
 		} else if (battleCryEffect instanceof PickUpMinion) {
 			array = new String[]{"pick", "up"};
@@ -317,6 +317,7 @@ public class TheGame {
 
 				PlayCard cardToBePlayed = getCardFromHand(minionTriedToPlayCardIndex);
 
+				// necessary
 				if (cardToBePlayed instanceof SpellCard) {
 					return;
 				}
@@ -326,6 +327,12 @@ public class TheGame {
 				swapHealthMinion.effect(minionToBePlayed, targetMinion);
 
 				System.out.println(targetMinion.getName() + " got swaped health with " + minionToBePlayed.getName() + "!");
+			} else if (battleCryEffect instanceof SwapAttackHealthMinion) {
+				SwapAttackHealthMinion swapAttackHealthMinion = (SwapAttackHealthMinion)battleCryEffect;
+
+				swapAttackHealthMinion.effect(targetMinion);
+
+				System.out.println(targetMinion.getName() + " got swaped attack and health!");
 			}
 		}
 
@@ -400,6 +407,7 @@ public class TheGame {
 			addCardToHand(new MonsterCard(MonsterCard.TWILIGHT_DRAKE));
 			addCardToHand(new MonsterCard(MonsterCard.ALDOR_PEACEKEEPER));
 			addCardToHand(new MonsterCard(MonsterCard.HOGGER));
+			addCardToHand(new MonsterCard(MonsterCard.CRAZED_ALCHEMIST));
 			addCardToHand(new MonsterCard(MonsterCard.IMP_MASTER));
 		} else if (randomizer == 1) {
 			addCardToHand(new MonsterCard(MonsterCard.GRUUL));
@@ -967,6 +975,10 @@ public class TheGame {
 			handlingBattleCry = true;
 
 			System.out.println("Which minion do you want to swap health with?");
+		} else if (battleCryEffect instanceof SwapAttackHealthMinion) {
+			handlingBattleCry = true;
+
+			System.out.println("Which minion do you want to swap attack and health with?");
 		} else if (battleCryEffect instanceof SetHealthPlayer) {
 			handlingBattleCry = true;
 
