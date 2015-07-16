@@ -610,11 +610,11 @@ public class TheGame {
 		}
 
 		int damage = attackingMinion.attack();
-		int playerNumber = (turn+1) % 2 + 1;
+		int playerNumber = (turn + 1) % 2 + 1;
 
 		System.out.println(attackingMinion.getName() + " is attacking Player " + playerNumber);
 
-		Player player = getPlayer(turn);
+		Player player = getPlayer((turn + 1) % 2);
 		player.takeDamage(damage);
 		System.out.println("Player " + playerNumber + " takes " + damage + " damage, has " + player.getHealth() + " left!");
 	}
