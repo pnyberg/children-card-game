@@ -510,6 +510,14 @@ public class MonsterCard extends PlayCard {
 			name = "Gnoll";
 			initBasicStats(2, 2, 2);
 			taunt = true;
+		} else if (type == SHRINKMEISTER) {
+			name = "Shrinkmeister";
+			initBasicStats(2, 3, 2);
+			battleCryEffect = new BuffSingleMinion(-2, 0, false, false, false, false, true);
+		} else if (type == ALDOR_PEACEKEEPER) {
+			name = "Aldor Peacekeeper";
+			initBasicStats(3, 3, 3);
+			battleCryEffect = new SetStatsSingleMinion(1, -1);
 		}
 	}
 

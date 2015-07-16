@@ -158,6 +158,10 @@ public class Minion extends Character {
 		currentAttack += add;
 	}
 
+	public void setAttack(int newAttack) {
+		currentAttack = newAttack;
+	}
+
 	public void addTempAttack(int attack) {
 		tempAttack += attack;
 	}

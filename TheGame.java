@@ -224,7 +224,7 @@ public class TheGame {
 	public void handleBattleCryEffectTargeting(String[] str, SpellEffect battleCryEffect) {
 		String[] array;
 
-		if (battleCryEffect instanceof BuffSingleMinion || battleCryEffect instanceof DealDamage) {
+		if (battleCryEffect instanceof BuffSingleMinion || battleCryEffect instanceof DealDamage || battleCryEffect instanceof SetStatsSingleMinion) {
 			array = new String[]{"target"};
 		} else if (battleCryEffect instanceof PickUpMinion) {
 			array = new String[]{"pick", "up"};
@@ -295,6 +295,12 @@ public class TheGame {
 				BuffSingleMinion buffSingleMinion = (BuffSingleMinion)battleCryEffect;
 
 				buffSingleMinion.effect(targetMinion);
+
+				System.out.println(targetMinion.getName() + " got buffed!");
+			} else if (battleCryEffect instanceof SetStatsSingleMinion) {
+				SetStatsSingleMinion setStatsSingleMinion = (SetStatsSingleMinion)battleCryEffect;
+
+				setStatsSingleMinion.effect(targetMinion);
 
 				System.out.println(targetMinion.getName() + " got buffed!");
 			} else if (battleCryEffect instanceof PickUpMinion) {
@@ -392,6 +398,7 @@ public class TheGame {
 		if (randomizer == 0) {
 			addCardToHand(new MonsterCard(MonsterCard.SAVANNAH_HIGHMANE));
 			addCardToHand(new MonsterCard(MonsterCard.TWILIGHT_DRAKE));
+			addCardToHand(new MonsterCard(MonsterCard.ALDOR_PEACEKEEPER));
 			addCardToHand(new MonsterCard(MonsterCard.HOGGER));
 			addCardToHand(new MonsterCard(MonsterCard.IMP_MASTER));
 		} else if (randomizer == 1) {
@@ -885,6 +892,12 @@ public class TheGame {
 		SpellEffect battleCryEffect = minion.getBattleCryEffect();
 
 		if (battleCryEffect instanceof BuffSingleMinion) {
+			if (minionExists()) {
+				handlingBattleCry = true;
+
+				System.out.println("Which minion do you want to target?");
+			}
+		} else if (battleCryEffect instanceof SetStatsSingleMinion) {
 			if (minionExists()) {
 				handlingBattleCry = true;
 
