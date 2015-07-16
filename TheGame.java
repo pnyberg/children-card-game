@@ -389,6 +389,7 @@ public class TheGame {
 	public void drawCard() {
 //		int randomizer = (int)(Math.random()*10);
 		if (randomizer == 0) {
+			addCardToHand(new MonsterCard(MonsterCard.ONYXIA));
 			addCardToHand(new MonsterCard(MonsterCard.GRUUL));
 			addCardToHand(new MonsterCard(MonsterCard.ALEXSTRASZA));
 			addCardToHand(new MonsterCard(MonsterCard.MOLTEN_GIANT));

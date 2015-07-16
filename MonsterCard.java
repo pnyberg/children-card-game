@@ -59,7 +59,7 @@ public class MonsterCard extends PlayCard {
 							BOLIVAR_FORDRAGON = 58, // not done
 							SHRINKMEISTER = 59, // not done
 							IMP_MASTER = 60, // not done
-							GRUUL = 61, // not done
+							GRUUL = 61,
 							WATER_ELEMENTAL = 62, // not done
 							EARTH_ELEMENTAL = 63, // not done
 							FIRE_ELEMENTAL = 64,
@@ -69,7 +69,8 @@ public class MonsterCard extends PlayCard {
 							SHIELDMAIDEN = 68, // not done
 							IMP_GANG_BOSS = 69, // not done
 							BLOOD_IMP = 70,
-							ONYXIA = 71, // not done
+							ONYXIA = 71,
+							DRAGON_WHELP = 201,
 							ILLIDAN_STORMRAGE = 72, // not done
 							LOATHEB = 73, // not done
 							NERUBIAN_WEBLORD = 74, // not done
@@ -456,12 +457,22 @@ public class MonsterCard extends PlayCard {
 			initBasicStats(12, 8, 8);
 		} else if (type == CLOCKWORK_GIANT) {
 			name = "Clockwork Giant";
+			minionType = Minion.MECH;
 			costEffect = new CostDeterminedByCardsInHand(1, false, true);
 			initBasicStats(12, 8, 8);
 		} else if (type == GRUUL) {
 			name = "Gruul";
 			initBasicStats(7, 7, 7);
 			startTurnEffect = new BuffMinionTurnEffect(1, 1, true, false);
+		} else if (type == ONYXIA) {
+			name = "Onyxia";
+			minionType = Minion.DRAGON;
+			initBasicStats(9, 8, 8);
+			battleCryEffect = new SummonMinions(new int[] {DRAGON_WHELP, DRAGON_WHELP, DRAGON_WHELP, DRAGON_WHELP, DRAGON_WHELP, DRAGON_WHELP}, null);
+		} else if (type == DRAGON_WHELP) {
+			name = "Dragon Whelp";
+			minionType = Minion.DRAGON;
+			initBasicStats(1, 1, 1);
 		}
 	}
 
