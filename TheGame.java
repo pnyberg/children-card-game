@@ -83,9 +83,45 @@ public class TheGame {
 		} else {
 			handleBasicCommands(str);
 		}
+
+		checkHandCostChange();
+	}
+
+	public void checkHandCostChange() {
+		checkHandCostChangeForList(turn);
+		checkHandCostChangeForList((turn + 1) % 2);
+	}
+
+	public void checkHandCostChangeForList(int turnIndex) {
+		LinkedList<PlayCard> cardList = getCardList(turnIndex);
+
+		for (PlayCard card : cardList) {
+			if (card.hasCostEffect()) {
+				handleCostEffect(card, turnIndex);
+			}
+		}
 	}
 
 //#100
+	public void handleCostEffect(PlayCard card, int turnIndex) {
+		SpellEffect costEffect = card.getCostEffect();
+
+		if (costEffect instanceof CostDeterminedByHealth) {
+			CostDeterminedByHealth costDeterminedByHealth = (CostDeterminedByHealth)costEffect;
+			Player player;
+
+			if (costDeterminedByHealth.basedOnFriendlyPlayer()) {
+				player = getPlayer(turnIndex);
+			} else {
+				player = getPlayer((turnIndex + 1) % 2);
+			}
+
+			int healthLost = 30 - player.getHealth();
+
+			costDeterminedByHealth.effect(card, healthLost);
+		}
+	}
+
 	public void handleBasicCommands(String[] str) {
 		if (str.length == 1 && str[0].equals("draw")) {
 			drawCard();
@@ -321,18 +357,18 @@ public class TheGame {
 	public void drawCard() {
 //		int randomizer = (int)(Math.random()*10);
 		if (randomizer == 0) {
+			addCardToHand(new MonsterCard(MonsterCard.ALEXSTRASZA));
+			addCardToHand(new MonsterCard(MonsterCard.MOLTEN_GIANT));
+		} else if (randomizer == 1) {
+			addCardToHand(new MonsterCard(MonsterCard.NIGHTBLADE));
+			addCardToHand(new MonsterCard(MonsterCard.LEPER_GNOME));
+			addCardToHand(new MonsterCard(MonsterCard.RAGNAROS));
+		} else if (randomizer == 2) {
 			addCardToHand(new MonsterCard(MonsterCard.ALARMO_BOT));
 			addCardToHand(new MonsterCard(MonsterCard.DOOMSAYER));
 			addCardToHand(new MonsterCard(MonsterCard.FROSTWOLF_WARLORD));
-		} else if (randomizer == 1) {
-			addCardToHand(new MonsterCard(MonsterCard.LEPER_GNOME));
-			addCardToHand(new MonsterCard(MonsterCard.ALEXSTRASZA));
-			addCardToHand(new MonsterCard(MonsterCard.VOLJIN));
-			addCardToHand(new MonsterCard(MonsterCard.RAGNAROS));
-		} else if (randomizer == 2) {
 			addCardToHand(new MonsterCard(MonsterCard.DEATHWING));
 			addCardToHand(new MonsterCard(MonsterCard.BLOOD_IMP));
-			addCardToHand(new MonsterCard(MonsterCard.NIGHTBLADE));
 		} else if (randomizer == 3) {
 			addCardToHand(new MonsterCard(MonsterCard.DR_BOOM));
 		} else if (randomizer == 4) {

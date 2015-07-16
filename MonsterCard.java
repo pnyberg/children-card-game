@@ -2,36 +2,36 @@ public class MonsterCard extends PlayCard {
 	public static final int	ELVEN_ARCHER = 1,
 							GOLDSHIRE_FOOTMAN = 2,
 							GRIMSCALE_ORACLE = 3, // not done
-							MURLOC_RAIDER = 4,
-							STONETUSK_BOAR = 5,
+							MURLOC_RAIDER = 4, // not done
+							STONETUSK_BOAR = 5, // not done
 							VODOO_DOCTOR = 6,
 							ACIDIC_SWAMP_OOZE = 7, // not done
-							BLOODFEN_RAPTOR = 8,
-							BLUEGILL_WARRIOR = 9,
+							BLOODFEN_RAPTOR = 8, // not done
+							BLUEGILL_WARRIOR = 9, // not done
 							FROSTWOLF_GRUNT = 10,
 							KOBOLD_GEOMANCER = 11, // not done
-							MURLOC_TIDEHUNTER = 12,
-							MURLOC_SCOUT = 13,
-							RIVER_CROCOLISK = 14,
+							MURLOC_TIDEHUNTER = 12, // not done
+							MURLOC_SCOUT = 13, // not done
+							RIVER_CROCOLISK = 14, // not done
 							DALARAN_MAGE = 15, // not done
 							IRONFORGE_RIFLEMAN = 16,
-							IRONFUR_GRIZZLY = 17,
+							IRONFUR_GRIZZLY = 17, // not done
 							MAGMA_RAGER = 18,
 							RAID_LEADER = 19, // not done
-							RAZORFEN_HUNTER = 20,
+							RAZORFEN_HUNTER = 20, // not done
 							SHATTERED_SUN_CLERIC = 21,
-							SILVERBACK_PATRIARCH = 22,
+							SILVERBACK_PATRIARCH = 22, // not done
 							WOLFRIDER = 23,
 							CHILLWIND_YETI = 24,
 							DRAGONLING_MECHANIC = 25,
-							MECHANICAL_DRAGONLING = 26,
-							MANA_TIDE_TOTEM = 27,
+							MECHANICAL_DRAGONLING = 26, // not done
+							MANA_TIDE_TOTEM = 27, // not done
 							EARTHEN_RING_FARSEER = 28,
 							SLUDGE_BELCHER = 29,
 							SLIME = 30,
 							LOOT_HOARDER = 31,
 							UNSTABLE_GHOUL = 32,
-							SORCERERS_DRAKE = 33,
+							SORCERERS_DRAKE = 33, // not done
 							NOVICE_ENGINEER = 34,
 							DRAGON_GRUNT = 35,
 							DISPATCHING_DRAKE = 36,
@@ -39,17 +39,17 @@ public class MonsterCard extends PlayCard {
 							YSERA = 38, // not done
 							KELTHUZAD = 39,
 							EMPEROR_THAURISSAN = 40,
-							ALEXSTRASZA = 41,
+							ALEXSTRASZA = 41, // not done
 							SYLVANAS_WINDRUNNER = 42,
 							CAIRNE_BLOODHOOF = 43,
 							BAINE_BLOODHOOF = 44,
 							ALAKIR = 45,
-							KING_KRUSH = 46,
+							KING_KRUSH = 46, // not done
 							MALGANIS = 47, // not done
-							DEATHWING = 48,
+							DEATHWING = 48, // not done
 							MALYGOS = 49, // not done
 							DR_BOOM = 50,
-							BOOM_BOT = 51,
+							BOOM_BOT = 51, // not done
 							VOLJIN = 52,
 							PROPHET_VELEN = 53, // not done
 							GAHZRILLA = 54, // not done
@@ -68,7 +68,7 @@ public class MonsterCard extends PlayCard {
 							KNIFE_JUGGLER = 67, // not done
 							SHIELDMAIDEN = 68, // not done
 							IMP_GANG_BOSS = 69, // not done
-							BLOOD_IMP = 70,
+							BLOOD_IMP = 70, // not done
 							ONYXIA = 71, // not done
 							ILLIDAN_STORMRAGE = 72, // not done
 							LOATHEB = 73, // not done
@@ -79,7 +79,7 @@ public class MonsterCard extends PlayCard {
 							MOUNTAIN_GIANT = 78, // not done
 							MOLTEN_GIANT = 79, // not done
 							CLOCKWORK_GIANT = 80, // not done
-							ALARMO_BOT = 81,
+							ALARMO_BOT = 81, // not done
 							PILOTED_SHREDDER = 82, // not done
 							MAD_BOMBER = 83, // not done
 							SUCCUBUS = 84, // not done
@@ -95,15 +95,81 @@ public class MonsterCard extends PlayCard {
 							MIND_CONTROL_TECH = 94, // not done
 							CABAL_SHADOWPRIEST = 95, // not done
 							STORMWIND_CHAMPION = 96, // not done
-							FROSTWOLF_WARLORD = 97, // not done
+							FROSTWOLF_WARLORD = 97,
 							VOID_TERROR = 98, // not done
 							ENHANCO_MECHANIC = 99, // not done
-							LOREWALKER_CHO = 100; // not done
+							LOREWALKER_CHO = 100, // not done
+							ELVEN_OF_ELUNE = 101, // not done
+							MILLHOUSE_MANASTORM = 102, // not done
+							LEEROY_JENKINS = 103, // not done
+							LORD_JARAXXUS = 104, // not done
+							FOE_REAPER = 105, // not done
+							RAGING_WORGEN = 106, // not done
+							INJURED_BLADEMASTER = 107, // not done
+							SOOTHING_BERSERKER = 108, // not done
+							GURUBASHI_BERSERKER = 109, // not done
+							ZUL_FARRAK_BERSERKER = 110, // not done
+							HARRISON_JONES = 111, // not done
+							WILD_PYROMANCER = 112, // not done
+							NORTHSHIRE_CLERIC = 113, // not done
+							SHADOWBOXER = 114, // not done
+							STONESKIN_GARGOYLE = 115, // not done
+							TIMBERWOL = 116, // not done
+							BEASTMASTER = 117, // not done
+							THUNDRA_RHINO = 118, // not done
+							STAMPEDING_KODO = 119, // not done
+							DEFIAS_RINGLEADER = 120, // not done
+							KIRIN_TOR_MAGE = 121, // not done
+							TRAP_MYSTIC = 122, // not done
+							ARCANE_NEXXUS = 123, // not done
+							ARGENT_PROTECTOR = 124, // not done
+							BLOOD_KNIGHT = 125, // not done
+							BIG_GAME_HUNTER = 126, // not done
+							NEFARIAN = 127, // not done
+							POISON_COBRA = 128, // not done
+							STEALTH_WORGEN = 129, // not done
+							BARON_GEDDON = 130, // not done
+							MALORNE = 131, // not done
+							ALDOR_PEACEKEEPER = 132, // not done
+							CRAZED_ALCHEMIST = 133, // not done
+							HOGGER = 134, // not done
+							FACELESS_MANIPULATOR = 135, // not done
+							SPELLBREAKER = 136, // not done
+							FELGUARD = 137, // not done
+							GADGETZAN_AUCTIONEER = 138, // not done
+							AUCHENAI_SOULPRIEST = 139, // not done
+							TYRION_FORDRING = 140, // not done
+							FOREST_PROTECTOR_CENTAUR = 141, // not done
+							CENARIUS = 142, // not done
+							GROMMASH_HELLSCREAM = 143, // not done
+							ARMORSMITH = 144, // not done
+							WEAPONSMITH = 145, // not done
+							ARATHI_WEAPONSMITH = 146, // not done
+							HEALING_SUCCUBUS = 147, // not done
+							ENRAGED_WEAPON_HELPER = 148, // not done
+							MOONLIGHT_PRIEST = 149, // not done
+							ZOMBIE_CHOW = 150, // not done
+							OLD_MURK_EYE = 151, // not done
+							COLDLIGHT_ORACLE = 152, // not done
+							MURLOC_RAID_LEADER = 153, // not done
+							EDWIN_VAN_CLEEF = 154, // not done
+							REND_BLACKHAND = 155, // not done
+							BLACK_KNIGHT = 156, // not done
+							MANA_WYRM = 157, // not done
+							SORCERERS_APPRENTICE = 158, // not done
+							MANA_WRAITH = 159, // not done
+							WAILING_SOUL = 160, // not done
+							DRAGONKIN_CRUSHER = 161, // not done
+							TROLL_CARDHAND_ATTACKER = 162, // not done
+							SIEGE_ENGINE = 163, // not done
+							FLOATING_WATCHER = 164, // not done
+							KING_OF_BEASTS = 165; // not done
 
 	private String name;
 	private int type;
 
 	private int cost;
+	private int originalCost;
 	private int attack;
 	private int health;
 
@@ -112,7 +178,10 @@ public class MonsterCard extends PlayCard {
 	private boolean divineShield;
 	private boolean windfury;
 	private boolean cannotAttack;
+	//private boolean stealth
+	//private boolean noSpellTarget
 
+	private SpellEffect costEffect;
 	private SpellEffect battleCryEffect;
 	private SpellEffect deathRattleEffect;
 
@@ -125,6 +194,8 @@ public class MonsterCard extends PlayCard {
 
 	private void setStats(int type) {
 		this.type = type;
+
+		costEffect = null;
 
 		taunt = false;
 		charge = false;
@@ -346,10 +417,15 @@ public class MonsterCard extends PlayCard {
 			name = "Frostwolf Warlord";
 			initBasicStats(5, 4, 4);
 			battleCryEffect = new BuffAccordingToBoard(1, 1, true, false, false, false);
+		} else if (type == MOLTEN_GIANT) {
+			name = "Molten Giant";
+			costEffect = new CostDeterminedByHealth(1, true);
+			initBasicStats(20, 8, 8);
 		}
 	}
 
 	private void initBasicStats(int cost, int attack, int health) {
+		originalCost = cost;
 		this.cost = cost;
 		this.attack = attack;
 		this.health = health;
@@ -359,12 +435,24 @@ public class MonsterCard extends PlayCard {
 		cost = (cost + costChange) < 0 ? 0 : cost + costChange;
 	}
 
+	public void setCost(int newCost) {
+		cost = newCost < 0 ? 0 : newCost;
+	}
+
+	public boolean hasCostEffect() {
+		return costEffect != null;
+	}
+
 	public String getName() {
 		return name;
 	}
 
 	public int getCost() {
 		return cost;
+	}
+
+	public int getOriginalCost() {
+		return originalCost;
 	}
 
 	public int getAttack() {
@@ -377,6 +465,10 @@ public class MonsterCard extends PlayCard {
 
 	public int getType() {
 		return type;
+	}
+
+	public SpellEffect getCostEffect() {
+		return costEffect;
 	}
 
 	public Minion toMinion() {

@@ -8,8 +8,10 @@ public class SpellCard extends PlayCard {
 	private String name;
 
 	private int cost;
+	private int originalCost;
 	private int type;
 
+	private SpellEffect costEffect;
 	private SpellEffect spellEffect;
 
 	public SpellCard(int type) {
@@ -17,6 +19,8 @@ public class SpellCard extends PlayCard {
 	}
 
 	private void setStats(int type) {
+		costEffect = null;
+
 		if (type == DRAGON_POWER) {
 			name = "Dragon Power";
 			cost = 2;
@@ -43,10 +47,16 @@ public class SpellCard extends PlayCard {
 			this.type = type;
 			spellEffect = new BuffSingleMinion(4, 0, false, false, false, false, true);
 		}
+
+		originalCost = cost;
 	}
 
 	public void changeCost(int costChange) {
 		cost = (cost + costChange) < 0 ? 0 : cost + costChange;
+	}
+
+	public void setCost(int newCost) {
+		cost = newCost < 0 ? 0 : newCost;
 	}
 
 	public String getName() {
@@ -57,8 +67,20 @@ public class SpellCard extends PlayCard {
 		return cost;
 	}
 
+	public int getOriginalCost() {
+		return originalCost;
+	}
+
 	public int getType() {
 		return type;
+	}
+
+	public boolean hasCostEffect() {
+		return costEffect != null;
+	}
+
+	public SpellEffect getCostEffect() {
+		return costEffect;
 	}
 
 	public SpellEffect getSpellEffect() {
