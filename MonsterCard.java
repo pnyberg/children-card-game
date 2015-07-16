@@ -425,6 +425,14 @@ public class MonsterCard extends PlayCard {
 			name = "Sea Giant";
 			costEffect = new CostDeterminedByMinionsOnBoard(1, true, true);
 			initBasicStats(10, 8, 8);
+		} else if (type == MOUNTAIN_GIANT) {
+			name = "Mountain Giant";
+			costEffect = new CostDeterminedByCardsInHand(1, true, false);
+			initBasicStats(12, 8, 8);
+		} else if (type == CLOCKWORK_GIANT) {
+			name = "Clockwork Giant";
+			costEffect = new CostDeterminedByCardsInHand(1, false, true);
+			initBasicStats(12, 8, 8);
 		}
 	}
 

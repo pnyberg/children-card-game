@@ -129,12 +129,28 @@ public class TheGame {
 				minionsOnBoard += minionList.size();
 			}
 
-			if (costDeterminedByMinionsOnBoard.basedOnFriendlyBoard()) {
+			if (costDeterminedByMinionsOnBoard.basedOnEnemyBoard()) {
 				LinkedList<Minion> minionList = getMinionList((turnIndex + 1) % 2);
 				minionsOnBoard += minionList.size();
 			}
 
 			costDeterminedByMinionsOnBoard.effect(card, minionsOnBoard);
+		} else if (costEffect instanceof CostDeterminedByCardsInHand) {
+			CostDeterminedByCardsInHand costDeterminedByCardsInHand = (CostDeterminedByCardsInHand)costEffect;
+
+			int cardsInHand = 0;
+
+			if (costDeterminedByCardsInHand.basedOnFriendlyHand()) {
+				LinkedList<PlayCard> cardHand = getCardList(turnIndex);
+				cardsInHand += cardHand.size();
+			}
+
+			if (costDeterminedByCardsInHand.basedOnEnemyHand()) {
+				LinkedList<PlayCard> cardHand = getCardList((turnIndex + 1) % 2);
+				cardsInHand += cardHand.size();
+			}
+
+			costDeterminedByCardsInHand.effect(card, cardsInHand);
 		}
 	}
 
@@ -376,6 +392,8 @@ public class TheGame {
 			addCardToHand(new MonsterCard(MonsterCard.ALEXSTRASZA));
 			addCardToHand(new MonsterCard(MonsterCard.MOLTEN_GIANT));
 			addCardToHand(new MonsterCard(MonsterCard.SEA_GIANT));
+			addCardToHand(new MonsterCard(MonsterCard.MOUNTAIN_GIANT));
+			addCardToHand(new MonsterCard(MonsterCard.CLOCKWORK_GIANT));
 		} else if (randomizer == 1) {
 			addCardToHand(new MonsterCard(MonsterCard.NIGHTBLADE));
 			addCardToHand(new MonsterCard(MonsterCard.LEPER_GNOME));
