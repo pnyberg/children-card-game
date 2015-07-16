@@ -224,7 +224,7 @@ public class TheGame {
 	public void handleBattleCryEffectTargeting(String[] str, SpellEffect battleCryEffect) {
 		String[] array;
 
-		if (battleCryEffect instanceof BuffSingleMinion || battleCryEffect instanceof DealDamage || battleCryEffect instanceof SetStatsSingleMinion || battleCryEffect instanceof SwapAttackHealthMinion) {
+		if (battleCryTargetInstanceOf(battleCryEffect)) {
 			array = new String[]{"target"};
 		} else if (battleCryEffect instanceof PickUpMinion) {
 			array = new String[]{"pick", "up"};
@@ -344,6 +344,13 @@ public class TheGame {
 		if (minionIndex != TARGETPLAYER && !(battleCryEffect instanceof PickUpMinion)) {
 			checkDeath(minionIndex, turnIndex);
 		}
+	}
+
+	public boolean battleCryTargetInstanceOf(SpellEffect battleCryEffect) {
+		return 	battleCryEffect instanceof BuffSingleMinion || 
+				battleCryEffect instanceof DealDamage || 
+				battleCryEffect instanceof SetStatsSingleMinion || 
+				battleCryEffect instanceof SwapAttackHealthMinion;
 	}
 
 //#300
