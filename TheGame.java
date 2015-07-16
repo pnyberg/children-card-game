@@ -392,6 +392,7 @@ public class TheGame {
 		if (randomizer == 0) {
 			addCardToHand(new MonsterCard(MonsterCard.SAVANNAH_HIGHMANE));
 			addCardToHand(new MonsterCard(MonsterCard.TWILIGHT_DRAKE));
+			addCardToHand(new MonsterCard(MonsterCard.IMP_MASTER));
 		} else if (randomizer == 1) {
 			addCardToHand(new MonsterCard(MonsterCard.GRUUL));
 			addCardToHand(new MonsterCard(MonsterCard.SHRINKMEISTER));
@@ -1205,6 +1206,12 @@ public class TheGame {
 			LinkedList<Minion> deadMinions = getDeadMinionList(turnIndex);
 
 			reviveFriendlyMinionsTurnEffect.effect(deadMinions, minionList);
+		} else if (endTurnEffect instanceof SummonMinionTurnEffect) {
+			SummonMinionTurnEffect summonMinionTurnEffect = (SummonMinionTurnEffect)endTurnEffect;
+			LinkedList<Minion> friendlyPlayerMinionTempList = getTempMinionList(turnIndex);
+			LinkedList<Minion> enemyPlayerMinionTempList = getTempMinionList((turnIndex + 1) % 2);
+
+			summonMinionTurnEffect.effect(friendlyPlayerMinionTempList, enemyPlayerMinionTempList);
 		}
 	}
 

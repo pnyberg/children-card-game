@@ -58,7 +58,8 @@ public class MonsterCard extends PlayCard {
 							TWILIGHT_DRAKE = 57,
 							BOLIVAR_FORDRAGON = 58, // not done
 							SHRINKMEISTER = 59,
-							IMP_MASTER = 60, // not done
+							IMP_MASTER = 60, // not done - dubbla effekter
+							IMP = 203, 
 							GRUUL = 61,
 							WATER_ELEMENTAL = 62, // not done
 							EARTH_ELEMENTAL = 63, // not done
@@ -492,6 +493,14 @@ public class MonsterCard extends PlayCard {
 			minionType = Minion.DRAGON;
 			initBasicStats(4, 4, 1);
 			battleCryEffect = new BuffAccordingToHand(0, 1, true, false, false, false);
+		} else if (type == IMP_MASTER) {
+			name = "Imp Master";
+			initBasicStats(3, 1, 5);
+			endTurnEffect = new SummonMinionTurnEffect(new int[] {IMP}, null, false);
+		} else if (type == IMP) {
+			name = "Imp";
+			minionType = Minion.DEMON;
+			initBasicStats(1, 1, 1);
 		}
 	}
 
