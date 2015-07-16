@@ -31,7 +31,7 @@ public class MonsterCard extends PlayCard {
 							SLIME = 30,
 							LOOT_HOARDER = 31,
 							UNSTABLE_GHOUL = 32,
-							SORCERERS_DRAKE = 33, // not done - change minion
+							ABUSIVE_SERGEANT = 33,
 							NOVICE_ENGINEER = 34,
 							DRAGON_GRUNT = 35,
 							DISPATCHING_DRAKE = 36,
@@ -311,9 +311,9 @@ public class MonsterCard extends PlayCard {
 			minionType = Minion.TOTEM;
 			initBasicStats(3, 0, 3);
 			endTurnEffect = new DrawCardsTurnEffect(1, false);
-		} else if (type == SORCERERS_DRAKE) {
-			name = "Sorcerers Drake";
-			initBasicStats(1, 1, 2);
+		} else if (type == ABUSIVE_SERGEANT) {
+			name = "Abusive Sergeant";
+			initBasicStats(1, 2, 1);
 			battleCryEffect = new BuffSingleMinion(2, 0, false, false, false, false, true);
 		} else if (type == MURLOC_TIDEHUNTER) {
 			name = "Murloc Tidehunter";
@@ -473,6 +473,10 @@ public class MonsterCard extends PlayCard {
 			name = "Dragon Whelp";
 			minionType = Minion.DRAGON;
 			initBasicStats(1, 1, 1);
+		} else if (type == SHRINKMEISTER) {
+			name = "Shrinkmeister";
+			initBasicStats(2, 3, 2);
+			battleCryEffect = new BuffSingleMinion(-2, 0, false, false, false, false, true);
 		}
 	}
 

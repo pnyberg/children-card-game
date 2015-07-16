@@ -194,6 +194,7 @@ public class TheGame {
 		return builder.toString();
 	}
 
+//#200 
 	public void handleBattleCryCommands(String[] str) {
 		if (str.length == 2 && str[0].equals("show") && str[1].equals("board")) {
 			showBoard();
@@ -332,7 +333,7 @@ public class TheGame {
 		}
 	}
 
-//#200 
+//#300
 	public int getBattleCryTargetIndex(String[] commandArray, String[] keyWordArray) {
 		int lengthOfDefiningCommand = keyWordArray.length;
 
@@ -370,7 +371,6 @@ public class TheGame {
 		return true;
 	}
 
-//#300
 	public void addMinionToBoardRemoveFromHand(LinkedList<Minion> minionList) {
 		addMinionToBoardRemoveFromHand(minionList, minionTriedToPlayCardIndex, turn);
 	}
@@ -386,21 +386,25 @@ public class TheGame {
 		System.out.println("Played " + cardTriedToPlay.getName() + ", it costs " + cardTriedToPlay.getCost() + "!");
 	}
 
+//#400
 	public void drawCard() {
 //		int randomizer = (int)(Math.random()*10);
 		if (randomizer == 0) {
-			addCardToHand(new MonsterCard(MonsterCard.ONYXIA));
 			addCardToHand(new MonsterCard(MonsterCard.GRUUL));
+			addCardToHand(new MonsterCard(MonsterCard.SHRINKMEISTER));
 			addCardToHand(new MonsterCard(MonsterCard.ALEXSTRASZA));
 			addCardToHand(new MonsterCard(MonsterCard.MOLTEN_GIANT));
 			addCardToHand(new MonsterCard(MonsterCard.SEA_GIANT));
 			addCardToHand(new MonsterCard(MonsterCard.MOUNTAIN_GIANT));
 			addCardToHand(new MonsterCard(MonsterCard.CLOCKWORK_GIANT));
 		} else if (randomizer == 1) {
+			addCardToHand(new MonsterCard(MonsterCard.SHRINKMEISTER));
+			addCardToHand(new MonsterCard(MonsterCard.SHRINKMEISTER));
 			addCardToHand(new MonsterCard(MonsterCard.NIGHTBLADE));
 			addCardToHand(new MonsterCard(MonsterCard.LEPER_GNOME));
 			addCardToHand(new MonsterCard(MonsterCard.RAGNAROS));
 		} else if (randomizer == 2) {
+			addCardToHand(new MonsterCard(MonsterCard.ONYXIA));
 			addCardToHand(new MonsterCard(MonsterCard.ALARMO_BOT));
 			addCardToHand(new MonsterCard(MonsterCard.DOOMSAYER));
 			addCardToHand(new MonsterCard(MonsterCard.FROSTWOLF_WARLORD));
@@ -415,7 +419,7 @@ public class TheGame {
 		} else if (randomizer == 6) {
 			addCardToHand(new MonsterCard(MonsterCard.WOLFRIDER));
 		} else if (randomizer == 7) {
-			addCardToHand(new MonsterCard(MonsterCard.SORCERERS_DRAKE));
+			addCardToHand(new MonsterCard(MonsterCard.ABUSIVE_SERGEANT));
 		} else if (randomizer == 8) {
 			addCardToHand(new MonsterCard(MonsterCard.ELVEN_ARCHER));
 		} else if (randomizer == 9) {
@@ -494,7 +498,7 @@ public class TheGame {
 		}
 	}
 
-//#400
+//#500
 	public void castSpellFromHand(String[] str) {
 		int cardIndex = getAdressingIndex(str[1]);
 
@@ -600,7 +604,7 @@ public class TheGame {
 		System.out.println(attackingMinion.getName() + " HP: " + attackingMinion.getCurrentHealth() + " - " + targetMinion.getName() + " HP: " + targetMinion.getCurrentHealth());
 	}
 
-//#500
+//#600
 	public void handleDamage(Minion minion, int damage) {
 		minion.handleDamage(damage);
 	}
@@ -696,7 +700,7 @@ public class TheGame {
 		System.out.println("Player2 Health: " + player2.getHealth());
 	}
 
-//#600
+//#700
 	public void endTurn() {
 		handleEndTurnActions(turn);
 
@@ -796,7 +800,7 @@ public class TheGame {
 		return cardList;
 	}
 
-//#700
+//#800
 	public LinkedList<Minion> getMinionList(int turnIndex) {
 		LinkedList<Minion> minionList;
 		if (turnIndex == 0) {
@@ -869,7 +873,7 @@ public class TheGame {
 		System.out.println(index + " is not a valid cardIndex for Player " + ((turn + 1) % 2));
 	}
 
-//#800
+//#900
 	public void manageBattleCry(Minion minion, int turnIndex) {
 		playedMinionType = minion.getType();
 
@@ -969,6 +973,7 @@ public class TheGame {
 		return !minionsOnBoard1.isEmpty() || !minionsOnBoard2.isEmpty();
 	}
 
+//#1000
 	public void manageDeathRattle(Minion minion, int turnIndex) {
 		SpellEffect deathRattleEffect = minion.getDeathRattleEffect();
 
@@ -1053,7 +1058,6 @@ public class TheGame {
 		}
 	}
 
-//#900
 	public boolean manageStartTurnEffect(int minionIndex, int turnIndex) {
 		Minion minion = getMinion(minionIndex, turnIndex);
 		TurnEffect startTurnEffect = minion.getStartTurnEffect();
@@ -1109,6 +1113,7 @@ public class TheGame {
 		return false;
 	}
 
+//#1100
 	public void summonMinionFromHand(SummonRandomMinionFromHandTurnEffect summonRandomMinionFromHandTurnEffect, int turnIndex) {
 		LinkedList<PlayCard> handList = getCardList(turnIndex);
 		LinkedList<Minion> minionList = getMinionList(turnIndex);
@@ -1177,7 +1182,6 @@ public class TheGame {
 		}
 	}
 
-//#1000
 	public void addMinionToBoard(MonsterCard monsterCard) {
 		LinkedList<Minion> minionsOnBoardList = getMinionList(turn);
 
@@ -1201,6 +1205,7 @@ public class TheGame {
 		}
 	}
 
+//#1200
 	public void addSummonedMinions(int turnIndex) {
 		LinkedList<Minion> minionsOnBoard = getMinionList(turnIndex);
 		LinkedList<Minion> minionTempList = getTempMinionList(turnIndex);
@@ -1260,7 +1265,6 @@ public class TheGame {
 		System.out.println("");
 	}
 
-//#1100
 	public void printHandCardNames(int turnIndex, LinkedList<PlayCard> cardList) {
 		System.out.print("Cards Player" + (turnIndex + 1) + ": ");
 
@@ -1298,6 +1302,7 @@ public class TheGame {
 		System.out.println("");
 	}
 
+//#1300
 	public void printBoardInfo(int turnIndex) {
 		LinkedList<Minion> minionList = getMinionList(turnIndex);
 
@@ -1352,7 +1357,6 @@ public class TheGame {
 		System.out.println("");
 	}
 
-//#1200
 	public void printBoardMinionEffects(LinkedList<Minion> minionList) {
 		System.out.print(addSpaces(19));
 
@@ -1384,6 +1388,7 @@ public class TheGame {
 		return builder.toString();
 	}
 
+//#1400
 	public boolean manageSpellEffect(SpellCard card, String[] str) {
 		SpellEffect spellEffect = card.getSpellEffect();
 
