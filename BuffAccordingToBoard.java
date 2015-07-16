@@ -40,9 +40,9 @@ public class BuffAccordingToBoard extends SpellEffect {
 		return !buffFriendlyMinion && !buffEnemyMinion;
 	}
 
-	public void effect(Minion minion, LinkedList<Minion> minionList) {
-		int additionalAttack = minionList.size() * additionalAttackPerMinion;
-		int additionalHealth = minionList.size() * additionalHealthPerMinion;
+	public void effect(Minion minion, int numberOfMinions) {
+		int additionalAttack = numberOfMinions * additionalAttackPerMinion;
+		int additionalHealth = numberOfMinions * additionalHealthPerMinion;
 
 		minion.addAttack(additionalAttack);
 		minion.addHealth(additionalHealth);

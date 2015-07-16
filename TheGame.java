@@ -138,7 +138,7 @@ public class TheGame {
 		} else if (costEffect instanceof CostDeterminedByCardsInHand) {
 			CostDeterminedByCardsInHand costDeterminedByCardsInHand = (CostDeterminedByCardsInHand)costEffect;
 
-			int cardsInHand = 0;
+			int cardsInHand = -1; // card played does not count
 
 			if (costDeterminedByCardsInHand.basedOnFriendlyHand()) {
 				LinkedList<PlayCard> cardHand = getCardList(turnIndex);
@@ -391,6 +391,7 @@ public class TheGame {
 //		int randomizer = (int)(Math.random()*10);
 		if (randomizer == 0) {
 			addCardToHand(new MonsterCard(MonsterCard.SAVANNAH_HIGHMANE));
+			addCardToHand(new MonsterCard(MonsterCard.TWILIGHT_DRAKE));
 		} else if (randomizer == 1) {
 			addCardToHand(new MonsterCard(MonsterCard.GRUUL));
 			addCardToHand(new MonsterCard(MonsterCard.SHRINKMEISTER));
@@ -894,15 +895,41 @@ public class TheGame {
 
 				System.out.println("Which minion do you want to target?");*/
 			} else {
+				int numberOfMinions = 0;
 				if (buffAccordingToBoard.buffAccordingToFriendlyBoard()) {
 					LinkedList<Minion> friendlyMinionList = getMinionList(turnIndex);
-					buffAccordingToBoard.effect(minion, friendlyMinionList);
+					numberOfMinions += friendlyMinionList.size();
 				}
 
 				if (buffAccordingToBoard.buffAccordingToEnemyBoard()) {
 					LinkedList<Minion> enemyMinionList = getMinionList((turnIndex + 1) % 2);
-					buffAccordingToBoard.effect(minion, enemyMinionList);
+					numberOfMinions += enemyMinionList.size();
 				}
+
+				buffAccordingToBoard.effect(minion, numberOfMinions);
+			}
+		} else if (battleCryEffect instanceof BuffAccordingToHand) {
+			BuffAccordingToHand buffAccordingToHand = (BuffAccordingToHand)battleCryEffect;
+
+			/*HERE*/
+			if (!buffAccordingToHand.buffSelf() && minionExists()) {
+				// not implemented yet
+				/*handlingBattleCry = true;
+
+				System.out.println("Which minion do you want to target?");*/
+			} else {
+				int numberOfCards = -1; // card played does not count
+				if (buffAccordingToHand.buffAccordingToFriendlyHand()) {
+					LinkedList<PlayCard> friendlyHand = getCardList(turnIndex);
+					numberOfCards += friendlyHand.size();
+				}
+
+				if (buffAccordingToHand.buffAccordingToEnemyHand()) {
+					LinkedList<PlayCard> enemyHand = getCardList((turnIndex + 1) % 2);
+					numberOfCards += enemyHand.size();
+				}
+
+				buffAccordingToHand.effect(minion, numberOfCards);
 			}
 		} else if (battleCryEffect instanceof PickUpMinion) {
 			if (minionExists()) {

@@ -55,7 +55,7 @@ public class MonsterCard extends PlayCard {
 							GAHZRILLA = 54, // not done
 							ARCHMAGE_ANTONIDAS = 55, // not done
 							BLOODMAGE_THALNOS = 56, // not done - dubbla effekter
-							TWILIGHT_DRAKE = 57, // not done
+							TWILIGHT_DRAKE = 57,
 							BOLIVAR_FORDRAGON = 58, // not done
 							SHRINKMEISTER = 59,
 							IMP_MASTER = 60, // not done
@@ -487,6 +487,11 @@ public class MonsterCard extends PlayCard {
 			name = "Savannah Hyena";
 			minionType = Minion.BEAST;
 			initBasicStats(2, 2, 2);
+		} else if (type == TWILIGHT_DRAKE) {
+			name = "Twilight Drake";
+			minionType = Minion.DRAGON;
+			initBasicStats(4, 4, 1);
+			battleCryEffect = new BuffAccordingToHand(0, 1, true, false, false, false);
 		}
 	}
 
