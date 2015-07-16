@@ -1,6 +1,16 @@
 public class Minion extends Character {
-	private String name;
+	public static final int	NONE = 0,
+							BEAST = 1,
+							MURLOC = 2,
+							DEMON = 3,
+							MECH = 4,
+							DRAGON = 5,
+							TOTEM = 6;
+
 	private int type;
+
+	private String name;
+	private int minionType;
 
 	private int normalAttack;
 	private int currentAttack;
@@ -37,9 +47,11 @@ public class Minion extends Character {
 	private int attackAmount;
 	private boolean restoredThisTurn;
 
-	public Minion(String name, int type, int attack, int health, boolean taunt, boolean charge, boolean divineShield, boolean windfury, boolean cannotAttack, SpellEffect battleCryEffect, SpellEffect deathRattleEffect, TurnEffect startTurnEffect, TurnEffect endTurnEffect) {
-		this.name = name;
+	public Minion(int type, String name, int minionType, int attack, int health, boolean taunt, boolean charge, boolean divineShield, boolean windfury, boolean cannotAttack, SpellEffect battleCryEffect, SpellEffect deathRattleEffect, TurnEffect startTurnEffect, TurnEffect endTurnEffect) {
 		this.type = type;
+
+		this.name = name;
+		this.minionType = minionType;
 
 		normalAttack = attack;
 		normalMaxHealth = health;
@@ -206,6 +218,10 @@ public class Minion extends Character {
 
 	public int getType() {
 		return type;
+	}
+
+	public int getMinionType() {
+		return minionType;
 	}
 
 	public int getNormalAttack() {

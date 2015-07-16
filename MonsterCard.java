@@ -1,31 +1,31 @@
 public class MonsterCard extends PlayCard {
 	public static final int	ELVEN_ARCHER = 1,
 							GOLDSHIRE_FOOTMAN = 2,
-							GRIMSCALE_ORACLE = 3, // not done
-							MURLOC_RAIDER = 4, // not done
-							STONETUSK_BOAR = 5, // not done
+							GRIMSCALE_ORACLE = 3, // not done - type: murloc
+							MURLOC_RAIDER = 4, // not done - type: murloc
+							STONETUSK_BOAR = 5, // not done - type: beast
 							VODOO_DOCTOR = 6,
 							ACIDIC_SWAMP_OOZE = 7, // not done
-							BLOODFEN_RAPTOR = 8, // not done
-							BLUEGILL_WARRIOR = 9, // not done
+							BLOODFEN_RAPTOR = 8, // not done - type: beast
+							BLUEGILL_WARRIOR = 9, // not done - type: murloc
 							FROSTWOLF_GRUNT = 10,
 							KOBOLD_GEOMANCER = 11, // not done
-							MURLOC_TIDEHUNTER = 12, // not done
-							MURLOC_SCOUT = 13, // not done
-							RIVER_CROCOLISK = 14, // not done
+							MURLOC_TIDEHUNTER = 12, // not done - type: murloc
+							MURLOC_SCOUT = 13, // not done - type: murloc
+							RIVER_CROCOLISK = 14, // not done - type: beast
 							DALARAN_MAGE = 15, // not done
 							IRONFORGE_RIFLEMAN = 16,
-							IRONFUR_GRIZZLY = 17, // not done
+							IRONFUR_GRIZZLY = 17, // not done - type: beast
 							MAGMA_RAGER = 18,
 							RAID_LEADER = 19, // not done
 							RAZORFEN_HUNTER = 20, // not done
 							SHATTERED_SUN_CLERIC = 21,
-							SILVERBACK_PATRIARCH = 22, // not done
+							SILVERBACK_PATRIARCH = 22, // not done - type: beast
 							WOLFRIDER = 23,
 							CHILLWIND_YETI = 24,
 							DRAGONLING_MECHANIC = 25,
-							MECHANICAL_DRAGONLING = 26, // not done
-							MANA_TIDE_TOTEM = 27, // not done
+							MECHANICAL_DRAGONLING = 26, // not done - type: mech
+							MANA_TIDE_TOTEM = 27, // not done - type: totem
 							EARTHEN_RING_FARSEER = 28,
 							SLUDGE_BELCHER = 29,
 							SLIME = 30,
@@ -39,17 +39,17 @@ public class MonsterCard extends PlayCard {
 							YSERA = 38, // not done
 							KELTHUZAD = 39,
 							EMPEROR_THAURISSAN = 40,
-							ALEXSTRASZA = 41, // not done
+							ALEXSTRASZA = 41, // not done - type: dragon
 							SYLVANAS_WINDRUNNER = 42,
 							CAIRNE_BLOODHOOF = 43,
 							BAINE_BLOODHOOF = 44,
 							ALAKIR = 45,
-							KING_KRUSH = 46, // not done
+							KING_KRUSH = 46, // not done - type: beast
 							MALGANIS = 47, // not done
-							DEATHWING = 48, // not done
+							DEATHWING = 48, // not done - type: dragon
 							MALYGOS = 49, // not done
 							DR_BOOM = 50,
-							BOOM_BOT = 51, // not done
+							BOOM_BOT = 51, // not done - type: mech
 							VOLJIN = 52,
 							PROPHET_VELEN = 53, // not done
 							GAHZRILLA = 54, // not done
@@ -68,18 +68,18 @@ public class MonsterCard extends PlayCard {
 							KNIFE_JUGGLER = 67, // not done
 							SHIELDMAIDEN = 68, // not done
 							IMP_GANG_BOSS = 69, // not done
-							BLOOD_IMP = 70, // not done
+							BLOOD_IMP = 70, // not done - type: demon
 							ONYXIA = 71, // not done
 							ILLIDAN_STORMRAGE = 72, // not done
 							LOATHEB = 73, // not done
 							NERUBIAN_WEBLORD = 74, // not done
 							VENTURE_CO_MERCENARY = 75, // not done
 							SAVANNAH_HIGHMANE = 76, // not done
-							SEA_GIANT = 77, // not done
-							MOUNTAIN_GIANT = 78, // not done
-							MOLTEN_GIANT = 79, // not done
-							CLOCKWORK_GIANT = 80, // not done
-							ALARMO_BOT = 81, // not done
+							SEA_GIANT = 77,
+							MOUNTAIN_GIANT = 78,
+							MOLTEN_GIANT = 79,
+							CLOCKWORK_GIANT = 80,
+							ALARMO_BOT = 81, // not done - type: mech
 							PILOTED_SHREDDER = 82, // not done
 							MAD_BOMBER = 83, // not done
 							SUCCUBUS = 84, // not done
@@ -165,8 +165,10 @@ public class MonsterCard extends PlayCard {
 							FLOATING_WATCHER = 164, // not done
 							KING_OF_BEASTS = 165; // not done
 
-	private String name;
 	private int type;
+
+	private String name;
+	private int minionType;
 
 	private int cost;
 	private int originalCost;
@@ -218,12 +220,15 @@ public class MonsterCard extends PlayCard {
 			taunt = true;
 		} else if (type == GRIMSCALE_ORACLE) {
 			name = "Grimscale Oracle";
+			minionType = Minion.MURLOC;
 			initBasicStats(1, 1, 1);
 		} else if (type == MURLOC_RAIDER) {
 			name = "Murloc Raider";
+			minionType = Minion.MURLOC;
 			initBasicStats(1, 2, 1);
 		} else if (type == STONETUSK_BOAR) {
 			name = "Stonetusk Boar";
+			minionType = Minion.BEAST;
 			initBasicStats(1, 1, 1);
 			charge = true;
 		} else if (type == VODOO_DOCTOR) {
@@ -235,9 +240,11 @@ public class MonsterCard extends PlayCard {
 			initBasicStats(2, 3, 2);
 		} else if (type == BLOODFEN_RAPTOR) {
 			name = "Bloodfen Raptor";
+			minionType = Minion.BEAST;
 			initBasicStats(2, 3, 2);
 		} else if (type == BLUEGILL_WARRIOR) {
 			name = "Bluegill Warrior";
+			minionType = Minion.MURLOC;
 			initBasicStats(2, 2, 1);
 			charge = true;
 		} else if (type == FROSTWOLF_GRUNT) {
@@ -249,6 +256,7 @@ public class MonsterCard extends PlayCard {
 			initBasicStats(2, 2, 2);
 		} else if (type == RIVER_CROCOLISK) {
 			name = "River Crocolisk";
+			minionType = Minion.BEAST;
 			initBasicStats(2, 2, 3);
 		} else if (type == DALARAN_MAGE) {
 			name = "Dalaran Mage";
@@ -259,6 +267,7 @@ public class MonsterCard extends PlayCard {
 			battleCryEffect = new DealDamage(1);
 		} else if (type == IRONFUR_GRIZZLY) {
 			name = "Ironfur Grizzly";
+			minionType = Minion.BEAST;
 			initBasicStats(3, 3, 3);
 			taunt = true;
 		} else if (type == MAGMA_RAGER) {
@@ -273,6 +282,7 @@ public class MonsterCard extends PlayCard {
 			battleCryEffect = new BuffSingleMinion(1, 1, false, false, false, false, false);
 		} else if (type == SILVERBACK_PATRIARCH) {
 			name = "Silverback Patriarch";
+			minionType = Minion.BEAST;
 			initBasicStats(3, 1, 4);
 			taunt = true;
 		} else if (type == WOLFRIDER) {
@@ -288,9 +298,11 @@ public class MonsterCard extends PlayCard {
 			battleCryEffect = new SummonMinions(new int[] {MECHANICAL_DRAGONLING}, null);
 		} else if (type == MECHANICAL_DRAGONLING) {
 			name = "Mechanical Dragonling";
+			minionType = Minion.MECH;
 			initBasicStats(1, 2, 1);
 		} else if (type == MANA_TIDE_TOTEM) {
 			name = "Mana Tide Totem";
+			minionType = Minion.TOTEM;
 			initBasicStats(3, 0, 3);
 			endTurnEffect = new DrawCardsTurnEffect(1, false);
 		} else if (type == SORCERERS_DRAKE) {
@@ -299,10 +311,12 @@ public class MonsterCard extends PlayCard {
 			battleCryEffect = new BuffSingleMinion(2, 0, false, false, false, false, true);
 		} else if (type == MURLOC_TIDEHUNTER) {
 			name = "Murloc Tidehunter";
+			minionType = Minion.MURLOC;
 			initBasicStats(2, 2, 1);
 			battleCryEffect = new SummonMinions(new int[] {MURLOC_SCOUT}, null);
 		} else if (type == MURLOC_SCOUT) {
 			name = "Murloc Scout";
+			minionType = Minion.MURLOC;
 			initBasicStats(0, 1, 1);
 		} else if (type == DISPATCHING_DRAKE) {
 			name = "Dispatching Drake";
@@ -355,6 +369,7 @@ public class MonsterCard extends PlayCard {
 			windfury = true;
 		} else if (type == KING_KRUSH) {
 			name = "King Krush";
+			minionType = Minion.BEAST;
 			initBasicStats(8, 8, 8);
 			charge = true;
 		} else if (type == DR_BOOM) {
@@ -363,10 +378,12 @@ public class MonsterCard extends PlayCard {
 			battleCryEffect = new SummonMinions(new int[] {BOOM_BOT, BOOM_BOT}, null);
 		} else if (type == BOOM_BOT) {
 			name = "Boom Bot";
+			minionType = Minion.MECH;
 			initBasicStats(1, 1, 1);
 			deathRattleEffect = new DealRandomDamageRandomly(1, 3, true);
 		} else if (type == DEATHWING) {
 			name = "Deathwing";
+			minionType = Minion.DRAGON;
 			initBasicStats(10, 12, 12);
 			battleCryEffect = new DestroyAllMinions(true);
 		} else if (type == EMPEROR_THAURISSAN) {
@@ -387,6 +404,7 @@ public class MonsterCard extends PlayCard {
 			battleCryEffect = new SwapHealthMinion();
 		} else if (type == ALEXSTRASZA) {
 			name = "Alexstrasza";
+			minionType = Minion.DRAGON;
 			initBasicStats(9, 8, 8);
 			battleCryEffect = new SetHealthPlayer(15);
 		} else if (type == DOOMSAYER) {
@@ -399,6 +417,7 @@ public class MonsterCard extends PlayCard {
 			battleCryEffect = new DealDamage(3);
 		} else if (type == BLOOD_IMP) {
 			name = "Blood Imp";
+			minionType = Minion.DEMON;
 			initBasicStats(1, 3, 2);
 			battleCryEffect = new DealDamageToPlayer(3, true, false);
 		} else if (type == NIGHTBLADE) {
@@ -411,6 +430,7 @@ public class MonsterCard extends PlayCard {
 			deathRattleEffect = new DealDamageToPlayer(2, false, true);
 		} else if (type == ALARMO_BOT) {
 			name = "Alarm'O Bot";
+			minionType = Minion.MECH;
 			initBasicStats(3, 0, 3);
 			startTurnEffect = new SummonRandomMinionFromHandTurnEffect(false, false, true);
 		} else if (type == FROSTWOLF_WARLORD) {
@@ -479,11 +499,15 @@ public class MonsterCard extends PlayCard {
 		return type;
 	}
 
+	public int getMinionType() {
+		return minionType;
+	}
+
 	public SpellEffect getCostEffect() {
 		return costEffect;
 	}
 
 	public Minion toMinion() {
-		return new Minion(name, type, attack, health, taunt, charge, divineShield, windfury, cannotAttack, battleCryEffect, deathRattleEffect, startTurnEffect, endTurnEffect);
+		return new Minion(type, name, minionType, attack, health, taunt, charge, divineShield, windfury, cannotAttack, battleCryEffect, deathRattleEffect, startTurnEffect, endTurnEffect);
 	}
 }
