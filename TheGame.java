@@ -389,6 +389,7 @@ public class TheGame {
 	public void drawCard() {
 //		int randomizer = (int)(Math.random()*10);
 		if (randomizer == 0) {
+			addCardToHand(new MonsterCard(MonsterCard.GRUUL));
 			addCardToHand(new MonsterCard(MonsterCard.ALEXSTRASZA));
 			addCardToHand(new MonsterCard(MonsterCard.MOLTEN_GIANT));
 			addCardToHand(new MonsterCard(MonsterCard.SEA_GIANT));
@@ -1089,6 +1090,19 @@ public class TheGame {
 
 				return true;
 			}
+		} else if (startTurnEffect instanceof BuffMinionTurnEffect) {
+			BuffMinionTurnEffect buffMinionTurnEffect = (BuffMinionTurnEffect)startTurnEffect;
+			Minion minionToBeBuffed;
+
+			if (buffMinionTurnEffect.buffOtherMinions()) {
+				LinkedList<Minion> friendlyMinionList = getMinionList(turnIndex);
+				int index = (int)(Math.random() * 100) % friendlyMinionList.size();
+				minion = friendlyMinionList.get(index);
+			} else {
+				minionToBeBuffed = minion;
+			}
+
+			buffMinionTurnEffect.effect(minion);
 		}
 
 		return false;

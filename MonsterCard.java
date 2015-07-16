@@ -1,37 +1,37 @@
 public class MonsterCard extends PlayCard {
 	public static final int	ELVEN_ARCHER = 1,
 							GOLDSHIRE_FOOTMAN = 2,
-							GRIMSCALE_ORACLE = 3, // not done - type: murloc
-							MURLOC_RAIDER = 4, // not done - type: murloc
-							STONETUSK_BOAR = 5, // not done - type: beast
+							GRIMSCALE_ORACLE = 3, // not done - effect
+							MURLOC_RAIDER = 4,
+							STONETUSK_BOAR = 5,
 							VODOO_DOCTOR = 6,
-							ACIDIC_SWAMP_OOZE = 7, // not done
-							BLOODFEN_RAPTOR = 8, // not done - type: beast
-							BLUEGILL_WARRIOR = 9, // not done - type: murloc
+							ACIDIC_SWAMP_OOZE = 7, // not done - weapon
+							BLOODFEN_RAPTOR = 8,
+							BLUEGILL_WARRIOR = 9,
 							FROSTWOLF_GRUNT = 10,
-							KOBOLD_GEOMANCER = 11, // not done
-							MURLOC_TIDEHUNTER = 12, // not done - type: murloc
-							MURLOC_SCOUT = 13, // not done - type: murloc
-							RIVER_CROCOLISK = 14, // not done - type: beast
-							DALARAN_MAGE = 15, // not done
+							KOBOLD_GEOMANCER = 11, // not done - spell dmg
+							MURLOC_TIDEHUNTER = 12,
+							MURLOC_SCOUT = 13,
+							RIVER_CROCOLISK = 14,
+							DALARAN_MAGE = 15, // not done - spell dmg
 							IRONFORGE_RIFLEMAN = 16,
-							IRONFUR_GRIZZLY = 17, // not done - type: beast
+							IRONFUR_GRIZZLY = 17,
 							MAGMA_RAGER = 18,
-							RAID_LEADER = 19, // not done
+							RAID_LEADER = 19, // not done - area effect
 							RAZORFEN_HUNTER = 20, // not done
 							SHATTERED_SUN_CLERIC = 21,
-							SILVERBACK_PATRIARCH = 22, // not done - type: beast
+							SILVERBACK_PATRIARCH = 22,
 							WOLFRIDER = 23,
 							CHILLWIND_YETI = 24,
 							DRAGONLING_MECHANIC = 25,
-							MECHANICAL_DRAGONLING = 26, // not done - type: mech
-							MANA_TIDE_TOTEM = 27, // not done - type: totem
+							MECHANICAL_DRAGONLING = 26,
+							MANA_TIDE_TOTEM = 27,
 							EARTHEN_RING_FARSEER = 28,
 							SLUDGE_BELCHER = 29,
 							SLIME = 30,
 							LOOT_HOARDER = 31,
 							UNSTABLE_GHOUL = 32,
-							SORCERERS_DRAKE = 33, // not done
+							SORCERERS_DRAKE = 33, // not done - change minion
 							NOVICE_ENGINEER = 34,
 							DRAGON_GRUNT = 35,
 							DISPATCHING_DRAKE = 36,
@@ -39,22 +39,22 @@ public class MonsterCard extends PlayCard {
 							YSERA = 38, // not done
 							KELTHUZAD = 39,
 							EMPEROR_THAURISSAN = 40,
-							ALEXSTRASZA = 41, // not done - type: dragon
+							ALEXSTRASZA = 41,
 							SYLVANAS_WINDRUNNER = 42,
 							CAIRNE_BLOODHOOF = 43,
 							BAINE_BLOODHOOF = 44,
 							ALAKIR = 45,
-							KING_KRUSH = 46, // not done - type: beast
+							KING_KRUSH = 46,
 							MALGANIS = 47, // not done
-							DEATHWING = 48, // not done - type: dragon
-							MALYGOS = 49, // not done
+							DEATHWING = 48,
+							MALYGOS = 49, // not done - spell dmg
 							DR_BOOM = 50,
-							BOOM_BOT = 51, // not done - type: mech
+							BOOM_BOT = 51,
 							VOLJIN = 52,
 							PROPHET_VELEN = 53, // not done
 							GAHZRILLA = 54, // not done
 							ARCHMAGE_ANTONIDAS = 55, // not done
-							BLOODMAGE_THALNOS = 56, // not done
+							BLOODMAGE_THALNOS = 56, // not done - dubbla effekter
 							TWILIGHT_DRAKE = 57, // not done
 							BOLIVAR_FORDRAGON = 58, // not done
 							SHRINKMEISTER = 59, // not done
@@ -68,7 +68,7 @@ public class MonsterCard extends PlayCard {
 							KNIFE_JUGGLER = 67, // not done
 							SHIELDMAIDEN = 68, // not done
 							IMP_GANG_BOSS = 69, // not done
-							BLOOD_IMP = 70, // not done - type: demon
+							BLOOD_IMP = 70,
 							ONYXIA = 71, // not done
 							ILLIDAN_STORMRAGE = 72, // not done
 							LOATHEB = 73, // not done
@@ -79,7 +79,7 @@ public class MonsterCard extends PlayCard {
 							MOUNTAIN_GIANT = 78,
 							MOLTEN_GIANT = 79,
 							CLOCKWORK_GIANT = 80,
-							ALARMO_BOT = 81, // not done - type: mech
+							ALARMO_BOT = 81,
 							PILOTED_SHREDDER = 82, // not done
 							MAD_BOMBER = 83, // not done
 							SUCCUBUS = 84, // not done
@@ -114,7 +114,7 @@ public class MonsterCard extends PlayCard {
 							NORTHSHIRE_CLERIC = 113, // not done
 							SHADOWBOXER = 114, // not done
 							STONESKIN_GARGOYLE = 115, // not done
-							TIMBERWOL = 116, // not done
+							TIMBERWOLF = 116, // not done
 							BEASTMASTER = 117, // not done
 							THUNDRA_RHINO = 118, // not done
 							STAMPEDING_KODO = 119, // not done
@@ -163,7 +163,12 @@ public class MonsterCard extends PlayCard {
 							TROLL_CARDHAND_ATTACKER = 162, // not done
 							SIEGE_ENGINE = 163, // not done
 							FLOATING_WATCHER = 164, // not done
-							KING_OF_BEASTS = 165; // not done
+							KING_OF_BEASTS = 165, // not done
+							DEFENDER_OF_ARGUS = 166, // not done
+							SUNFURY_PROTECTOR = 167, // not done
+							ANGRY_CHICKEN = 168, // not done
+							PILOTED_SKY_GOLEM = 169, // not done
+							THE_BEAST = 170; // not done
 
 	private int type;
 
@@ -453,6 +458,10 @@ public class MonsterCard extends PlayCard {
 			name = "Clockwork Giant";
 			costEffect = new CostDeterminedByCardsInHand(1, false, true);
 			initBasicStats(12, 8, 8);
+		} else if (type == GRUUL) {
+			name = "Gruul";
+			initBasicStats(7, 7, 7);
+			startTurnEffect = new BuffMinionTurnEffect(1, 1, true, false);
 		}
 	}
 

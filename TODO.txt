@@ -4,7 +4,6 @@
 * Weapon
 * SpellDamage
 
-* StartTurn-effect
 * TakeDmg-effect (deal / take + this/any minion)
 * Summon-minion-effect (own / any)
 * SpellCast-effect (own / enemy / any + minion / player)
@@ -20,3 +19,4 @@
 * Funderingar
 - Hur dubbelstjäls en minion av att två sylvanas kolliderar
 - Vad händer om en Doomsayer summonas av en Alarm'O Bot
+- Hur mycket kostar en Mountain Giant vid full hand? (2 eller 3?)
