@@ -421,6 +421,10 @@ public class MonsterCard extends PlayCard {
 			name = "Molten Giant";
 			costEffect = new CostDeterminedByHealth(1, true);
 			initBasicStats(20, 8, 8);
+		} else if (type == SEA_GIANT) {
+			name = "Sea Giant";
+			costEffect = new CostDeterminedByMinionsOnBoard(1, true, true);
+			initBasicStats(10, 8, 8);
 		}
 	}
 

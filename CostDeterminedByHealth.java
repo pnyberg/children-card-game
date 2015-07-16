@@ -15,7 +15,7 @@ public class CostDeterminedByHealth extends SpellEffect {
 
 	public void effect(PlayCard card, int healthLost) {
 		int subtractedCost = healthLost * diffPerHealth;
-		int newCost = card.getOriginalCost() - healthLost;
+		int newCost = card.getOriginalCost() - subtractedCost;
 
 		card.setCost(newCost);
 	}

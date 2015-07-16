@@ -119,6 +119,22 @@ public class TheGame {
 			int healthLost = 30 - player.getHealth();
 
 			costDeterminedByHealth.effect(card, healthLost);
+		} else if (costEffect instanceof CostDeterminedByMinionsOnBoard) {
+			CostDeterminedByMinionsOnBoard costDeterminedByMinionsOnBoard = (CostDeterminedByMinionsOnBoard)costEffect;
+
+			int minionsOnBoard = 0;
+
+			if (costDeterminedByMinionsOnBoard.basedOnFriendlyBoard()) {
+				LinkedList<Minion> minionList = getMinionList(turnIndex);
+				minionsOnBoard += minionList.size();
+			}
+
+			if (costDeterminedByMinionsOnBoard.basedOnFriendlyBoard()) {
+				LinkedList<Minion> minionList = getMinionList((turnIndex + 1) % 2);
+				minionsOnBoard += minionList.size();
+			}
+
+			costDeterminedByMinionsOnBoard.effect(card, minionsOnBoard);
 		}
 	}
 
@@ -359,6 +375,7 @@ public class TheGame {
 		if (randomizer == 0) {
 			addCardToHand(new MonsterCard(MonsterCard.ALEXSTRASZA));
 			addCardToHand(new MonsterCard(MonsterCard.MOLTEN_GIANT));
+			addCardToHand(new MonsterCard(MonsterCard.SEA_GIANT));
 		} else if (randomizer == 1) {
 			addCardToHand(new MonsterCard(MonsterCard.NIGHTBLADE));
 			addCardToHand(new MonsterCard(MonsterCard.LEPER_GNOME));
