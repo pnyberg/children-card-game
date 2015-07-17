@@ -3,7 +3,7 @@ import java.util.LinkedList;
 import java.util.Scanner;
 
 public class TheGame {
-	private final int TARGETPLAYER = 10;
+	public static final int TARGETPLAYER = 10;
 
 
 	private DamageHandler damageHandler;
@@ -75,6 +75,7 @@ public class TheGame {
 	}
 
 	public void initDecks() {
+		deck2.add(new MonsterCard(MonsterCard.ELVEN_ARCHER));
 		deck2.add(new MonsterCard(MonsterCard.NOVICE_ENGINEER));
 		deck2.add(new MonsterCard(MonsterCard.BARON_GEDDON));
 		deck2.add(new MonsterCard(MonsterCard.LEEROY_JENKINS));
@@ -132,7 +133,6 @@ public class TheGame {
 		deck1.add(new MonsterCard(MonsterCard.EMPEROR_THAURISSAN));
 		deck1.add(new MonsterCard(MonsterCard.WOLFRIDER));
 		deck1.add(new MonsterCard(MonsterCard.ABUSIVE_SERGEANT));
-		deck1.add(new MonsterCard(MonsterCard.ELVEN_ARCHER));
 	}
 
 //#100
@@ -341,19 +341,9 @@ public class TheGame {
 
 			System.out.println(player.getName() + " got changed health!");
 		} else if (battleCryEffect instanceof DealDamage) {
-			Character character;
-
-			if (minionIndex == TARGETPLAYER) {
-				character = getPlayer(turnIndex);
-			} else {
-				character = getMinion(minionIndex, turnIndex);
-			}
-
 			DealDamage dealDamage = (DealDamage)battleCryEffect;
 
-			dealDamage.effect(character);
-
-			System.out.println(character.getName() + " took damage!");
+			dealDamage.effect(damageHandler, minionIndex, turnIndex);
 		} else {
 			// BuffSingelMinion, PickUpMinion and SwapHealthMinion only handle minions, so they can have the same base-code
 			LinkedList<Minion> minionTargetList = getMinionList(turnIndex);
@@ -634,9 +624,9 @@ public class TheGame {
 		int damage1 = attackingMinion.attack();
 		int damage2 = targetMinion.getCurrentAttack();
 
-		handleDamage(targetIndex, damage1, (turn + 1) % 2);
+		damageHandler.dealDamageToMinion(targetIndex, damage1, (turn + 1) % 2);
 
-		handleDamage(attackerIndex, damage2, turn);
+		damageHandler.dealDamageToMinion(attackerIndex, damage2, turn);
 
 		System.out.println("(Player " + (turn + 1) + " #" + attackerIndex + ")" + attackingMinion.getName() + " is attacking (Player " + ((turn + 1) % 2 + 1) + " #" + attackerIndex + ")" + targetMinion.getName());
 
@@ -645,10 +635,6 @@ public class TheGame {
 		checkDeath(attackerIndex, turn);
 
 		System.out.println(attackingMinion.getName() + " HP: " + attackingMinion.getCurrentHealth() + " - " + targetMinion.getName() + " HP: " + targetMinion.getCurrentHealth());
-	}
-
-	public void handleDamage(int minionIndex, int damageAmount, int turnIndex) {
-		damageHandler.dealDamageToMinion(minionIndex, damageAmount, turnIndex);
 	}
 
 	public void checkDeathBoard() {

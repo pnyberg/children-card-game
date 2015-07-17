@@ -7,7 +7,11 @@ public class DealDamage extends SpellEffect {
 		this.damageAmount = damageAmount;
 	}
 
-	public void effect(Character character) {
-		character.takeDamage(damageAmount);
+	public void effect(DamageHandler damageHandler, int targetIndex, int turnIndex) {
+		if (targetIndex == TheGame.TARGETPLAYER) {
+			damageHandler.dealDamageToPlayer(damageAmount, turnIndex);
+		} else {
+			damageHandler.dealDamageToMinion(targetIndex, damageAmount, turnIndex);
+		}
 	}
 }

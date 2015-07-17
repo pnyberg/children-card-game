@@ -42,6 +42,8 @@ public class DamageHandler {
 		if (tookDamage) {
 			manageAllDamageEffects(minionIndex, turnIndex);
 		}
+
+		System.out.println(minion.getName() + " took " + damageAmount + " damage!");
 	}
 
 	private void manageAllDamageEffects(int minionIndex, int turnIndex) {

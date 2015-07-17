@@ -150,15 +150,7 @@ public class Minion extends Character {
 		}
 
 		currentHealth -= damageAmount;
-
-		System.out.println(name + " takes " + damageAmount + " damage!");
-
-/*		if (damageHandler == null) {
-			System.out.println("Something is wrong, there is no damagehandler!");
-		} else {
-			damageHandler.manageAllDamageEffects(minionIndex, turnIndex);
-		}*/
-
+		
 		return true;
 	}
 
