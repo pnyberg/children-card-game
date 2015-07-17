@@ -68,7 +68,10 @@ public class TheGame {
 	public void initDecks() {
 		deck2.add(new MonsterCard(MonsterCard.MALORNE));
 		deck2.add(new MonsterCard(MonsterCard.NOVICE_ENGINEER));
+		deck2.add(new MonsterCard(MonsterCard.GRUUL));
+		deck2.add(new MonsterCard(MonsterCard.RAGNAROS));
 
+		deck1.add(new MonsterCard(MonsterCard.DEATHLORD));
 		deck1.add(new MonsterCard(MonsterCard.BARON_GEDDON));
 		deck1.add(new MonsterCard(MonsterCard.MANA_TIDE_TOTEM));
 		deck1.add(new MonsterCard(MonsterCard.LOOT_HOARDER));
@@ -78,7 +81,6 @@ public class TheGame {
 		deck1.add(new MonsterCard(MonsterCard.HOGGER));
 		deck1.add(new MonsterCard(MonsterCard.CRAZED_ALCHEMIST));
 		deck1.add(new MonsterCard(MonsterCard.IMP_MASTER));
-		deck1.add(new MonsterCard(MonsterCard.GRUUL));
 		deck1.add(new MonsterCard(MonsterCard.SHRINKMEISTER));
 		deck1.add(new MonsterCard(MonsterCard.ALEXSTRASZA));
 		deck1.add(new MonsterCard(MonsterCard.MOLTEN_GIANT));
@@ -93,7 +95,6 @@ public class TheGame {
 		deck1.add(new MonsterCard(MonsterCard.CLOCKWORK_GIANT));
 		deck1.add(new MonsterCard(MonsterCard.NIGHTBLADE));
 		deck1.add(new MonsterCard(MonsterCard.LEPER_GNOME));
-		deck1.add(new MonsterCard(MonsterCard.RAGNAROS));
 		deck1.add(new MonsterCard(MonsterCard.DR_BOOM));
 		deck1.add(new MonsterCard(MonsterCard.DISPATCHING_DRAKE));
 		deck1.add(new MonsterCard(MonsterCard.UNSTABLE_GHOUL));
@@ -1041,6 +1042,15 @@ public class TheGame {
 			LinkedList<Minion> enemyPlayerMinionTempList = getTempMinionList((turnIndex + 1) % 2);
 
 			summonMinions.effect(friendlyPlayerMinionTempList, enemyPlayerMinionTempList);
+		} else if (deathRattleEffect instanceof SummonRandomMinionsFromDeck) {
+			SummonRandomMinionsFromDeck summonRandomMinionsFromDeck = (SummonRandomMinionsFromDeck)deathRattleEffect;
+
+			LinkedList<PlayCard> friendlyDeck = getDeck(turnIndex);
+			LinkedList<PlayCard> enemyDeck = getDeck((turnIndex + 1) % 2);
+			LinkedList<Minion> friendlyPlayerMinionTempList = getTempMinionList(turnIndex);
+			LinkedList<Minion> enemyPlayerMinionTempList = getTempMinionList((turnIndex + 1) % 2);
+
+			summonRandomMinionsFromDeck.effect(friendlyDeck, friendlyPlayerMinionTempList, enemyDeck, enemyPlayerMinionTempList);
 		} else if (deathRattleEffect instanceof DrawCards) {
 			DrawCards drawCards = (DrawCards)deathRattleEffect;
 			LinkedList<PlayCard> cardHand = getHand(turnIndex);

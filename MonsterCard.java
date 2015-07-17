@@ -131,8 +131,8 @@ public class MonsterCard extends PlayCard {
 							NEFARIAN = 127, // not done
 							POISON_COBRA = 128, // not done
 							STEALTH_WORGEN = 129, // not done
-							BARON_GEDDON = 130, // not done
-							MALORNE = 131, // not done
+							BARON_GEDDON = 130,
+							MALORNE = 131,
 							ALDOR_PEACEKEEPER = 132,
 							CRAZED_ALCHEMIST = 133,
 							HOGGER = 134,
@@ -531,6 +531,11 @@ public class MonsterCard extends PlayCard {
 			minionType = Minion.BEAST;
 			initBasicStats(9, 9, 7);
 			deathRattleEffect = new AddCardToDeck(new int[] {MALORNE}, null);
+		} else if (type == DEATHLORD) {
+			name = "Deathlord";
+			initBasicStats(3, 2, 8);
+			taunt = true;
+			deathRattleEffect = new SummonRandomMinionsFromDeck(0, false, 1, true);
 		}
 	}
 
