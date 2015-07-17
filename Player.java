@@ -9,8 +9,10 @@ public class Player extends Character {
 		this.health = maxHealth;
 	}
 
-	public void takeDamage(int damageAmount) {
+	public boolean takeDamage(int damageAmount) {
 		health -= damageAmount;
+
+		return health > 0;
 	}
 
 	public void heal(int healAmount) {

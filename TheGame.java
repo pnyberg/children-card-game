@@ -73,6 +73,8 @@ public class TheGame {
 		deck2.add(new MonsterCard(MonsterCard.GRUUL));
 		deck2.add(new MonsterCard(MonsterCard.RAGNAROS));
 
+		deck1.add(new MonsterCard(MonsterCard.ARGENT_SQUIRE));
+		deck1.add(new MonsterCard(MonsterCard.ARGENT_PROTECTOR));
 		deck1.add(new MonsterCard(MonsterCard.ZOMBIE_CHOW));
 		deck1.add(new MonsterCard(MonsterCard.ELVEN_OF_ELUNE));
 		deck1.add(new MonsterCard(MonsterCard.DEATHLORD));
@@ -618,9 +620,9 @@ public class TheGame {
 		int damage1 = attackingMinion.attack();
 		int damage2 = targetMinion.getCurrentAttack();
 
-		handleDamage(targetMinion, damage1);
+		targetMinion.takeDamage(damage1);
 
-		handleDamage(attackingMinion, damage2);
+		attackingMinion.takeDamage(damage2);
 
 		System.out.println("(Player " + (turn + 1) + " #" + attackerIndex + ")" + attackingMinion.getName() + " is attacking (Player " + ((turn + 1) % 2 + 1) + " #" + attackerIndex + ")" + targetMinion.getName());
 
@@ -629,10 +631,6 @@ public class TheGame {
 		checkDeath(attackerIndex, turn);
 
 		System.out.println(attackingMinion.getName() + " HP: " + attackingMinion.getCurrentHealth() + " - " + targetMinion.getName() + " HP: " + targetMinion.getCurrentHealth());
-	}
-
-	public void handleDamage(Minion minion, int damage) {
-		minion.handleDamage(damage);
 	}
 
 	public void checkDeathBoard() {

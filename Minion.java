@@ -133,21 +133,17 @@ public class Minion extends Character {
 		}
 	}
 
-	public boolean handleDamage(int damage) {
+	public boolean takeDamage(int damageAmount) {
 		if (divineShield) {
 			divineShield = false;
 			return true;
 		}
 
-		takeDamage(damage);
-
-		return isAlive();
-	}
-
-	public void takeDamage(int damageAmount) {
 		currentHealth -= damageAmount;
 
 		System.out.println(name + " takes " + damageAmount + " damage!");	
+
+		return isAlive();
 	}
 
 	public void heal(int healAmount) {

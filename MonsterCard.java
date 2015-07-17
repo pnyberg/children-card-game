@@ -183,7 +183,12 @@ public class MonsterCard extends PlayCard {
 							MAGNA_GOLEM = 177, // not done
 							NEPTULON = 178, // not done
 							MINE_MACHINE = 179, // not done
-							LEVIATHON_MACHINE = 180; // not done
+							LEVIATHON_MACHINE = 180, // not done
+							ARGENT_SQUIRE = 181,
+							SCARLET_CRUSADER = 182,
+							SHIELDED_MINIBOT = 183,
+							ARGENT_COMMANDER = 184,
+							SUNWALKER = 185;
 
 	private int type;
 
@@ -587,6 +592,32 @@ public class MonsterCard extends PlayCard {
 			name = "Elven of Elune";
 			initBasicStats(5, 4, 4);
 			battleCryEffect = new HealCharacter(4, true, true);
+		} else if (type == ARGENT_PROTECTOR) {
+			name = "Argent Protector";
+			initBasicStats(2, 2, 2);
+			battleCryEffect = new BuffSingleMinion(0, 0, false, false, true, false, false);
+		} else if (type == ARGENT_SQUIRE) {
+			name = "Argent Squire";
+			initBasicStats(1, 1, 1);
+			divineShield = true;
+		} else if (type == SCARLET_CRUSADER) {
+			name = "Scarlet Crusader";
+			initBasicStats(3, 3, 1);
+			divineShield = true;
+		} else if (type == SHIELDED_MINIBOT) {
+			name = "Shielded Minibot";
+			initBasicStats(2, 2, 2);
+			divineShield = true;
+		} else if (type == ARGENT_COMMANDER) {
+			name = "Argent Commander";
+			initBasicStats(6, 4, 2);
+			charge = true;
+			divineShield = true;
+		} else if (type == SUNWALKER) {
+			name = "Sunwalker";
+			initBasicStats(6, 4, 5);
+			taunt = true;
+			divineShield = true;
 		}
 	}
 
