@@ -18,7 +18,8 @@ public class MonsterCard extends PlayCard {
 							IRONFUR_GRIZZLY = 17,
 							MAGMA_RAGER = 18,
 							RAID_LEADER = 19, // not done - area effect
-							RAZORFEN_HUNTER = 20, // not done
+							RAZORFEN_HUNTER = 20,
+							RAZORFEN_BOAR = 205,
 							SHATTERED_SUN_CLERIC = 21,
 							SILVERBACK_PATRIARCH = 22,
 							WOLFRIDER = 23,
@@ -45,7 +46,7 @@ public class MonsterCard extends PlayCard {
 							BAINE_BLOODHOOF = 44,
 							ALAKIR = 45,
 							KING_KRUSH = 46,
-							MALGANIS = 47, // not done
+							MALGANIS = 47, // not done - immune & +2/+2 - demon
 							DEATHWING = 48,
 							MALYGOS = 49, // not done - spell dmg
 							DR_BOOM = 50,
@@ -61,8 +62,8 @@ public class MonsterCard extends PlayCard {
 							IMP_MASTER = 60, // not done - dubbla effekter
 							IMP = 203, 
 							GRUUL = 61,
-							WATER_ELEMENTAL = 62, // not done
-							EARTH_ELEMENTAL = 63, // not done
+							WATER_ELEMENTAL = 62, // not done - freeze
+							EARTH_ELEMENTAL = 63, // not done - overload
 							FIRE_ELEMENTAL = 64,
 							DOOMSAYER = 65,
 							ACOLYTE_OF_PAIN = 66, // not done
@@ -104,7 +105,7 @@ public class MonsterCard extends PlayCard {
 							LOREWALKER_CHO = 100, // not done
 							ELVEN_OF_ELUNE = 101, // not done
 							MILLHOUSE_MANASTORM = 102, // not done
-							LEEROY_JENKINS = 103, // not done
+							LEEROY_JENKINS = 103,
 							LORD_JARAXXUS = 104, // not done
 							FOE_REAPER = 105, // not done
 							RAGING_WORGEN = 106, // not done
@@ -172,7 +173,12 @@ public class MonsterCard extends PlayCard {
 							SUNFURY_PROTECTOR = 167, // not done
 							ANGRY_CHICKEN = 168, // not done
 							PILOTED_SKY_GOLEM = 169, // not done
-							THE_BEAST = 170; // not done
+							THE_BEAST = 170, // not done
+							TAUREN_WARRIOR = 171, // not done
+							NAT_PAGLE = 172, // not done
+							OGRE_BRUTE = 173, // not done
+							MOGOR_THE_OGRE = 174, // not done
+							CLOCKWORK_GNOME = 175; // not done
 
 	private int type;
 
@@ -541,6 +547,33 @@ public class MonsterCard extends PlayCard {
 			initBasicStats(5, 6, 2);
 			charge = true;
 			battleCryEffect = new SummonMinions(null, new int[] {DRAGON_WHELP, DRAGON_WHELP});
+		} else if (type == RAZORFEN_HUNTER) {
+			name = "Razorfen Hunter";
+			initBasicStats(3, 2, 3);
+			battleCryEffect = new SummonMinions(new int[] {RAZORFEN_BOAR}, null);
+		} else if (type == RAZORFEN_BOAR) {
+			name = "Razorfen Boar";
+			minionType = Minion.BEAST;
+			initBasicStats(1, 1, 1);
+		} else if (type == MALYGOS) {
+			name = "Malygos";
+			minionType = Minion.DRAGON;
+			initBasicStats(9, 4, 12);
+		} else if (type == WATER_ELEMENTAL) {
+			name = "Water Elemental";
+			initBasicStats(4, 3, 6);
+		} else if (type == EARTH_ELEMENTAL) {
+			name = "Earth Elemental";
+			initBasicStats(5, 7, 8);
+			taunt = true;
+		} else if (type == MALGANIS) {
+			name = "Mal'Ganis";
+			minionType = Minion.BEAST;
+			initBasicStats(9, 9, 7);
+		} else if (type == BLOODMAGE_THALNOS) {
+			name = "Bloodmage Thalnos";
+			initBasicStats(2, 1, 1);
+			deathRattleEffect = new DrawCards(1);
 		}
 	}
 
