@@ -37,7 +37,7 @@ public class MonsterCard extends PlayCard {
 							DRAGON_GRUNT = 35,
 							DISPATCHING_DRAKE = 36,
 							RAGNAROS = 37,
-							YSERA = 38, // not done
+							YSERA = 38,
 							KELTHUZAD = 39,
 							EMPEROR_THAURISSAN = 40,
 							ALEXSTRASZA = 41,
@@ -66,7 +66,7 @@ public class MonsterCard extends PlayCard {
 							EARTH_ELEMENTAL = 63, // not done - overload
 							FIRE_ELEMENTAL = 64,
 							DOOMSAYER = 65,
-							ACOLYTE_OF_PAIN = 66, // not done
+							ACOLYTE_OF_PAIN = 66,
 							KNIFE_JUGGLER = 67, // not done
 							SHIELDMAIDEN = 68, // not done
 							IMP_GANG_BOSS = 69, // not done
@@ -209,6 +209,9 @@ public class MonsterCard extends PlayCard {
 	//private boolean noSpellTarget
 
 	private SpellEffect costEffect;
+
+	private DamageEffect damageEffect;
+
 	private SpellEffect battleCryEffect;
 	private SpellEffect deathRattleEffect;
 
@@ -231,6 +234,7 @@ public class MonsterCard extends PlayCard {
 		cannotAttack = false;
 
 		battleCryEffect = null;
+		damageEffect = null;
 		deathRattleEffect = null;
 		startTurnEffect = null;
 		endTurnEffect = null;
@@ -622,6 +626,15 @@ public class MonsterCard extends PlayCard {
 			name = "Blood Knight";
 			initBasicStats(4, 3, 3);
 			battleCryEffect = new BuffAccordingToDivineShields(3, 3, true, true, true, false, false);
+		} else if (type == YSERA) {
+			name = "Ysera";
+			minionType = Minion.DRAGON;
+			initBasicStats(9, 4, 12);
+			endTurnEffect = new AddDremCardToHandTurnEffect(1, false);
+		} else if (type == ACOLYTE_OF_PAIN) {
+			name = "Acolyte of Pain";
+			initBasicStats(3, 1, 3);
+			damageEffect = new DrawCardsDamageEffect(1, false, false);
 		}
 	}
 
@@ -677,6 +690,6 @@ public class MonsterCard extends PlayCard {
 	}
 
 	public Minion toMinion() {
-		return new Minion(type, name, minionType, attack, health, taunt, charge, divineShield, windfury, cannotAttack, battleCryEffect, deathRattleEffect, startTurnEffect, endTurnEffect);
+		return new Minion(type, name, minionType, attack, health, taunt, charge, divineShield, windfury, cannotAttack, damageEffect, battleCryEffect, deathRattleEffect, startTurnEffect, endTurnEffect);
 	}
 }

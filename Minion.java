@@ -32,6 +32,10 @@ public class Minion extends Character {
 	private boolean originallyWindfury;
 	private boolean originallyCannotAttack;
 
+	private DamageEffect damageEffect;
+
+	private DamageEffect originallyDamageEffect;
+
 	private SpellEffect battleCryEffect;
 	private SpellEffect deathRattleEffect;
 
@@ -47,7 +51,7 @@ public class Minion extends Character {
 	private int attackAmount;
 	private boolean restoredThisTurn;
 
-	public Minion(int type, String name, int minionType, int attack, int health, boolean taunt, boolean charge, boolean divineShield, boolean windfury, boolean cannotAttack, SpellEffect battleCryEffect, SpellEffect deathRattleEffect, TurnEffect startTurnEffect, TurnEffect endTurnEffect) {
+	public Minion(int type, String name, int minionType, int attack, int health, boolean taunt, boolean charge, boolean divineShield, boolean windfury, boolean cannotAttack, DamageEffect damageEffect, SpellEffect battleCryEffect, SpellEffect deathRattleEffect, TurnEffect startTurnEffect, TurnEffect endTurnEffect) {
 		this.type = type;
 
 		this.name = name;
@@ -63,6 +67,7 @@ public class Minion extends Character {
 		originallyCannotAttack = cannotAttack;
 
 		originallyBattleCryEffect = battleCryEffect;
+		originallyDamageEffect = damageEffect;
 		originallyDeathRattleEffect = deathRattleEffect;
 
 		originallyStartTurnEffect = startTurnEffect;
@@ -95,6 +100,7 @@ public class Minion extends Character {
 		cannotAttack = originallyCannotAttack;
 
 		battleCryEffect = originallyBattleCryEffect;
+		damageEffect = originallyDamageEffect;
 		deathRattleEffect = originallyDeathRattleEffect;
 
 		startTurnEffect = originallyStartTurnEffect;
@@ -136,14 +142,24 @@ public class Minion extends Character {
 	public boolean takeDamage(int damageAmount) {
 		if (divineShield) {
 			divineShield = false;
-			return true;
+			return false;
+		}
+
+		if (damageAmount <= 0) {
+			return false;
 		}
 
 		currentHealth -= damageAmount;
 
-		System.out.println(name + " takes " + damageAmount + " damage!");	
+		System.out.println(name + " takes " + damageAmount + " damage!");
 
-		return isAlive();
+/*		if (damageHandler == null) {
+			System.out.println("Something is wrong, there is no damagehandler!");
+		} else {
+			damageHandler.manageAllDamageEffects(minionIndex, turnIndex);
+		}*/
+
+		return true;
 	}
 
 	public void heal(int healAmount) {
@@ -248,6 +264,10 @@ public class Minion extends Character {
 		return currentHealth;
 	}
 
+	public DamageEffect getDamageEffect() {
+		return damageEffect;
+	}
+
 	public SpellEffect getBattleCryEffect() {
 		return battleCryEffect;
 	}
@@ -284,6 +304,10 @@ public class Minion extends Character {
 		return cannotAttack;
 	}
 
+	public boolean hasDamageEffect() {
+		return damageEffect != null;
+	}
+
 	public boolean hasBattleCry() {
 		return battleCryEffect != null;
 	}
@@ -302,5 +326,19 @@ public class Minion extends Character {
 
 	public boolean restoredThisTurn() {
 		return restoredThisTurn;
+	}
+
+	public boolean enemyBoardAreaEffect() {
+		if (damageEffect == null) {
+			return false;
+		}
+		return damageEffect.enemyBoardAreaEffect();
+	}
+
+	public boolean friendlyBoardAreaEffect() {
+		if (damageEffect == null) {
+			return false;
+		}
+		return damageEffect.friendlyBoardAreaEffect();
 	}
 }

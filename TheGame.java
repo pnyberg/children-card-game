@@ -5,6 +5,10 @@ import java.util.Scanner;
 public class TheGame {
 	private final int TARGETPLAYER = 10;
 
+
+	private DamageHandler damageHandler;
+
+
 	private LinkedList<Minion> minionsOnBoard1;
 	private LinkedList<Minion> minionsOnBoard2;
 
@@ -31,7 +35,6 @@ public class TheGame {
 
 	private LinkedList<Minion> minionDeadList1;
 	private LinkedList<Minion> minionDeadList2;
-
 
 	private int randomizer = 0; // temp -> pre-built-order 
 
@@ -60,19 +63,27 @@ public class TheGame {
 		minionDeadList1 = new LinkedList<Minion>();
 		minionDeadList2 = new LinkedList<Minion>();
 
+		initDamageHandling();
+
 		initDecks();
 
 		start();
 	}
 
+	public void initDamageHandling() {
+		damageHandler = new DamageHandler(player1, player2, deck1, deck2, cardsInHand1, cardsInHand2, minionsOnBoard1, minionsOnBoard2);
+	}
+
 	public void initDecks() {
+		deck2.add(new MonsterCard(MonsterCard.NOVICE_ENGINEER));
 		deck2.add(new MonsterCard(MonsterCard.BARON_GEDDON));
 		deck2.add(new MonsterCard(MonsterCard.LEEROY_JENKINS));
 		deck2.add(new MonsterCard(MonsterCard.MALORNE));
-		deck2.add(new MonsterCard(MonsterCard.NOVICE_ENGINEER));
 		deck2.add(new MonsterCard(MonsterCard.GRUUL));
 		deck2.add(new MonsterCard(MonsterCard.RAGNAROS));
 
+		deck1.add(new MonsterCard(MonsterCard.ACOLYTE_OF_PAIN));
+		deck1.add(new MonsterCard(MonsterCard.YSERA));
 		deck1.add(new MonsterCard(MonsterCard.ARGENT_SQUIRE));
 		deck1.add(new MonsterCard(MonsterCard.ARGENT_PROTECTOR));
 		deck1.add(new MonsterCard(MonsterCard.SCARLET_CRUSADER));
@@ -375,7 +386,6 @@ public class TheGame {
 
 				PlayCard cardToBePlayed = getCardFromHand(minionTriedToPlayCardIndex);
 
-				// necessary
 				if (cardToBePlayed instanceof SpellCard) {
 					return;
 				}
@@ -624,9 +634,9 @@ public class TheGame {
 		int damage1 = attackingMinion.attack();
 		int damage2 = targetMinion.getCurrentAttack();
 
-		targetMinion.takeDamage(damage1);
+		handleDamage(targetIndex, damage1, (turn + 1) % 2);
 
-		attackingMinion.takeDamage(damage2);
+		handleDamage(attackerIndex, damage2, turn);
 
 		System.out.println("(Player " + (turn + 1) + " #" + attackerIndex + ")" + attackingMinion.getName() + " is attacking (Player " + ((turn + 1) % 2 + 1) + " #" + attackerIndex + ")" + targetMinion.getName());
 
@@ -635,6 +645,10 @@ public class TheGame {
 		checkDeath(attackerIndex, turn);
 
 		System.out.println(attackingMinion.getName() + " HP: " + attackingMinion.getCurrentHealth() + " - " + targetMinion.getName() + " HP: " + targetMinion.getCurrentHealth());
+	}
+
+	public void handleDamage(int minionIndex, int damageAmount, int turnIndex) {
+		damageHandler.dealDamageToMinion(minionIndex, damageAmount, turnIndex);
 	}
 
 	public void checkDeathBoard() {
@@ -683,9 +697,7 @@ public class TheGame {
 
 		System.out.println(attackingMinion.getName() + " is attacking Player " + playerNumber);
 
-		Player player = getPlayer((turn + 1) % 2);
-		player.takeDamage(damage);
-		System.out.println("Player " + playerNumber + " takes " + damage + " damage, has " + player.getHealth() + " left!");
+		damageHandler.dealDamageToPlayer(damage, (turn + 1) % 2);
 	}
 
 	public Minion getAttacker(int index) {
@@ -827,7 +839,6 @@ public class TheGame {
 		if (turnIndex == 0) {
 			deckList = deck1;
 		} else {
-//			deckList = deck1;
 			deckList = deck2;
 		}
 		return deckList;
@@ -1288,6 +1299,11 @@ public class TheGame {
 			LinkedList<PlayCard> deck = getDeck(turnIndex);
 
 			drawCardsTurnEffect.effect(cardHand, deck);
+		} else if (endTurnEffect instanceof AddDremCardToHandTurnEffect) {
+			AddDremCardToHandTurnEffect addDremCardToHandTurnEffect = (AddDremCardToHandTurnEffect)endTurnEffect;
+			LinkedList<PlayCard> cardHand = getHand(turnIndex);
+
+			addDremCardToHandTurnEffect.effect(cardHand);
 		} else if (endTurnEffect instanceof HandCostTurnEffect) {
 			HandCostTurnEffect handCostTurnEffect = (HandCostTurnEffect)endTurnEffect;
 			LinkedList<PlayCard> cardHand = getHand(turnIndex);
