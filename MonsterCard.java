@@ -376,7 +376,7 @@ public class MonsterCard extends PlayCard {
 			name = "Unstable Ghoul";
 			initBasicStats(2, 1, 3);
 			taunt = true;
-			deathRattleEffect = new DealDamageToAllMinions(1);
+			deathRattleEffect = new DealDamageToAllCharacters(1, true, false);
 		} else if (type == RAGNAROS) {
 			name = "Ragnaros";
 			initBasicStats(8, 8, 8);
@@ -630,7 +630,7 @@ public class MonsterCard extends PlayCard {
 			name = "Ysera";
 			minionType = Minion.DRAGON;
 			initBasicStats(9, 4, 12);
-			endTurnEffect = new AddDremCardToHandTurnEffect(1, false);
+			endTurnEffect = new AddDreamCardToHandTurnEffect(1, false);
 		} else if (type == ACOLYTE_OF_PAIN) {
 			name = "Acolyte of Pain";
 			initBasicStats(3, 1, 3);

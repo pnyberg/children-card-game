@@ -83,6 +83,7 @@ public class TheGame {
 		deck2.add(new MonsterCard(MonsterCard.MALORNE));
 		deck2.add(new MonsterCard(MonsterCard.GRUUL));
 
+		deck1.add(new MonsterCard(MonsterCard.UNSTABLE_GHOUL));
 		deck1.add(new MonsterCard(MonsterCard.ACOLYTE_OF_PAIN));
 		deck1.add(new MonsterCard(MonsterCard.YSERA));
 		deck1.add(new MonsterCard(MonsterCard.ARGENT_SQUIRE));
@@ -118,7 +119,6 @@ public class TheGame {
 		deck1.add(new MonsterCard(MonsterCard.LEPER_GNOME));
 		deck1.add(new MonsterCard(MonsterCard.DR_BOOM));
 		deck1.add(new MonsterCard(MonsterCard.DISPATCHING_DRAKE));
-		deck1.add(new MonsterCard(MonsterCard.UNSTABLE_GHOUL));
 		deck1.add(new MonsterCard(MonsterCard.BLOODFEN_RAPTOR));
 		deck1.add(new MonsterCard(MonsterCard.MURLOC_TIDEHUNTER));
 		deck1.add(new SpellCard(SpellCard.STAFF_OF_THE_EMPEROR));
@@ -1132,12 +1132,10 @@ public class TheGame {
 			LinkedList<PlayCard> enemyDeck = getDeck((turnIndex + 1) % 2);
 
 			addCardToDeck.effect(friendlyDeck, enemyDeck);
-		} else if (deathRattleEffect instanceof DealDamageToAllMinions) {
-			DealDamageToAllMinions dealDamageToAllMinions = (DealDamageToAllMinions)deathRattleEffect;
-			LinkedList<Minion> friendlyMinionList = getMinionList(turnIndex);
-			LinkedList<Minion> enemyMinionList = getMinionList((turnIndex + 1) % 2);
+		} else if (deathRattleEffect instanceof DealDamageToAllCharacters) {
+			DealDamageToAllCharacters dealDamageToAllCharacters = (DealDamageToAllCharacters)deathRattleEffect;
 
-			dealDamageToAllMinions.effect(friendlyMinionList, enemyMinionList);
+			dealDamageToAllCharacters.effect(damageHandler, turnIndex);
 
 			checkDeathBoard();
 		} else if (deathRattleEffect instanceof MindControlRandom) {
@@ -1294,11 +1292,11 @@ public class TheGame {
 			LinkedList<PlayCard> deck = getDeck(turnIndex);
 
 			drawCardsTurnEffect.effect(cardHand, deck);
-		} else if (endTurnEffect instanceof AddDremCardToHandTurnEffect) {
-			AddDremCardToHandTurnEffect addDremCardToHandTurnEffect = (AddDremCardToHandTurnEffect)endTurnEffect;
+		} else if (endTurnEffect instanceof AddDreamCardToHandTurnEffect) {
+			AddDreamCardToHandTurnEffect addDreamCardToHandTurnEffect = (AddDreamCardToHandTurnEffect)endTurnEffect;
 			LinkedList<PlayCard> cardHand = getHand(turnIndex);
 
-			addDremCardToHandTurnEffect.effect(cardHand);
+			addDreamCardToHandTurnEffect.effect(cardHand);
 		} else if (endTurnEffect instanceof HandCostTurnEffect) {
 			HandCostTurnEffect handCostTurnEffect = (HandCostTurnEffect)endTurnEffect;
 			LinkedList<PlayCard> cardHand = getHand(turnIndex);
@@ -1307,13 +1305,7 @@ public class TheGame {
 		} else if (endTurnEffect instanceof DealDamageToAllCharactersTurnEffect) {
 			DealDamageToAllCharactersTurnEffect dealDamageToAllCharactersTurnEffect = (DealDamageToAllCharactersTurnEffect)endTurnEffect;
 
-			LinkedList<Minion> friendlyMinionList = getMinionList(turnIndex);
-			LinkedList<Minion> enemyMinionList = getMinionList((turnIndex + 1) % 2);
-			Player self = getPlayer(turnIndex);
-			Player enemy = getPlayer((turnIndex + 1) % 2);
-
 			dealDamageToAllCharactersTurnEffect.effect(damageHandler, minionIndex, turnIndex);
-//			dealDamageToAllCharactersTurnEffect.effect(friendlyMinionList, minionIndex, enemyMinionList, self, enemy);
 
 			if (dealDamageToAllCharactersTurnEffect.damageBoard()) {
 				checkDeathBoard();
