@@ -66,13 +66,15 @@ public class TheGame {
 	}
 
 	public void initDecks() {
-		deck2.add(new MonsterCard(MonsterCard.LEEROY_JENKINS));
 		deck2.add(new MonsterCard(MonsterCard.BARON_GEDDON));
+		deck2.add(new MonsterCard(MonsterCard.LEEROY_JENKINS));
 		deck2.add(new MonsterCard(MonsterCard.MALORNE));
 		deck2.add(new MonsterCard(MonsterCard.NOVICE_ENGINEER));
 		deck2.add(new MonsterCard(MonsterCard.GRUUL));
 		deck2.add(new MonsterCard(MonsterCard.RAGNAROS));
 
+		deck1.add(new MonsterCard(MonsterCard.ZOMBIE_CHOW));
+		deck1.add(new MonsterCard(MonsterCard.ELVEN_OF_ELUNE));
 		deck1.add(new MonsterCard(MonsterCard.DEATHLORD));
 		deck1.add(new MonsterCard(MonsterCard.MANA_TIDE_TOTEM));
 		deck1.add(new MonsterCard(MonsterCard.LOOT_HOARDER));
@@ -310,19 +312,9 @@ public class TheGame {
 		int turnIndex = getTurnIndex(str[arrayLength]);
 
 		if (battleCryEffect instanceof HealCharacter) {
-			Character character;
-
-			if (minionIndex == TARGETPLAYER) {
-				character = getPlayer(turnIndex);
-			} else {
-				character = getMinion(minionIndex, turnIndex);
-			}
-
 			HealCharacter healCharacter = (HealCharacter)battleCryEffect;
 
-			healCharacter.effect(character);
-
-			System.out.println(character.getName() + " got healed!");
+			healCharacterEffect(healCharacter, minionIndex, turnIndex);
 		} else if (battleCryEffect instanceof SetHealthPlayer) {
 			Player player = getPlayer(turnIndex);
 
@@ -404,6 +396,20 @@ public class TheGame {
 		if (minionIndex != TARGETPLAYER && !(battleCryEffect instanceof PickUpMinion)) {
 			checkDeath(minionIndex, turnIndex);
 		}
+	}
+
+	public void healCharacterEffect(HealCharacter healCharacter, int minionIndex, int turnIndex) {
+		Character character;
+
+		if (minionIndex == TARGETPLAYER) {
+			character = getPlayer(turnIndex);
+		} else {
+			character = getMinion(minionIndex, turnIndex);
+		}
+
+		healCharacter.effect(character);
+
+		System.out.println(character.getName() + " got healed!");
 	}
 
 //#400
@@ -969,9 +975,22 @@ public class TheGame {
 				System.out.println("Which minion do you want to pick up?");
 			}
 		} else if (battleCryEffect instanceof HealCharacter) {
-			handlingBattleCry = true;
+			HealCharacter healCharacter = (HealCharacter)battleCryEffect;
 
-			System.out.println("Which character do you want to heal?");
+			if (healCharacter.mustTargetPlayer()) {
+				int minionIndex = TARGETPLAYER;
+				int turnNumber = turnIndex;
+
+				if (!healCharacter.targetSelf()) {
+					turnNumber = (turnNumber + 1) % 2;
+				}
+
+				healCharacterEffect(healCharacter, minionIndex, turnNumber);
+			} else {
+				handlingBattleCry = true;
+
+				System.out.println("Which character do you want to heal?");
+			}
 		} else if (battleCryEffect instanceof DealDamage) {
 			handlingBattleCry = true;
 
@@ -1125,6 +1144,22 @@ public class TheGame {
 				Player enemy = getPlayer((turnIndex + 1) % 2);
 				dealDamageToPlayer.effect(enemy);
 			}
+		} else if (deathRattleEffect instanceof HealCharacter) {
+			HealCharacter healCharacter = (HealCharacter)deathRattleEffect;
+			int minionIndex = -1;
+			int turnNumber = turnIndex;
+
+			if (healCharacter.mustTargetPlayer()) {
+				minionIndex = TARGETPLAYER;
+
+				if (!healCharacter.targetSelf()) {
+					turnNumber = (turnNumber + 1) % 2;
+				}
+			} else {
+				return;
+			}
+
+			healCharacterEffect(healCharacter, minionIndex, turnNumber);
 		}
 	}
 

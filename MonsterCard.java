@@ -1,7 +1,7 @@
 public class MonsterCard extends PlayCard {
 	public static final int	ELVEN_ARCHER = 1,
 							GOLDSHIRE_FOOTMAN = 2,
-							GRIMSCALE_ORACLE = 3, // not done - effect
+							GRIMSCALE_ORACLE = 3, // not done - area effect
 							MURLOC_RAIDER = 4,
 							STONETUSK_BOAR = 5,
 							VODOO_DOCTOR = 6,
@@ -55,11 +55,11 @@ public class MonsterCard extends PlayCard {
 							PROPHET_VELEN = 53, // not done
 							GAHZRILLA = 54, // not done
 							ARCHMAGE_ANTONIDAS = 55, // not done
-							BLOODMAGE_THALNOS = 56, // not done - dubbla effekter
+							BLOODMAGE_THALNOS = 56, // not done - dubbla effekter + spell dmg
 							TWILIGHT_DRAKE = 57,
 							BOLIVAR_FORDRAGON = 58, // not done
 							SHRINKMEISTER = 59,
-							IMP_MASTER = 60, // not done - dubbla effekter
+							IMP_MASTER = 60, // not done - dubbla effekter + take dmg
 							IMP = 203, 
 							GRUUL = 61,
 							WATER_ELEMENTAL = 62, // not done - freeze
@@ -103,7 +103,7 @@ public class MonsterCard extends PlayCard {
 							VOID_TERROR = 98, // not done
 							ENHANCO_MECHANIC = 99, // not done
 							LOREWALKER_CHO = 100, // not done
-							ELVEN_OF_ELUNE = 101, // not done
+							ELVEN_OF_ELUNE = 101,
 							MILLHOUSE_MANASTORM = 102, // not done
 							LEEROY_JENKINS = 103,
 							LORD_JARAXXUS = 104, // not done
@@ -178,7 +178,12 @@ public class MonsterCard extends PlayCard {
 							NAT_PAGLE = 172, // not done
 							OGRE_BRUTE = 173, // not done
 							MOGOR_THE_OGRE = 174, // not done
-							CLOCKWORK_GNOME = 175; // not done
+							CLOCKWORK_GNOME = 175, // not done
+							CULT_MASTER = 176, // not done
+							MAGNA_GOLEM = 177, // not done
+							NEPTULON = 178, // not done
+							MINE_MACHINE = 179, // not done
+							LEVIATHON_MACHINE = 180; // not done
 
 	private int type;
 
@@ -249,7 +254,7 @@ public class MonsterCard extends PlayCard {
 		} else if (type == VODOO_DOCTOR) {
 			name = "Vodoo Doctor";
 			initBasicStats(1, 2, 1);
-			battleCryEffect = new HealCharacter(2);
+			battleCryEffect = new HealCharacter(2, false, false);
 		} else if (type == ACIDIC_SWAMP_OOZE) {
 			name = "Acidic Swamp Ooze";
 			initBasicStats(2, 3, 2);
@@ -340,7 +345,7 @@ public class MonsterCard extends PlayCard {
 		} else if (type == EARTHEN_RING_FARSEER) {
 			name = "Earthen Ring Farseer";
 			initBasicStats(3, 3, 3);
-			battleCryEffect = new HealCharacter(3);
+			battleCryEffect = new HealCharacter(3, false, false);
 		} else if (type == SLUDGE_BELCHER) {
 			name = "Sludge Belcher";
 			initBasicStats(5, 3, 5);
@@ -574,6 +579,14 @@ public class MonsterCard extends PlayCard {
 			name = "Bloodmage Thalnos";
 			initBasicStats(2, 1, 1);
 			deathRattleEffect = new DrawCards(1);
+		} else if (type == ZOMBIE_CHOW) {
+			name = "Zombie Chow";
+			initBasicStats(1, 2, 3);
+			deathRattleEffect = new HealCharacter(3, true, false);
+		} else if (type == ELVEN_OF_ELUNE) {
+			name = "Elven of Elune";
+			initBasicStats(5, 4, 4);
+			battleCryEffect = new HealCharacter(4, true, true);
 		}
 	}
 
