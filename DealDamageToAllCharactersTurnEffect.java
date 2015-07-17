@@ -31,25 +31,27 @@ public class DealDamageToAllCharactersTurnEffect extends TurnEffect {
 		return activeOnBothTurns;
 	}
 
-	public void effect(LinkedList<Minion> friendlyMinions, int selfIndex, LinkedList<Minion> enemyMinions, Player self, Player enemy) {
+	public void effect(DamageHandler damageHandler, int selfIndex, int turnIndex) {
 		if (damageBoard) {
-			dealDamageToMinions(friendlyMinions, selfIndex);
-			dealDamageToMinions(enemyMinions, -1);
+			dealDamageToMinions(damageHandler, selfIndex, turnIndex);
+			dealDamageToMinions(damageHandler, -1, (turnIndex + 1) % 2);
 		}
 
 		if (damagePlayers) {
-			self.takeDamage(damageAmount);
-			enemy.takeDamage(damageAmount);
+			damageHandler.dealDamageToPlayer(damageAmount, turnIndex);
+			damageHandler.dealDamageToPlayer(damageAmount, (turnIndex + 1) % 2);
 		}
 	}
 
-	private void dealDamageToMinions(LinkedList<Minion> minionList, int selfIndex) {
+	private void dealDamageToMinions(DamageHandler damageHandler, int selfIndex, int turnIndex) {
+		LinkedList<Minion> minionList = damageHandler.getBoard(turnIndex);
+
 		for (int i = 0 ; i < minionList.size() ; i++) {
 			if (i == selfIndex && doNotDamageSelf) {
 				continue;
 			}
-			Minion minion = minionList.get(i);
-			minion.takeDamage(damageAmount);
+
+			damageHandler.dealDamageToMinion(i, damageAmount, turnIndex);
 		}
 	}
 }

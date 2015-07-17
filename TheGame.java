@@ -1312,7 +1312,8 @@ public class TheGame {
 			Player self = getPlayer(turnIndex);
 			Player enemy = getPlayer((turnIndex + 1) % 2);
 
-			dealDamageToAllCharactersTurnEffect.effect(friendlyMinionList, minionIndex, enemyMinionList, self, enemy);
+			dealDamageToAllCharactersTurnEffect.effect(damageHandler, minionIndex, turnIndex);
+//			dealDamageToAllCharactersTurnEffect.effect(friendlyMinionList, minionIndex, enemyMinionList, self, enemy);
 
 			if (dealDamageToAllCharactersTurnEffect.damageBoard()) {
 				checkDeathBoard();
