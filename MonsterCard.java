@@ -635,6 +635,11 @@ public class MonsterCard extends PlayCard {
 			name = "Acolyte of Pain";
 			initBasicStats(3, 1, 3);
 			damageEffect = new DrawCardsDamageEffect(1, false, false);
+		} else if (type == GAHZRILLA) {
+			name = "Gahzrilla";
+			minionType = Minion.BEAST;
+			initBasicStats(7, 6, 9);
+			damageEffect = new BuffMinionDamageEffect(0, 0, true, false, false);
 		}
 	}
 

@@ -82,6 +82,10 @@ public class DamageHandler {
 			LinkedList<PlayCard> deck = getDeck(turnIndex);
 
 			drawCardsDamageEffect.effect(cardHand, deck);
+		} else if (damageEffect instanceof BuffMinionDamageEffect) {
+			BuffMinionDamageEffect buffMinionDamageEffect = (BuffMinionDamageEffect)damageEffect;
+
+			buffMinionDamageEffect.effect(minion);
 		}
 	}
 

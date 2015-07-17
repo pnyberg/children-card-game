@@ -75,19 +75,20 @@ public class TheGame {
 	}
 
 	public void initDecks() {
-		deck2.add(new MonsterCard(MonsterCard.UNSTABLE_GHOUL));
-		deck2.add(new MonsterCard(MonsterCard.RAGNAROS));
 		deck2.add(new MonsterCard(MonsterCard.ELVEN_ARCHER));
+		deck2.add(new MonsterCard(MonsterCard.UNSTABLE_GHOUL));
+		deck2.add(new MonsterCard(MonsterCard.ACOLYTE_OF_PAIN));
+		deck2.add(new MonsterCard(MonsterCard.RAGNAROS));
 		deck2.add(new MonsterCard(MonsterCard.NOVICE_ENGINEER));
 		deck2.add(new MonsterCard(MonsterCard.BARON_GEDDON));
 		deck2.add(new MonsterCard(MonsterCard.LEEROY_JENKINS));
 		deck2.add(new MonsterCard(MonsterCard.MALORNE));
 		deck2.add(new MonsterCard(MonsterCard.GRUUL));
 
+		deck1.add(new MonsterCard(MonsterCard.GAHZRILLA));
 		deck1.add(new MonsterCard(MonsterCard.DR_BOOM));
 		deck1.add(new MonsterCard(MonsterCard.BLOOD_IMP));
 		deck1.add(new MonsterCard(MonsterCard.NIGHTBLADE));
-		deck1.add(new MonsterCard(MonsterCard.ACOLYTE_OF_PAIN));
 		deck1.add(new MonsterCard(MonsterCard.YSERA));
 		deck1.add(new MonsterCard(MonsterCard.ARGENT_SQUIRE));
 		deck1.add(new MonsterCard(MonsterCard.ARGENT_PROTECTOR));
