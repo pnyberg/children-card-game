@@ -86,7 +86,7 @@ public class MonsterCard extends PlayCard {
 							PILOTED_SHREDDER = 82, // not done
 							MAD_BOMBER = 83, // not done
 							SUCCUBUS = 84, // not done
-							DEATHLORD = 85, // not done
+							DEATHLORD = 85,
 							FAERIE_DRAGON = 86, // not done
 							MANA_ADDICT = 87, // not done
 							TINKERTOWN_TECHNICHIAN = 88, // not done
@@ -536,6 +536,11 @@ public class MonsterCard extends PlayCard {
 			initBasicStats(3, 2, 8);
 			taunt = true;
 			deathRattleEffect = new SummonRandomMinionsFromDeck(0, false, 1, true);
+		} else if (type == LEEROY_JENKINS) {
+			name = "Leeroy Jenkins";
+			initBasicStats(5, 6, 2);
+			charge = true;
+			battleCryEffect = new SummonMinions(null, new int[] {DRAGON_WHELP, DRAGON_WHELP});
 		}
 	}
 

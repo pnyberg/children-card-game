@@ -66,13 +66,14 @@ public class TheGame {
 	}
 
 	public void initDecks() {
+		deck2.add(new MonsterCard(MonsterCard.LEEROY_JENKINS));
+		deck2.add(new MonsterCard(MonsterCard.BARON_GEDDON));
 		deck2.add(new MonsterCard(MonsterCard.MALORNE));
 		deck2.add(new MonsterCard(MonsterCard.NOVICE_ENGINEER));
 		deck2.add(new MonsterCard(MonsterCard.GRUUL));
 		deck2.add(new MonsterCard(MonsterCard.RAGNAROS));
 
 		deck1.add(new MonsterCard(MonsterCard.DEATHLORD));
-		deck1.add(new MonsterCard(MonsterCard.BARON_GEDDON));
 		deck1.add(new MonsterCard(MonsterCard.MANA_TIDE_TOTEM));
 		deck1.add(new MonsterCard(MonsterCard.LOOT_HOARDER));
 		deck1.add(new MonsterCard(MonsterCard.SAVANNAH_HIGHMANE));
