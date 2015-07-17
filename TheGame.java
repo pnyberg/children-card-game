@@ -75,13 +75,13 @@ public class TheGame {
 	}
 
 	public void initDecks() {
+		deck2.add(new MonsterCard(MonsterCard.RAGNAROS));
 		deck2.add(new MonsterCard(MonsterCard.ELVEN_ARCHER));
 		deck2.add(new MonsterCard(MonsterCard.NOVICE_ENGINEER));
 		deck2.add(new MonsterCard(MonsterCard.BARON_GEDDON));
 		deck2.add(new MonsterCard(MonsterCard.LEEROY_JENKINS));
 		deck2.add(new MonsterCard(MonsterCard.MALORNE));
 		deck2.add(new MonsterCard(MonsterCard.GRUUL));
-		deck2.add(new MonsterCard(MonsterCard.RAGNAROS));
 
 		deck1.add(new MonsterCard(MonsterCard.ACOLYTE_OF_PAIN));
 		deck1.add(new MonsterCard(MonsterCard.YSERA));
@@ -1310,29 +1310,26 @@ public class TheGame {
 			}
 		} else if (endTurnEffect instanceof DealDamageRandomTurnEffect) {
 			int targetChoice;
-			Character character;
+			int turnNumber = turnIndex;
 
-			int enemyTurn = (turnIndex + 1) % 2;
 			DealDamageRandomTurnEffect dealDamageRandomTurnEffect = (DealDamageRandomTurnEffect)endTurnEffect;
 
 			if (dealDamageRandomTurnEffect.attackingEnemiesOnly()) {
-				LinkedList<Minion> enemyMinionList = getMinionList(enemyTurn);
+				turnNumber = (turnNumber + 1) % 2;
+				LinkedList<Minion> enemyMinionList = getMinionList(turnNumber);
 				targetChoice = ((int)(Math.random() * 100)) % (enemyMinionList.size() + 1) - 1;
 
 				if (targetChoice == -1) {
 					targetChoice = TARGETPLAYER;
-					character = getPlayer(enemyTurn);
-				} else {
-					character = getMinion(targetChoice, enemyTurn);
 				}
 			} else {
 				return;
 			}
 
-			dealDamageRandomTurnEffect.effect(character);
+			dealDamageRandomTurnEffect.effect(damageHandler, targetChoice, turnNumber);
 
 			if (targetChoice != TARGETPLAYER) {
-				checkDeath(targetChoice, enemyTurn);
+				checkDeath(targetChoice, turnNumber);
 			}
 		} else if (endTurnEffect instanceof ReviveFriendlyMinionsTurnEffect) {
 			ReviveFriendlyMinionsTurnEffect reviveFriendlyMinionsTurnEffect = (ReviveFriendlyMinionsTurnEffect)endTurnEffect;
