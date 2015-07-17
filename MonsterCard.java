@@ -526,6 +526,11 @@ public class MonsterCard extends PlayCard {
 			name = "Baron Geddon";
 			initBasicStats(7, 7, 5);
 			endTurnEffect = new DealDamageToAllCharactersTurnEffect(2, true, true, true, false);
+		} else if (type == MALORNE) {
+			name = "Malorne";
+			minionType = Minion.BEAST;
+			initBasicStats(9, 9, 7);
+			deathRattleEffect = new AddCardToDeck(new int[] {MALORNE}, null);
 		}
 	}
 

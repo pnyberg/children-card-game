@@ -1,8 +1,8 @@
 import java.util.LinkedList;
 
 public class SummonMinions extends SpellEffect {
-	LinkedList<Minion> friendlyMinionList;
-	LinkedList<Minion> enemyMinionList;
+	private LinkedList<Minion> friendlyMinionList;
+	private LinkedList<Minion> enemyMinionList;
 
 	public SummonMinions(int[] friendlyMinionsToBeSummonedTypes, int[] enemyMinionsToBeSummonedTypes) {
 		friendlyMinionList = new LinkedList<Minion>();

@@ -66,9 +66,11 @@ public class TheGame {
 	}
 
 	public void initDecks() {
+		deck2.add(new MonsterCard(MonsterCard.MALORNE));
+		deck2.add(new MonsterCard(MonsterCard.NOVICE_ENGINEER));
+
 		deck1.add(new MonsterCard(MonsterCard.BARON_GEDDON));
 		deck1.add(new MonsterCard(MonsterCard.MANA_TIDE_TOTEM));
-		deck1.add(new MonsterCard(MonsterCard.NOVICE_ENGINEER));
 		deck1.add(new MonsterCard(MonsterCard.LOOT_HOARDER));
 		deck1.add(new MonsterCard(MonsterCard.SAVANNAH_HIGHMANE));
 		deck1.add(new MonsterCard(MonsterCard.TWILIGHT_DRAKE));
@@ -815,8 +817,8 @@ public class TheGame {
 		if (turnIndex == 0) {
 			deckList = deck1;
 		} else {
-			deckList = deck1;
-//			deckList = deck2;
+//			deckList = deck1;
+			deckList = deck2;
 		}
 		return deckList;
 	}
@@ -1045,6 +1047,12 @@ public class TheGame {
 			LinkedList<PlayCard> deck = getDeck(turnIndex);
 
 			drawCards.effect(cardHand, deck);
+		} else if (deathRattleEffect instanceof AddCardToDeck) {
+			AddCardToDeck addCardToDeck = (AddCardToDeck)deathRattleEffect;
+			LinkedList<PlayCard> friendlyDeck = getDeck(turnIndex);
+			LinkedList<PlayCard> enemyDeck = getDeck((turnIndex + 1) % 2);
+
+			addCardToDeck.effect(friendlyDeck, enemyDeck);
 		} else if (deathRattleEffect instanceof DealDamageToAllMinions) {
 			DealDamageToAllMinions dealDamageToAllMinions = (DealDamageToAllMinions)deathRattleEffect;
 			LinkedList<Minion> friendlyMinionList = getMinionList(turnIndex);
