@@ -53,7 +53,7 @@ public class MonsterCard extends PlayCard {
 							BOOM_BOT = 51,
 							VOLJIN = 52,
 							PROPHET_VELEN = 53, // not done
-							GAHZRILLA = 54, // not done
+							GAHZRILLA = 54,
 							ARCHMAGE_ANTONIDAS = 55, // not done
 							BLOODMAGE_THALNOS = 56, // not done - dubbla effekter + spell dmg
 							TWILIGHT_DRAKE = 57,
@@ -111,7 +111,7 @@ public class MonsterCard extends PlayCard {
 							RAGING_WORGEN = 106, // not done
 							INJURED_BLADEMASTER = 107, // not done
 							SOOTHING_BERSERKER = 108, // not done
-							GURUBASHI_BERSERKER = 109, // not done
+							GURUBASHI_BERSERKER = 109,
 							ZUL_FARRAK_BERSERKER = 110, // not done
 							HARRISON_JONES = 111, // not done
 							WILD_PYROMANCER = 112, // not done
@@ -640,6 +640,10 @@ public class MonsterCard extends PlayCard {
 			minionType = Minion.BEAST;
 			initBasicStats(7, 6, 9);
 			damageEffect = new BuffMinionDamageEffect(0, 0, true, false, false);
+		} else if (type == GURUBASHI_BERSERKER) {
+			name = "Gurubashi Berserker";
+			initBasicStats(5, 2, 7);
+			damageEffect = new BuffMinionDamageEffect(3, 0, false, false, false);
 		}
 	}
 

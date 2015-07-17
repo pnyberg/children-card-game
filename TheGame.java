@@ -85,6 +85,7 @@ public class TheGame {
 		deck2.add(new MonsterCard(MonsterCard.MALORNE));
 		deck2.add(new MonsterCard(MonsterCard.GRUUL));
 
+		deck1.add(new MonsterCard(MonsterCard.GURUBASHI_BERSERKER));
 		deck1.add(new MonsterCard(MonsterCard.GAHZRILLA));
 		deck1.add(new MonsterCard(MonsterCard.DR_BOOM));
 		deck1.add(new MonsterCard(MonsterCard.BLOOD_IMP));
