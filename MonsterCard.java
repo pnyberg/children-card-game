@@ -127,7 +127,7 @@ public class MonsterCard extends PlayCard {
 							TRAP_MYSTIC = 122, // not done
 							ARCANE_NEXXUS = 123, // not done
 							ARGENT_PROTECTOR = 124,
-							BLOOD_KNIGHT = 125, // not done
+							BLOOD_KNIGHT = 125,
 							BIG_GAME_HUNTER = 126, // not done
 							NEFARIAN = 127, // not done
 							POISON_COBRA = 128, // not done
@@ -618,6 +618,10 @@ public class MonsterCard extends PlayCard {
 			initBasicStats(6, 4, 5);
 			taunt = true;
 			divineShield = true;
+		} else if (type == BLOOD_KNIGHT) {
+			name = "Blood Knight";
+			initBasicStats(4, 3, 3);
+			battleCryEffect = new BuffAccordingToDivineShields(3, 3, true, true, true, false, false);
 		}
 	}
 

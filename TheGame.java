@@ -75,6 +75,10 @@ public class TheGame {
 
 		deck1.add(new MonsterCard(MonsterCard.ARGENT_SQUIRE));
 		deck1.add(new MonsterCard(MonsterCard.ARGENT_PROTECTOR));
+		deck1.add(new MonsterCard(MonsterCard.SCARLET_CRUSADER));
+		deck1.add(new MonsterCard(MonsterCard.SUNWALKER));
+		deck1.add(new MonsterCard(MonsterCard.ARGENT_COMMANDER));
+		deck1.add(new MonsterCard(MonsterCard.BLOOD_KNIGHT));
 		deck1.add(new MonsterCard(MonsterCard.ZOMBIE_CHOW));
 		deck1.add(new MonsterCard(MonsterCard.ELVEN_OF_ELUNE));
 		deck1.add(new MonsterCard(MonsterCard.DEATHLORD));
@@ -966,6 +970,32 @@ public class TheGame {
 
 				buffAccordingToHand.effect(minion, numberOfCards);
 			}
+		} else if (battleCryEffect instanceof BuffAccordingToDivineShields) {
+			BuffAccordingToDivineShields buffAccordingToDivineShields = (BuffAccordingToDivineShields)battleCryEffect;
+
+			if (!buffAccordingToDivineShields.buffSelf() && minionExists()) {
+				// not implemented yet
+				/*handlingBattleCry = true;
+
+				System.out.println("Which minion do you want to target?");*/
+			} else {
+				int numberOfShields = 0;
+				boolean removeShields = buffAccordingToDivineShields.removeShields();
+
+				if (buffAccordingToDivineShields.buffAccordingToFriendlyBoard()) {
+					LinkedList<Minion> friendlyMinionList = getMinionList(turnIndex);
+
+					numberOfShields += getNumberOfShields(friendlyMinionList, removeShields);
+				}
+
+				if (buffAccordingToDivineShields.buffAccordingToEnemyBoard()) {
+					LinkedList<Minion> enemyMinionList = getMinionList((turnIndex + 1) % 2);
+
+					numberOfShields += getNumberOfShields(enemyMinionList, removeShields);
+				}
+
+				buffAccordingToDivineShields.effect(minion, numberOfShields);
+			}
 		} else if (battleCryEffect instanceof PickUpMinion) {
 			if (minionExists()) {
 				handlingBattleCry = true;
@@ -1041,6 +1071,21 @@ public class TheGame {
 
 			checkDeathBoard();
 		}
+	}
+
+	public int getNumberOfShields(LinkedList<Minion> minionList, boolean removeShields) {
+		int numberOfShields = 0;
+		for (Minion minion : minionList) {
+			if (minion.hasDivineShield()) {
+				numberOfShields++;
+
+				if (removeShields) {
+					minion.setDivineShield(false);
+				}
+			}
+		}
+
+		return numberOfShields;
 	}
 
 //#1000
