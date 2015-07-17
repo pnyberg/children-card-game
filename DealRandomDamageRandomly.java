@@ -15,8 +15,13 @@ public class DealRandomDamageRandomly extends SpellEffect {
 		return enemiesOnly;
 	}
 
-	public void effect(Character character) {
+	public void effect(DamageHandler damageHandler, int targetIndex, int turnIndex) {
 		int damageAmount = startDamage + ((int)(Math.random() * 100)) % maximalAddDamage;
-		character.takeDamage(damageAmount);
+
+		if (targetIndex == TheGame.TARGETPLAYER) {
+			damageHandler.dealDamageToPlayer(damageAmount, turnIndex);
+		} else {
+			damageHandler.dealDamageToMinion(targetIndex, damageAmount, turnIndex);
+		}
 	}
 }

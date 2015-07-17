@@ -75,6 +75,7 @@ public class TheGame {
 	}
 
 	public void initDecks() {
+		deck2.add(new MonsterCard(MonsterCard.UNSTABLE_GHOUL));
 		deck2.add(new MonsterCard(MonsterCard.RAGNAROS));
 		deck2.add(new MonsterCard(MonsterCard.ELVEN_ARCHER));
 		deck2.add(new MonsterCard(MonsterCard.NOVICE_ENGINEER));
@@ -83,9 +84,9 @@ public class TheGame {
 		deck2.add(new MonsterCard(MonsterCard.MALORNE));
 		deck2.add(new MonsterCard(MonsterCard.GRUUL));
 
+		deck1.add(new MonsterCard(MonsterCard.DR_BOOM));
 		deck1.add(new MonsterCard(MonsterCard.BLOOD_IMP));
 		deck1.add(new MonsterCard(MonsterCard.NIGHTBLADE));
-		deck1.add(new MonsterCard(MonsterCard.UNSTABLE_GHOUL));
 		deck1.add(new MonsterCard(MonsterCard.ACOLYTE_OF_PAIN));
 		deck1.add(new MonsterCard(MonsterCard.YSERA));
 		deck1.add(new MonsterCard(MonsterCard.ARGENT_SQUIRE));
@@ -117,7 +118,6 @@ public class TheGame {
 		deck1.add(new MonsterCard(MonsterCard.DEATHWING));
 		deck1.add(new MonsterCard(MonsterCard.CLOCKWORK_GIANT));
 		deck1.add(new MonsterCard(MonsterCard.LEPER_GNOME));
-		deck1.add(new MonsterCard(MonsterCard.DR_BOOM));
 		deck1.add(new MonsterCard(MonsterCard.DISPATCHING_DRAKE));
 		deck1.add(new MonsterCard(MonsterCard.BLOODFEN_RAPTOR));
 		deck1.add(new MonsterCard(MonsterCard.MURLOC_TIDEHUNTER));
@@ -1148,28 +1148,24 @@ public class TheGame {
 			DealRandomDamageRandomly dealRandomDamageRandomly = (DealRandomDamageRandomly)deathRattleEffect;
 
 			int targetChoice;
-			Character character;
-
-			int enemyTurn = (turnIndex + 1) % 2;
+			int turnNumber = turnIndex;
 
 			if (dealRandomDamageRandomly.attackingEnemiesOnly()) {
-				LinkedList<Minion> enemyMinionList = getMinionList(enemyTurn);
+				turnNumber = (turnNumber + 1) % 2;
+				LinkedList<Minion> enemyMinionList = getMinionList(turnNumber);
 				targetChoice = ((int)(Math.random() * 100)) % (enemyMinionList.size() + 1) - 1;
 
 				if (targetChoice == -1) {
 					targetChoice = TARGETPLAYER;
-					character = getPlayer(enemyTurn);
-				} else {
-					character = getMinion(targetChoice, enemyTurn);
 				}
 			} else {
 				return;
 			}
 
-			dealRandomDamageRandomly.effect(character);
+			dealRandomDamageRandomly.effect(damageHandler, targetChoice, turnNumber);
 
 			if (targetChoice != TARGETPLAYER) {
-				checkDeath(targetChoice, enemyTurn);
+				checkDeath(targetChoice, turnNumber);
 			}
 		} else if (deathRattleEffect instanceof DealDamageToPlayer) {
 			DealDamageToPlayer dealDamageToPlayer = (DealDamageToPlayer)deathRattleEffect;
