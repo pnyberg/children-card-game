@@ -126,7 +126,7 @@ public class MonsterCard extends PlayCard {
 							KIRIN_TOR_MAGE = 121, // not done
 							TRAP_MYSTIC = 122, // not done
 							ARCANE_NEXXUS = 123, // not done
-							ARGENT_PROTECTOR = 124, // not done
+							ARGENT_PROTECTOR = 124,
 							BLOOD_KNIGHT = 125, // not done
 							BIG_GAME_HUNTER = 126, // not done
 							NEFARIAN = 127, // not done
