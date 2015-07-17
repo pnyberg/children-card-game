@@ -236,6 +236,11 @@ public class TheGame {
 	public void handleBasicCommands(String[] str) {
 		if (str.length == 1 && str[0].equals("draw")) {
 			drawCard(turn);
+		} else if (str.length == 2 && str[0].equals("draw")) {
+			/*EXTRA*/
+			int number = Integer.parseInt(str[1]);
+			for (int i = 0 ; i < number ; i++)
+				drawCard(turn);
 		} else if (str.length == 2 && str[0].equals("play")) {
 			playMinionFromHand(str[1]);
 		} else if (str.length > 1 && str[0].equals("cast")) {
@@ -247,6 +252,10 @@ public class TheGame {
 		} else if (str.length == 2 && str[0].equals("show") && str[1].equals("board")) {
 			showBoard();
 		} else if (str.length == 2 && str[0].equals("end") && str[1].equals("turn")) {
+			endTurn();
+		} else if (str.length == 3 && str[0].equals("end") && str[1].equals("turn") && str[2].equals("double")) {
+			/*EXTRA*/
+			endTurn();
 			endTurn();
 		} else if (str.length == 1 && str[0].equals("help")) {
 			printHelp();
