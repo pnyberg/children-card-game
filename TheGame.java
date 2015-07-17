@@ -83,6 +83,8 @@ public class TheGame {
 		deck2.add(new MonsterCard(MonsterCard.MALORNE));
 		deck2.add(new MonsterCard(MonsterCard.GRUUL));
 
+		deck1.add(new MonsterCard(MonsterCard.BLOOD_IMP));
+		deck1.add(new MonsterCard(MonsterCard.NIGHTBLADE));
 		deck1.add(new MonsterCard(MonsterCard.UNSTABLE_GHOUL));
 		deck1.add(new MonsterCard(MonsterCard.ACOLYTE_OF_PAIN));
 		deck1.add(new MonsterCard(MonsterCard.YSERA));
@@ -113,9 +115,7 @@ public class TheGame {
 		deck1.add(new MonsterCard(MonsterCard.DOOMSAYER));
 		deck1.add(new MonsterCard(MonsterCard.FROSTWOLF_WARLORD));
 		deck1.add(new MonsterCard(MonsterCard.DEATHWING));
-		deck1.add(new MonsterCard(MonsterCard.BLOOD_IMP));
 		deck1.add(new MonsterCard(MonsterCard.CLOCKWORK_GIANT));
-		deck1.add(new MonsterCard(MonsterCard.NIGHTBLADE));
 		deck1.add(new MonsterCard(MonsterCard.LEPER_GNOME));
 		deck1.add(new MonsterCard(MonsterCard.DR_BOOM));
 		deck1.add(new MonsterCard(MonsterCard.DISPATCHING_DRAKE));
@@ -1056,15 +1056,7 @@ public class TheGame {
 		} else if (battleCryEffect instanceof DealDamageToPlayer) {
 			DealDamageToPlayer dealDamageToPlayer = (DealDamageToPlayer)battleCryEffect;
 
-			if (dealDamageToPlayer.damageSelf()) {
-				Player self = getPlayer(turnIndex);
-				dealDamageToPlayer.effect(self);
-			}
-
-			if (dealDamageToPlayer.damageEnemy()) {
-				Player enemy = getPlayer((turnIndex + 1) % 2);
-				dealDamageToPlayer.effect(enemy);
-			}
+			dealDamageToPlayer.effect(damageHandler, turnIndex);
 		} else if (battleCryEffect instanceof DestroyAllMinions) {
 			DestroyAllMinions destroyAllMinions = (DestroyAllMinions)battleCryEffect;
 
@@ -1182,15 +1174,7 @@ public class TheGame {
 		} else if (deathRattleEffect instanceof DealDamageToPlayer) {
 			DealDamageToPlayer dealDamageToPlayer = (DealDamageToPlayer)deathRattleEffect;
 
-			if (dealDamageToPlayer.damageSelf()) {
-				Player self = getPlayer(turnIndex);
-				dealDamageToPlayer.effect(self);
-			}
-
-			if (dealDamageToPlayer.damageEnemy()) {
-				Player enemy = getPlayer((turnIndex + 1) % 2);
-				dealDamageToPlayer.effect(enemy);
-			}
+			dealDamageToPlayer.effect(damageHandler, turnIndex);
 		} else if (deathRattleEffect instanceof HealCharacter) {
 			HealCharacter healCharacter = (HealCharacter)deathRattleEffect;
 			int minionIndex = -1;
