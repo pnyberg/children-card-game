@@ -747,6 +747,11 @@ public class MonsterCard extends PlayCard {
 			name = "Spellbreaker";
 			initBasicStats(4, 4, 3);
 			battleCryEffect = new Silence(false, true, true);
+		} else if (type == SILENCE_OWL) {
+			name = "Silence Owl";
+			minionType = Minion.BEAST;
+			initBasicStats(2, 2, 1);
+			battleCryEffect = new Silence(false, true, true);
 		}
 	}
 
