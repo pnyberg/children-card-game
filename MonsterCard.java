@@ -1,25 +1,25 @@
 public class MonsterCard extends PlayCard {
 	public static final int	ELVEN_ARCHER = 1,
 							GOLDSHIRE_FOOTMAN = 2,
-							GRIMSCALE_ORACLE = 3, // not done - area effect
+							GRIMSCALE_ORACLE = 3, // not completely done - area effect
 							MURLOC_RAIDER = 4,
 							STONETUSK_BOAR = 5,
 							VODOO_DOCTOR = 6,
-							ACIDIC_SWAMP_OOZE = 7, // not done - weapon
+							ACIDIC_SWAMP_OOZE = 7, // not completely done - weapon
 							BLOODFEN_RAPTOR = 8,
 							BLUEGILL_WARRIOR = 9,
 							FROSTWOLF_GRUNT = 10,
-							KOBOLD_GEOMANCER = 11, // not done - spell dmg
+							KOBOLD_GEOMANCER = 11, // not completely done - spell dmg
 							MURLOC_TIDEHUNTER = 12,
 							MURLOC_SCOUT = 13,
 							RIVER_CROCOLISK = 14,
-							DALARAN_MAGE = 15, // not done - spell dmg
+							DALARAN_MAGE = 15, // not completely done - spell dmg
 							IRONFORGE_RIFLEMAN = 16,
 							IRONFUR_GRIZZLY = 17,
 							MAGMA_RAGER = 18,
-							RAID_LEADER = 19, // not done - area effect
+							RAID_LEADER = 19, // not completely done - area effect
 							RAZORFEN_HUNTER = 20,
-							RAZORFEN_BOAR = 205,
+							RAZORFEN_BOAR = 1020,
 							SHATTERED_SUN_CLERIC = 21,
 							SILVERBACK_PATRIARCH = 22,
 							WOLFRIDER = 23,
@@ -46,39 +46,39 @@ public class MonsterCard extends PlayCard {
 							BAINE_BLOODHOOF = 44,
 							ALAKIR = 45,
 							KING_KRUSH = 46,
-							MALGANIS = 47, // not done - immune & +2/+2 - demon
+							MALGANIS = 47, // not completely done - immune & +2/+2 - demon
 							DEATHWING = 48,
-							MALYGOS = 49, // not done - spell dmg
+							MALYGOS = 49, // not completely done - spell dmg
 							DR_BOOM = 50,
 							BOOM_BOT = 51,
 							VOLJIN = 52,
-							PROPHET_VELEN = 53, // not done - double spell + hero -effect
+							PROPHET_VELEN = 53, // not completely done - double spell + hero -effect
 							GAHZRILLA = 54,
 							ARCHMAGE_ANTONIDAS = 55, // not done
-							BLOODMAGE_THALNOS = 56, // not done - dubbla effekter + spell dmg
+							BLOODMAGE_THALNOS = 56, // not dcompletely one - dubbla effekter + spell dmg
 							TWILIGHT_DRAKE = 57,
 							BOLIVAR_FORDRAGON = 58, // not done
 							SHRINKMEISTER = 59,
-							IMP_MASTER = 60, // not done - dubbla effekter + take dmg
-							IMP = 203, 
+							IMP_MASTER = 60, // not completely done - dubbla effekter + take dmg
+							IMP = 1060, 
 							GRUUL = 61,
-							WATER_ELEMENTAL = 62, // not done - freeze
-							EARTH_ELEMENTAL = 63, // not done - overload
+							WATER_ELEMENTAL = 62, // not completely done - freeze
+							EARTH_ELEMENTAL = 63, // not completely done - overload
 							FIRE_ELEMENTAL = 64,
 							DOOMSAYER = 65,
 							ACOLYTE_OF_PAIN = 66,
 							KNIFE_JUGGLER = 67, // not done
 							SHIELDMAIDEN = 68, // not done
-							IMP_GANG_BOSS = 69, // not done
+							IMP_GANG_BOSS = 69,
 							BLOOD_IMP = 70,
 							ONYXIA = 71,
-							DRAGON_WHELP = 201,
+							DRAGON_WHELP = 1072,
 							ILLIDAN_STORMRAGE = 72, // not done
 							LOATHEB = 73, // not done
 							NERUBIAN_WEBLORD = 74, // not done
 							VENTURE_CO_MERCENARY = 75, // not done
 							SAVANNAH_HIGHMANE = 76,
-							SAVANNAH_HYENA = 202,
+							SAVANNAH_HYENA = 1076,
 							SEA_GIANT = 77,
 							MOUNTAIN_GIANT = 78,
 							MOLTEN_GIANT = 79,
@@ -137,9 +137,9 @@ public class MonsterCard extends PlayCard {
 							ALDOR_PEACEKEEPER = 132,
 							CRAZED_ALCHEMIST = 133,
 							HOGGER = 134,
-							GNOLL = 204,
+							GNOLL = 1134,
 							FACELESS_MANIPULATOR = 135, // not done
-							SPELLBREAKER = 136, // not done
+							SPELLBREAKER = 136,
 							FELGUARD = 137, // not done
 							GADGETZAN_AUCTIONEER = 138, // not done
 							AUCHENAI_SOULPRIEST = 139, // not done
@@ -230,7 +230,7 @@ public class MonsterCard extends PlayCard {
 							VOIDCALLER = 224, // not done
 							VOIDWALKER = 225,
 							PIT_LORD = 226,
-							CORE_HOUND = 227, // not done
+							CORE_HOUND = 227,
 							BETTER_BREWMASTER = 228,
 							HIDER_LADY = 229, // not done
 							QUESTING_ADVENTURER = 230, // not done
@@ -248,7 +248,12 @@ public class MonsterCard extends PlayCard {
 							THRALLMAR_FARSEER = 242,
 							DARK_IRON_DWARF = 243,
 							SCRAPYARD_JUNKBOT = 244, // not done
-							TANKBOT = 245;
+							TANKBOT = 245,
+							GRIM_PATRON = 246, // not done
+							FEL_REAVER = 247, // not done
+							LITTLE_SPELLSTOPPER = 248, // not done
+							DALARAN_SAGE = 249, // not done
+							LORD_OF_THE_ARENA = 250;
 
 	private int type;
 
@@ -593,11 +598,7 @@ public class MonsterCard extends PlayCard {
 			name = "Gnoll";
 			initBasicStats(2, 2, 2);
 			taunt = true;
-		} else if (type == SHRINKMEISTER) {
-			name = "Shrinkmeister";
-			initBasicStats(2, 3, 2);
-			battleCryEffect = new BuffSingleMinion(-2, 0, false, false, false, false, true);
-		} else if (type == ALDOR_PEACEKEEPER) {
+ 		} else if (type == ALDOR_PEACEKEEPER) {
 			name = "Aldor Peacekeeper";
 			initBasicStats(3, 3, 3);
 			battleCryEffect = new SetStatsSingleMinion(1, -1);
@@ -645,7 +646,7 @@ public class MonsterCard extends PlayCard {
 			taunt = true;
 		} else if (type == MALGANIS) {
 			name = "Mal'Ganis";
-			minionType = Minion.BEAST;
+			minionType = Minion.DEMON;
 			initBasicStats(9, 9, 7);
 		} else if (type == BLOODMAGE_THALNOS) {
 			name = "Bloodmage Thalnos";
@@ -673,6 +674,7 @@ public class MonsterCard extends PlayCard {
 			divineShield = true;
 		} else if (type == SHIELDED_MINIBOT) {
 			name = "Shielded Minibot";
+			minionType = Minion.MECH;
 			initBasicStats(2, 2, 2);
 			divineShield = true;
 		} else if (type == ARGENT_COMMANDER) {
@@ -766,6 +768,7 @@ public class MonsterCard extends PlayCard {
 			taunt = true;
 		} else if (type == DREAD_INFERNAL) {
 			name = "Dread Infernal";
+			minionType = Minion.DEMON;
 			initBasicStats(6, 6, 6);
 			battleCryEffect = new DealDamageToAllCharacters(1, true, true, true, true);
 		} else if (type == SPELLBREAKER) {
@@ -792,6 +795,7 @@ public class MonsterCard extends PlayCard {
 			windfury = true;
 		} else if (type == TANKBOT) {
 			name = "Tankbot";
+			minionType = Minion.MECH;
 			initBasicStats(8, 7, 7);
 			divineShield = true;
 		} else if (type == DARK_IRON_DWARF) {
@@ -841,8 +845,22 @@ public class MonsterCard extends PlayCard {
 			initBasicStats(7, 7, 7);
 		} else if (type == IMP_GANG_BOSS) {
 			name = "Imp Gang Boss";
+			minionType = Minion.DEMON;
 			initBasicStats(3, 2, 4);
 			damageEffect = new SummonMinionsDamageEffect(new int[] {IMP}, null, false, false, false);
+		} else if (type == LORD_OF_THE_ARENA) {
+			name = "Lord of the Arena";
+			initBasicStats(6, 6, 5);
+			taunt = true;
+		} else if (type == CORE_HOUND) {
+			name = "Core Hound";
+			minionType = Minion.BEAST;
+			initBasicStats(7, 9, 5);
+		} else if (type == SUCCUBUS) {
+			name = "Succubus";
+			minionType = Minion.DEMON;
+			initBasicStats(2, 4, 3);
+			battleCryEffect = new DiscardCard(1);
 		}
 	}
 
