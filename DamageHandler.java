@@ -92,7 +92,11 @@ public class DamageHandler {
 			LinkedList<Minion> friendlyBoard = getBoard(turnIndex);
 			LinkedList<Minion> enemyBoard = getBoard((turnIndex + 1) % 2);
 
-			summonMinionsDamageEffect.effect(friendlyBoard, enemyBoard);
+			boolean minionSurvived = minion.getCurrentHealth() > 0;
+
+			if (minionSurvived || !summonMinionsDamageEffect.onlyIfSurvived()) {
+				summonMinionsDamageEffect.effect(friendlyBoard, enemyBoard);
+			}
 		}
 	}
 

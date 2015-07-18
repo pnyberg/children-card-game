@@ -78,6 +78,7 @@ public class TheGame {
 	}
 
 	public void initDecks() {
+		deck2.add(new MonsterCard(MonsterCard.GRIM_PATRON));
 		deck2.add(new MonsterCard(MonsterCard.SUCCUBUS));
 		deck2.add(new MonsterCard(MonsterCard.DOOMGUARD));
 		deck2.add(new MonsterCard(MonsterCard.ACOLYTE_OF_PAIN));
@@ -90,10 +91,10 @@ public class TheGame {
 		deck2.add(new MonsterCard(MonsterCard.NOVICE_ENGINEER));
 		deck2.add(new MonsterCard(MonsterCard.LEEROY_JENKINS));
 
-		deck1.add(new MonsterCard(MonsterCard.SHIELDMAIDEN));
-		deck1.add(new MonsterCard(MonsterCard.KING_MUKKLA));
 		deck1.add(new MonsterCard(MonsterCard.IMP_GANG_BOSS));
 		deck1.add(new MonsterCard(MonsterCard.SPELLBREAKER));
+		deck1.add(new MonsterCard(MonsterCard.SHIELDMAIDEN));
+		deck1.add(new MonsterCard(MonsterCard.KING_MUKKLA));
 		deck1.add(new MonsterCard(MonsterCard.ELVEN_ARCHER));
 		deck1.add(new MonsterCard(MonsterCard.GAHZRILLA));
 		deck1.add(new MonsterCard(MonsterCard.DR_BOOM));

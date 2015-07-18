@@ -912,6 +912,10 @@ public class MonsterCard extends PlayCard {
 			name = "Shieldmaiden";
 			initBasicStats(6, 5, 5);
 			battleCryEffect = new AddArmor(5, true, false);
+		} else if (type == GRIM_PATRON) {
+			name = "Grim Patron";
+			initBasicStats(5, 3, 3);
+			damageEffect = new SummonMinionsDamageEffect(new int[] {GRIM_PATRON}, null, false, false, true);
 		}
 	}
 
