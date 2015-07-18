@@ -2,32 +2,51 @@ import java.util.LinkedList;
 
 public class DealDamageToAllCharacters extends SpellEffect {
 	private int damageAmount;
-	private boolean damageBoard;
-	private boolean damagePlayers;
+	private boolean damageFriendlyBoard;
+	private boolean damageEnemyBoard;
+	private boolean damageFriendlyPlayer;
+	private boolean damageEnemyPlayer;
 //	private boolean doNotDamageSelf;
 
-	public DealDamageToAllCharacters(int damageAmount, boolean damageBoard, boolean damagePlayers) {
+	public DealDamageToAllCharacters(int damageAmount, boolean damageFriendlyBoard, boolean damageEnemyBoard, boolean damageFriendlyPlayer, boolean damageEnemyPlayer) {
 		this.damageAmount = damageAmount;
-		this.damageBoard = damageBoard;
-		this.damagePlayers = damagePlayers;
+
+		this.damageFriendlyBoard = damageFriendlyBoard;
+		this.damageEnemyBoard = damageEnemyBoard;
+		this.damageFriendlyPlayer = damageFriendlyPlayer;
+		this.damageEnemyPlayer = damageEnemyPlayer;
 	}
 
-	public boolean damageBoard() {
-		return damageBoard;
+	public boolean damageFriendlyBoard() {
+		return damageFriendlyBoard;
 	}
 
-	public boolean damagePlayers() {
-		return damagePlayers;
+	public boolean damageEnemyBoard() {
+		return damageEnemyBoard;
+	}
+
+	public boolean damageFriendlyPlayer() {
+		return damageFriendlyPlayer;
+	}
+
+	public boolean damageEnemyPlayer() {
+		return damageEnemyPlayer;
 	}
 
 	public void effect(DamageHandler damageHandler, int turnIndex) {
-		if (damageBoard) {
+		if (damageFriendlyBoard) {
 			dealDamageToMinions(damageHandler, turnIndex);
+		}
+
+		if (damageEnemyBoard) {
 			dealDamageToMinions(damageHandler, (turnIndex + 1) % 2);
 		}
 
-		if (damagePlayers) {
+		if (damageFriendlyPlayer) {
 			damageHandler.dealDamageToPlayer(damageAmount, turnIndex);
+		}
+
+		if (damageEnemyPlayer) {
 			damageHandler.dealDamageToPlayer(damageAmount, (turnIndex + 1) % 2);
 		}
 	}

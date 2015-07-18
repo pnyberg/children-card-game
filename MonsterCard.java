@@ -153,7 +153,7 @@ public class MonsterCard extends PlayCard {
 							HEALING_SUCCUBUS = 147, // not done
 							ENRAGED_WEAPON_HELPER = 148, // not done
 							MOONLIGHT_PRIEST = 149, // not done
-							ZOMBIE_CHOW = 150, // not done
+							ZOMBIE_CHOW = 150,
 							OLD_MURK_EYE = 151, // not done
 							COLDLIGHT_ORACLE = 152, // not done
 							MURLOC_RAID_LEADER = 153, // not done
@@ -209,7 +209,7 @@ public class MonsterCard extends PlayCard {
 							MECHANICAL_YETI = 203, // not done
 							SPIDER_TANK = 204,
 							SHADOWBOMBER = 205,
-							DRAENAI_GUARD = 206, // not done
+							DRAENAI_GUARD = 206,
 							OGRE_NINJA = 207, // not done
 							MINI_MAGE = 208, // not done
 							STEALTHED_ASSASSIN = 209, // not done
@@ -414,7 +414,7 @@ public class MonsterCard extends PlayCard {
 			name = "Unstable Ghoul";
 			initBasicStats(2, 1, 3);
 			taunt = true;
-			deathRattleEffect = new DealDamageToAllCharacters(1, true, false);
+			deathRattleEffect = new DealDamageToAllCharacters(1, true, true, false, false);
 		} else if (type == RAGNAROS) {
 			name = "Ragnaros";
 			initBasicStats(8, 8, 8);
@@ -486,15 +486,15 @@ public class MonsterCard extends PlayCard {
 			name = "Blood Imp";
 			minionType = Minion.DEMON;
 			initBasicStats(1, 3, 2);
-			battleCryEffect = new DealDamageToPlayer(3, true, false);
+			battleCryEffect = new DealDamageToAllCharacters(3, false, false, true, false);
 		} else if (type == NIGHTBLADE) {
 			name = "Nightblade";
 			initBasicStats(5, 4, 4);
-			battleCryEffect = new DealDamageToPlayer(3, false, true);			
+			battleCryEffect = new DealDamageToAllCharacters(3, false, false, false, true);
 		} else if (type == LEPER_GNOME) {
 			name = "Leper Gnome";
 			initBasicStats(1, 2, 1);
-			deathRattleEffect = new DealDamageToPlayer(2, false, true);
+			deathRattleEffect = new DealDamageToAllCharacters(2, false, false, false, true);
 		} else if (type == ALARMO_BOT) {
 			name = "Alarm'O Bot";
 			minionType = Minion.MECH;
@@ -712,7 +712,7 @@ public class MonsterCard extends PlayCard {
 		} else if (type == SHADOWBOMBER) {
 			name = "Shadowbomber";
 			initBasicStats(1, 2, 1);
-			battleCryEffect = new DealDamageToPlayer(3, true, true);
+			battleCryEffect = new DealDamageToAllCharacters(3, false, false, true, true);
 		} else if (type == THE_BEAST) {
 			name = "The Beast";
 			minionType = Minion.BEAST;
@@ -735,6 +735,14 @@ public class MonsterCard extends PlayCard {
 			name = "Stealth Worgen";
 			initBasicStats(1, 2, 1);
 			stealth = true;
+		} else if (type == DRAENAI_GUARD) {
+			name = "Draenai Guard";
+			initBasicStats(1, 0, 4);
+			taunt = true;
+		} else if (type == DREAD_INFERNAL) {
+			name = "Dread Infernal";
+			initBasicStats(6, 6, 6);
+			battleCryEffect = new DealDamageToAllCharacters(1, true, true, true, true);
 		}
 	}
 
