@@ -76,31 +76,22 @@ public class TheGame {
 
 	public void initDecks() {
 		deck2.add(new MonsterCard(MonsterCard.ACOLYTE_OF_PAIN));
-		deck2.add(new MonsterCard(MonsterCard.DREAD_INFERNAL));
 		deck2.add(new MonsterCard(MonsterCard.UNSTABLE_GHOUL));
 		deck2.add(new MonsterCard(MonsterCard.RAGNAROS));
-		deck2.add(new MonsterCard(MonsterCard.NOVICE_ENGINEER));
 		deck2.add(new MonsterCard(MonsterCard.BARON_GEDDON));
-		deck2.add(new MonsterCard(MonsterCard.LEEROY_JENKINS));
-		deck2.add(new MonsterCard(MonsterCard.MALORNE));
 		deck2.add(new MonsterCard(MonsterCard.GRUUL));
+		deck2.add(new MonsterCard(MonsterCard.MALORNE));
+		deck2.add(new MonsterCard(MonsterCard.DREAD_INFERNAL));
+		deck2.add(new MonsterCard(MonsterCard.NOVICE_ENGINEER));
+		deck2.add(new MonsterCard(MonsterCard.LEEROY_JENKINS));
 
-		deck1.add(new MonsterCard(MonsterCard.BLOOD_IMP));
-		deck1.add(new MonsterCard(MonsterCard.NIGHTBLADE));
-		deck1.add(new MonsterCard(MonsterCard.ZOMBIE_CHOW));
-		deck1.add(new MonsterCard(MonsterCard.LEPER_GNOME));
-		deck1.add(new MonsterCard(MonsterCard.ELVEN_OF_ELUNE));
+		deck1.add(new MonsterCard(MonsterCard.SPELLBREAKER));
 		deck1.add(new MonsterCard(MonsterCard.ELVEN_ARCHER));
-		deck1.add(new MonsterCard(MonsterCard.STEALTH_WORGEN));
-		deck1.add(new MonsterCard(MonsterCard.GURUBASHI_BERSERKER));
 		deck1.add(new MonsterCard(MonsterCard.GAHZRILLA));
 		deck1.add(new MonsterCard(MonsterCard.DR_BOOM));
 		deck1.add(new MonsterCard(MonsterCard.YSERA));
 		deck1.add(new MonsterCard(MonsterCard.ARGENT_SQUIRE));
-		deck1.add(new MonsterCard(MonsterCard.ARGENT_PROTECTOR));
-		deck1.add(new MonsterCard(MonsterCard.SCARLET_CRUSADER));
 		deck1.add(new MonsterCard(MonsterCard.SUNWALKER));
-		deck1.add(new MonsterCard(MonsterCard.ARGENT_COMMANDER));
 		deck1.add(new MonsterCard(MonsterCard.BLOOD_KNIGHT));
 		deck1.add(new MonsterCard(MonsterCard.DEATHLORD));
 		deck1.add(new MonsterCard(MonsterCard.MANA_TIDE_TOTEM));
@@ -110,6 +101,25 @@ public class TheGame {
 		deck1.add(new MonsterCard(MonsterCard.ALDOR_PEACEKEEPER));
 		deck1.add(new MonsterCard(MonsterCard.HOGGER));
 		deck1.add(new MonsterCard(MonsterCard.CRAZED_ALCHEMIST));
+		deck1.add(new MonsterCard(MonsterCard.ALARMO_BOT));
+		deck1.add(new MonsterCard(MonsterCard.DOOMSAYER));
+		deck1.add(new MonsterCard(MonsterCard.FROSTWOLF_WARLORD));
+		deck1.add(new MonsterCard(MonsterCard.SLUDGE_BELCHER));
+		deck1.add(new MonsterCard(MonsterCard.SYLVANAS_WINDRUNNER));
+		deck1.add(new MonsterCard(MonsterCard.EMPEROR_THAURISSAN));
+		deck1.add(new MonsterCard(MonsterCard.WOLFRIDER));
+		deck1.add(new MonsterCard(MonsterCard.ABUSIVE_SERGEANT));
+
+		deck1.add(new MonsterCard(MonsterCard.GURUBASHI_BERSERKER));
+		deck1.add(new MonsterCard(MonsterCard.LEPER_GNOME));
+		deck1.add(new MonsterCard(MonsterCard.ZOMBIE_CHOW));
+		deck1.add(new MonsterCard(MonsterCard.BLOOD_IMP));
+		deck1.add(new MonsterCard(MonsterCard.NIGHTBLADE));
+		deck1.add(new MonsterCard(MonsterCard.ELVEN_OF_ELUNE));
+		deck1.add(new MonsterCard(MonsterCard.STEALTH_WORGEN));
+		deck1.add(new MonsterCard(MonsterCard.ARGENT_PROTECTOR));
+		deck1.add(new MonsterCard(MonsterCard.SCARLET_CRUSADER));
+		deck1.add(new MonsterCard(MonsterCard.ARGENT_COMMANDER));
 		deck1.add(new MonsterCard(MonsterCard.IMP_MASTER));
 		deck1.add(new MonsterCard(MonsterCard.SHRINKMEISTER));
 		deck1.add(new MonsterCard(MonsterCard.ALEXSTRASZA));
@@ -117,9 +127,6 @@ public class TheGame {
 		deck1.add(new MonsterCard(MonsterCard.SEA_GIANT));
 		deck1.add(new MonsterCard(MonsterCard.MOUNTAIN_GIANT));
 		deck1.add(new MonsterCard(MonsterCard.ONYXIA));
-		deck1.add(new MonsterCard(MonsterCard.ALARMO_BOT));
-		deck1.add(new MonsterCard(MonsterCard.DOOMSAYER));
-		deck1.add(new MonsterCard(MonsterCard.FROSTWOLF_WARLORD));
 		deck1.add(new MonsterCard(MonsterCard.DEATHWING));
 		deck1.add(new MonsterCard(MonsterCard.CLOCKWORK_GIANT));
 		deck1.add(new MonsterCard(MonsterCard.DISPATCHING_DRAKE));
@@ -131,12 +138,7 @@ public class TheGame {
 		deck1.add(new SpellCard(SpellCard.DRAGON_POWER));
 		deck1.add(new MonsterCard(MonsterCard.CHILLWIND_YETI));
 		deck1.add(new SpellCard(SpellCard.EMERALD_SCALE));
-		deck1.add(new MonsterCard(MonsterCard.SLUDGE_BELCHER));
 		deck1.add(new MonsterCard(MonsterCard.EARTHEN_RING_FARSEER));
-		deck1.add(new MonsterCard(MonsterCard.SYLVANAS_WINDRUNNER));
-		deck1.add(new MonsterCard(MonsterCard.EMPEROR_THAURISSAN));
-		deck1.add(new MonsterCard(MonsterCard.WOLFRIDER));
-		deck1.add(new MonsterCard(MonsterCard.ABUSIVE_SERGEANT));
 	}
 
 //#100
@@ -326,6 +328,8 @@ public class TheGame {
 			array = new String[]{"swap", "health"};
 		} else if (battleCryEffect instanceof SetHealthPlayer) {
 			array = new String[]{"set", "health"};
+		} else if (battleCryEffect instanceof Silence) {
+			array = new String[]{"silence"};
 		} else {
 			return;
 		}
@@ -340,6 +344,8 @@ public class TheGame {
 		// the array is all but one of the tokens (therefore targetindex is on position 'arraylength')
 		int arrayLength = array.length;
 		int turnIndex = getTurnIndex(str[arrayLength]);
+
+		/* HERE: target only friendly/enemy - check */
 
 		if (targetStealthed(minionIndex, turnIndex)) {
 			System.out.println("You cannot target that, that minion has stealth!");
@@ -409,6 +415,12 @@ public class TheGame {
 				swapAttackHealthMinion.effect(targetMinion);
 
 				System.out.println(targetMinion.getName() + " got swaped attack and health!");
+			} else if (battleCryEffect instanceof Silence) {
+				Silence silence = (Silence)battleCryEffect;
+
+				silence.effect(targetMinion);
+
+				System.out.println(targetMinion.getName() + " got silenced!");
 			}
 		}
 
@@ -1065,6 +1077,16 @@ public class TheGame {
 			handlingBattleCry = true;
 
 			System.out.println("Which player do you want to set health = 15?");
+		} else if (battleCryEffect instanceof Silence) {
+			Silence silence = (Silence)battleCryEffect;
+
+			if (!silence.affectWholeBoardSide()) {
+				handlingBattleCry = true;
+
+				System.out.println("Which minion do you want to silence?");
+			} else {
+				// silence board + friendly/enemy/both?*/
+			}
 		} else if (battleCryEffect instanceof SummonMinions) {
 			SummonMinions summonMinions = (SummonMinions)battleCryEffect;
 			LinkedList<Minion> friendlyPlayerMinionTempList = getTempMinionList(turnIndex);
@@ -1083,10 +1105,6 @@ public class TheGame {
 			dealDamageToAllCharacters.effect(damageHandler, turnIndex);
 
 			checkDeathBoard();
-/*		} else if (battleCryEffect instanceof DealDamageToPlayer) {
-			DealDamageToPlayer dealDamageToPlayer = (DealDamageToPlayer)battleCryEffect;
-
-			dealDamageToPlayer.effect(damageHandler, turnIndex);*/
 		} else if (battleCryEffect instanceof DestroyAllMinions) {
 			DestroyAllMinions destroyAllMinions = (DestroyAllMinions)battleCryEffect;
 
@@ -1197,10 +1215,6 @@ public class TheGame {
 			if (targetChoice != TARGETPLAYER) {
 				checkDeath(targetChoice, turnNumber);
 			}
-/*		} else if (deathRattleEffect instanceof DealDamageToPlayer) {
-			DealDamageToPlayer dealDamageToPlayer = (DealDamageToPlayer)deathRattleEffect;
-
-			dealDamageToPlayer.effect(damageHandler, turnIndex);*/
 		} else if (deathRattleEffect instanceof HealCharacter) {
 			HealCharacter healCharacter = (HealCharacter)deathRattleEffect;
 			int minionIndex = -1;

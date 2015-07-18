@@ -223,7 +223,7 @@ public class MonsterCard extends PlayCard {
 							PALADIN_MECH_SHIELDER = 217, // not done
 							QUARTERMASTER = 218, // not done
 							STEAMWHEELER_SNIPER = 219, // not done
-							DREAD_INFERNAL = 220; // not done
+							DREAD_INFERNAL = 220;
 
 	private int type;
 
@@ -629,7 +629,7 @@ public class MonsterCard extends PlayCard {
 		} else if (type == ZOMBIE_CHOW) {
 			name = "Zombie Chow";
 			initBasicStats(1, 2, 3);
-			deathRattleEffect = new HealCharacter(3, true, false);
+			deathRattleEffect = new HealCharacter(5, true, false);
 		} else if (type == ELVEN_OF_ELUNE) {
 			name = "Elven of Elune";
 			initBasicStats(5, 4, 4);
@@ -743,6 +743,10 @@ public class MonsterCard extends PlayCard {
 			name = "Dread Infernal";
 			initBasicStats(6, 6, 6);
 			battleCryEffect = new DealDamageToAllCharacters(1, true, true, true, true);
+		} else if (type == SPELLBREAKER) {
+			name = "Spellbreaker";
+			initBasicStats(4, 4, 3);
+			battleCryEffect = new Silence(false, true, true);
 		}
 	}
 

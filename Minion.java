@@ -134,6 +134,40 @@ public class Minion extends Character {
 		restoredThisTurn = false;
 	}
 
+	public void silence() {
+		currentAttack = normalAttack;
+		tempAttack = 0;
+
+		currentMaxHealth = normalMaxHealth;
+		if (currentHealth > currentMaxHealth) {
+			currentHealth = currentMaxHealth;
+		}
+
+		if (attackAmount > 0) {
+			attackAmount = 1;
+		} else {
+			attackAmount = 0;
+		}
+
+		taunt = false;
+		charge = false;
+		divineShield = false;
+		windfury = false;
+		cannotAttack = false;
+		stealth = false;
+		stealthTemporary = false;
+
+		damageEffect = null;
+
+		battleCryEffect = null;
+		deathRattleEffect = null;
+
+		startTurnEffect = null;
+		endTurnEffect = null;
+
+		// restoredThisTurn;
+	}
+
 	public int attack() {
 		attackAmount--;
 
