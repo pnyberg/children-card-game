@@ -7,11 +7,23 @@ public class AddDreamCardToHandTurnEffect extends TurnEffect {
 																	new SpellCard(SpellCard.DRAGON_POWER),
 																};
 	private int drawAmount;
+	private boolean giveSelf;
+	private boolean giveEnemy;
 	private boolean activeOnBothTurns;
 
-	public AddDreamCardToHandTurnEffect(int drawAmount, boolean activeOnBothTurns) {
+	public AddDreamCardToHandTurnEffect(int drawAmount, boolean giveSelf, boolean giveEnemy, boolean activeOnBothTurns) {
 		this.drawAmount = drawAmount;
+		this.giveSelf = giveSelf;
+		this.giveEnemy = giveEnemy;
 		this.activeOnBothTurns = activeOnBothTurns;
+	}
+
+	public boolean giveSelf() {
+		return giveSelf;
+	}
+
+	public boolean giveEnemy() {
+		return giveEnemy;
 	}
 
 	public boolean activeOnBothTurns() {

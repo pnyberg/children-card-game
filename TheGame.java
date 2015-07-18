@@ -23,6 +23,8 @@ public class TheGame {
 	private Player player2;
 
 	private boolean handlingBattleCry;
+
+	private int discardCardsAmount;
 	private boolean emptyHand;
 
 	private int playedMinionType;
@@ -56,6 +58,7 @@ public class TheGame {
 		playedMinionType = -1;
 		minionTriedToPlay = null;
 		minionTriedToPlayCardIndex = -1;
+		discardCardsAmount = 0;
 
 		minionTempList1 = new LinkedList<Minion>();
 		minionTempList2 = new LinkedList<Minion>();
@@ -75,6 +78,8 @@ public class TheGame {
 	}
 
 	public void initDecks() {
+		deck2.add(new MonsterCard(MonsterCard.SUCCUBUS));
+		deck2.add(new MonsterCard(MonsterCard.DOOMGUARD));
 		deck2.add(new MonsterCard(MonsterCard.ACOLYTE_OF_PAIN));
 		deck2.add(new MonsterCard(MonsterCard.UNSTABLE_GHOUL));
 		deck2.add(new MonsterCard(MonsterCard.RAGNAROS));
@@ -85,6 +90,7 @@ public class TheGame {
 		deck2.add(new MonsterCard(MonsterCard.NOVICE_ENGINEER));
 		deck2.add(new MonsterCard(MonsterCard.LEEROY_JENKINS));
 
+		deck1.add(new MonsterCard(MonsterCard.KING_MUKKLA));
 		deck1.add(new MonsterCard(MonsterCard.IMP_GANG_BOSS));
 		deck1.add(new MonsterCard(MonsterCard.SPELLBREAKER));
 		deck1.add(new MonsterCard(MonsterCard.ELVEN_ARCHER));
@@ -932,6 +938,7 @@ public class TheGame {
 
 	public void removeCardFromHand(int index) {
 		removeCardFromHand(index, turn);
+		discardCardsFromHand(turn);
 	}
 
 	public void removeCardFromHand(int index, int turnIndex) {
@@ -947,6 +954,38 @@ public class TheGame {
 		}
 
 		System.out.println(index + " is not a valid cardIndex for Player " + ((turn + 1) % 2));
+	}
+
+	public void discardCardsFromHand(int turnIndex) {
+		LinkedList<PlayCard> hand = getHand(turnIndex);
+		LinkedList<PlayCard> discardedCards = new LinkedList<PlayCard>();
+
+		for (int i = 0 ; i < discardCardsAmount ; i++) {
+			if (hand.size() == 0) {
+				break;
+			}
+
+			int index = ((int)(Math.random() * 100)) % hand.size();
+			PlayCard discardCard = hand.remove(index);
+			discardedCards.add(discardCard);
+		}
+
+		if (discardedCards.size() == 0) {
+			return;
+		}
+
+		System.out.print("Discarded following cards: ");
+
+		for (int i = 0 ; i < discardedCards.size() ; i++) {
+			PlayCard card = discardedCards.get(i);
+			System.out.print(card.getName());
+
+			if (i < (discardedCards.size() - 1)) {
+				System.out.print(", ");
+			}
+		}
+
+		System.out.println("");
 	}
 
 //#900
@@ -1098,6 +1137,22 @@ public class TheGame {
 			LinkedList<PlayCard> deck = getDeck(turnIndex);
 
 			drawCards.effect(cardHand, deck);
+		} else if (battleCryEffect instanceof DiscardCards) {
+			DiscardCards discardCards = (DiscardCards)battleCryEffect;
+
+			discardCardsAmount = discardCards.getDiscardAmount();
+		} else if (battleCryEffect instanceof AddBananaCardToHand) {
+			AddBananaCardToHand addBananaCardToHand = (AddBananaCardToHand)battleCryEffect;
+
+			if (addBananaCardToHand.giveSelf()) {
+				LinkedList<PlayCard> cardHand = getHand(turnIndex);
+				addBananaCardToHand.effect(cardHand);
+			}
+
+			if (addBananaCardToHand.giveEnemy()) {
+				LinkedList<PlayCard> cardHand = getHand((turnIndex + 1) % 2);
+				addBananaCardToHand.effect(cardHand);
+			}
 		} else if (battleCryEffect instanceof DealDamageToAllCharacters) {
 			DealDamageToAllCharacters dealDamageToAllCharacters = (DealDamageToAllCharacters)battleCryEffect;
 

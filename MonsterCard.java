@@ -86,7 +86,7 @@ public class MonsterCard extends PlayCard {
 							ALARMO_BOT = 81,
 							PILOTED_SHREDDER = 82, // not done
 							MAD_BOMBER = 83, // not done
-							SUCCUBUS = 84, // not done
+							SUCCUBUS = 84,
 							DEATHLORD = 85,
 							FAERIE_DRAGON = 86, // not done
 							MANA_ADDICT = 87, // not done
@@ -144,7 +144,7 @@ public class MonsterCard extends PlayCard {
 							GADGETZAN_AUCTIONEER = 138, // not done
 							AUCHENAI_SOULPRIEST = 139, // not done
 							TYRION_FORDRING = 140, // not done
-							FOREST_PROTECTOR_CENTAUR = 141, // not done
+							KEEPER_OF_THE_FOREST = 141, // not done
 							CENARIUS = 142, // not done
 							GROMMASH_HELLSCREAM = 143, // not done
 							ARMORSMITH = 144, // not done
@@ -191,7 +191,7 @@ public class MonsterCard extends PlayCard {
 							SUNWALKER = 185,
 							STORMPIKE_COMMANDO = 186,
 							CHROMAGGUS = 187, // not done
-							DOOMGUARD = 188, // not done
+							DOOMGUARD = 188,
 							SILENCE_OWL = 189,
 							TALLSTRIDER = 190,
 							LIGHTWELL = 191, // not done
@@ -241,7 +241,7 @@ public class MonsterCard extends PlayCard {
 							SNAPJAW_TURTLE = 235,
 							AZURE_DRAKE = 236, // not done
 							PRIEST_DRAGONLING = 237, // not done
-							KING_MUKKLA = 238, // not done
+							KING_MUKKLA = 238,
 							MAD_SCIENTIST = 239, // not done
 							HARPY = 240,
 							DRAGONHAWK = 241,
@@ -253,7 +253,21 @@ public class MonsterCard extends PlayCard {
 							FEL_REAVER = 247, // not done
 							LITTLE_SPELLSTOPPER = 248, // not done
 							DALARAN_SAGE = 249, // not done
-							LORD_OF_THE_ARENA = 250;
+							LORD_OF_THE_ARENA = 250,
+							BOMB_LOBBER = 251, // not done
+							MADDER_BOMBER = 252, // not done
+							CORE_RAGER = 253, // not done
+							DRUID_OF_THE_FLAME = 254, // not done
+							DRUID_OF_THE_FANG = 255, // not done
+							DRUID_OF_THE_CLAW = 256, // not done
+							OFFENSIVE_FLAME_DRUID = 258, // not done
+							DEFENSIVE_FLAME_DRUID = 259, // not done
+							VIPER_DRUID = 260,
+							DRUID_CAT = 261,
+							DRUID_BEAR = 262,
+							KEEPER_OF_THE_GROOVE = 263, // not done
+							ORC_WARRIOR = 264,
+							BOOTY_BAY_BODYGUARD = 265;
 
 	private int type;
 
@@ -695,7 +709,7 @@ public class MonsterCard extends PlayCard {
 			name = "Ysera";
 			minionType = Minion.DRAGON;
 			initBasicStats(9, 4, 12);
-			endTurnEffect = new AddDreamCardToHandTurnEffect(1, false);
+			endTurnEffect = new AddDreamCardToHandTurnEffect(1, true, false, false);
 		} else if (type == ACOLYTE_OF_PAIN) {
 			name = "Acolyte of Pain";
 			initBasicStats(3, 1, 3);
@@ -860,7 +874,40 @@ public class MonsterCard extends PlayCard {
 			name = "Succubus";
 			minionType = Minion.DEMON;
 			initBasicStats(2, 4, 3);
-			battleCryEffect = new DiscardCard(1);
+			battleCryEffect = new DiscardCards(1);
+		} else if (type == ORC_WARRIOR) {
+			name = "Orc Warrior";
+			initBasicStats(4, 4, 3);
+			charge = true;
+		} else if (type == BOOTY_BAY_BODYGUARD) {
+			name = "Booty Bay Bodyguard";
+			initBasicStats(5, 5, 4);
+			taunt = true;
+		} else if (type == DRUID_CAT) {
+			name = "Druid Cat";
+			minionType = Minion.BEAST;
+			initBasicStats(4, 4, 4);
+			charge = true;
+		} else if (type == DRUID_BEAR) {
+			name = "Druid Bear";
+			minionType = Minion.BEAST;
+			initBasicStats(4, 4, 6);
+			taunt = true;
+		} else if (type == VIPER_DRUID) {
+			name = "Viper Druid";
+			minionType = Minion.BEAST;
+			initBasicStats(7, 7, 7);
+		} else if (type == KING_MUKKLA) {
+			name = "King Mukkla";
+			minionType = Minion.BEAST;
+			initBasicStats(3, 5, 5);
+			battleCryEffect = new AddBananaCardToHand(2, false, true, true);
+		} else if (type == DOOMGUARD) {
+			name = "Doomguard";
+			minionType = Minion.DEMON;
+			initBasicStats(5, 5, 7);
+			charge = true;
+			battleCryEffect = new DiscardCards(2);
 		}
 	}
 
