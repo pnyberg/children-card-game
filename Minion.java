@@ -26,12 +26,16 @@ public class Minion extends Character {
 	private boolean divineShield;
 	private boolean windfury;
 	private boolean cannotAttack;
+	private boolean stealth;
+	private boolean stealthTemporary;
 
 	private boolean originallyTaunt;
 	private boolean originallyCharge;
 	private boolean originallyDivineShield;
 	private boolean originallyWindfury;
 	private boolean originallyCannotAttack;
+	private boolean originallyStealth;
+	private boolean originallyStealthTemporary;
 
 	private DamageEffect damageEffect;
 
@@ -52,7 +56,7 @@ public class Minion extends Character {
 	private int attackAmount;
 	private boolean restoredThisTurn;
 
-	public Minion(int type, String name, int minionType, int attack, int health, boolean taunt, boolean charge, boolean divineShield, boolean windfury, boolean cannotAttack, DamageEffect damageEffect, SpellEffect battleCryEffect, SpellEffect deathRattleEffect, TurnEffect startTurnEffect, TurnEffect endTurnEffect) {
+	public Minion(int type, String name, int minionType, int attack, int health, boolean taunt, boolean charge, boolean divineShield, boolean windfury, boolean cannotAttack, boolean stealth, boolean stealthTemporary, DamageEffect damageEffect, SpellEffect battleCryEffect, SpellEffect deathRattleEffect, TurnEffect startTurnEffect, TurnEffect endTurnEffect) {
 		this.type = type;
 
 		this.name = name;
@@ -66,6 +70,8 @@ public class Minion extends Character {
 		originallyDivineShield = divineShield;
 		originallyWindfury = windfury;
 		originallyCannotAttack = cannotAttack;
+		originallyStealth = stealth;
+		originallyStealthTemporary = stealthTemporary;
 
 		originallyBattleCryEffect = battleCryEffect;
 		originallyDamageEffect = damageEffect;
@@ -81,7 +87,7 @@ public class Minion extends Character {
 		restoredThisTurn = false;
 
 		if (charge) {
-			prepareMinion();
+			prepareMinion(false);
 		} else {
 			attackAmount = -1;
 		}
@@ -99,6 +105,8 @@ public class Minion extends Character {
 		divineShield = originallyDivineShield;
 		windfury = originallyWindfury;
 		cannotAttack = originallyCannotAttack;
+		stealth = originallyStealth;
+		stealthTemporary = originallyStealthTemporary;
 
 		battleCryEffect = originallyBattleCryEffect;
 		damageEffect = originallyDamageEffect;
@@ -112,8 +120,13 @@ public class Minion extends Character {
 		setHealth(normalMaxHealth);
 	}
 
-	public void prepareMinion() {
+	public void prepareMinion(boolean startOfTurn) {
 		attackAmount = (windfury ? 2 : 1);
+
+		if (stealthTemporary && startOfTurn) {
+			stealth = false;
+			stealthTemporary = false;
+		}
 	}
 
 	public void endTurnAction() {
@@ -123,6 +136,12 @@ public class Minion extends Character {
 
 	public int attack() {
 		attackAmount--;
+
+		if (stealth) {
+			stealth = false;
+			stealthTemporary = false;
+		}
+
 		return getCurrentAttack();
 	}
 
@@ -207,6 +226,14 @@ public class Minion extends Character {
 
 	public void setCannotAttack(boolean cannotAttack) {
 		this.cannotAttack = cannotAttack;
+	}
+
+	public void setStealth(boolean stealth) {
+		this.stealth = stealth;
+	}
+
+	public void setStealthTemporary(boolean stealthTemporary) {
+		this.stealthTemporary = stealthTemporary;
 	}
 
 	public void setRestoredThisTurn(boolean restoredThisTurn) {
@@ -295,6 +322,14 @@ public class Minion extends Character {
 
 	public boolean hasCannotAttack() {
 		return cannotAttack;
+	}
+
+	public boolean hasStealth() {
+		return stealth;
+	}
+
+	public boolean hasStealthTemporary() {
+		return stealthTemporary;
 	}
 
 	public boolean hasDamageEffect() {

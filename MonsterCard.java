@@ -131,7 +131,7 @@ public class MonsterCard extends PlayCard {
 							BIG_GAME_HUNTER = 126, // not done
 							NEFARIAN = 127, // not done
 							POISON_COBRA = 128, // not done
-							STEALTH_WORGEN = 129, // not done
+							STEALTH_WORGEN = 129,
 							BARON_GEDDON = 130,
 							MALORNE = 131,
 							ALDOR_PEACEKEEPER = 132,
@@ -218,8 +218,12 @@ public class MonsterCard extends PlayCard {
 							OGRE_MAGI = 212, // not done
 							ANTIQUE_HEALBOT = 213,
 							GNOME_INFANTRY = 214,
-							FLAMEWALKER = 215; // not done
-
+							FLAMEWALKER = 215, // not done
+							ONE_EYED_GOBLIN = 216, // not done
+							PALADIN_MECH_SHIELDER = 217, // not done
+							QUARTERMASTER = 218, // not done
+							STEAMWHEELER_SNIPER = 219, // not done
+							DREAD_INFERNAL = 220; // not done
 
 	private int type;
 
@@ -236,8 +240,9 @@ public class MonsterCard extends PlayCard {
 	private boolean divineShield;
 	private boolean windfury;
 	private boolean cannotAttack;
-	//private boolean stealth
-	//private boolean noSpellTarget
+	private boolean stealth;
+	private boolean stealthTemporary;
+	//private boolean noSpellTarget;
 
 	private SpellEffect costEffect;
 
@@ -263,6 +268,8 @@ public class MonsterCard extends PlayCard {
 		divineShield = false;
 		windfury = false;
 		cannotAttack = false;
+		stealth = false;
+		stealthTemporary = false;
 
 		battleCryEffect = null;
 		damageEffect = null;
@@ -724,6 +731,10 @@ public class MonsterCard extends PlayCard {
 			minionType = Minion.MECH;
 			initBasicStats(5, 3, 3);
 			battleCryEffect = new HealCharacter(8, true, true);
+		} else if (type == STEALTH_WORGEN) {
+			name = "Stealth Worgen";
+			initBasicStats(1, 2, 1);
+			stealth = true;
 		}
 	}
 
@@ -779,6 +790,6 @@ public class MonsterCard extends PlayCard {
 	}
 
 	public Minion toMinion() {
-		return new Minion(type, name, minionType, attack, health, taunt, charge, divineShield, windfury, cannotAttack, damageEffect, battleCryEffect, deathRattleEffect, startTurnEffect, endTurnEffect);
+		return new Minion(type, name, minionType, attack, health, taunt, charge, divineShield, windfury, cannotAttack, stealth, stealthTemporary, damageEffect, battleCryEffect, deathRattleEffect, startTurnEffect, endTurnEffect);
 	}
 }

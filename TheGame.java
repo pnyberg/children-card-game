@@ -75,7 +75,6 @@ public class TheGame {
 	}
 
 	public void initDecks() {
-		deck2.add(new MonsterCard(MonsterCard.ELVEN_ARCHER));
 		deck2.add(new MonsterCard(MonsterCard.UNSTABLE_GHOUL));
 		deck2.add(new MonsterCard(MonsterCard.ACOLYTE_OF_PAIN));
 		deck2.add(new MonsterCard(MonsterCard.RAGNAROS));
@@ -85,6 +84,8 @@ public class TheGame {
 		deck2.add(new MonsterCard(MonsterCard.MALORNE));
 		deck2.add(new MonsterCard(MonsterCard.GRUUL));
 
+		deck1.add(new MonsterCard(MonsterCard.STEALTH_WORGEN));
+		deck1.add(new MonsterCard(MonsterCard.ELVEN_ARCHER));
 		deck1.add(new MonsterCard(MonsterCard.GURUBASHI_BERSERKER));
 		deck1.add(new MonsterCard(MonsterCard.GAHZRILLA));
 		deck1.add(new MonsterCard(MonsterCard.DR_BOOM));
@@ -338,6 +339,11 @@ public class TheGame {
 		// the array is all but one of the tokens (therefore targetindex is on position 'arraylength')
 		int arrayLength = array.length;
 		int turnIndex = getTurnIndex(str[arrayLength]);
+
+		if (targetStealthed(minionIndex, turnIndex)) {
+			System.out.println("You cannot target that, that minion has stealth!");
+			return;
+		}
 
 		if (battleCryEffect instanceof HealCharacter) {
 			HealCharacter healCharacter = (HealCharacter)battleCryEffect;
@@ -594,6 +600,10 @@ public class TheGame {
 	}
 
 	public void makeAttack(int attackerIndex, int targetIndex) {
+		if (targetStealthed(targetIndex, (turn + 1) % 2)) {
+			System.out.println("You cannot attack that, that minion has stealth!");
+			return;
+		}
 		if (!validTarget(targetIndex)) {
 			System.out.println("You cannot attack that, you have a taunt in the way!");
 			return;
@@ -605,6 +615,17 @@ public class TheGame {
 		}
 
 		minionDuel(attackerIndex, targetIndex);
+	}
+
+	public boolean targetStealthed(int targetIndex, int turnIndex) {
+		int enemyTurnNumber = (turn + 1) % 2;
+		LinkedList<Minion> minionList = getMinionList(turnIndex);
+
+		if (targetIndex != TARGETPLAYER && turnIndex == enemyTurnNumber && minionList.get(targetIndex).hasStealth()) {
+			return true;
+		}
+
+		return false;
 	}
 
 	public boolean validTarget(int targetIndex) {
@@ -753,7 +774,7 @@ public class TheGame {
 		LinkedList<Minion> minionList = getMinionList(turn);
 
 		for (Minion minion : minionList) {
-			minion.prepareMinion();
+			minion.prepareMinion(true);
 		}
 	}
 
@@ -1522,9 +1543,10 @@ public class TheGame {
 		char chargeChar = (minion.hasCharge() ? 'C' : '*');
 		char divineShieldChar = (minion.hasDivineShield() ? 'S' : '*');
 		char windfuryChar = (minion.hasWindfury() ? 'W' : '*');
+		char stealthChar = (minion.hasStealth() ? 'H' : '*');
 		char deathrattleChar = (minion.hasDeathRattle() ? 'D' : '*');
 
-		return "[" + tauntChar + chargeChar + divineShieldChar + windfuryChar + deathrattleChar + "]";
+		return "[" + tauntChar + chargeChar + divineShieldChar + windfuryChar + stealthChar + deathrattleChar + "]";
 	}
 
 	public String addSpaces(int number) {
