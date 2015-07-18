@@ -68,7 +68,7 @@ public class MonsterCard extends PlayCard {
 							DOOMSAYER = 65,
 							ACOLYTE_OF_PAIN = 66,
 							KNIFE_JUGGLER = 67, // not done
-							SHIELDMAIDEN = 68, // not done
+							SHIELDMAIDEN = 68,
 							IMP_GANG_BOSS = 69,
 							BLOOD_IMP = 70,
 							ONYXIA = 71,
@@ -908,6 +908,10 @@ public class MonsterCard extends PlayCard {
 			initBasicStats(5, 5, 7);
 			charge = true;
 			battleCryEffect = new DiscardCards(2);
+		} else if (type == SHIELDMAIDEN) {
+			name = "Shieldmaiden";
+			initBasicStats(6, 5, 5);
+			battleCryEffect = new AddArmor(5, true, false);
 		}
 	}
 

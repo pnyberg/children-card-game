@@ -90,6 +90,7 @@ public class TheGame {
 		deck2.add(new MonsterCard(MonsterCard.NOVICE_ENGINEER));
 		deck2.add(new MonsterCard(MonsterCard.LEEROY_JENKINS));
 
+		deck1.add(new MonsterCard(MonsterCard.SHIELDMAIDEN));
 		deck1.add(new MonsterCard(MonsterCard.KING_MUKKLA));
 		deck1.add(new MonsterCard(MonsterCard.IMP_GANG_BOSS));
 		deck1.add(new MonsterCard(MonsterCard.SPELLBREAKER));
@@ -757,26 +758,6 @@ public class TheGame {
 	}
 
 //#700
-	public void showHand() {
-		System.out.println("----- Hand -----");
-
-		printHandInfo(0);
-
-		printHandInfo(1);
-	}
-
-	public void showBoard() {
-		System.out.println("Player1 Health: " + player1.getHealth());
-		System.out.println("----- BOARD -----");
-
-		printBoardInfo(0);
-
-		printBoardInfo(1);
-
-		System.out.println("----- BOARD -----");
-		System.out.println("Player2 Health: " + player2.getHealth());
-	}
-
 	public void endTurn() {
 		handleEndTurnActions(turn);
 
@@ -835,19 +816,6 @@ public class TheGame {
 			}
 			minion.endTurnAction();
 		}
-	}
-
-	public void printHelp() {
-		System.out.println("Following commands currently exists:");
-		System.out.println(" - draw = you draw a new card");
-		System.out.println(" - play [adressingIndex] = you play a card from hand, [adressingIndex] is the index of the card (check 'show hand' for indices)");
-		System.out.println(" - let [attackerIndex] attack [targetIndex] = your minion, [attackerIndex], attacks a target, which is either 'player' or an enemy minion");
-		System.out.println(" - show hand = print the players hands");
-		System.out.println(" - show board = print the board");
-		System.out.println(" - end turn = end players turn");
-		System.out.println(" - exit = exit game");
-		System.out.println(" - help = will make you see these rows");
-//		System.out.println(" - ");
 	}
 
 	public int getTurnIndex(String player) {
@@ -1099,6 +1067,12 @@ public class TheGame {
 
 				System.out.println("Which character do you want to heal?");
 			}
+		} else if (battleCryEffect instanceof AddArmor) {
+			AddArmor addArmor = (AddArmor)battleCryEffect;
+
+			Player player = getPlayer(turnIndex);
+
+			addArmor.effect(player);
 		} else if (battleCryEffect instanceof DealDamage) {
 			handlingBattleCry = true;
 
@@ -1477,6 +1451,41 @@ public class TheGame {
 		minionList.remove(minionIndex);
 	}
 
+	public void printHelp() {
+		System.out.println("Following commands currently exists:");
+		System.out.println(" - draw = you draw a new card");
+		System.out.println(" - play [adressingIndex] = you play a card from hand, [adressingIndex] is the index of the card (check 'show hand' for indices)");
+		System.out.println(" - let [attackerIndex] attack [targetIndex] = your minion, [attackerIndex], attacks a target, which is either 'player' or an enemy minion");
+		System.out.println(" - show hand = print the players hands");
+		System.out.println(" - show board = print the board");
+		System.out.println(" - end turn = end players turn");
+		System.out.println(" - exit = exit game");
+		System.out.println(" - help = will make you see these rows");
+//		System.out.println(" - ");
+	}
+
+	public void showHand() {
+		System.out.println("----- Hand -----");
+
+		printHandInfo(0);
+
+		printHandInfo(1);
+	}
+
+	public void showBoard() {
+		printPlayerInfo(0);
+
+		System.out.println("----- BOARD -----");
+
+		printBoardInfo(0);
+
+		printBoardInfo(1);
+
+		System.out.println("----- BOARD -----");
+
+		printPlayerInfo(1);
+	}
+
 	public void printHandInfo(int turnIndex) {
 		LinkedList<PlayCard> cardList = getHand(turnIndex);
 
@@ -1544,6 +1553,13 @@ public class TheGame {
 		}
 
 		System.out.println("");
+	}
+
+	public void printPlayerInfo(int turnIndex) {
+		Player player = getPlayer(turnIndex);
+
+		System.out.println("Player" + (turnIndex + 1) + " Health: " + player.getHealth());
+		System.out.println("Player" + (turnIndex + 1) + " Armor: " + player.getArmor());
 	}
 
 	public void printBoardInfo(int turnIndex) {
