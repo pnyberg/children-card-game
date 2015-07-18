@@ -35,7 +35,7 @@ public class MonsterCard extends PlayCard {
 							ABUSIVE_SERGEANT = 33,
 							NOVICE_ENGINEER = 34,
 							DRAGON_GRUNT = 35,
-							DISPATCHING_DRAKE = 36,
+							BREWMASTER = 36,
 							RAGNAROS = 37,
 							YSERA = 38,
 							KELTHUZAD = 39,
@@ -52,7 +52,7 @@ public class MonsterCard extends PlayCard {
 							DR_BOOM = 50,
 							BOOM_BOT = 51,
 							VOLJIN = 52,
-							PROPHET_VELEN = 53, // not done
+							PROPHET_VELEN = 53, // not done - double spell + hero -effect
 							GAHZRILLA = 54,
 							ARCHMAGE_ANTONIDAS = 55, // not done
 							BLOODMAGE_THALNOS = 56, // not done - dubbla effekter + spell dmg
@@ -192,7 +192,7 @@ public class MonsterCard extends PlayCard {
 							STORMPIKE_COMMANDO = 186,
 							CHROMAGGUS = 187, // not done
 							DOOMGUARD = 188, // not done
-							SILENCE_OWL = 189, // not done
+							SILENCE_OWL = 189,
 							TALLSTRIDER = 190,
 							LIGHTWELL = 191, // not done
 							SALTY_DOG = 192,
@@ -223,7 +223,32 @@ public class MonsterCard extends PlayCard {
 							PALADIN_MECH_SHIELDER = 217, // not done
 							QUARTERMASTER = 218, // not done
 							STEAMWHEELER_SNIPER = 219, // not done
-							DREAD_INFERNAL = 220;
+							DREAD_INFERNAL = 220,
+							FLAMETOUNGE_TOTEM = 221, // not done
+							STRANGLETHORN_TIGER = 222,
+							RAVENHOLD_ASSASIN = 223,
+							VOIDCALLER = 224, // not done
+							VOIDWALKER = 225,
+							PIT_LORD = 226,
+							CORE_HOUND = 227, // not done
+							BETTER_BREWMASTER = 228,
+							HIDER_LADY = 229, // not done
+							QUESTING_ADVENTURER = 230, // not done
+							HAUNTED_CREEPER = 231,
+							SPECTRAL_SPIDER = 232,
+							SPECTRAL_KNIGHT = 233, // not done
+							WARGOLEM = 234,
+							SNAPJAW_TURTLE = 235,
+							AZURE_DRAKE = 236, // not done
+							PRIEST_DRAGONLING = 237, // not done
+							KING_MUKKLA = 238, // not done
+							MAD_SCIENTIST = 239, // not done
+							HARPY = 240,
+							DRAGONHAWK = 241,
+							THRALLMAR_FARSEER = 242,
+							DARK_IRON_DWARF = 243,
+							SCRAPYARD_JUNKBOT = 244, // not done
+							TANKBOT = 245;
 
 	private int type;
 
@@ -385,10 +410,10 @@ public class MonsterCard extends PlayCard {
 			name = "Murloc Scout";
 			minionType = Minion.MURLOC;
 			initBasicStats(0, 1, 1);
-		} else if (type == DISPATCHING_DRAKE) {
-			name = "Dispatching Drake";
-			initBasicStats(1, 2, 1);
-			battleCryEffect = new PickUpMinion(-1);
+		} else if (type == BREWMASTER) {
+			name = "BREWMASTER";
+			initBasicStats(2, 3, 2);
+			battleCryEffect = new PickUpMinion(0);
 		} else if (type == EARTHEN_RING_FARSEER) {
 			name = "Earthen Ring Farseer";
 			initBasicStats(3, 3, 3);
@@ -752,6 +777,72 @@ public class MonsterCard extends PlayCard {
 			minionType = Minion.BEAST;
 			initBasicStats(2, 2, 1);
 			battleCryEffect = new Silence(false, true, true);
+		} else if (type == HARPY) {
+			name = "Harpy";
+			initBasicStats(6, 4, 5);
+			windfury = true;
+		} else if (type == THRALLMAR_FARSEER) {
+			name = "Thrallmar Farseer";
+			initBasicStats(3, 2, 3);
+			windfury = true;
+		} else if (type == DRAGONHAWK) {
+			name = "Dragonhawk";
+			minionType = Minion.DRAGON;
+			initBasicStats(1, 1, 1);
+			windfury = true;
+		} else if (type == TANKBOT) {
+			name = "Tankbot";
+			initBasicStats(8, 7, 7);
+			divineShield = true;
+		} else if (type == DARK_IRON_DWARF) {
+			name = "Dark Iron Dwarf";
+			initBasicStats(4, 4, 4);
+			battleCryEffect = new BuffSingleMinion(2, 0, false, false, false, false, true);
+		} else if (type == SNAPJAW_TURTLE) {
+			name = "Snapjaw Turtle";
+			minionType = Minion.BEAST;
+			initBasicStats(4, 2, 7);
+		} else if (type == WARGOLEM) {
+			name = "Wargolem";
+			initBasicStats(7, 7, 7);
+		} else if (type == HAUNTED_CREEPER) {
+			name = "Haunted Creeper";
+			minionType = Minion.BEAST;
+			initBasicStats(2, 1, 2);
+			deathRattleEffect = new SummonMinions(new int[] {SPECTRAL_SPIDER, SPECTRAL_SPIDER}, null);
+		} else if (type == SPECTRAL_SPIDER) {
+			name = "Spectral Spider";
+			initBasicStats(1, 1, 1);
+		} else if (type == BETTER_BREWMASTER) {
+			name = "BETTER_BREWMASTER";
+			initBasicStats(5, 5, 4);
+			battleCryEffect = new PickUpMinion(0);
+		} else if (type == PIT_LORD) {
+			name = "Pit Lord";
+			minionType = Minion.DEMON;
+			initBasicStats(5, 7, 5);
+			battleCryEffect = new DealDamageToAllCharacters(5, false, false, true, false);
+		} else if (type == VOIDWALKER) {
+			name = "Voidwalker";
+			minionType = Minion.DEMON;
+			initBasicStats(1, 1, 3);
+			taunt = true;
+		} else if (type == STRANGLETHORN_TIGER) {
+			name = "Stranglethorn Tiger";
+			minionType = Minion.BEAST;
+			initBasicStats(5, 5, 5);
+			stealth = true;
+		} else if (type == RAVENHOLD_ASSASIN) {
+			name = "Ravenhold Assasin";
+			initBasicStats(6, 7, 5);
+			stealth = true;
+		} else if (type == PROPHET_VELEN) {
+			name = "Prophet Velen";
+			initBasicStats(7, 7, 7);
+		} else if (type == IMP_GANG_BOSS) {
+			name = "Imp Gang Boss";
+			initBasicStats(3, 2, 4);
+			damageEffect = new SummonMinionsDamageEffect(new int[] {IMP}, null, false, false, false);
 		}
 	}
 

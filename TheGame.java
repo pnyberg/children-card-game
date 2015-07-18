@@ -85,6 +85,7 @@ public class TheGame {
 		deck2.add(new MonsterCard(MonsterCard.NOVICE_ENGINEER));
 		deck2.add(new MonsterCard(MonsterCard.LEEROY_JENKINS));
 
+		deck1.add(new MonsterCard(MonsterCard.IMP_GANG_BOSS));
 		deck1.add(new MonsterCard(MonsterCard.SPELLBREAKER));
 		deck1.add(new MonsterCard(MonsterCard.ELVEN_ARCHER));
 		deck1.add(new MonsterCard(MonsterCard.GAHZRILLA));
@@ -129,7 +130,7 @@ public class TheGame {
 		deck1.add(new MonsterCard(MonsterCard.ONYXIA));
 		deck1.add(new MonsterCard(MonsterCard.DEATHWING));
 		deck1.add(new MonsterCard(MonsterCard.CLOCKWORK_GIANT));
-		deck1.add(new MonsterCard(MonsterCard.DISPATCHING_DRAKE));
+		deck1.add(new MonsterCard(MonsterCard.BREWMASTER));
 		deck1.add(new MonsterCard(MonsterCard.BLOODFEN_RAPTOR));
 		deck1.add(new MonsterCard(MonsterCard.MURLOC_TIDEHUNTER));
 		deck1.add(new SpellCard(SpellCard.STAFF_OF_THE_EMPEROR));
@@ -675,9 +676,7 @@ public class TheGame {
 
 		System.out.println("(Player " + (turn + 1) + " #" + attackerIndex + ")" + attackingMinion.getName() + " is attacking (Player " + ((turn + 1) % 2 + 1) + " #" + attackerIndex + ")" + targetMinion.getName());
 
-		checkDeath(targetIndex, (turn + 1) % 2);
-
-		checkDeath(attackerIndex, turn);
+		checkDeathBoard();
 
 		System.out.println(attackingMinion.getName() + " HP: " + attackingMinion.getCurrentHealth() + " - " + targetMinion.getName() + " HP: " + targetMinion.getCurrentHealth());
 	}

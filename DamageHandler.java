@@ -86,6 +86,13 @@ public class DamageHandler {
 			BuffMinionDamageEffect buffMinionDamageEffect = (BuffMinionDamageEffect)damageEffect;
 
 			buffMinionDamageEffect.effect(minion);
+		} else if (damageEffect instanceof SummonMinionsDamageEffect) {
+			SummonMinionsDamageEffect summonMinionsDamageEffect = (SummonMinionsDamageEffect)damageEffect;
+
+			LinkedList<Minion> friendlyBoard = getBoard(turnIndex);
+			LinkedList<Minion> enemyBoard = getBoard((turnIndex + 1) % 2);
+
+			summonMinionsDamageEffect.effect(friendlyBoard, enemyBoard);
 		}
 	}
 
