@@ -5,7 +5,8 @@ public class Minion extends Character {
 							DEMON = 3,
 							MECH = 4,
 							DRAGON = 5,
-							TOTEM = 6;
+							TOTEM = 6,
+							PIRATE = 7;
 
 	private int type;
 
@@ -150,7 +151,7 @@ public class Minion extends Character {
 		}
 
 		currentHealth -= damageAmount;
-		
+
 		return true;
 	}
 

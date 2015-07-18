@@ -173,7 +173,7 @@ public class MonsterCard extends PlayCard {
 							SUNFURY_PROTECTOR = 167, // not done
 							ANGRY_CHICKEN = 168, // not done
 							PILOTED_SKY_GOLEM = 169, // not done
-							THE_BEAST = 170, // not done
+							THE_BEAST = 170,
 							TAUREN_WARRIOR = 171, // not done
 							NAT_PAGLE = 172, // not done
 							OGRE_BRUTE = 173, // not done
@@ -188,7 +188,38 @@ public class MonsterCard extends PlayCard {
 							SCARLET_CRUSADER = 182,
 							SHIELDED_MINIBOT = 183,
 							ARGENT_COMMANDER = 184,
-							SUNWALKER = 185;
+							SUNWALKER = 185,
+							STORMPIKE_COMMANDO = 186,
+							CHROMAGGUS = 187, // not done
+							DOOMGUARD = 188, // not done
+							SILENCE_OWL = 189, // not done
+							TALLSTRIDER = 190,
+							LIGHTWELL = 191, // not done
+							SALTY_DOG = 192,
+							WEAPON_PIRATE_CHARGER = 193, // not done
+							BLOODSAIL_BUCCANEER = 194, // not done
+							CAPTAIN_GREENSKIN = 195, // not done
+							CAPTAINS_PARROT = 196, // not done
+							PIRATE_TAUNTER = 197, // not done
+							PIRATE_RARE_DRANEI = 198, // not done
+							PIRATE_CANNON = 199, // not done
+							TEST_DUMMY = 200,
+							MECHWARPER = 201, // not done
+							ANNOY_O_TRON = 202,
+							MECHANICAL_YETI = 203, // not done
+							SPIDER_TANK = 204,
+							SHADOWBOMBER = 205,
+							DRAENAI_GUARD = 206, // not done
+							OGRE_NINJA = 207, // not done
+							MINI_MAGE = 208, // not done
+							STEALTHED_ASSASSIN = 209, // not done
+							GAZLOW = 210, // not done
+							GNOME_DIVER = 211,
+							OGRE_MAGI = 212, // not done
+							ANTIQUE_HEALBOT = 213,
+							GNOME_INFANTRY = 214,
+							FLAMEWALKER = 215; // not done
+
 
 	private int type;
 
@@ -644,6 +675,55 @@ public class MonsterCard extends PlayCard {
 			name = "Gurubashi Berserker";
 			initBasicStats(5, 2, 7);
 			damageEffect = new BuffMinionDamageEffect(3, 0, false, false, false);
+		} else if (type == STORMPIKE_COMMANDO) {
+			name = "Stormpike Commando";
+			initBasicStats(4, 4, 2);
+			battleCryEffect = new DealDamage(2);
+		} else if (type == TALLSTRIDER) {
+			name = "Tallstrider";
+			minionType = Minion.BEAST;
+			initBasicStats(4, 5, 4);
+		} else if (type == SALTY_DOG) {
+			name = "Salty Dog";
+			minionType = Minion.PIRATE;
+			initBasicStats(5, 7, 4);
+		} else if (type == TEST_DUMMY) {
+			name = "Test Dummy";
+			minionType = Minion.MECH;
+			initBasicStats(0, 0, 2);
+			taunt = true;
+		} else if (type == ANNOY_O_TRON) {
+			name = "Annoy-O-tron";
+			minionType = Minion.MECH;
+			initBasicStats(2, 1, 2);
+			taunt = true;
+			divineShield = true;
+		} else if (type == SPIDER_TANK) {
+			name = "Spider Tank";
+			minionType = Minion.MECH;
+			initBasicStats(3, 3, 4);
+		} else if (type == SHADOWBOMBER) {
+			name = "Shadowbomber";
+			initBasicStats(1, 2, 1);
+			battleCryEffect = new DealDamageToPlayer(3, true, true);
+		} else if (type == THE_BEAST) {
+			name = "The Beast";
+			minionType = Minion.BEAST;
+			initBasicStats(7, 9, 7);
+			deathRattleEffect = new SummonMinions(null, new int[] {GNOME_DIVER});
+		} else if (type == GNOME_DIVER) {
+			name = "Gnome Diver";
+			initBasicStats(3, 3, 3);
+		} else if (type == GNOME_INFANTRY) {
+			name = "Gnome Infantry";
+			initBasicStats(3, 1, 4);
+			taunt = true;
+			charge = true;
+		} else if (type == ANTIQUE_HEALBOT) {
+			name = "Antique Healbot";
+			minionType = Minion.MECH;
+			initBasicStats(5, 3, 3);
+			battleCryEffect = new HealCharacter(8, true, true);
 		}
 	}
 
