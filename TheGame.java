@@ -125,7 +125,7 @@ public class TheGame {
 		deck1.add(new MonsterCard(MonsterCard.BLOOD_IMP));
 		deck1.add(new MonsterCard(MonsterCard.NIGHTBLADE));
 		deck1.add(new MonsterCard(MonsterCard.ELVEN_OF_ELUNE));
-		deck1.add(new MonsterCard(MonsterCard.STEALTH_WORGEN));
+		deck1.add(new MonsterCard(MonsterCard.WORGEN_INFILTRATOR));
 		deck1.add(new MonsterCard(MonsterCard.ARGENT_PROTECTOR));
 		deck1.add(new MonsterCard(MonsterCard.SCARLET_CRUSADER));
 		deck1.add(new MonsterCard(MonsterCard.ARGENT_COMMANDER));
@@ -138,7 +138,7 @@ public class TheGame {
 		deck1.add(new MonsterCard(MonsterCard.ONYXIA));
 		deck1.add(new MonsterCard(MonsterCard.DEATHWING));
 		deck1.add(new MonsterCard(MonsterCard.CLOCKWORK_GIANT));
-		deck1.add(new MonsterCard(MonsterCard.BREWMASTER));
+		deck1.add(new MonsterCard(MonsterCard.YOUTHFUL_BREWMASTER));
 		deck1.add(new MonsterCard(MonsterCard.BLOODFEN_RAPTOR));
 		deck1.add(new MonsterCard(MonsterCard.MURLOC_TIDEHUNTER));
 		deck1.add(new SpellCard(SpellCard.STAFF_OF_THE_EMPEROR));
