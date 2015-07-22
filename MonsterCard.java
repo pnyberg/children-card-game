@@ -1,68 +1,68 @@
 public class MonsterCard extends PlayCard {
 	public static final int	
 							TARGET_DUMMY = 1,
-							WISP = 2, // not done
+							WISP = 2,
 							ABUSIVE_SERGEANT = 3,
-							ANGRY_CHICKEN = 4, // not done
+							ANGRY_CHICKEN = 4, // not done [enrage]
 							ARGENT_SQUIRE = 5,
-							BLOOD_IMP = 6, // not done
+							BLOOD_IMP = 6, // not done [endturn-buff]
 							BLOODSAIL_CORSAIR = 7, // not done
-							CLOCKWORK_GNOME = 8, // not done
-							COGMASTER = 9, // not done
-							DRAGON_EGG = 10, // not done
-							BLACK_WHELP = 11, // not done
-							DUST_DEVIL = 12, // not done
+							CLOCKWORK_GNOME = 8, // not done [Spare Part]
+							COGMASTER = 9, // not done [Board Area Effect]
+							DRAGON_EGG = 10, // not done [Dmg-effect]
+							BLACK_WHELP = 11,
+							DUST_DEVIL = 12, // not done [Overload]
 							ELVEN_ARCHER = 13,
 							FLAME_IMP = 14,
 							GOLDSHIRE_FOOTMAN = 15,
 							GRIMSCALE_ORACLE = 16, // not completely done - area effect
-							HUNGRY_CRAB = 17, // not done
+							HUNGRY_CRAB = 17, // not done []
 							LEPER_GNOME = 18,
-							LIGHTWARDEN = 19, // not done
-							MANA_WYRM = 20, // not done
+							LIGHTWARDEN = 19, // not done [Heal-effect]
+							MANA_WYRM = 20, // not done [Spell-effect]
 							MURLOC_RAIDER = 21,
-							MURLOC_TIDECALLER = 22, // not done
-							NORTHSHIRE_CLERIC = 23, // not done
-							SECRETKEEPER = 24, // not done
+							MURLOC_TIDECALLER = 22, // not done [Summon-effect]
+							NORTHSHIRE_CLERIC = 23, // not done [Heal-effect]
+							SECRETKEEPER = 24, // not done [Secret-effect]
 							SHADOWBOMBER = 25,
 							SHIELDBEARER = 26,
-							SOUTHSEA_DECKHAND = 27, // not done
+							SOUTHSEA_DECKHAND = 27, // not done [Weapon-effect]
 							STONETUSK_BOAR = 28,
-							TIMBER_WOLF = 29, // not done
-							TWILIGHT_WHELP = 30, // not done
-							UNDERTAKER = 31, // not done
+							TIMBER_WOLF = 29, // not done [Area-effect]
+							TWILIGHT_WHELP = 30, // not done [In hand-effect]
+							UNDERTAKER = 31, // not done [Summon-effect]
 							VOIDWALKER = 32,
 							VODOO_DOCTOR = 33,
-							WARBOT = 34, // not done
-							WEBSPINNER = 35, // not done
+							WARBOT = 34, // not done [Enrage-effect]
+							WEBSPINNER = 35, // not done [Deathrattle]
 							WORGEN_INFILTRATOR = 36,
 							YOUNG_DRAGONHAWK = 37,
-							YOUNG_PRIESTESS = 38, // not done
+							YOUNG_PRIESTESS = 38, // not done [endturn-buff]
 							ZOMBIE_CHOW = 39,
 							ACIDIC_SWAMP_OOZE = 40, // not completely done - weapon
-							AMANI_BERSERKER = 41, // not done
-							ANCIENT_WATCHER = 42, // not done
+							AMANI_BERSERKER = 41, // not done [Enrage]
+							ANCIENT_WATCHER = 42,
 							ANNOY_O_TRON = 43,
-							ANODIZED_ROBO_CUB = 44, // not done
+							ANODIZED_ROBO_CUB = 44, // not done [Choose one]
 							ARGENT_PROTECTOR = 45,
-							ARMORSMITH = 46, // not done
+							ARMORSMITH = 46, // not done [Dmg-effect]
 							BLOODFEN_RAPTOR = 47,
 							BLOODMAGE_THALNOS = 48, // not dcompletely one - dubbla effekter + spell dmg
-							BLOODSAIL_RAIDER = 49, // not done
+							BLOODSAIL_RAIDER = 49, // not done [Weapon-effect]
 							BLUEGILL_WARRIOR = 50,
-							CAPTAINS_PARROT = 51, // not done
+							CAPTAINS_PARROT = 51, // not done [Deathrattle]
 							CRAZED_ALCHEMIST = 52,
-							CRUEL_TASKMASTER = 53, // not done
-							DEFIAS_RINGLEADER = 54, // not done
-							DEFIAS_BANDIT = 55, // not done
-							DIRE_WOLF_ALPHA = 56, // not done
+							CRUEL_TASKMASTER = 53, // not done [Buff-effect, double]
+							DEFIAS_RINGLEADER = 54, // not done [COMBO]
+							DEFIAS_BANDIT = 55,
+							DIRE_WOLF_ALPHA = 56, // not done [NEXT TO + AREA-effect]
 							DOOMSAYER = 57,
-							ECHOING_OOZE = 58, // not done
-							EXPLOSIVE_SHEEP = 59, // not done
-							FAERIE_DRAGON = 60, // not done
-							FLAMETOUNGE_TOTEM = 61, // not done
+							ECHOING_OOZE = 58, // not done [COPY-end turn effect]
+							EXPLOSIVE_SHEEP = 59,
+							FAERIE_DRAGON = 60, // not done [NO TARGET-effect]
+							FLAMETOUNGE_TOTEM = 61, // not done [NEXT TO + AREA-effect]
 							FROSTWOLF_GRUNT = 62,
-							GILBIN_STALKER = 63, // not done
+							GILBIN_STALKER = 63,
 							GOBLIN_AUTO_BARBER = 64, // not done
 							HAUNTED_CREEPER = 65,
 							SPECTRAL_SPIDER = 66,
@@ -110,200 +110,290 @@ public class MonsterCard extends PlayCard {
 							WHIRLING_ZAP_O_MATIC = 108, // not done
 							WILD_PYROMANCER = 109, // not done
 							YOUTHFUL_BREWMASTER = 110,
-							DALARAN_MAGE = 1015, // not completely done - spell dmg
-							IRONFORGE_RIFLEMAN = 1016,
-							IRONFUR_GRIZZLY = 1017,
-							MAGMA_RAGER = 1018,
-							RAID_LEADER = 1019, // not completely done - area effect
-							RAZORFEN_HUNTER = 1020,
-							RAZORFEN_BOAR = 1021,
-							SHATTERED_SUN_CLERIC = 1022,
-							SILVERBACK_PATRIARCH = 1023,
-							WOLFRIDER = 1023,
-							CHILLWIND_YETI = 1024,
-							DRAGONLING_MECHANIC = 1025,
-							MECHANICAL_DRAGONLING = 1026,
-							MANA_TIDE_TOTEM = 1027,
-							EARTHEN_RING_FARSEER = 1028,
-							SLUDGE_BELCHER = 1029,
-							SLIME = 1030,
-							DRAGON_GRUNT = 1035,
-							RAGNAROS = 1037,
-							YSERA = 1038,
-							KELTHUZAD = 1039,
-							EMPEROR_THAURISSAN = 1040,
-							ALEXSTRASZA = 1041,
-							SYLVANAS_WINDRUNNER = 1042,
-							CAIRNE_BLOODHOOF = 1043,
-							BAINE_BLOODHOOF = 1044,
-							ALAKIR = 1045,
-							KING_KRUSH = 1046,
-							MALGANIS = 1047, // not completely done - immune & +2/+2 - demon
-							DEATHWING = 1048,
-							MALYGOS = 1049, // not completely done - spell dmg
-							DR_BOOM = 1050,
-							BOOM_BOT = 1051,
-							VOLJIN = 1052,
-							PROPHET_VELEN = 1053, // not completely done - double spell + hero -effect
-							GAHZRILLA = 1054,
-							ARCHMAGE_ANTONIDAS = 1055, // not done
-							TWILIGHT_DRAKE = 1057,
-							BOLIVAR_FORDRAGON = 1058, // not done
-							IMP_MASTER = 1060, // not completely done - dubbla effekter + take dmg
-							IMP = 1065, 
-							GRUUL = 1061,
-							WATER_ELEMENTAL = 1062, // not completely done - freeze
-							EARTH_ELEMENTAL = 1063, // not completely done - overload
-							FIRE_ELEMENTAL = 1064,
-							ACOLYTE_OF_PAIN = 1066,
-							SHIELDMAIDEN = 1068,
-							IMP_GANG_BOSS = 1069,
-							ONYXIA = 1071,
-							DRAGON_WHELP = 1070,
-							ILLIDAN_STORMRAGE = 1072, // not done
-							LOATHEB = 1073, // not done
-							VENTURE_CO_MERCENARY = 1075, // not done
-							SAVANNAH_HIGHMANE = 1076,
-							SAVANNAH_HYENA = 1074,
-							SEA_GIANT = 1077,
-							MOUNTAIN_GIANT = 1078,
-							MOLTEN_GIANT = 1079,
-							CLOCKWORK_GIANT = 1080,
-							ALARMO_BOT = 1081,
-							PILOTED_SHREDDER = 1082, // not done
-							DEATHLORD = 1085,
-							TINKERTOWN_TECHNICHIAN = 1088, // not done
-							LEPER_GNOME_BOT = 1090, // not done
-							NIGHTBLADE = 1091,
-							NAGA_ORACLE = 1092, // not done
-							MIND_CONTROL_TECH = 1094, // not done
-							CABAL_SHADOWPRIEST = 1095, // not done
-							STORMWIND_CHAMPION = 1096, // not done
-							FROSTWOLF_WARLORD = 1097,
-							VOID_TERROR = 1098, // not done
-							ENHANCO_MECHANIC = 1099, // not done
-							ELVEN_OF_ELUNE = 1101,
-							LEEROY_JENKINS = 1103,
-							LORD_JARAXXUS = 1104, // not done
-							FOE_REAPER = 1105, // not done
-							RAGING_WORGEN = 1106, // not done
-							INJURED_BLADEMASTER = 1107, // not done
-							SOOTHING_BERSERKER = 1108, // not done
-							GURUBASHI_BERSERKER = 1109,
-							HARRISON_JONES = 111, // not done
-							STONESKIN_GARGOYLE = 115, // not done
-							BEASTMASTER = 117, // not done
-							THUNDRA_RHINO = 118, // not done
-							STAMPEDING_KODO = 119, // not done
-							KIRIN_TOR_MAGE = 121, // not done
-							TRAP_MYSTIC = 122, // not done
-							ARCANE_NEXXUS = 123, // not done
-							BLOOD_KNIGHT = 125,
-							BIG_GAME_HUNTER = 126, // not done
-							NEFARIAN = 127, // not done
-							POISON_COBRA = 128, // not done
-							BARON_GEDDON = 130,
-							MALORNE = 131,
-							ALDOR_PEACEKEEPER = 132,
-							HOGGER = 134,
-							GNOLL = 1134,
-							FACELESS_MANIPULATOR = 135, // not done
-							SPELLBREAKER = 136,
-							FELGUARD = 137, // not done
-							GADGETZAN_AUCTIONEER = 138, // not done
-							AUCHENAI_SOULPRIEST = 139, // not done
-							TYRION_FORDRING = 140, // not done
-							KEEPER_OF_THE_FOREST = 141, // not done
-							CENARIUS = 142, // not done
-							GROMMASH_HELLSCREAM = 143, // not done
-							WEAPONSMITH = 145, // not done
-							ARATHI_WEAPONSMITH = 146, // not done
-							ENRAGED_WEAPON_HELPER = 148, // not done
-							OLD_MURK_EYE = 151, // not done
-							COLDLIGHT_ORACLE = 152, // not done
-							MURLOC_RAID_LEADER = 153, // not done
-							EDWIN_VAN_CLEEF = 154, // not done
-							REND_BLACKHAND = 155, // not done
-							BLACK_KNIGHT = 156, // not done
-							WAILING_SOUL = 160, // not done
-							DRAGONKIN_CRUSHER = 161, // not done
-							TROLL_CARDHAND_ATTACKER = 162, // not done
-							SIEGE_ENGINE = 163, // not done
-							FLOATING_WATCHER = 164, // not done
-							KING_OF_BEASTS = 165, // not done
-							DEFENDER_OF_ARGUS = 166, // not done
-							PILOTED_SKY_GOLEM = 169, // not done
-							THE_BEAST = 170,
-							TAUREN_WARRIOR = 171, // not done
-							OGRE_BRUTE = 173, // not done
-							MOGOR_THE_OGRE = 174, // not done
-							CULT_MASTER = 176, // not done
-							MAGNA_GOLEM = 177, // not done
-							NEPTULON = 178, // not done
-							MINE_MACHINE = 179, // not done
-							LEVIATHON_MACHINE = 180, // not done
-							SCARLET_CRUSADER = 182,
-							ARGENT_COMMANDER = 184,
-							SUNWALKER = 185,
-							STORMPIKE_COMMANDO = 186,
-							CHROMAGGUS = 187, // not done
-							DOOMGUARD = 188,
-							TALLSTRIDER = 190,
-							SALTY_DOG = 192,
-							CAPTAIN_GREENSKIN = 195, // not done
-							PIRATE_TAUNTER = 197, // not done
-							MECHANICAL_YETI = 203, // not done
-							SPIDER_TANK = 204,
-							OGRE_NINJA = 207, // not done
-							MINI_MAGE = 208, // not done
-							GAZLOW = 210, // not done
-							GNOME_DIVER = 211,
-							OGRE_MAGI = 212, // not done
-							ANTIQUE_HEALBOT = 213,
-							GNOME_INFANTRY = 214,
-							FLAMEWALKER = 215, // not done
-							ONE_EYED_GOBLIN = 216, // not done
-							PALADIN_MECH_SHIELDER = 217, // not done
-							QUARTERMASTER = 218, // not done
-							DREAD_INFERNAL = 220,
-							STRANGLETHORN_TIGER = 222,
-							RAVENHOLD_ASSASIN = 223,
-							VOIDCALLER = 224, // not done
-							PIT_LORD = 226,
-							CORE_HOUND = 227,
-							BETTER_BREWMASTER = 228,
-							HIDER_LADY = 229, // not done
-							QUESTING_ADVENTURER = 230, // not done
-							SPECTRAL_KNIGHT = 233, // not done
-							WARGOLEM = 234,
-							SNAPJAW_TURTLE = 235,
-							AZURE_DRAKE = 236, // not done
-							PRIEST_DRAGONLING = 237, // not done
-							KING_MUKKLA = 238,
-							HARPY = 240,
-							THRALLMAR_FARSEER = 242,
-							DARK_IRON_DWARF = 243,
-							SCRAPYARD_JUNKBOT = 244, // not done
-							TANKBOT = 245,
-							GRIM_PATRON = 246,
-							FEL_REAVER = 247, // not done
-							LITTLE_SPELLSTOPPER = 248, // not done
-							DALARAN_SAGE = 249, // not done
-							LORD_OF_THE_ARENA = 250,
-							BOMB_LOBBER = 251, // not done
-							MADDER_BOMBER = 252, // not done
-							CORE_RAGER = 253, // not done
-							DRUID_OF_THE_FLAME = 254, // not done
-							DRUID_OF_THE_FANG = 255, // not done
-							DRUID_OF_THE_CLAW = 256, // not done
-							OFFENSIVE_FLAME_DRUID = 258, // not done
-							DEFENSIVE_FLAME_DRUID = 259, // not done
-							VIPER_DRUID = 260,
-							DRUID_CAT = 261,
-							DRUID_BEAR = 262,
-							KEEPER_OF_THE_GROOVE = 263, // not done
-							ORC_WARRIOR = 264,
-							BOOTY_BAY_BODYGUARD = 265;
+							ACOLYTE_OF_PAIN = 111,
+							ALARM_O_BOT = 112,
+							ALDOR_PEACEKEEPER = 113,
+							ARCANE_GOLEM = 114, // not done
+							BIG_GAME_HUNTER = 115, // not done
+							BLACKWING_TECHNICIAN = 116, // not done
+							BLOOD_KNIGHT = 117,
+							COLDLIGHT_ORACLE = 118, // not done
+							COLDLIGHT_SEER = 119, // not done
+							DALARAN_MAGE = 120, // not completely done - spell dmg
+							DANCING_SWORDS = 121, // not done
+							DARK_CULTIST = 122, // not done
+							DEATHLORD = 123,
+							DEMOLISHER = 124, // not done
+							DRUID_OF_THE_FLAME = 125, // not done
+							DRUID_OF_THE_FLAME_FIRECAT_FORM = 126, // not done
+							DRUID_OF_THE_FLAME_FIRE_HAWK_FORM = 127, // not done
+							EARTHEN_RING_FARSEER = 128,
+							EDWIN_VANCLEEF = 129, // not done
+							EMPEROR_COBRA = 130, // not done
+							FELGUARD = 131, // not done
+							FLAMEWALKER = 132, // not done
+							FLESHEATING_GHOUL = 133, // not done
+							FLYING_MACHINE = 134, // not done
+							FROTHING_BERSERKER = 135, // not done
+							GNOMEREGAN_INFANTRY = 136,
+							GNOMISH_EXPERIMENTER = 137, // not done
+							GOBLIN_SAPPER = 138, // not done
+							GROVE_TENDER = 139, // not done
+							HARVEST_GOLEM = 140, // not done
+							DAMAGED_GOLEM = 141, // not done
+							HOBGOBLIN = 142, // not done
+							ILLUMINATOR = 143, // not done
+							IMP_GANG_BOSS = 144,
+							IMP = 145,
+							IMP_MASTER = 146, // not completely done - dubbla effekter + take dmg
+							INJURED_BLADEMASTER = 147, // not done
+							IRON_SENSEI = 148, // not done
+							IRONFORGE_RIFLEMAN = 149,
+							IRONFUR_GRIZZLY = 150,
+							JUNGLE_PANTHER = 151, // not done
+							KING_MUKKLA = 152,
+							KIRIN_TOR_MAGE = 153, // not done
+							LILEXORCIST = 154, // not done
+							MAGMA_RAGER = 155,
+							MANA_TIDE_TOTEM = 156,
+							METALTOOTH_LEAPER = 157, // not done
+							MIND_CONTROL_TECH = 158, // not done
+							MURLOC_WARLEADER = 159, // not done
+							OGRE_BRUTE = 160, // not done
+							QUESTING_ADVENTURER = 161, // not done
+							RAGING_WORGEN = 162, // not done
+							RAID_LEADER = 163, // not completely done - area effect
+							RAZORFEN_HUNTER = 164,
+							BOAR = 165,
+							SCARLET_CRUSADER = 166,
+							SCARLET_PURIFIER = 167, // not done
+							SHADE_OF_NAXXRAMAS = 168, // not done
+							SHATTERED_SUN_CLERIC = 169,
+							SI7_AGENT = 170, // not done
+							SILVERBACK_PATRIARCH = 171,
+							SOOT_SPEWER = 172, // not done
+							SOUTHSEA_CAPTAIN = 173, // not done
+							SPIDER_TANK = 174,
+							STONESKIN_GARGOYLE = 175, // not done
+							TAUREN_WARRIOR = 176, // not done
+							THRALLMAR_FARSEER = 177,
+							TINKERTOWN_TECHNICIAN = 178, // not done
+							TINKMASTER_OVERSPARK = 179, // not done
+							UNBOUND_ELEMENTAL = 180, // not done
+							VOID_TERROR = 181, // not done
+							WARSONG_COMMANDER = 182, // not done
+							WOLFRIDER = 183,
+							ANCIENT_BREWMASTER = 184,
+							ANCIENT_MAGE = 185, // not done
+							ANUBAR_AMBUSHER = 186, // not done
+							ARATHI_WEAPONSMITH = 187, // not done
+							ARCANE_NULLIFIER_X21 = 188, // not done
+							AUCHENAI_SOULPRIEST = 189, // not done
+							AXE_FLINGER = 190, // not done
+							BARON_RIVERDARE = 191, // not done
+							BURLY_ROCKJAW_TROGG = 192, // not done
+							CHILLWIND_YETI = 193,
+							CORE_RAGER = 194, // not done
+							CULT_MASTER = 195, // not done
+							DARK_IRON_DWARF = 196,
+							DEFENDER_OF_ARGUS = 197, // not done
+							DRAGONKIN_SORCERER = 198, // not done
+							DRAGONLING_MECHANIC = 199,
+							MECHANICAL_DRAGONLING = 200,
+							DREAD_CORSAIR = 201, // not done
+							DUNEMAUL_SHAMAN = 202, // not done
+							ENHANCE_O_MECHANO = 203, // not done
+							ETHEREAL_ARCANIST = 204, // not done
+							FEL_CANNON = 205, // not done
+							FIREGUARD_DESTROYER = 206, // not done
+							GNOMISH_INVENTOR = 207, // not done
+							GOBLIN_BLASTMAGE = 208, // not done
+							HOUNDMASTER = 209, // not done
+							HUNGRY_DRAGON = 210, // not done
+							JEEVES = 211, // not done
+							KEEPER_OF_THE_GROVE = 212, // not done
+							KEZAN_MYSTIC = 213, // not done
+							KORKRON_ELITE = 214,
+							LIGHTSPAWN = 215, // not done
+							LOST_TALLSTRIDER = 216,
+							MASTER_OF_DISGUISE = 217, // not done
+							MECHANICAL_YETI = 218, // not done
+							MINI_MAGE = 219, // not done
+							MOGUSHAN_WARDEN = 220, // not done
+							OASIS_SNAPJAW = 221, // not done
+							OGRE_MAGI = 222, // not done
+							OLD_MURK_EYE = 223, // not done
+							PILOTED_SHREDDER = 224, // not done
+							PIT_LORD = 225,
+							SCREWJANK_CLUNKER = 226, // not done
+							SENJIN_SHIELDMASTA = 227, // not done
+							SILTFIN_SPIRITWALKER = 228, // not done
+							SILVERMOON_GUARDIAN = 229, // not done
+							SPELLBREAKER = 230,
+							STORMWIND_KNIGHT = 231, // not done
+							SUMMONING_PORTAL = 232, // not done
+							TWILIGHT_DRAKE = 233,
+							VIOLET_TEACHER = 234, // not done
+							VIOLET_APPRENTICE = 235, // not done
+							VOIDCALLER = 236, // not done
+							WAILING_SOUL = 237, // not done
+							WATER_ELEMENTAL = 238, // not completely done - freeze
+							WEE_SPELLSTOPPER = 239, // not done
+							WINDSPEAKER = 240, // not done
+							ABOMINATION = 241, // not done
+							ANTIQUE_HEALBOT = 242,
+							AZURE_DRAKE = 243, // not done
+							BLACKWING_CORRUPTOR = 244, // not done
+							BLINGTRON_3000 = 245, // not done
+							BOLVAR_FORDRAGON = 246, // not done
+							BOMB_LOBBER = 247, // not done
+							BOOTY_BAY_BODYGUARD = 248,
+							CAPTAIN_GREENSKIN = 249, // not done
+							COBALT_GUARDIAN = 250, // not done
+							DARK_IRON_SKULKER = 251, // not done
+							DARKSCALE_HEALER = 252, // not done
+							DOOMGUARD = 253,
+							DRAGON_CONSORT = 254, // not done
+							DRUID_OF_THE_CLAW = 255, // not done
+							DRUID_OF_THE_CLAW_CAT_FORM = 256,
+							DRUID_OF_THE_CLAW_BEAR_FORM = 257,
+							DRUID_OF_THE_FANG = 258, // not done
+							DRUID_OF_THE_FANG_VIPER_FORM = 259, // not done
+							EARTH_ELEMENTAL = 260, // not completely done - overload
+							ELITE_TAUREN_CHIEFTAIN = 261, // not done
+							FACELESS_MANIPULATOR = 262, // not done
+							FEL_REAVER = 263, // not done
+							FEN_CREEPER = 264, // not done
+							FEUGEN = 265, // not done
+							FLOATING_WATCHER = 266, // not done
+							FROSTWOLF_WARLORD = 267,
+							GRIM_PATRON = 268,
+							GURUBASHI_BERSERKER = 269,
+							HARRISON_JONES = 270, // not done
+							HEMET_NESINGWARY = 271, // not done
+							JUNKBOT = 272, // not done
+							KING_OF_BEASTS = 273, // not done
+							LEEROY_JENKINS = 274,
+							LOATHEB = 275, // not done
+							MADDER_BOMBER = 276, // not done
+							MIMIRONS_HEAD = 277, // not done
+							V_07_TR_0N = 278, // not done
+							NIGHTBLADE = 279,
+							OGRE_NINJA = 280, // not done
+							QUARTERMASTER = 281, // not done
+							SALTY_DOG = 282,
+							SIEGE_ENGINE = 283, // not done
+							SILVER_HAND_KNIGHT = 284, // not done
+							SQUIRE = 285, // not done
+							SLUDGE_BELCHER = 286,
+							SLIME = 287,
+							SPECTRAL_KNIGHT = 288, // not done
+							SPITEFUL_SMITH = 289, // not done
+							STALAGG = 290, // not done
+							THADDIUS = 291, // not done
+							STAMPEDING_KODO = 292, // not done
+							STARVING_BUZZARD = 293, // not done
+							STORMPIKE_COMMANDO = 294,
+							STRANGLETHORN_TIGER = 295,
+							TUNDRA_RHINO = 296, // not done
+							UPGRADED_REPAIR_BOT = 297, // not done
+							VENTURE_CO_MERCENARY = 298, // not done
+							VOLJIN = 299,
+							ANIMA_GOLEM = 300, // not done
+							ARCHMAGE = 301, // not done
+							ARGENT_COMMANDER = 302,
+							BOULDERFIST_OGRE = 303, // not done
+							CABAL_SHADOW_PRIEST = 304, // not done
+							CAIRNE_BLOODHOOF = 305,
+							BAINE_BLOODHOOF = 306,
+							DRAKONID_CRUSHER = 307, // not done
+							DREAD_INFERNAL = 308,
+							EMPEROR_THAURISSAN = 309,
+							FIRE_ELEMENTAL = 310,
+							FROST_ELEMENTAL = 311, // not done
+							GADGETZAN_AUCTIONEER = 312, // not done
+							GAZLOWE = 313, // not done
+							GELBIN_MEKKATORQUE = 314, // not done
+							EMBOLDENER_3000 = 315, // not done
+							HOMING_CHICKEN = 316, // not done
+							POULTRYIZER = 317, // not done
+							REPAIR_BOT = 318, // not done
+							HOGGER = 319,
+							GNOLL = 320,
+							ILLIDAN_STORMRAGE = 321, // not done
+							FLAME_OF_AZZINOTH = 322, // not done
+							IRON_JUGGERNAUT = 323, // not done
+							BURROWING_MINE = 324, // not done
+							KIDNAPPER = 325, // not done
+							LORD_OF_THE_ARENA = 326,
+							MAEXXNA = 327, // not done
+							MECH_BEAR_CAT = 328, // not done
+							MOGOR_THE_OGRE = 329, // not done
+							PILOTED_SKY_GOLEM = 330, // not done
+							PRIESTESS_OF_ELUNE = 331,
+							RECKLESS_ROCKETEER = 332, // not done
+							SAVANNAH_HIGHMANE = 333,
+							HYENA = 334,
+							SHIELDMAIDEN = 335,
+							SUNWALKER = 336,
+							SYLVANAS_WINDRUNNER = 337,
+							TEMPLE_ENFORCER = 338, // not done
+							THE_BEAST = 339,
+							FINKLE_EINHORN = 340,
+							THE_BLACK_KNIGHT = 341, // not done
+							TOSHLEY = 342, // not done
+							TRADE_PRINCE_GALLYWIX = 343, // not done
+							VOLCANIC_DRAKE = 344, // not done
+							WINDFURY_HARPY = 345,
+							ANCIENT_OF_LORE = 346, // not done
+							ANCIENT_OF_WAR = 347, // not done
+							ARCHMAGE_ANTONIDAS = 348, // not done
+							BARON_GEDDON = 349,
+							CORE_HOUND = 350,
+							DR_BOOM = 351,
+							BOOM_BOT = 352,
+							FLAME_LEVIATHAN = 353, // not done
+							GAHZRILLA = 354,
+							GUARDIAN_OF_KINGS = 355, // not done
+							MALORNE = 356,
+							NEPTULON = 357, // not done
+							PROPHET_VELEN = 358, // not completely done - double spell + hero -effect
+							RAVENHOLDT_ASSASSIN = 359,
+							REND_BLACKHAND = 360, // not done
+							STORMWIND_CHAMPION = 361, // not done
+							TROGGZOR_THE_EARTHINATOR = 362, // not done
+							WAR_GOLEM = 363,
+							ALAKIR_THE_WINDLORD = 364,
+							CHROMAGGUS = 365, // not done
+							FOE_REAPER_4000 = 366, // not done
+							FORCE_TANK_MAX = 367,
+							GROMMASH_HELLSCREAM = 368, // not done
+							GRUUL = 369,
+							IRONBARK_PROTECTOR = 370, // not done
+							KELTHUZAD = 371,
+							RAGNAROS_THE_FIRELORD = 372,
+							SNEEDS_OLD_SHREDDER = 373, // not done
+							TIRION_FORDRING = 374, // not done
+							ALEXSTRASZA = 375,
+							CENARIUS = 376, // not done
+							TREANT = 377, // not done
+							KING_KRUSH = 378,
+							LORD_JARAXXUS = 379, // not done
+							MAJORDOMO_EXECUTUS = 380, // not done
+							MALGANIS = 381, // not completely done - immune & +2/+2 - demon
+							MALYGOS = 382, // not completely done - spell dmg
+							MEGGINEER_THERMAPLUGG = 383, // not done
+							NEFARIAN = 384, // not done
+							NOZDORMU = 385, // not done - inte göra
+							ONYXIA = 386,
+							WHELP = 387,
+							VOLCANIC_LUMBERER = 388, // not done
+							YSERA = 389,
+							DEATHWING = 390,
+							SEA_GIANT = 391,
+							CLOCKWORK_GIANT = 392,
+							MOUNTAIN_GIANT = 393,
+							MOLTEN_GIANT = 394;
 
 	private int type;
 
@@ -357,31 +447,131 @@ public class MonsterCard extends PlayCard {
 		startTurnEffect = null;
 		endTurnEffect = null;
 
-		if (type == ELVEN_ARCHER) {
+		if (type == TARGET_DUMMY) {
+			name = "Target Dummy";
+			minionType = Minion.MECH;
+			initBasicStats(0, 0, 2);
+			taunt = true;
+		} else if (type == WISP) {
+			name = "Wisp";
+			initBasicStats(0, 1, 1);
+		} else if (type == ABUSIVE_SERGEANT) {
+			name = "Abusive Sergeant";
+			initBasicStats(1, 2, 1);
+			battleCryEffect = new BuffSingleMinion(2, 0, false, false, false, false, true);
+		} else if (type == ARGENT_SQUIRE) {
+			name = "Argent Squire";
+			initBasicStats(1, 1, 1);
+			divineShield = true;
+		} else if (type == BLACK_WHELP) {
+			name = "Black Whelp";
+			minionType = Minion.DRAGON;
+			initBasicStats(1, 2, 1);
+		} else if (type == ELVEN_ARCHER) {
 			name = "Elven Archer";
 			initBasicStats(1, 1, 1);
 			battleCryEffect = new DealDamage(1);
+		} else if (type == FLAME_IMP) {
+			name = "Flame Imp";
+			minionType = Minion.DEMON;
+			initBasicStats(1, 3, 2);
+			battleCryEffect = new DealDamageToAllCharacters(3, false, false, true, false);
 		} else if (type == GOLDSHIRE_FOOTMAN) {
 			name = "Goldshire Footman";
 			initBasicStats(1, 1, 2);
 			taunt = true;
-		} else if (type == GRIMSCALE_ORACLE) {
-			name = "Grimscale Oracle";
-			minionType = Minion.MURLOC;
-			initBasicStats(1, 1, 1);
+		} else if (type == LEPER_GNOME) {
+			name = "Leper Gnome";
+			initBasicStats(1, 2, 1);
+			deathRattleEffect = new DealDamageToAllCharacters(2, false, false, false, true);
 		} else if (type == MURLOC_RAIDER) {
 			name = "Murloc Raider";
 			minionType = Minion.MURLOC;
 			initBasicStats(1, 2, 1);
+		} else if (type == SHADOWBOMBER) {
+			name = "Shadowbomber";
+			initBasicStats(1, 2, 1);
+			battleCryEffect = new DealDamageToAllCharacters(3, false, false, true, true);
+		} else if (type == SHIELDBEARER) {
+			name = "Shieldbearer";
+			initBasicStats(1, 0, 4);
+			taunt = true;
 		} else if (type == STONETUSK_BOAR) {
 			name = "Stonetusk Boar";
 			minionType = Minion.BEAST;
 			initBasicStats(1, 1, 1);
 			charge = true;
+		} else if (type == VOIDWALKER) {
+			name = "Voidwalker";
+			minionType = Minion.DEMON;
+			initBasicStats(1, 1, 3);
+			taunt = true;
 		} else if (type == VODOO_DOCTOR) {
 			name = "Vodoo Doctor";
 			initBasicStats(1, 2, 1);
 			battleCryEffect = new HealCharacter(2, false, false);
+		} else if (type == ANCIENT_WATCHER) {
+			name = "Ancient Watcher";
+			initBasicStats(2, 4, 5);
+			cannotAttack = true;
+		} else if (type == DEFIAS_BANDIT) {
+			name = "Defias Bandit";
+			initBasicStats(1, 2, 1);
+		} else if (type == EXPLOSIVE_SHEEP) {
+			name = "Explosive Sheep";
+			minionType = Minion.MECH;
+			initBasicStats(2, 1, 1);
+			deathRattleEffect = new DealDamageToAllCharacters(2, true, true, false, false);
+		} else if (type == WORGEN_INFILTRATOR) {
+			name = "Worgen Infiltrator";
+			initBasicStats(1, 2, 1);
+			stealth = true;
+		} else if (type == GILBIN_STALKER) {
+			name = "Gilbin Stalker";
+			initBasicStats(2, 2, 3);
+			stealth = true;
+		} else if (type == DOOMSAYER) {
+			name = "Doomsayer";
+			initBasicStats(2, 0, 7);
+			startTurnEffect = new DestroyAllMinionsTurnEffect(false, false);
+		} else if (type == FROSTWOLF_GRUNT) {
+			name = "Frostwolf Grunt";
+			initBasicStats(2, 2, 2);
+			taunt = true;
+		} else if (type == BLUEGILL_WARRIOR) {
+			name = "Bluegill Warrior";
+			minionType = Minion.MURLOC;
+			initBasicStats(2, 2, 1);
+			charge = true;
+		} else if (type == MURLOC_TIDEHUNTER) {
+			name = "Murloc Tidehunter";
+			minionType = Minion.MURLOC;
+			initBasicStats(2, 2, 1);
+			battleCryEffect = new SummonMinions(new int[] {MURLOC_SCOUT}, null);
+		} else if (type == MURLOC_SCOUT) {
+			name = "Murloc Scout";
+			minionType = Minion.MURLOC;
+			initBasicStats(0, 1, 1);
+		} else if (type == CRAZED_ALCHEMIST) {
+			name = "Crazed Alchemist";
+			initBasicStats(2, 2, 2);
+			battleCryEffect = new SwapAttackHealthMinion();
+		} else if (type == SHRINKMEISTER) {
+			name = "Shrinkmeister";
+			initBasicStats(2, 3, 2);
+			battleCryEffect = new BuffSingleMinion(-2, 0, false, false, false, false, true);
+		} else if (type == NOVICE_ENGINEER) {
+			name = "Novice Engineer";
+			initBasicStats(2, 1, 1);
+			battleCryEffect = new DrawCards(1);
+		} else if (type == LOOT_HOARDER) {
+			name = "Loot Hoarder";
+			initBasicStats(2, 2, 1);
+			deathRattleEffect = new DrawCards(1);
+		} else if (type == YOUTHFUL_BREWMASTER) {
+			name = "Youthful Brewmaster";
+			initBasicStats(2, 3, 2);
+			battleCryEffect = new PickUpMinion(0);
 		} else if (type == ACIDIC_SWAMP_OOZE) {
 			name = "Acidic Swamp Ooze";
 			initBasicStats(2, 3, 2);
@@ -389,15 +579,6 @@ public class MonsterCard extends PlayCard {
 			name = "Bloodfen Raptor";
 			minionType = Minion.BEAST;
 			initBasicStats(2, 3, 2);
-		} else if (type == BLUEGILL_WARRIOR) {
-			name = "Bluegill Warrior";
-			minionType = Minion.MURLOC;
-			initBasicStats(2, 2, 1);
-			charge = true;
-		} else if (type == FROSTWOLF_GRUNT) {
-			name = "Frostwolf Grunt";
-			initBasicStats(2, 2, 2);
-			taunt = true;
 		} else if (type == KOBOLD_GEOMANCER) {
 			name = "Kobold Geomancer";
 			initBasicStats(2, 2, 2);
@@ -405,13 +586,51 @@ public class MonsterCard extends PlayCard {
 			name = "River Crocolisk";
 			minionType = Minion.BEAST;
 			initBasicStats(2, 2, 3);
-		} else if (type == DALARAN_MAGE) {
-			name = "Dalaran Mage";
-			initBasicStats(3, 1, 4);
 		} else if (type == IRONFORGE_RIFLEMAN) {
 			name = "Ironforge Rifleman";
 			initBasicStats(3, 2, 2);
 			battleCryEffect = new DealDamage(1);
+		} else if (type == BLOODMAGE_THALNOS) {
+			name = "Bloodmage Thalnos";
+			initBasicStats(2, 1, 1);
+			deathRattleEffect = new DrawCards(1);
+		} else if (type == UNSTABLE_GHOUL) {
+			name = "Unstable Ghoul";
+			initBasicStats(2, 1, 3);
+			taunt = true;
+			deathRattleEffect = new DealDamageToAllCharacters(1, true, true, false, false);
+		} else if (type == ZOMBIE_CHOW) {
+			name = "Zombie Chow";
+			initBasicStats(1, 2, 3);
+			deathRattleEffect = new HealCharacter(5, true, false);
+		} else if (type == ARGENT_PROTECTOR) {
+			name = "Argent Protector";
+			initBasicStats(2, 2, 2);
+			battleCryEffect = new BuffSingleMinion(0, 0, false, false, true, false, false);
+		} else if (type == ANNOY_O_TRON) {
+			name = "Annoy-o-Tron";
+			minionType = Minion.MECH;
+			initBasicStats(2, 1, 2);
+			taunt = true;
+			divineShield = true;
+		} else if (type == IRONBEAK_OWL) {
+			name = "Ironbeak Owl";
+			minionType = Minion.BEAST;
+			initBasicStats(2, 2, 1);
+			battleCryEffect = new Silence(false, true, true);
+		} else if (type == YOUNG_DRAGONHAWK) {
+			name = "Young Dragonhawk";
+			minionType = Minion.DRAGON;
+			initBasicStats(1, 1, 1);
+			windfury = true;
+//==============================================================================
+		} else if (type == GRIMSCALE_ORACLE) {
+			name = "Grimscale Oracle";
+			minionType = Minion.MURLOC;
+			initBasicStats(1, 1, 1);
+		} else if (type == DALARAN_MAGE) {
+			name = "Dalaran Mage";
+			initBasicStats(3, 1, 4);
 		} else if (type == IRONFUR_GRIZZLY) {
 			name = "Ironfur Grizzly";
 			minionType = Minion.BEAST;
@@ -452,23 +671,6 @@ public class MonsterCard extends PlayCard {
 			minionType = Minion.TOTEM;
 			initBasicStats(3, 0, 3);
 			endTurnEffect = new DrawCardsTurnEffect(1, false);
-		} else if (type == ABUSIVE_SERGEANT) {
-			name = "Abusive Sergeant";
-			initBasicStats(1, 2, 1);
-			battleCryEffect = new BuffSingleMinion(2, 0, false, false, false, false, true);
-		} else if (type == MURLOC_TIDEHUNTER) {
-			name = "Murloc Tidehunter";
-			minionType = Minion.MURLOC;
-			initBasicStats(2, 2, 1);
-			battleCryEffect = new SummonMinions(new int[] {MURLOC_SCOUT}, null);
-		} else if (type == MURLOC_SCOUT) {
-			name = "Murloc Scout";
-			minionType = Minion.MURLOC;
-			initBasicStats(0, 1, 1);
-		} else if (type == YOUTHFUL_BREWMASTER) {
-			name = "Youthful Brewmaster";
-			initBasicStats(2, 3, 2);
-			battleCryEffect = new PickUpMinion(0);
 		} else if (type == EARTHEN_RING_FARSEER) {
 			name = "Earthen Ring Farseer";
 			initBasicStats(3, 3, 3);
@@ -482,21 +684,8 @@ public class MonsterCard extends PlayCard {
 			name = "Slime";
 			initBasicStats(1, 1, 2);
 			taunt = true;
-		} else if (type == NOVICE_ENGINEER) {
-			name = "Novice Engineer";
-			initBasicStats(2, 1, 1);
-			battleCryEffect = new DrawCards(1);
-		} else if (type == LOOT_HOARDER) {
-			name = "Loot Hoarder";
-			initBasicStats(2, 2, 1);
-			deathRattleEffect = new DrawCards(1);
-		} else if (type == UNSTABLE_GHOUL) {
-			name = "Unstable Ghoul";
-			initBasicStats(2, 1, 3);
-			taunt = true;
-			deathRattleEffect = new DealDamageToAllCharacters(1, true, true, false, false);
-		} else if (type == RAGNAROS) {
-			name = "Ragnaros";
+		} else if (type == RAGNAROS_THE_FIRELORD) {
+			name = "Ragnaros the Firelord";
 			initBasicStats(8, 8, 8);
 			cannotAttack = true;
 			endTurnEffect = new DealDamageRandomTurnEffect(8, false, true);
@@ -507,8 +696,8 @@ public class MonsterCard extends PlayCard {
 		} else if (type == BAINE_BLOODHOOF) {
 			name = "Baine Bloodhoof";
 			initBasicStats(4, 4, 5);
-		} else if (type == ALAKIR) {
-			name = "Al'Akir";
+		} else if (type == ALAKIR_THE_WINDLORD) {
+			name = "Al'Akir the Windlord";
 			initBasicStats(8, 3, 5);
 			charge = true;
 			taunt = true;
@@ -554,29 +743,16 @@ public class MonsterCard extends PlayCard {
 			minionType = Minion.DRAGON;
 			initBasicStats(9, 8, 8);
 			battleCryEffect = new SetHealthPlayer(15);
-		} else if (type == DOOMSAYER) {
-			name = "Doomsayer";
-			initBasicStats(2, 0, 7);
-			startTurnEffect = new DestroyAllMinionsTurnEffect(false, false);
 		} else if (type == FIRE_ELEMENTAL) {
 			name = "Fire Elemental";
 			initBasicStats(6, 6, 5);
 			battleCryEffect = new DealDamage(3);
-		} else if (type == FLAME_IMP) {
-			name = "Flame Imp";
-			minionType = Minion.DEMON;
-			initBasicStats(1, 3, 2);
-			battleCryEffect = new DealDamageToAllCharacters(3, false, false, true, false);
 		} else if (type == NIGHTBLADE) {
 			name = "Nightblade";
 			initBasicStats(5, 4, 4);
 			battleCryEffect = new DealDamageToAllCharacters(3, false, false, false, true);
-		} else if (type == LEPER_GNOME) {
-			name = "Leper Gnome";
-			initBasicStats(1, 2, 1);
-			deathRattleEffect = new DealDamageToAllCharacters(2, false, false, false, true);
-		} else if (type == ALARMO_BOT) {
-			name = "Alarm'O Bot";
+		} else if (type == ALARM_O_BOT) {
+			name = "Alarm-o-Bot";
 			minionType = Minion.MECH;
 			initBasicStats(3, 0, 3);
 			startTurnEffect = new SummonRandomMinionFromHandTurnEffect(false, false, true);
@@ -609,22 +785,18 @@ public class MonsterCard extends PlayCard {
 			name = "Onyxia";
 			minionType = Minion.DRAGON;
 			initBasicStats(9, 8, 8);
-			battleCryEffect = new SummonMinions(new int[] {DRAGON_WHELP, DRAGON_WHELP, DRAGON_WHELP, DRAGON_WHELP, DRAGON_WHELP, DRAGON_WHELP}, null);
-		} else if (type == DRAGON_WHELP) {
-			name = "Dragon Whelp";
+			battleCryEffect = new SummonMinions(new int[] {WHELP, WHELP, WHELP, WHELP, WHELP, WHELP}, null);
+		} else if (type == WHELP) {
+			name = "Whelp";
 			minionType = Minion.DRAGON;
 			initBasicStats(1, 1, 1);
-		} else if (type == SHRINKMEISTER) {
-			name = "Shrinkmeister";
-			initBasicStats(2, 3, 2);
-			battleCryEffect = new BuffSingleMinion(-2, 0, false, false, false, false, true);
 		} else if (type == SAVANNAH_HIGHMANE) {
 			name = "Savannah Highmane";
 			minionType = Minion.BEAST;
 			initBasicStats(6, 6, 5);
-			deathRattleEffect = new SummonMinions(new int[] {SAVANNAH_HYENA, SAVANNAH_HYENA}, null);
-		} else if (type == SAVANNAH_HYENA) {
-			name = "Savannah Hyena";
+			deathRattleEffect = new SummonMinions(new int[] {HYENA, HYENA}, null);
+		} else if (type == HYENA) {
+			name = "Hyena";
 			minionType = Minion.BEAST;
 			initBasicStats(2, 2, 2);
 		} else if (type == TWILIGHT_DRAKE) {
@@ -652,10 +824,6 @@ public class MonsterCard extends PlayCard {
 			name = "Aldor Peacekeeper";
 			initBasicStats(3, 3, 3);
 			battleCryEffect = new SetStatsSingleMinion(1, -1);
-		} else if (type == CRAZED_ALCHEMIST) {
-			name = "Crazed Alchemist";
-			initBasicStats(2, 2, 2);
-			battleCryEffect = new SwapAttackHealthMinion();
 		} else if (type == BARON_GEDDON) {
 			name = "Baron Geddon";
 			initBasicStats(7, 7, 5);
@@ -674,13 +842,13 @@ public class MonsterCard extends PlayCard {
 			name = "Leeroy Jenkins";
 			initBasicStats(5, 6, 2);
 			charge = true;
-			battleCryEffect = new SummonMinions(null, new int[] {DRAGON_WHELP, DRAGON_WHELP});
+			battleCryEffect = new SummonMinions(null, new int[] {WHELP, WHELP});
 		} else if (type == RAZORFEN_HUNTER) {
 			name = "Razorfen Hunter";
 			initBasicStats(3, 2, 3);
-			battleCryEffect = new SummonMinions(new int[] {RAZORFEN_BOAR}, null);
-		} else if (type == RAZORFEN_BOAR) {
-			name = "Razorfen Boar";
+			battleCryEffect = new SummonMinions(new int[] {BOAR}, null);
+		} else if (type == BOAR) {
+			name = "Boar";
 			minionType = Minion.BEAST;
 			initBasicStats(1, 1, 1);
 		} else if (type == MALYGOS) {
@@ -698,26 +866,10 @@ public class MonsterCard extends PlayCard {
 			name = "Mal'Ganis";
 			minionType = Minion.DEMON;
 			initBasicStats(9, 9, 7);
-		} else if (type == BLOODMAGE_THALNOS) {
-			name = "Bloodmage Thalnos";
-			initBasicStats(2, 1, 1);
-			deathRattleEffect = new DrawCards(1);
-		} else if (type == ZOMBIE_CHOW) {
-			name = "Zombie Chow";
-			initBasicStats(1, 2, 3);
-			deathRattleEffect = new HealCharacter(5, true, false);
-		} else if (type == ELVEN_OF_ELUNE) {
-			name = "Elven of Elune";
+		} else if (type == PRIESTESS_OF_ELUNE) {
+			name = "Priestess of Elune";
 			initBasicStats(5, 4, 4);
 			battleCryEffect = new HealCharacter(4, true, true);
-		} else if (type == ARGENT_PROTECTOR) {
-			name = "Argent Protector";
-			initBasicStats(2, 2, 2);
-			battleCryEffect = new BuffSingleMinion(0, 0, false, false, true, false, false);
-		} else if (type == ARGENT_SQUIRE) {
-			name = "Argent Squire";
-			initBasicStats(1, 1, 1);
-			divineShield = true;
 		} else if (type == SCARLET_CRUSADER) {
 			name = "Scarlet Crusader";
 			initBasicStats(3, 3, 1);
@@ -763,43 +915,28 @@ public class MonsterCard extends PlayCard {
 			name = "Stormpike Commando";
 			initBasicStats(4, 4, 2);
 			battleCryEffect = new DealDamage(2);
-		} else if (type == TALLSTRIDER) {
-			name = "Tallstrider";
+		} else if (type == LOST_TALLSTRIDER) {
+			name = "Lost Tallstrider";
 			minionType = Minion.BEAST;
 			initBasicStats(4, 5, 4);
 		} else if (type == SALTY_DOG) {
 			name = "Salty Dog";
 			minionType = Minion.PIRATE;
 			initBasicStats(5, 7, 4);
-		} else if (type == TARGET_DUMMY) {
-			name = "Target Dummy";
-			minionType = Minion.MECH;
-			initBasicStats(0, 0, 2);
-			taunt = true;
-		} else if (type == ANNOY_O_TRON) {
-			name = "Annoy-o-Tron";
-			minionType = Minion.MECH;
-			initBasicStats(2, 1, 2);
-			taunt = true;
-			divineShield = true;
 		} else if (type == SPIDER_TANK) {
 			name = "Spider Tank";
 			minionType = Minion.MECH;
 			initBasicStats(3, 3, 4);
-		} else if (type == SHADOWBOMBER) {
-			name = "Shadowbomber";
-			initBasicStats(1, 2, 1);
-			battleCryEffect = new DealDamageToAllCharacters(3, false, false, true, true);
 		} else if (type == THE_BEAST) {
 			name = "The Beast";
 			minionType = Minion.BEAST;
 			initBasicStats(7, 9, 7);
-			deathRattleEffect = new SummonMinions(null, new int[] {GNOME_DIVER});
-		} else if (type == GNOME_DIVER) {
-			name = "Gnome Diver";
+			deathRattleEffect = new SummonMinions(null, new int[] {FINKLE_EINHORN});
+		} else if (type == FINKLE_EINHORN) {
+			name = "Finkle Einhorn";
 			initBasicStats(3, 3, 3);
-		} else if (type == GNOME_INFANTRY) {
-			name = "Gnome Infantry";
+		} else if (type == GNOMEREGAN_INFANTRY) {
+			name = "Gnomeregan Infantry";
 			initBasicStats(3, 1, 4);
 			taunt = true;
 			charge = true;
@@ -808,14 +945,6 @@ public class MonsterCard extends PlayCard {
 			minionType = Minion.MECH;
 			initBasicStats(5, 3, 3);
 			battleCryEffect = new HealCharacter(8, true, true);
-		} else if (type == WORGEN_INFILTRATOR) {
-			name = "Worgen Infiltrator";
-			initBasicStats(1, 2, 1);
-			stealth = true;
-		} else if (type == SHIELDBEARER) {
-			name = "Shieldbearer";
-			initBasicStats(1, 0, 4);
-			taunt = true;
 		} else if (type == DREAD_INFERNAL) {
 			name = "Dread Infernal";
 			minionType = Minion.DEMON;
@@ -825,26 +954,16 @@ public class MonsterCard extends PlayCard {
 			name = "Spellbreaker";
 			initBasicStats(4, 4, 3);
 			battleCryEffect = new Silence(false, true, true);
-		} else if (type == IRONBEAK_OWL) {
-			name = "Ironbeak Owl";
-			minionType = Minion.BEAST;
-			initBasicStats(2, 2, 1);
-			battleCryEffect = new Silence(false, true, true);
-		} else if (type == HARPY) {
-			name = "Harpy";
+		} else if (type == WINDFURY_HARPY) {
+			name = "Windfury Harpy";
 			initBasicStats(6, 4, 5);
 			windfury = true;
 		} else if (type == THRALLMAR_FARSEER) {
 			name = "Thrallmar Farseer";
 			initBasicStats(3, 2, 3);
 			windfury = true;
-		} else if (type == YOUNG_DRAGONHAWK) {
-			name = "Young Dragonhawk";
-			minionType = Minion.DRAGON;
-			initBasicStats(1, 1, 1);
-			windfury = true;
-		} else if (type == TANKBOT) {
-			name = "Tankbot";
+		} else if (type == FORCE_TANK_MAX) {
+			name = "Force-Tank MAX";
 			minionType = Minion.MECH;
 			initBasicStats(8, 7, 7);
 			divineShield = true;
@@ -852,12 +971,12 @@ public class MonsterCard extends PlayCard {
 			name = "Dark Iron Dwarf";
 			initBasicStats(4, 4, 4);
 			battleCryEffect = new BuffSingleMinion(2, 0, false, false, false, false, true);
-		} else if (type == SNAPJAW_TURTLE) {
-			name = "Snapjaw Turtle";
+		} else if (type == OASIS_SNAPJAW) {
+			name = "Oasis Snapjaw";
 			minionType = Minion.BEAST;
 			initBasicStats(4, 2, 7);
-		} else if (type == WARGOLEM) {
-			name = "Wargolem";
+		} else if (type == WAR_GOLEM) {
+			name = "War Golem";
 			initBasicStats(7, 7, 7);
 		} else if (type == HAUNTED_CREEPER) {
 			name = "Haunted Creeper";
@@ -867,8 +986,8 @@ public class MonsterCard extends PlayCard {
 		} else if (type == SPECTRAL_SPIDER) {
 			name = "Spectral Spider";
 			initBasicStats(1, 1, 1);
-		} else if (type == BETTER_BREWMASTER) {
-			name = "BETTER_BREWMASTER";
+		} else if (type == ANCIENT_BREWMASTER) {
+			name = "Ancient Brewmaster";
 			initBasicStats(5, 5, 4);
 			battleCryEffect = new PickUpMinion(0);
 		} else if (type == PIT_LORD) {
@@ -876,18 +995,13 @@ public class MonsterCard extends PlayCard {
 			minionType = Minion.DEMON;
 			initBasicStats(5, 7, 5);
 			battleCryEffect = new DealDamageToAllCharacters(5, false, false, true, false);
-		} else if (type == VOIDWALKER) {
-			name = "Voidwalker";
-			minionType = Minion.DEMON;
-			initBasicStats(1, 1, 3);
-			taunt = true;
 		} else if (type == STRANGLETHORN_TIGER) {
 			name = "Stranglethorn Tiger";
 			minionType = Minion.BEAST;
 			initBasicStats(5, 5, 5);
 			stealth = true;
-		} else if (type == RAVENHOLD_ASSASIN) {
-			name = "Ravenhold Assasin";
+		} else if (type == RAVENHOLDT_ASSASSIN) {
+			name = "Ravenholdt Assasin";
 			initBasicStats(6, 7, 5);
 			stealth = true;
 		} else if (type == PROPHET_VELEN) {
@@ -911,26 +1025,26 @@ public class MonsterCard extends PlayCard {
 			minionType = Minion.DEMON;
 			initBasicStats(2, 4, 3);
 			battleCryEffect = new DiscardCards(1);
-		} else if (type == ORC_WARRIOR) {
-			name = "Orc Warrior";
+		} else if (type == KORKRON_ELITE) {
+			name = "Kor'kron Elite";
 			initBasicStats(4, 4, 3);
 			charge = true;
 		} else if (type == BOOTY_BAY_BODYGUARD) {
 			name = "Booty Bay Bodyguard";
 			initBasicStats(5, 5, 4);
 			taunt = true;
-		} else if (type == DRUID_CAT) {
-			name = "Druid Cat";
+		} else if (type == DRUID_OF_THE_CLAW_CAT_FORM) {
+			name = "Druid of the Claw (cat)";
 			minionType = Minion.BEAST;
 			initBasicStats(4, 4, 4);
 			charge = true;
-		} else if (type == DRUID_BEAR) {
-			name = "Druid Bear";
+		} else if (type == DRUID_OF_THE_CLAW_BEAR_FORM) {
+			name = "Druid of the Claw (bear)";
 			minionType = Minion.BEAST;
 			initBasicStats(4, 4, 6);
 			taunt = true;
-		} else if (type == VIPER_DRUID) {
-			name = "Viper Druid";
+		} else if (type == DRUID_OF_THE_FANG_VIPER_FORM) {
+			name = "Druid of the Fang (viper)";
 			minionType = Minion.BEAST;
 			initBasicStats(7, 7, 7);
 		} else if (type == KING_MUKKLA) {

@@ -83,7 +83,7 @@ public class TheGame {
 		deck2.add(new MonsterCard(MonsterCard.DOOMGUARD));
 		deck2.add(new MonsterCard(MonsterCard.ACOLYTE_OF_PAIN));
 		deck2.add(new MonsterCard(MonsterCard.UNSTABLE_GHOUL));
-		deck2.add(new MonsterCard(MonsterCard.RAGNAROS));
+		deck2.add(new MonsterCard(MonsterCard.RAGNAROS_THE_FIRELORD));
 		deck2.add(new MonsterCard(MonsterCard.BARON_GEDDON));
 		deck2.add(new MonsterCard(MonsterCard.GRUUL));
 		deck2.add(new MonsterCard(MonsterCard.MALORNE));
@@ -110,7 +110,7 @@ public class TheGame {
 		deck1.add(new MonsterCard(MonsterCard.ALDOR_PEACEKEEPER));
 		deck1.add(new MonsterCard(MonsterCard.HOGGER));
 		deck1.add(new MonsterCard(MonsterCard.CRAZED_ALCHEMIST));
-		deck1.add(new MonsterCard(MonsterCard.ALARMO_BOT));
+		deck1.add(new MonsterCard(MonsterCard.ALARM_O_BOT));
 		deck1.add(new MonsterCard(MonsterCard.DOOMSAYER));
 		deck1.add(new MonsterCard(MonsterCard.FROSTWOLF_WARLORD));
 		deck1.add(new MonsterCard(MonsterCard.SLUDGE_BELCHER));
@@ -124,7 +124,7 @@ public class TheGame {
 		deck1.add(new MonsterCard(MonsterCard.ZOMBIE_CHOW));
 		deck1.add(new MonsterCard(MonsterCard.BLOOD_IMP));
 		deck1.add(new MonsterCard(MonsterCard.NIGHTBLADE));
-		deck1.add(new MonsterCard(MonsterCard.ELVEN_OF_ELUNE));
+		deck1.add(new MonsterCard(MonsterCard.PRIESTESS_OF_ELUNE));
 		deck1.add(new MonsterCard(MonsterCard.WORGEN_INFILTRATOR));
 		deck1.add(new MonsterCard(MonsterCard.ARGENT_PROTECTOR));
 		deck1.add(new MonsterCard(MonsterCard.SCARLET_CRUSADER));
