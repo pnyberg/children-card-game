@@ -139,8 +139,8 @@ public class MonsterCard extends PlayCard {
 							GNOMISH_EXPERIMENTER = 137, // not done
 							GOBLIN_SAPPER = 138, // not done
 							GROVE_TENDER = 139, // not done
-							HARVEST_GOLEM = 140, // not done
-							DAMAGED_GOLEM = 141, // not done
+							HARVEST_GOLEM = 140,
+							DAMAGED_GOLEM = 141,
 							HOBGOBLIN = 142, // not done
 							ILLUMINATOR = 143, // not done
 							IMP_GANG_BOSS = 144,
@@ -150,7 +150,7 @@ public class MonsterCard extends PlayCard {
 							IRON_SENSEI = 148, // not done
 							IRONFORGE_RIFLEMAN = 149,
 							IRONFUR_GRIZZLY = 150,
-							JUNGLE_PANTHER = 151, // not done
+							JUNGLE_PANTHER = 151,
 							KING_MUKKLA = 152,
 							KIRIN_TOR_MAGE = 153, // not done
 							LILEXORCIST = 154, // not done
@@ -167,7 +167,7 @@ public class MonsterCard extends PlayCard {
 							BOAR = 165,
 							SCARLET_CRUSADER = 166,
 							SCARLET_PURIFIER = 167, // not done
-							SHADE_OF_NAXXRAMAS = 168, // not done
+							SHADE_OF_NAXXRAMAS = 168,
 							SHATTERED_SUN_CLERIC = 169,
 							SI7_AGENT = 170, // not done
 							SILVERBACK_PATRIARCH = 171,
@@ -206,7 +206,7 @@ public class MonsterCard extends PlayCard {
 							ETHEREAL_ARCANIST = 204, // not done
 							FEL_CANNON = 205, // not done
 							FIREGUARD_DESTROYER = 206, // not done
-							GNOMISH_INVENTOR = 207, // not done
+							GNOMISH_INVENTOR = 207,
 							GOBLIN_BLASTMAGE = 208, // not done
 							HOUNDMASTER = 209, // not done
 							HUNGRY_DRAGON = 210, // not done
@@ -226,11 +226,11 @@ public class MonsterCard extends PlayCard {
 							PILOTED_SHREDDER = 224, // not done
 							PIT_LORD = 225,
 							SCREWJANK_CLUNKER = 226, // not done
-							SENJIN_SHIELDMASTA = 227, // not done
+							SENJIN_SHIELDMASTA = 227,
 							SILTFIN_SPIRITWALKER = 228, // not done
-							SILVERMOON_GUARDIAN = 229, // not done
+							SILVERMOON_GUARDIAN = 229,
 							SPELLBREAKER = 230,
-							STORMWIND_KNIGHT = 231, // not done
+							STORMWIND_KNIGHT = 231,
 							SUMMONING_PORTAL = 232, // not done
 							TWILIGHT_DRAKE = 233,
 							VIOLET_TEACHER = 234, // not done
@@ -463,6 +463,9 @@ public class MonsterCard extends PlayCard {
  			name = "Murloc Scout";
 			minionType = Minion.MURLOC;
 			initBasicStats(0, 1, 1);
+		} else if (type == VIOLET_APPRENTICE) {
+			name = "Violet Apprentice";
+			initBasicStats(0, 1, 1);
 //==============================================================================
 		} else if (type == ABUSIVE_SERGEANT) {
 			name = "Abusive Sergeant";
@@ -668,6 +671,10 @@ public class MonsterCard extends PlayCard {
 			name = "Black Whelp";
 			minionType = Minion.DRAGON;
 			initBasicStats(1, 2, 1);
+		} else if (type == DAMAGED_GOLEM) {
+			name = "Damaged Golem";
+			minionType = Minion.MECH;
+			initBasicStats(1, 2, 1);
 //==============================================================================
 		} else if (type == ANCIENT_WATCHER) {
 			name = "Ancient Watcher";
@@ -790,16 +797,32 @@ public class MonsterCard extends PlayCard {
 			name = "Ironforge Rifleman";
 			initBasicStats(3, 2, 2);
 			battleCryEffect = new DealDamage(1);
+		} else if (type == SHADE_OF_NAXXRAMAS) {
+			name = "Shade of Naxxramas";
+			initBasicStats(3, 2, 2);
+			stealth = true;
+			startTurnEffect = new BuffMinionTurnEffect(1, 1, true, false);
+		} else if (type == JUNGLE_PANTHER) {
+			name = "Jungle Panther";
+			minionType = Minion.BEAST;
+			stealth = true;
+			initBasicStats(3, 4, 2);
 		} else if (type == TAUREN_WARRIOR) {
 			name = "Tauren Warrior";
 			initBasicStats(3, 2, 3);
 			taunt = true;
 			enrageEffect = new BuffSingleMinionEnrageEffect(3, 0, false, false, false, false);
+		} else if (type == HARVEST_GOLEM) {
+			name = "Harvest Golem";
+			minionType = Minion.MECH;
+			initBasicStats(3, 2, 3);
+			deathRattleEffect = new SummonMinions(new int[] {DAMAGED_GOLEM}, null);
 		} else if (type == RAGING_WORGEN) {
 			name = "Raging Worgen";
 			initBasicStats(3, 3, 3);
 			enrageEffect = new BuffSingleMinionEnrageEffect(1, 0, false, false, false, true);
 		} else if (type == DALARAN_MAGE) {
+			// Add spell damage
 			name = "Dalaran Mage";
 			initBasicStats(3, 1, 4);
 		} else if (type == IRONFUR_GRIZZLY) {
@@ -892,9 +915,21 @@ public class MonsterCard extends PlayCard {
 			name = "Finkle Einhorn";
 			initBasicStats(3, 3, 3);
 //==============================================================================
+		} else if (type == SILVERMOON_GUARDIAN) {
+			name = "Silvermoon Guardian";
+			initBasicStats(4, 3, 3);
+			divineShield = true;
+		} else if (type == STORMWIND_KNIGHT) {
+			name = "Stormwind Knight";
+			initBasicStats(4, 2, 5);
+			charge = true;
 		} else if (type == CHILLWIND_YETI) {
 			name = "Chillwind Yeti";
 			initBasicStats(4, 4, 5);
+		} else if (type == GNOMISH_INVENTOR) {
+			name = "Gnomish Inventor";
+			initBasicStats(4, 2, 4);
+			battleCryEffect = new DrawCards(1);
 		} else if (type == DRAGONLING_MECHANIC) {
 			name = "Dragonling Mechanic";
 			initBasicStats(4, 2, 4);
@@ -946,6 +981,10 @@ public class MonsterCard extends PlayCard {
 			name = "Druid of the Claw (bear)";
 			minionType = Minion.BEAST;
 			initBasicStats(4, 4, 6);
+			taunt = true;
+		} else if (type == SENJIN_SHIELDMASTA) {
+			name = "Sen'jin Shieldmasta";
+			initBasicStats(4, 3, 5);
 			taunt = true;
 //==============================================================================
 		} else if (type == SLUDGE_BELCHER) {
