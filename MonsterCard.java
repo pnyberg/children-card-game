@@ -234,13 +234,13 @@ public class MonsterCard extends PlayCard {
 							SUMMONING_PORTAL = 232, // not done
 							TWILIGHT_DRAKE = 233,
 							VIOLET_TEACHER = 234, // not done
-							VIOLET_APPRENTICE = 235, // not done
+							VIOLET_APPRENTICE = 235,
 							VOIDCALLER = 236, // not done
 							WAILING_SOUL = 237, // not done
 							WATER_ELEMENTAL = 238, // not completely done - freeze
 							WEE_SPELLSTOPPER = 239, // not done
-							WINDSPEAKER = 240, // not done
-							ABOMINATION = 241, // not done
+							WINDSPEAKER = 240,
+							ABOMINATION = 241,
 							ANTIQUE_HEALBOT = 242,
 							AZURE_DRAKE = 243, // not done
 							BLACKWING_CORRUPTOR = 244, // not done
@@ -263,7 +263,7 @@ public class MonsterCard extends PlayCard {
 							ELITE_TAUREN_CHIEFTAIN = 261, // not done
 							FACELESS_MANIPULATOR = 262, // not done
 							FEL_REAVER = 263, // not done
-							FEN_CREEPER = 264, // not done
+							FEN_CREEPER = 264,
 							FEUGEN = 265, // not done
 							FLOATING_WATCHER = 266, // not done
 							FROSTWOLF_WARLORD = 267,
@@ -283,14 +283,14 @@ public class MonsterCard extends PlayCard {
 							QUARTERMASTER = 281, // not done
 							SALTY_DOG = 282,
 							SIEGE_ENGINE = 283, // not done
-							SILVER_HAND_KNIGHT = 284, // not done
-							SQUIRE = 285, // not done
+							SILVER_HAND_KNIGHT = 284,
+							SQUIRE = 285,
 							SLUDGE_BELCHER = 286,
 							SLIME = 287,
 							SPECTRAL_KNIGHT = 288, // not done
 							SPITEFUL_SMITH = 289, // not done
 							STALAGG = 290, // not done
-							THADDIUS = 291, // not done
+							THADDIUS = 291,
 							STAMPEDING_KODO = 292, // not done
 							STARVING_BUZZARD = 293, // not done
 							STORMPIKE_COMMANDO = 294,
@@ -672,9 +672,14 @@ public class MonsterCard extends PlayCard {
 			minionType = Minion.DRAGON;
 			initBasicStats(1, 2, 1);
 		} else if (type == DAMAGED_GOLEM) {
+			// not playable
 			name = "Damaged Golem";
 			minionType = Minion.MECH;
 			initBasicStats(1, 2, 1);
+		} else if (type == SQUIRE) {
+			// not playable
+			name = "Squire";
+			initBasicStats(1, 2, 2);
 //==============================================================================
 		} else if (type == ANCIENT_WATCHER) {
 			name = "Ancient Watcher";
@@ -915,6 +920,10 @@ public class MonsterCard extends PlayCard {
 			name = "Finkle Einhorn";
 			initBasicStats(3, 3, 3);
 //==============================================================================
+		} else if (type == WINDSPEAKER) {
+			name = "Windspeaker";
+			initBasicStats(4, 3, 3);
+			battleCryEffect = new BuffSingleMinion(0, 0, false, false, false, true, false);
 		} else if (type == SILVERMOON_GUARDIAN) {
 			name = "Silvermoon Guardian";
 			initBasicStats(4, 3, 3);
@@ -987,6 +996,19 @@ public class MonsterCard extends PlayCard {
 			initBasicStats(4, 3, 5);
 			taunt = true;
 //==============================================================================
+		} else if (type == FEN_CREEPER) {
+			name = "Fen Creeper";
+			initBasicStats(5, 3, 6);
+			taunt = true;
+		} else if (type == ABOMINATION) {
+			name = "Abomination";
+			initBasicStats(5, 4, 4);
+			taunt = true;
+			deathRattleEffect = new DealDamageToAllCharacters(2, true, true, false, false);
+		} else if (type == SILVER_HAND_KNIGHT) {
+			name = "Silver Hand Knight";
+			initBasicStats(5, 4, 4);
+			battleCryEffect = new SummonMinions(new int[] {SQUIRE}, null);
 		} else if (type == SLUDGE_BELCHER) {
 			name = "Sludge Belcher";
 			initBasicStats(5, 3, 5);
@@ -1219,6 +1241,10 @@ public class MonsterCard extends PlayCard {
 			name = "Sea Giant";
 			costEffect = new CostDeterminedByMinionsOnBoard(1, true, true);
 			initBasicStats(10, 8, 8);
+		} else if (type == THADDIUS) {
+			// not playable
+			name = "Thaddius";
+			initBasicStats(10, 11, 11);
 //==============================================================================
 		} else if (type == MOUNTAIN_GIANT) {
 			name = "Mountain Giant";
