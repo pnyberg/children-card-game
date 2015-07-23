@@ -13,12 +13,15 @@ public class Player extends Character {
 	}
 
 	public boolean takeDamage(int damageAmount) {
-		armor -= damageAmount;
+		if (armor > 0) {
+			armor -= damageAmount;
 
-		if (armor < 0) {
-			damageAmount = -armor;
-		} else {
-			damageAmount = 0;
+			if (armor < 0) {
+				damageAmount = -armor;
+				armor = 0;
+			} else {
+				damageAmount = 0;
+			}
 		}
 
 		health -= damageAmount;

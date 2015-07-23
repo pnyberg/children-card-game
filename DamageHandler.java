@@ -41,6 +41,7 @@ public class DamageHandler {
 
 		if (tookDamage) {
 			manageAllDamageEffects(minionIndex, turnIndex);
+			manageEnrageEffect(minionIndex, turnIndex);
 		}
 
 		System.out.println(minion.getName() + " took " + damageAmount + " damage!");
@@ -59,13 +60,13 @@ public class DamageHandler {
 		for (int i = 0 ; i < minionList.size() ; i++) {
 			Minion minion = minionList.get(i);
 
-			if (active(minion, i, minionIndex)) {
+			if (activeDamageEffect(minion, i, minionIndex)) {
 				manageDamageEffect(minion, turnIndex);
 			}
 		}
 	}
 
-	private boolean active(Minion minion, int currentIndex, int minionIndex) {
+	private boolean activeDamageEffect(Minion minion, int currentIndex, int minionIndex) {
 		if (minionIndex == -1) {
 			return minion.enemyBoardAreaEffect();
 		} else {
@@ -97,6 +98,26 @@ public class DamageHandler {
 			if (minionSurvived || !summonMinionsDamageEffect.onlyIfSurvived()) {
 				summonMinionsDamageEffect.effect(friendlyBoard, enemyBoard);
 			}
+		}
+	}
+
+	public void manageEnrageEffect(int minionIndex, int turnIndex) {
+		Minion minion = getMinion(minionIndex, turnIndex);
+
+		if (minion.isEnraged()) {
+			return;
+		}
+
+		EnrageEffect enrageEffect = minion.getEnrageEffect();
+
+		System.out.println("Checking enrage for " + minion.getName());
+
+		if (enrageEffect instanceof BuffSingleMinionEnrageEffect) {
+			BuffSingleMinionEnrageEffect buffSingleMinionEnrageEffect = (BuffSingleMinionEnrageEffect)enrageEffect;
+
+			buffSingleMinionEnrageEffect.effect(minion);
+
+			System.out.println(minion.getName() + " got enraged!");
 		}
 	}
 

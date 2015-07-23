@@ -78,24 +78,27 @@ public class TheGame {
 	}
 
 	public void initDecks() {
+		deck2.add(new MonsterCard(MonsterCard.BARON_GEDDON));
 		deck2.add(new MonsterCard(MonsterCard.GRIM_PATRON));
 		deck2.add(new MonsterCard(MonsterCard.SUCCUBUS));
 		deck2.add(new MonsterCard(MonsterCard.DOOMGUARD));
 		deck2.add(new MonsterCard(MonsterCard.ACOLYTE_OF_PAIN));
 		deck2.add(new MonsterCard(MonsterCard.UNSTABLE_GHOUL));
 		deck2.add(new MonsterCard(MonsterCard.RAGNAROS_THE_FIRELORD));
-		deck2.add(new MonsterCard(MonsterCard.BARON_GEDDON));
 		deck2.add(new MonsterCard(MonsterCard.GRUUL));
 		deck2.add(new MonsterCard(MonsterCard.MALORNE));
 		deck2.add(new MonsterCard(MonsterCard.DREAD_INFERNAL));
 		deck2.add(new MonsterCard(MonsterCard.NOVICE_ENGINEER));
 		deck2.add(new MonsterCard(MonsterCard.LEEROY_JENKINS));
 
-		deck1.add(new MonsterCard(MonsterCard.IMP_GANG_BOSS));
+		deck1.add(new MonsterCard(MonsterCard.WARBOT));
+		deck1.add(new MonsterCard(MonsterCard.SHATTERED_SUN_CLERIC));
+		deck1.add(new MonsterCard(MonsterCard.ELVEN_ARCHER));
+		deck1.add(new MonsterCard(MonsterCard.VODOO_DOCTOR));
 		deck1.add(new MonsterCard(MonsterCard.SPELLBREAKER));
+		deck1.add(new MonsterCard(MonsterCard.IMP_GANG_BOSS));
 		deck1.add(new MonsterCard(MonsterCard.SHIELDMAIDEN));
 		deck1.add(new MonsterCard(MonsterCard.KING_MUKKLA));
-		deck1.add(new MonsterCard(MonsterCard.ELVEN_ARCHER));
 		deck1.add(new MonsterCard(MonsterCard.GAHZRILLA));
 		deck1.add(new MonsterCard(MonsterCard.DR_BOOM));
 		deck1.add(new MonsterCard(MonsterCard.YSERA));
@@ -329,6 +332,8 @@ public class TheGame {
 
 		if (battleCryTargetInstanceOf(battleCryEffect)) {
 			array = new String[]{"target"};
+		} else if (battleCryEffect instanceof BuffSingleMinion) {
+			array = new String[]{"buff"};
 		} else if (battleCryEffect instanceof PickUpMinion) {
 			array = new String[]{"pick", "up"};
 		} else if (battleCryEffect instanceof HealCharacter) {
@@ -459,8 +464,7 @@ public class TheGame {
 
 //#400
 	public boolean battleCryTargetInstanceOf(SpellEffect battleCryEffect) {
-		return 	battleCryEffect instanceof BuffSingleMinion || 
-				battleCryEffect instanceof DealDamage || 
+		return 	battleCryEffect instanceof DealDamage || 
 				battleCryEffect instanceof SetStatsSingleMinion || 
 				battleCryEffect instanceof SwapAttackHealthMinion;
 	}
@@ -967,7 +971,7 @@ public class TheGame {
 			if (minionExists()) {
 				handlingBattleCry = true;
 
-				System.out.println("Which minion do you want to target?");
+				System.out.println("Which minion do you want to buff?");
 			}
 		} else if (battleCryEffect instanceof SetStatsSingleMinion) {
 			if (minionExists()) {

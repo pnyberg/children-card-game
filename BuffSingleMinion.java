@@ -32,9 +32,9 @@ public class BuffSingleMinion extends SpellEffect {
 		minion.addAttack(additionalAttack);
 		minion.addHealth(additionalHealth);
 
-		if (taunt) { minion.setTaunt(taunt); }
-		if (charge) { minion.setCharge(charge); }
-		if (divineShield) { minion.setDivineShield(divineShield); }
-		if (windfury) { minion.setWindfury(windfury); }
+		if (taunt) { minion.setTaunt(true); }
+		if (charge) { minion.setCharge(true); }
+		if (divineShield) { minion.setDivineShield(true); }
+		if (windfury) { minion.setWindfury(true); }
 	}
 }

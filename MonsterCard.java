@@ -417,6 +417,7 @@ public class MonsterCard extends PlayCard {
 	private SpellEffect costEffect;
 
 	private DamageEffect damageEffect;
+	private EnrageEffect enrageEffect;
 
 	private SpellEffect battleCryEffect;
 	private SpellEffect deathRattleEffect;
@@ -443,10 +444,12 @@ public class MonsterCard extends PlayCard {
 
 		battleCryEffect = null;
 		damageEffect = null;
+		enrageEffect = null;
 		deathRattleEffect = null;
 		startTurnEffect = null;
 		endTurnEffect = null;
 
+//==============================================================================
 		if (type == TARGET_DUMMY) {
 			name = "Target Dummy";
 			minionType = Minion.MECH;
@@ -595,10 +598,10 @@ public class MonsterCard extends PlayCard {
 			initBasicStats(1, 2, 1);
 			battleCryEffect = new HealCharacter(2, false, false);
 		} else if (type == WARBOT) {
-			// add enrage-effect
 			name = "Warbot";
 			minionType = Minion.MECH;
 			initBasicStats(1, 1, 3);
+			enrageEffect = new BuffSingleMinionEnrageEffect(1, 0, false, false, false, false);
 		} else if (type == WEBSPINNER) {
 			// add random-spec-card-draw-deathrattle-effect
 			name = "Webspinner";
@@ -1234,6 +1237,6 @@ public class MonsterCard extends PlayCard {
 	}
 
 	public Minion toMinion() {
-		return new Minion(type, name, minionType, attack, health, taunt, charge, divineShield, windfury, cannotAttack, stealth, stealthTemporary, damageEffect, battleCryEffect, deathRattleEffect, startTurnEffect, endTurnEffect);
+		return new Minion(type, name, minionType, attack, health, taunt, charge, divineShield, windfury, cannotAttack, stealth, stealthTemporary, damageEffect, enrageEffect, battleCryEffect, deathRattleEffect, startTurnEffect, endTurnEffect);
 	}
 }

@@ -16,6 +16,7 @@ public class Minion extends Character {
 	private int normalAttack;
 	private int currentAttack;
 	private int tempAttack;
+	private int enrageAttack;
 
 	private int normalMaxHealth;
 	private int currentMaxHealth;
@@ -37,9 +38,17 @@ public class Minion extends Character {
 	private boolean originallyStealth;
 	private boolean originallyStealthTemporary;
 
-	private DamageEffect damageEffect;
+	private boolean enraged;
+	private boolean enrageTaunt;
+	private boolean enrageCharge;
+	private boolean enrageDivineShield;
+	private boolean enrageWindfury;
 
+	private DamageEffect damageEffect;
 	private DamageEffect originallyDamageEffect;
+
+	private EnrageEffect enrageEffect;
+	private EnrageEffect originallyEnrageEffect;
 
 	private SpellEffect battleCryEffect;
 	private SpellEffect deathRattleEffect;
@@ -56,7 +65,7 @@ public class Minion extends Character {
 	private int attackAmount;
 	private boolean restoredThisTurn;
 
-	public Minion(int type, String name, int minionType, int attack, int health, boolean taunt, boolean charge, boolean divineShield, boolean windfury, boolean cannotAttack, boolean stealth, boolean stealthTemporary, DamageEffect damageEffect, SpellEffect battleCryEffect, SpellEffect deathRattleEffect, TurnEffect startTurnEffect, TurnEffect endTurnEffect) {
+	public Minion(int type, String name, int minionType, int attack, int health, boolean taunt, boolean charge, boolean divineShield, boolean windfury, boolean cannotAttack, boolean stealth, boolean stealthTemporary, DamageEffect damageEffect, EnrageEffect enrageEffect, SpellEffect battleCryEffect, SpellEffect deathRattleEffect, TurnEffect startTurnEffect, TurnEffect endTurnEffect) {
 		this.type = type;
 
 		this.name = name;
@@ -75,12 +84,14 @@ public class Minion extends Character {
 
 		originallyBattleCryEffect = battleCryEffect;
 		originallyDamageEffect = damageEffect;
+		originallyEnrageEffect = enrageEffect;
 		originallyDeathRattleEffect = deathRattleEffect;
 
 		originallyStartTurnEffect = startTurnEffect;
 		originallyEndTurnEffect = endTurnEffect;
 
 		initSpecialStats();
+		unenrage();
 
 		tempAttack = 0;
 
@@ -110,6 +121,7 @@ public class Minion extends Character {
 
 		battleCryEffect = originallyBattleCryEffect;
 		damageEffect = originallyDamageEffect;
+		enrageEffect = originallyEnrageEffect;
 		deathRattleEffect = originallyDeathRattleEffect;
 
 		startTurnEffect = originallyStartTurnEffect;
@@ -159,6 +171,8 @@ public class Minion extends Character {
 
 		damageEffect = null;
 
+		enrageEffect = null;
+
 		battleCryEffect = null;
 		deathRattleEffect = null;
 
@@ -166,6 +180,16 @@ public class Minion extends Character {
 		endTurnEffect = null;
 
 		// restoredThisTurn;
+	}
+
+	public void unenrage() {
+		enrageAttack = 0;
+		enraged = false;
+
+		enrageTaunt = false;
+		enrageCharge = false;
+		enrageDivineShield = false;
+		enrageWindfury = false;
 	}
 
 	public int attack() {
@@ -209,7 +233,15 @@ public class Minion extends Character {
 	}
 
 	public void heal(int healAmount) {
-		currentHealth = (currentHealth + healAmount) > currentMaxHealth ? currentMaxHealth : (currentHealth + healAmount);
+		boolean fullyHealed = (currentHealth + healAmount) >= currentMaxHealth;
+
+		if (fullyHealed) {
+			currentHealth = currentMaxHealth;
+
+			unenrage();
+		} else {
+			currentHealth = (currentHealth + healAmount);
+		}
 	}
 
 	public void addAttack(int add) {
@@ -222,6 +254,10 @@ public class Minion extends Character {
 
 	public void addTempAttack(int attack) {
 		tempAttack += attack;
+	}
+
+	public void addEnrageAttack(int attack) {
+		enrageAttack += attack;
 	}
 
 	public void addHealth(int add) {
@@ -258,6 +294,26 @@ public class Minion extends Character {
 		this.windfury = windfury;
 	}
 
+	public void setEnrageTaunt(boolean taunt) {
+		enrageTaunt = taunt;
+	}
+
+	public void setEnrageCharge(boolean charge) {
+		enrageCharge = charge;
+	}
+
+	public void setEnrageDivineShield(boolean divineShield) {
+		enrageDivineShield = divineShield;
+	}
+
+	public void setEnrageWindfury(boolean windfury) {
+		if (enrageWindfury != windfury && !this.windfury) {
+			if (windfury) { attackAmount++; }
+			else { attackAmount--; }
+		}
+		enrageWindfury = windfury;
+	}
+
 	public void setCannotAttack(boolean cannotAttack) {
 		this.cannotAttack = cannotAttack;
 	}
@@ -272,6 +328,10 @@ public class Minion extends Character {
 
 	public void setRestoredThisTurn(boolean restoredThisTurn) {
 		this.restoredThisTurn = restoredThisTurn;
+	}
+
+	public void setEnrage(boolean enraged) {
+		this.enraged = enraged;
 	}
 
 	public boolean isAlive() {
@@ -299,11 +359,15 @@ public class Minion extends Character {
 	}
 
 	public int getCurrentAttack() {
-		return currentAttack + tempAttack;
+		return currentAttack + tempAttack + enrageAttack;
 	}
 
 	public int getTempAttack() {
 		return tempAttack;
+	}
+
+	public int getEnrageAttack() {
+		return enrageAttack;
 	}
 
 	public int getNormalMaxHealth() {
@@ -320,6 +384,10 @@ public class Minion extends Character {
 
 	public DamageEffect getDamageEffect() {
 		return damageEffect;
+	}
+
+	public EnrageEffect getEnrageEffect() {
+		return enrageEffect;
 	}
 
 	public SpellEffect getBattleCryEffect() {
@@ -339,19 +407,19 @@ public class Minion extends Character {
 	}
 
 	public boolean hasTaunt() {
-		return taunt;
+		return taunt || enrageTaunt;
 	}
 
 	public boolean hasCharge() {
-		return charge;
+		return charge || enrageCharge;
 	}
 
 	public boolean hasDivineShield() {
-		return divineShield;
+		return divineShield || enrageDivineShield;
 	}
 
 	public boolean hasWindfury() {
-		return windfury;
+		return windfury || enrageWindfury;
 	}
 
 	public boolean hasCannotAttack() {
@@ -366,8 +434,16 @@ public class Minion extends Character {
 		return stealthTemporary;
 	}
 
+	public boolean isEnraged() {
+		return enraged;
+	}
+
 	public boolean hasDamageEffect() {
 		return damageEffect != null;
+	}
+
+	public boolean hasEnrageEffect() {
+		return enrageEffect != null;
 	}
 
 	public boolean hasBattleCry() {
