@@ -3,41 +3,41 @@ public class MonsterCard extends PlayCard {
 							TARGET_DUMMY = 1,
 							WISP = 2,
 							ABUSIVE_SERGEANT = 3,
-							ANGRY_CHICKEN = 4, // not done [enrage]
+							ANGRY_CHICKEN = 4, // not completely done [enrage]
 							ARGENT_SQUIRE = 5,
-							BLOOD_IMP = 6, // not done [endturn-buff]
-							BLOODSAIL_CORSAIR = 7, // not done
-							CLOCKWORK_GNOME = 8, // not done [Spare Part]
-							COGMASTER = 9, // not done [Board Area Effect]
-							DRAGON_EGG = 10, // not done [Dmg-effect]
+							BLOOD_IMP = 6, // not completely done [endturn-buff]
+							BLOODSAIL_CORSAIR = 7, // not completely done [weapon-effect]
+							CLOCKWORK_GNOME = 8, // not completely done [Spare Part]
+							COGMASTER = 9, // not completely done [Board Area Effect]
+							DRAGON_EGG = 10, // not completely done [Dmg-effect]
 							BLACK_WHELP = 11,
-							DUST_DEVIL = 12, // not done [Overload]
+							DUST_DEVIL = 12, // not completely done [Overload]
 							ELVEN_ARCHER = 13,
 							FLAME_IMP = 14,
 							GOLDSHIRE_FOOTMAN = 15,
 							GRIMSCALE_ORACLE = 16, // not completely done - area effect
-							HUNGRY_CRAB = 17, // not done []
+							HUNGRY_CRAB = 17, // not completely done [area-type-effect]
 							LEPER_GNOME = 18,
-							LIGHTWARDEN = 19, // not done [Heal-effect]
-							MANA_WYRM = 20, // not done [Spell-effect]
+							LIGHTWARDEN = 19, // not completelydone [Heal-effect]
+							MANA_WYRM = 20, // not completely done [Spell-effect]
 							MURLOC_RAIDER = 21,
-							MURLOC_TIDECALLER = 22, // not done [Summon-effect]
-							NORTHSHIRE_CLERIC = 23, // not done [Heal-effect]
-							SECRETKEEPER = 24, // not done [Secret-effect]
+							MURLOC_TIDECALLER = 22, // not completely done [Summon-effect]
+							NORTHSHIRE_CLERIC = 23, // not completely done [Heal-effect]
+							SECRETKEEPER = 24, // not completely done [Secret-effect]
 							SHADOWBOMBER = 25,
 							SHIELDBEARER = 26,
-							SOUTHSEA_DECKHAND = 27, // not done [Weapon-effect]
+							SOUTHSEA_DECKHAND = 27, // not completely done [Weapon-effect]
 							STONETUSK_BOAR = 28,
-							TIMBER_WOLF = 29, // not done [Area-effect]
-							TWILIGHT_WHELP = 30, // not done [In hand-effect]
-							UNDERTAKER = 31, // not done [Summon-effect]
+							TIMBER_WOLF = 29, // not completely done [Area-effect]
+							TWILIGHT_WHELP = 30, // not completely done [In hand-effect]
+							UNDERTAKER = 31, // not completely done [Summon-effect]
 							VOIDWALKER = 32,
 							VODOO_DOCTOR = 33,
-							WARBOT = 34, // not done [Enrage-effect]
-							WEBSPINNER = 35, // not done [Deathrattle]
+							WARBOT = 34, // not completely done [Enrage-effect]
+							WEBSPINNER = 35, // not completely done [Deathrattle]
 							WORGEN_INFILTRATOR = 36,
 							YOUNG_DRAGONHAWK = 37,
-							YOUNG_PRIESTESS = 38, // not done [endturn-buff]
+							YOUNG_PRIESTESS = 38, // not completely done [endturn-buff]
 							ZOMBIE_CHOW = 39,
 							ACIDIC_SWAMP_OOZE = 40, // not completely done - weapon
 							AMANI_BERSERKER = 41, // not done [Enrage]
@@ -455,18 +455,54 @@ public class MonsterCard extends PlayCard {
 		} else if (type == WISP) {
 			name = "Wisp";
 			initBasicStats(0, 1, 1);
+		} else if (type == MURLOC_SCOUT) {
+ 			// not playable
+ 			name = "Murloc Scout";
+			minionType = Minion.MURLOC;
+			initBasicStats(0, 1, 1);
+//==============================================================================
 		} else if (type == ABUSIVE_SERGEANT) {
 			name = "Abusive Sergeant";
 			initBasicStats(1, 2, 1);
 			battleCryEffect = new BuffSingleMinion(2, 0, false, false, false, false, true);
+		} else if (type == ANGRY_CHICKEN) {
+			// add enrage
+			name = "Angry Chicken";
+			minionType = Minion.BEAST;
+			initBasicStats(1, 1, 1);
 		} else if (type == ARGENT_SQUIRE) {
 			name = "Argent Squire";
 			initBasicStats(1, 1, 1);
 			divineShield = true;
-		} else if (type == BLACK_WHELP) {
-			name = "Black Whelp";
-			minionType = Minion.DRAGON;
+		} else if (type == BLOOD_IMP) {
+			// add endturn-health-buff
+			name = "Blood Imp";
+			minionType = Minion.DEMON;
+			initBasicStats(1, 0, 1);
+			stealth = true;
+		} else if (type == BLOODSAIL_CORSAIR) {
+			// add weapon-battlecry-effect
+			name = "Bloodsail Corsair";
+			minionType = Minion.PIRATE;
+			initBasicStats(1, 1, 2);
+		} else if (type == CLOCKWORK_GNOME) {
+			// add spare part-deathrattle
+			name = "Clockwork Gnome";
+			minionType = Minion.MECH;
 			initBasicStats(1, 2, 1);
+		} else if (type == COGMASTER) {
+			// add type-area-effect
+			name = "Cogmaster";
+			initBasicStats(1, 1, 2);
+		} else if (type == DRAGON_EGG) {
+			// add dmg-summon-effect
+			name = "Dragon Egg";
+			initBasicStats(1, 0, 2);
+		} else if (type == DUST_DEVIL) {
+			// add overload-effect
+			name = "Dust Devil";
+			initBasicStats(1, 3, 1);
+			windfury = true;
 		} else if (type == ELVEN_ARCHER) {
 			name = "Elven Archer";
 			initBasicStats(1, 1, 1);
@@ -480,14 +516,43 @@ public class MonsterCard extends PlayCard {
 			name = "Goldshire Footman";
 			initBasicStats(1, 1, 2);
 			taunt = true;
+		} else if (type == GRIMSCALE_ORACLE) {
+			// add type-area-buff-effect
+			name = "Grimscale Oracle";
+			minionType = Minion.MURLOC;
+			initBasicStats(1, 1, 1);
+		} else if (type == HUNGRY_CRAB) {
+			// add type-area-battlecry-effect
+			name = "Hungry Crab";
+			initBasicStats(1, 1, 2);
 		} else if (type == LEPER_GNOME) {
 			name = "Leper Gnome";
 			initBasicStats(1, 2, 1);
 			deathRattleEffect = new DealDamageToAllCharacters(2, false, false, false, true);
+		} else if (type == LIGHTWARDEN) {
+			// add heal-buff-effect
+			name = "Lightwarden";
+			initBasicStats(1, 1, 2);
+		} else if (type == MANA_WYRM) {
+			// add spell-buff-effect
+			name = "Mana Wyrm";
+			initBasicStats(1, 1, 3);
 		} else if (type == MURLOC_RAIDER) {
 			name = "Murloc Raider";
 			minionType = Minion.MURLOC;
 			initBasicStats(1, 2, 1);
+		} else if (type == MURLOC_TIDECALLER) {
+			// add summon-type-effect
+			name = "Murloc Tidecaller";
+			initBasicStats(1, 1, 2);
+		} else if (type == NORTHSHIRE_CLERIC) {
+			// add heal-draw-effect
+			name = "Northshire Cleric";
+			initBasicStats(1, 1, 3);
+		} else if (type == SECRETKEEPER) {
+			// add secret-turn-effect
+			name = "Secretkeeper";
+			initBasicStats(1, 1, 2);
 		} else if (type == SHADOWBOMBER) {
 			name = "Shadowbomber";
 			initBasicStats(1, 2, 1);
@@ -496,11 +561,30 @@ public class MonsterCard extends PlayCard {
 			name = "Shieldbearer";
 			initBasicStats(1, 0, 4);
 			taunt = true;
+		} else if (type == SOUTHSEA_DECKHAND) {
+			// add weapon-charge-effect
+			name = "Southsea Deckhand";
+			minionType = Minion.PIRATE;
+			initBasicStats(1, 2, 1);
 		} else if (type == STONETUSK_BOAR) {
 			name = "Stonetusk Boar";
 			minionType = Minion.BEAST;
 			initBasicStats(1, 1, 1);
 			charge = true;
+		} else if (type == TIMBER_WOLF) {
+			// add type-area-buff-effect
+			name = "Timber Wolf";
+			minionType = Minion.BEAST;
+			initBasicStats(1, 1, 1);
+		} else if (type == TWILIGHT_WHELP) {
+			// add type-hand-buff-effect
+			name = "Twilight Whelp";
+			minionType = Minion.DRAGON;
+			initBasicStats(1, 2, 1);
+		} else if (type == UNDERTAKER) {
+			// add deathrattle-summon-effect
+			name = "Undertaker";
+			initBasicStats(1, 1, 2);
 		} else if (type == VOIDWALKER) {
 			name = "Voidwalker";
 			minionType = Minion.DEMON;
@@ -510,22 +594,87 @@ public class MonsterCard extends PlayCard {
 			name = "Vodoo Doctor";
 			initBasicStats(1, 2, 1);
 			battleCryEffect = new HealCharacter(2, false, false);
+		} else if (type == WARBOT) {
+			// add enrage-effect
+			name = "Warbot";
+			minionType = Minion.MECH;
+			initBasicStats(1, 1, 3);
+		} else if (type == WEBSPINNER) {
+			// add random-spec-card-draw-deathrattle-effect
+			name = "Webspinner";
+			minionType = Minion.BEAST;
+			initBasicStats(1, 1, 1);
+		} else if (type == WORGEN_INFILTRATOR) {
+			name = "Worgen Infiltrator";
+			initBasicStats(1, 2, 1);
+			stealth = true;
+		} else if (type == YOUNG_DRAGONHAWK) {
+			name = "Young Dragonhawk";
+			minionType = Minion.BEAST;
+			initBasicStats(1, 1, 1);
+			windfury = true;
+		} else if (type == YOUNG_PRIESTESS) {
+			// add endturn-health-buff
+			name = "Young Priestess";
+			initBasicStats(1, 2, 1);
+		} else if (type == ZOMBIE_CHOW) {
+			name = "Zombie Chow";
+			initBasicStats(1, 2, 3);
+			deathRattleEffect = new HealCharacter(5, true, false);
+		} else if (type == DEFIAS_BANDIT) {
+ 			// not playable
+			name = "Defias Bandit";
+			initBasicStats(1, 2, 1);
+		} else if (type == SPECTRAL_SPIDER) {
+ 			// not playable
+			name = "Spectral Spider";
+			initBasicStats(1, 1, 1);
+		} else if (type == IMP) {
+ 			// not playable
+			name = "Imp";
+			minionType = Minion.DEMON;
+			initBasicStats(1, 1, 1);
+		} else if (type == BOAR) {
+ 			// not playable
+			name = "Boar";
+			minionType = Minion.BEAST;
+			initBasicStats(1, 1, 1);
+		} else if (type == MECHANICAL_DRAGONLING) {
+ 			// not playable
+			name = "Mechanical Dragonling";
+			minionType = Minion.MECH;
+			initBasicStats(1, 2, 1);
+		} else if (type == SLIME) {
+ 			// not playable
+			name = "Slime";
+			initBasicStats(1, 1, 2);
+			taunt = true;
+		} else if (type == BOOM_BOT) {
+ 			// not playable
+			name = "Boom Bot";
+			minionType = Minion.MECH;
+			initBasicStats(1, 1, 1);
+			deathRattleEffect = new DealRandomDamageRandomly(1, 3, true);
+		} else if (type == WHELP) {
+ 			// not playable
+			name = "Whelp";
+			minionType = Minion.DRAGON;
+			initBasicStats(1, 1, 1);
+		} else if (type == BLACK_WHELP) {
+ 			// not playable
+			name = "Black Whelp";
+			minionType = Minion.DRAGON;
+			initBasicStats(1, 2, 1);
+//==============================================================================
 		} else if (type == ANCIENT_WATCHER) {
 			name = "Ancient Watcher";
 			initBasicStats(2, 4, 5);
 			cannotAttack = true;
-		} else if (type == DEFIAS_BANDIT) {
-			name = "Defias Bandit";
-			initBasicStats(1, 2, 1);
 		} else if (type == EXPLOSIVE_SHEEP) {
 			name = "Explosive Sheep";
 			minionType = Minion.MECH;
 			initBasicStats(2, 1, 1);
 			deathRattleEffect = new DealDamageToAllCharacters(2, true, true, false, false);
-		} else if (type == WORGEN_INFILTRATOR) {
-			name = "Worgen Infiltrator";
-			initBasicStats(1, 2, 1);
-			stealth = true;
 		} else if (type == GILBIN_STALKER) {
 			name = "Gilbin Stalker";
 			initBasicStats(2, 2, 3);
@@ -548,10 +697,6 @@ public class MonsterCard extends PlayCard {
 			minionType = Minion.MURLOC;
 			initBasicStats(2, 2, 1);
 			battleCryEffect = new SummonMinions(new int[] {MURLOC_SCOUT}, null);
-		} else if (type == MURLOC_SCOUT) {
-			name = "Murloc Scout";
-			minionType = Minion.MURLOC;
-			initBasicStats(0, 1, 1);
 		} else if (type == CRAZED_ALCHEMIST) {
 			name = "Crazed Alchemist";
 			initBasicStats(2, 2, 2);
@@ -586,10 +731,6 @@ public class MonsterCard extends PlayCard {
 			name = "River Crocolisk";
 			minionType = Minion.BEAST;
 			initBasicStats(2, 2, 3);
-		} else if (type == IRONFORGE_RIFLEMAN) {
-			name = "Ironforge Rifleman";
-			initBasicStats(3, 2, 2);
-			battleCryEffect = new DealDamage(1);
 		} else if (type == BLOODMAGE_THALNOS) {
 			name = "Bloodmage Thalnos";
 			initBasicStats(2, 1, 1);
@@ -599,10 +740,6 @@ public class MonsterCard extends PlayCard {
 			initBasicStats(2, 1, 3);
 			taunt = true;
 			deathRattleEffect = new DealDamageToAllCharacters(1, true, true, false, false);
-		} else if (type == ZOMBIE_CHOW) {
-			name = "Zombie Chow";
-			initBasicStats(1, 2, 3);
-			deathRattleEffect = new HealCharacter(5, true, false);
 		} else if (type == ARGENT_PROTECTOR) {
 			name = "Argent Protector";
 			initBasicStats(2, 2, 2);
@@ -618,16 +755,34 @@ public class MonsterCard extends PlayCard {
 			minionType = Minion.BEAST;
 			initBasicStats(2, 2, 1);
 			battleCryEffect = new Silence(false, true, true);
-		} else if (type == YOUNG_DRAGONHAWK) {
-			name = "Young Dragonhawk";
-			minionType = Minion.DRAGON;
-			initBasicStats(1, 1, 1);
-			windfury = true;
+		} else if (type == HAUNTED_CREEPER) {
+			name = "Haunted Creeper";
+			minionType = Minion.BEAST;
+			initBasicStats(2, 1, 2);
+			deathRattleEffect = new SummonMinions(new int[] {SPECTRAL_SPIDER, SPECTRAL_SPIDER}, null);
+		} else if (type == SUCCUBUS) {
+			name = "Succubus";
+			minionType = Minion.DEMON;
+			initBasicStats(2, 4, 3);
+			battleCryEffect = new DiscardCards(1);
+		} else if (type == SHIELDED_MINIBOT) {
+			name = "Shielded Minibot";
+			minionType = Minion.MECH;
+			initBasicStats(2, 2, 2);
+			divineShield = true;
+		} else if (type == HYENA) {
+			name = "Hyena";
+			minionType = Minion.BEAST;
+			initBasicStats(2, 2, 2);
+		} else if (type == GNOLL) {
+			name = "Gnoll";
+			initBasicStats(2, 2, 2);
+			taunt = true;
 //==============================================================================
-		} else if (type == GRIMSCALE_ORACLE) {
-			name = "Grimscale Oracle";
-			minionType = Minion.MURLOC;
-			initBasicStats(1, 1, 1);
+		} else if (type == IRONFORGE_RIFLEMAN) {
+			name = "Ironforge Rifleman";
+			initBasicStats(3, 2, 2);
+			battleCryEffect = new DealDamage(1);
 		} else if (type == DALARAN_MAGE) {
 			name = "Dalaran Mage";
 			initBasicStats(3, 1, 4);
@@ -655,17 +810,6 @@ public class MonsterCard extends PlayCard {
 			name = "Wolfrider";
 			initBasicStats(3, 3, 1);
 			charge = true;
-		} else if (type == CHILLWIND_YETI) {
-			name = "Chillwind Yeti";
-			initBasicStats(4, 4, 5);
-		} else if (type == DRAGONLING_MECHANIC) {
-			name = "Dragonling Mechanic";
-			initBasicStats(4, 2, 4);
-			battleCryEffect = new SummonMinions(new int[] {MECHANICAL_DRAGONLING}, null);
-		} else if (type == MECHANICAL_DRAGONLING) {
-			name = "Mechanical Dragonling";
-			minionType = Minion.MECH;
-			initBasicStats(1, 2, 1);
 		} else if (type == MANA_TIDE_TOTEM) {
 			name = "Mana Tide Totem";
 			minionType = Minion.TOTEM;
@@ -675,242 +819,84 @@ public class MonsterCard extends PlayCard {
 			name = "Earthen Ring Farseer";
 			initBasicStats(3, 3, 3);
 			battleCryEffect = new HealCharacter(3, false, false);
-		} else if (type == SLUDGE_BELCHER) {
-			name = "Sludge Belcher";
-			initBasicStats(5, 3, 5);
-			taunt = true;
-			deathRattleEffect = new SummonMinions(new int[] {SLIME}, null);
-		} else if (type == SLIME) {
-			name = "Slime";
-			initBasicStats(1, 1, 2);
-			taunt = true;
-		} else if (type == RAGNAROS_THE_FIRELORD) {
-			name = "Ragnaros the Firelord";
-			initBasicStats(8, 8, 8);
-			cannotAttack = true;
-			endTurnEffect = new DealDamageRandomTurnEffect(8, false, true);
-		} else if (type == CAIRNE_BLOODHOOF) {
-			name = "Cairne Bloodhoof";
-			initBasicStats(6, 4, 5);
-			deathRattleEffect = new SummonMinions(new int[] {BAINE_BLOODHOOF}, null);
-		} else if (type == BAINE_BLOODHOOF) {
-			name = "Baine Bloodhoof";
-			initBasicStats(4, 4, 5);
-		} else if (type == ALAKIR_THE_WINDLORD) {
-			name = "Al'Akir the Windlord";
-			initBasicStats(8, 3, 5);
-			charge = true;
-			taunt = true;
-			divineShield = true;
-			windfury = true;
-		} else if (type == KING_KRUSH) {
-			name = "King Krush";
-			minionType = Minion.BEAST;
-			initBasicStats(8, 8, 8);
-			charge = true;
-		} else if (type == DR_BOOM) {
-			name = "Dr. Boom";
-			initBasicStats(7, 7, 7);
-			battleCryEffect = new SummonMinions(new int[] {BOOM_BOT, BOOM_BOT}, null);
-		} else if (type == BOOM_BOT) {
-			name = "Boom Bot";
-			minionType = Minion.MECH;
-			initBasicStats(1, 1, 1);
-			deathRattleEffect = new DealRandomDamageRandomly(1, 3, true);
-		} else if (type == DEATHWING) {
-			name = "Deathwing";
-			minionType = Minion.DRAGON;
-			initBasicStats(10, 12, 12);
-			battleCryEffect = new DestroyAllMinions(true);
-		} else if (type == EMPEROR_THAURISSAN) {
-			name = "Emperor Thaurissan";
-			initBasicStats(6, 5, 5);
-			endTurnEffect = new HandCostTurnEffect(-1, false);
-		} else if (type == SYLVANAS_WINDRUNNER) {
-			name = "Sylvanas Windrunner";
-			initBasicStats(6, 5, 5);
-			deathRattleEffect = new MindControlRandom();
-		} else if (type == KELTHUZAD) {
-			name = "Kel'Thuzad";
-			initBasicStats(8, 6, 8);
-			endTurnEffect = new ReviveFriendlyMinionsTurnEffect(true);
-		} else if (type == VOLJIN) {
-			name = "Vol'Jin";
-			initBasicStats(5, 6, 2);
-			battleCryEffect = new SwapHealthMinion();
-		} else if (type == ALEXSTRASZA) {
-			name = "Alexstrasza";
-			minionType = Minion.DRAGON;
-			initBasicStats(9, 8, 8);
-			battleCryEffect = new SetHealthPlayer(15);
-		} else if (type == FIRE_ELEMENTAL) {
-			name = "Fire Elemental";
-			initBasicStats(6, 6, 5);
-			battleCryEffect = new DealDamage(3);
-		} else if (type == NIGHTBLADE) {
-			name = "Nightblade";
-			initBasicStats(5, 4, 4);
-			battleCryEffect = new DealDamageToAllCharacters(3, false, false, false, true);
 		} else if (type == ALARM_O_BOT) {
 			name = "Alarm-o-Bot";
 			minionType = Minion.MECH;
 			initBasicStats(3, 0, 3);
 			startTurnEffect = new SummonRandomMinionFromHandTurnEffect(false, false, true);
-		} else if (type == FROSTWOLF_WARLORD) {
-			name = "Frostwolf Warlord";
-			initBasicStats(5, 4, 4);
-			battleCryEffect = new BuffAccordingToBoard(1, 1, true, false, false, false);
-		} else if (type == MOLTEN_GIANT) {
-			name = "Molten Giant";
-			costEffect = new CostDeterminedByHealth(1, true);
-			initBasicStats(20, 8, 8);
-		} else if (type == SEA_GIANT) {
-			name = "Sea Giant";
-			costEffect = new CostDeterminedByMinionsOnBoard(1, true, true);
-			initBasicStats(10, 8, 8);
-		} else if (type == MOUNTAIN_GIANT) {
-			name = "Mountain Giant";
-			costEffect = new CostDeterminedByCardsInHand(1, true, false);
-			initBasicStats(12, 8, 8);
-		} else if (type == CLOCKWORK_GIANT) {
-			name = "Clockwork Giant";
-			minionType = Minion.MECH;
-			costEffect = new CostDeterminedByCardsInHand(1, false, true);
-			initBasicStats(12, 8, 8);
-		} else if (type == GRUUL) {
-			name = "Gruul";
-			initBasicStats(7, 7, 7);
-			startTurnEffect = new BuffMinionTurnEffect(1, 1, true, false);
-		} else if (type == ONYXIA) {
-			name = "Onyxia";
-			minionType = Minion.DRAGON;
-			initBasicStats(9, 8, 8);
-			battleCryEffect = new SummonMinions(new int[] {WHELP, WHELP, WHELP, WHELP, WHELP, WHELP}, null);
-		} else if (type == WHELP) {
-			name = "Whelp";
-			minionType = Minion.DRAGON;
-			initBasicStats(1, 1, 1);
-		} else if (type == SAVANNAH_HIGHMANE) {
-			name = "Savannah Highmane";
-			minionType = Minion.BEAST;
-			initBasicStats(6, 6, 5);
-			deathRattleEffect = new SummonMinions(new int[] {HYENA, HYENA}, null);
-		} else if (type == HYENA) {
-			name = "Hyena";
-			minionType = Minion.BEAST;
-			initBasicStats(2, 2, 2);
-		} else if (type == TWILIGHT_DRAKE) {
-			name = "Twilight Drake";
-			minionType = Minion.DRAGON;
-			initBasicStats(4, 4, 1);
-			battleCryEffect = new BuffAccordingToHand(0, 1, true, false, false, false);
 		} else if (type == IMP_MASTER) {
 			name = "Imp Master";
 			initBasicStats(3, 1, 5);
 			endTurnEffect = new SummonMinionTurnEffect(new int[] {IMP}, null, false);
-		} else if (type == IMP) {
-			name = "Imp";
-			minionType = Minion.DEMON;
-			initBasicStats(1, 1, 1);
-		} else if (type == HOGGER) {
-			name = "Hogger";
-			initBasicStats(5, 4, 4);
-			endTurnEffect = new SummonMinionTurnEffect(new int[] {GNOLL}, null, false);
-		} else if (type == GNOLL) {
-			name = "Gnoll";
-			initBasicStats(2, 2, 2);
-			taunt = true;
  		} else if (type == ALDOR_PEACEKEEPER) {
 			name = "Aldor Peacekeeper";
 			initBasicStats(3, 3, 3);
 			battleCryEffect = new SetStatsSingleMinion(1, -1);
-		} else if (type == BARON_GEDDON) {
-			name = "Baron Geddon";
-			initBasicStats(7, 7, 5);
-			endTurnEffect = new DealDamageToAllCharactersTurnEffect(2, true, true, true, false);
-		} else if (type == MALORNE) {
-			name = "Malorne";
-			minionType = Minion.BEAST;
-			initBasicStats(9, 9, 7);
-			deathRattleEffect = new AddCardToDeck(new int[] {MALORNE}, null);
 		} else if (type == DEATHLORD) {
 			name = "Deathlord";
 			initBasicStats(3, 2, 8);
 			taunt = true;
 			deathRattleEffect = new SummonRandomMinionsFromDeck(0, false, 1, true);
-		} else if (type == LEEROY_JENKINS) {
-			name = "Leeroy Jenkins";
-			initBasicStats(5, 6, 2);
-			charge = true;
-			battleCryEffect = new SummonMinions(null, new int[] {WHELP, WHELP});
 		} else if (type == RAZORFEN_HUNTER) {
 			name = "Razorfen Hunter";
 			initBasicStats(3, 2, 3);
 			battleCryEffect = new SummonMinions(new int[] {BOAR}, null);
-		} else if (type == BOAR) {
-			name = "Boar";
-			minionType = Minion.BEAST;
-			initBasicStats(1, 1, 1);
-		} else if (type == MALYGOS) {
-			name = "Malygos";
-			minionType = Minion.DRAGON;
-			initBasicStats(9, 4, 12);
-		} else if (type == WATER_ELEMENTAL) {
-			name = "Water Elemental";
-			initBasicStats(4, 3, 6);
-		} else if (type == EARTH_ELEMENTAL) {
-			name = "Earth Elemental";
-			initBasicStats(5, 7, 8);
-			taunt = true;
-		} else if (type == MALGANIS) {
-			name = "Mal'Ganis";
-			minionType = Minion.DEMON;
-			initBasicStats(9, 9, 7);
-		} else if (type == PRIESTESS_OF_ELUNE) {
-			name = "Priestess of Elune";
-			initBasicStats(5, 4, 4);
-			battleCryEffect = new HealCharacter(4, true, true);
 		} else if (type == SCARLET_CRUSADER) {
 			name = "Scarlet Crusader";
 			initBasicStats(3, 3, 1);
 			divineShield = true;
-		} else if (type == SHIELDED_MINIBOT) {
-			name = "Shielded Minibot";
-			minionType = Minion.MECH;
-			initBasicStats(2, 2, 2);
-			divineShield = true;
-		} else if (type == ARGENT_COMMANDER) {
-			name = "Argent Commander";
-			initBasicStats(6, 4, 2);
-			charge = true;
-			divineShield = true;
-		} else if (type == SUNWALKER) {
-			name = "Sunwalker";
-			initBasicStats(6, 4, 5);
-			taunt = true;
-			divineShield = true;
-		} else if (type == BLOOD_KNIGHT) {
-			name = "Blood Knight";
-			initBasicStats(4, 3, 3);
-			battleCryEffect = new BuffAccordingToDivineShields(3, 3, true, true, true, false, false);
-		} else if (type == YSERA) {
-			name = "Ysera";
-			minionType = Minion.DRAGON;
-			initBasicStats(9, 4, 12);
-			endTurnEffect = new AddDreamCardToHandTurnEffect(1, true, false, false);
 		} else if (type == ACOLYTE_OF_PAIN) {
 			name = "Acolyte of Pain";
 			initBasicStats(3, 1, 3);
 			damageEffect = new DrawCardsDamageEffect(1, false, false);
-		} else if (type == GAHZRILLA) {
-			name = "Gahzrilla";
+		} else if (type == SPIDER_TANK) {
+			name = "Spider Tank";
+			minionType = Minion.MECH;
+			initBasicStats(3, 3, 4);
+		} else if (type == GNOMEREGAN_INFANTRY) {
+			name = "Gnomeregan Infantry";
+			initBasicStats(3, 1, 4);
+			taunt = true;
+			charge = true;
+		} else if (type == THRALLMAR_FARSEER) {
+			name = "Thrallmar Farseer";
+			initBasicStats(3, 2, 3);
+			windfury = true;
+		} else if (type == IMP_GANG_BOSS) {
+			name = "Imp Gang Boss";
+			minionType = Minion.DEMON;
+			initBasicStats(3, 2, 4);
+			damageEffect = new SummonMinionsDamageEffect(new int[] {IMP}, null, false, false, false);
+		} else if (type == KING_MUKKLA) {
+			name = "King Mukkla";
 			minionType = Minion.BEAST;
-			initBasicStats(7, 6, 9);
-			damageEffect = new BuffMinionDamageEffect(0, 0, true, false, false);
-		} else if (type == GURUBASHI_BERSERKER) {
-			name = "Gurubashi Berserker";
-			initBasicStats(5, 2, 7);
-			damageEffect = new BuffMinionDamageEffect(3, 0, false, false, false);
+			initBasicStats(3, 5, 5);
+			battleCryEffect = new AddBananaCardToHand(2, false, true, true);
+		} else if (type == FINKLE_EINHORN) {
+			name = "Finkle Einhorn";
+			initBasicStats(3, 3, 3);
+//==============================================================================
+		} else if (type == CHILLWIND_YETI) {
+			name = "Chillwind Yeti";
+			initBasicStats(4, 4, 5);
+		} else if (type == DRAGONLING_MECHANIC) {
+			name = "Dragonling Mechanic";
+			initBasicStats(4, 2, 4);
+			battleCryEffect = new SummonMinions(new int[] {MECHANICAL_DRAGONLING}, null);
+		} else if (type == BAINE_BLOODHOOF) {
+			name = "Baine Bloodhoof";
+			initBasicStats(4, 4, 5);
+		} else if (type == TWILIGHT_DRAKE) {
+			name = "Twilight Drake";
+			minionType = Minion.DRAGON;
+			initBasicStats(4, 4, 1);
+			battleCryEffect = new BuffAccordingToHand(0, 1, true, false, false, false);
+		} else if (type == WATER_ELEMENTAL) {
+			name = "Water Elemental";
+			initBasicStats(4, 3, 6);
+		} else if (type == BLOOD_KNIGHT) {
+			name = "Blood Knight";
+			initBasicStats(4, 3, 3);
 		} else if (type == STORMPIKE_COMMANDO) {
 			name = "Stormpike Commando";
 			initBasicStats(4, 4, 2);
@@ -919,54 +905,10 @@ public class MonsterCard extends PlayCard {
 			name = "Lost Tallstrider";
 			minionType = Minion.BEAST;
 			initBasicStats(4, 5, 4);
-		} else if (type == SALTY_DOG) {
-			name = "Salty Dog";
-			minionType = Minion.PIRATE;
-			initBasicStats(5, 7, 4);
-		} else if (type == SPIDER_TANK) {
-			name = "Spider Tank";
-			minionType = Minion.MECH;
-			initBasicStats(3, 3, 4);
-		} else if (type == THE_BEAST) {
-			name = "The Beast";
-			minionType = Minion.BEAST;
-			initBasicStats(7, 9, 7);
-			deathRattleEffect = new SummonMinions(null, new int[] {FINKLE_EINHORN});
-		} else if (type == FINKLE_EINHORN) {
-			name = "Finkle Einhorn";
-			initBasicStats(3, 3, 3);
-		} else if (type == GNOMEREGAN_INFANTRY) {
-			name = "Gnomeregan Infantry";
-			initBasicStats(3, 1, 4);
-			taunt = true;
-			charge = true;
-		} else if (type == ANTIQUE_HEALBOT) {
-			name = "Antique Healbot";
-			minionType = Minion.MECH;
-			initBasicStats(5, 3, 3);
-			battleCryEffect = new HealCharacter(8, true, true);
-		} else if (type == DREAD_INFERNAL) {
-			name = "Dread Infernal";
-			minionType = Minion.DEMON;
-			initBasicStats(6, 6, 6);
-			battleCryEffect = new DealDamageToAllCharacters(1, true, true, true, true);
 		} else if (type == SPELLBREAKER) {
 			name = "Spellbreaker";
 			initBasicStats(4, 4, 3);
 			battleCryEffect = new Silence(false, true, true);
-		} else if (type == WINDFURY_HARPY) {
-			name = "Windfury Harpy";
-			initBasicStats(6, 4, 5);
-			windfury = true;
-		} else if (type == THRALLMAR_FARSEER) {
-			name = "Thrallmar Farseer";
-			initBasicStats(3, 2, 3);
-			windfury = true;
-		} else if (type == FORCE_TANK_MAX) {
-			name = "Force-Tank MAX";
-			minionType = Minion.MECH;
-			initBasicStats(8, 7, 7);
-			divineShield = true;
 		} else if (type == DARK_IRON_DWARF) {
 			name = "Dark Iron Dwarf";
 			initBasicStats(4, 4, 4);
@@ -975,17 +917,68 @@ public class MonsterCard extends PlayCard {
 			name = "Oasis Snapjaw";
 			minionType = Minion.BEAST;
 			initBasicStats(4, 2, 7);
-		} else if (type == WAR_GOLEM) {
-			name = "War Golem";
-			initBasicStats(7, 7, 7);
-		} else if (type == HAUNTED_CREEPER) {
-			name = "Haunted Creeper";
+		} else if (type == KORKRON_ELITE) {
+			name = "Kor'kron Elite";
+			initBasicStats(4, 4, 3);
+			charge = true;
+		} else if (type == DRUID_OF_THE_CLAW_CAT_FORM) {
+			name = "Druid of the Claw (cat)";
 			minionType = Minion.BEAST;
-			initBasicStats(2, 1, 2);
-			deathRattleEffect = new SummonMinions(new int[] {SPECTRAL_SPIDER, SPECTRAL_SPIDER}, null);
-		} else if (type == SPECTRAL_SPIDER) {
-			name = "Spectral Spider";
-			initBasicStats(1, 1, 1);
+			initBasicStats(4, 4, 4);
+			charge = true;
+		} else if (type == DRUID_OF_THE_CLAW_BEAR_FORM) {
+			name = "Druid of the Claw (bear)";
+			minionType = Minion.BEAST;
+			initBasicStats(4, 4, 6);
+			taunt = true;
+//==============================================================================
+		} else if (type == SLUDGE_BELCHER) {
+			name = "Sludge Belcher";
+			initBasicStats(5, 3, 5);
+			taunt = true;
+			deathRattleEffect = new SummonMinions(new int[] {SLIME}, null);
+		} else if (type == VOLJIN) {
+			name = "Vol'Jin";
+			initBasicStats(5, 6, 2);
+			battleCryEffect = new SwapHealthMinion();
+		} else if (type == NIGHTBLADE) {
+			name = "Nightblade";
+			initBasicStats(5, 4, 4);
+			battleCryEffect = new DealDamageToAllCharacters(3, false, false, false, true);
+		} else if (type == FROSTWOLF_WARLORD) {
+			name = "Frostwolf Warlord";
+			initBasicStats(5, 4, 4);
+			battleCryEffect = new BuffAccordingToBoard(1, 1, true, false, false, false);
+		} else if (type == HOGGER) {
+			name = "Hogger";
+			initBasicStats(5, 4, 4);
+			endTurnEffect = new SummonMinionTurnEffect(new int[] {GNOLL}, null, false);
+		} else if (type == LEEROY_JENKINS) {
+			name = "Leeroy Jenkins";
+			initBasicStats(5, 6, 2);
+			charge = true;
+			battleCryEffect = new SummonMinions(null, new int[] {WHELP, WHELP});
+		} else if (type == EARTH_ELEMENTAL) {
+			name = "Earth Elemental";
+			initBasicStats(5, 7, 8);
+			taunt = true;
+		} else if (type == PRIESTESS_OF_ELUNE) {
+			name = "Priestess of Elune";
+			initBasicStats(5, 4, 4);
+			battleCryEffect = new HealCharacter(4, true, true);
+		} else if (type == GURUBASHI_BERSERKER) {
+			name = "Gurubashi Berserker";
+			initBasicStats(5, 2, 7);
+			damageEffect = new BuffMinionDamageEffect(3, 0, false, false, false);
+		} else if (type == SALTY_DOG) {
+			name = "Salty Dog";
+			minionType = Minion.PIRATE;
+			initBasicStats(5, 7, 4);
+		} else if (type == ANTIQUE_HEALBOT) {
+			name = "Antique Healbot";
+			minionType = Minion.MECH;
+			initBasicStats(5, 3, 3);
+			battleCryEffect = new HealCharacter(8, true, true);
 		} else if (type == ANCIENT_BREWMASTER) {
 			name = "Ancient Brewmaster";
 			initBasicStats(5, 5, 4);
@@ -1000,72 +993,192 @@ public class MonsterCard extends PlayCard {
 			minionType = Minion.BEAST;
 			initBasicStats(5, 5, 5);
 			stealth = true;
-		} else if (type == RAVENHOLDT_ASSASSIN) {
-			name = "Ravenholdt Assasin";
-			initBasicStats(6, 7, 5);
-			stealth = true;
-		} else if (type == PROPHET_VELEN) {
-			name = "Prophet Velen";
-			initBasicStats(7, 7, 7);
-		} else if (type == IMP_GANG_BOSS) {
-			name = "Imp Gang Boss";
-			minionType = Minion.DEMON;
-			initBasicStats(3, 2, 4);
-			damageEffect = new SummonMinionsDamageEffect(new int[] {IMP}, null, false, false, false);
-		} else if (type == LORD_OF_THE_ARENA) {
-			name = "Lord of the Arena";
-			initBasicStats(6, 6, 5);
-			taunt = true;
-		} else if (type == CORE_HOUND) {
-			name = "Core Hound";
-			minionType = Minion.BEAST;
-			initBasicStats(7, 9, 5);
-		} else if (type == SUCCUBUS) {
-			name = "Succubus";
-			minionType = Minion.DEMON;
-			initBasicStats(2, 4, 3);
-			battleCryEffect = new DiscardCards(1);
-		} else if (type == KORKRON_ELITE) {
-			name = "Kor'kron Elite";
-			initBasicStats(4, 4, 3);
-			charge = true;
 		} else if (type == BOOTY_BAY_BODYGUARD) {
 			name = "Booty Bay Bodyguard";
 			initBasicStats(5, 5, 4);
 			taunt = true;
-		} else if (type == DRUID_OF_THE_CLAW_CAT_FORM) {
-			name = "Druid of the Claw (cat)";
-			minionType = Minion.BEAST;
-			initBasicStats(4, 4, 4);
-			charge = true;
-		} else if (type == DRUID_OF_THE_CLAW_BEAR_FORM) {
-			name = "Druid of the Claw (bear)";
-			minionType = Minion.BEAST;
-			initBasicStats(4, 4, 6);
-			taunt = true;
-		} else if (type == DRUID_OF_THE_FANG_VIPER_FORM) {
-			name = "Druid of the Fang (viper)";
-			minionType = Minion.BEAST;
-			initBasicStats(7, 7, 7);
-		} else if (type == KING_MUKKLA) {
-			name = "King Mukkla";
-			minionType = Minion.BEAST;
-			initBasicStats(3, 5, 5);
-			battleCryEffect = new AddBananaCardToHand(2, false, true, true);
 		} else if (type == DOOMGUARD) {
 			name = "Doomguard";
 			minionType = Minion.DEMON;
 			initBasicStats(5, 5, 7);
 			charge = true;
 			battleCryEffect = new DiscardCards(2);
-		} else if (type == SHIELDMAIDEN) {
-			name = "Shieldmaiden";
-			initBasicStats(6, 5, 5);
-			battleCryEffect = new AddArmor(5, true, false);
 		} else if (type == GRIM_PATRON) {
 			name = "Grim Patron";
 			initBasicStats(5, 3, 3);
 			damageEffect = new SummonMinionsDamageEffect(new int[] {GRIM_PATRON}, null, false, false, true);
+		} else if (type == DRUID_OF_THE_FANG_VIPER_FORM) {
+			// not playable
+			name = "Druid of the Fang (viper)";
+			minionType = Minion.BEAST;
+			initBasicStats(5, 7, 7);
+//==============================================================================
+		} else if (type == ARGENT_COMMANDER) {
+			name = "Argent Commander";
+			initBasicStats(6, 4, 2);
+			charge = true;
+			divineShield = true;
+		} else if (type == SUNWALKER) {
+			name = "Sunwalker";
+			initBasicStats(6, 4, 5);
+			taunt = true;
+			divineShield = true;
+			battleCryEffect = new BuffAccordingToDivineShields(3, 3, true, true, true, false, false);
+		} else if (type == CAIRNE_BLOODHOOF) {
+			name = "Cairne Bloodhoof";
+			initBasicStats(6, 4, 5);
+			deathRattleEffect = new SummonMinions(new int[] {BAINE_BLOODHOOF}, null);
+		} else if (type == EMPEROR_THAURISSAN) {
+			name = "Emperor Thaurissan";
+			initBasicStats(6, 5, 5);
+			endTurnEffect = new HandCostTurnEffect(-1, false);
+		} else if (type == SYLVANAS_WINDRUNNER) {
+			name = "Sylvanas Windrunner";
+			initBasicStats(6, 5, 5);
+			deathRattleEffect = new MindControlRandom();
+		} else if (type == FIRE_ELEMENTAL) {
+			name = "Fire Elemental";
+			initBasicStats(6, 6, 5);
+			battleCryEffect = new DealDamage(3);
+		} else if (type == SAVANNAH_HIGHMANE) {
+			name = "Savannah Highmane";
+			minionType = Minion.BEAST;
+			initBasicStats(6, 6, 5);
+		} else if (type == DREAD_INFERNAL) {
+			name = "Dread Infernal";
+			minionType = Minion.DEMON;
+			initBasicStats(6, 6, 6);
+			battleCryEffect = new DealDamageToAllCharacters(1, true, true, true, true);
+		} else if (type == WINDFURY_HARPY) {
+			name = "Windfury Harpy";
+			initBasicStats(6, 4, 5);
+			windfury = true;
+		} else if (type == RAVENHOLDT_ASSASSIN) {
+			name = "Ravenholdt Assasin";
+			initBasicStats(6, 7, 5);
+			stealth = true;
+		} else if (type == LORD_OF_THE_ARENA) {
+			name = "Lord of the Arena";
+			initBasicStats(6, 6, 5);
+			taunt = true;
+		} else if (type == SHIELDMAIDEN) {
+			name = "Shieldmaiden";
+			initBasicStats(6, 5, 5);
+			battleCryEffect = new AddArmor(5, true, false);
+//==============================================================================
+		} else if (type == DR_BOOM) {
+			name = "Dr. Boom";
+			initBasicStats(7, 7, 7);
+			battleCryEffect = new SummonMinions(new int[] {BOOM_BOT, BOOM_BOT}, null);
+		} else if (type == GRUUL) {
+			name = "Gruul";
+			initBasicStats(7, 7, 7);
+			startTurnEffect = new BuffMinionTurnEffect(1, 1, true, false);
+		} else if (type == BARON_GEDDON) {
+			name = "Baron Geddon";
+			initBasicStats(7, 7, 5);
+			endTurnEffect = new DealDamageToAllCharactersTurnEffect(2, true, true, true, false);
+		} else if (type == GAHZRILLA) {
+			name = "Gahzrilla";
+			minionType = Minion.BEAST;
+			initBasicStats(7, 6, 9);
+			damageEffect = new BuffMinionDamageEffect(0, 0, true, false, false);
+		} else if (type == THE_BEAST) {
+			name = "The Beast";
+			minionType = Minion.BEAST;
+			initBasicStats(7, 9, 7);
+			deathRattleEffect = new SummonMinions(null, new int[] {FINKLE_EINHORN});
+		} else if (type == WAR_GOLEM) {
+			name = "War Golem";
+			initBasicStats(7, 7, 7);
+		} else if (type == PROPHET_VELEN) {
+			name = "Prophet Velen";
+			initBasicStats(7, 7, 7);
+		} else if (type == CORE_HOUND) {
+			name = "Core Hound";
+			minionType = Minion.BEAST;
+			initBasicStats(7, 9, 5);
+//==============================================================================
+		} else if (type == RAGNAROS_THE_FIRELORD) {
+			name = "Ragnaros the Firelord";
+			initBasicStats(8, 8, 8);
+			cannotAttack = true;
+			endTurnEffect = new DealDamageRandomTurnEffect(8, false, true);
+		} else if (type == ALAKIR_THE_WINDLORD) {
+			name = "Al'Akir the Windlord";
+			initBasicStats(8, 3, 5);
+			charge = true;
+			taunt = true;
+			divineShield = true;
+			windfury = true;
+		} else if (type == KING_KRUSH) {
+			name = "King Krush";
+			minionType = Minion.BEAST;
+			initBasicStats(8, 8, 8);
+			charge = true;
+		} else if (type == KELTHUZAD) {
+			name = "Kel'Thuzad";
+			initBasicStats(8, 6, 8);
+			endTurnEffect = new ReviveFriendlyMinionsTurnEffect(true);
+		} else if (type == FORCE_TANK_MAX) {
+			name = "Force-Tank MAX";
+			minionType = Minion.MECH;
+			initBasicStats(8, 7, 7);
+			divineShield = true;
+//==============================================================================
+		} else if (type == ALEXSTRASZA) {
+			name = "Alexstrasza";
+			minionType = Minion.DRAGON;
+			initBasicStats(9, 8, 8);
+			battleCryEffect = new SetHealthPlayer(15);
+		} else if (type == ONYXIA) {
+			name = "Onyxia";
+			minionType = Minion.DRAGON;
+			initBasicStats(9, 8, 8);
+			battleCryEffect = new SummonMinions(new int[] {WHELP, WHELP, WHELP, WHELP, WHELP, WHELP}, null);
+		} else if (type == MALORNE) {
+			name = "Malorne";
+			minionType = Minion.BEAST;
+			initBasicStats(9, 9, 7);
+			deathRattleEffect = new AddCardToDeck(new int[] {MALORNE}, null);
+		} else if (type == MALYGOS) {
+			name = "Malygos";
+			minionType = Minion.DRAGON;
+			initBasicStats(9, 4, 12);
+		} else if (type == MALGANIS) {
+			name = "Mal'Ganis";
+			minionType = Minion.DEMON;
+			initBasicStats(9, 9, 7);
+		} else if (type == YSERA) {
+			name = "Ysera";
+			minionType = Minion.DRAGON;
+			initBasicStats(9, 4, 12);
+			endTurnEffect = new AddDreamCardToHandTurnEffect(1, true, false, false);
+//==============================================================================
+		} else if (type == DEATHWING) {
+			name = "Deathwing";
+			minionType = Minion.DRAGON;
+			initBasicStats(10, 12, 12);
+			battleCryEffect = new DestroyAllMinions(true);
+		} else if (type == SEA_GIANT) {
+			name = "Sea Giant";
+			costEffect = new CostDeterminedByMinionsOnBoard(1, true, true);
+			initBasicStats(10, 8, 8);
+//==============================================================================
+		} else if (type == MOUNTAIN_GIANT) {
+			name = "Mountain Giant";
+			costEffect = new CostDeterminedByCardsInHand(1, true, false);
+			initBasicStats(12, 8, 8);
+		} else if (type == CLOCKWORK_GIANT) {
+			name = "Clockwork Giant";
+			minionType = Minion.MECH;
+			costEffect = new CostDeterminedByCardsInHand(1, false, true);
+			initBasicStats(12, 8, 8);
+		} else if (type == MOLTEN_GIANT) {
+			name = "Molten Giant";
+			costEffect = new CostDeterminedByHealth(1, true);
+			initBasicStats(20, 8, 8);
+			deathRattleEffect = new SummonMinions(new int[] {HYENA, HYENA}, null);
 		}
 	}
 
