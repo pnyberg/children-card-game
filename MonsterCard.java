@@ -3,7 +3,7 @@ public class MonsterCard extends PlayCard {
 							TARGET_DUMMY = 1,
 							WISP = 2,
 							ABUSIVE_SERGEANT = 3,
-							ANGRY_CHICKEN = 4, // not completely done [enrage]
+							ANGRY_CHICKEN = 4,
 							ARGENT_SQUIRE = 5,
 							BLOOD_IMP = 6, // not completely done [endturn-buff]
 							BLOODSAIL_CORSAIR = 7, // not completely done [weapon-effect]
@@ -33,14 +33,14 @@ public class MonsterCard extends PlayCard {
 							UNDERTAKER = 31, // not completely done [Summon-effect]
 							VOIDWALKER = 32,
 							VODOO_DOCTOR = 33,
-							WARBOT = 34, // not completely done [Enrage-effect]
+							WARBOT = 34,
 							WEBSPINNER = 35, // not completely done [Deathrattle]
 							WORGEN_INFILTRATOR = 36,
 							YOUNG_DRAGONHAWK = 37,
 							YOUNG_PRIESTESS = 38, // not completely done [endturn-buff]
 							ZOMBIE_CHOW = 39,
 							ACIDIC_SWAMP_OOZE = 40, // not completely done - weapon
-							AMANI_BERSERKER = 41, // not done [Enrage]
+							AMANI_BERSERKER = 41,
 							ANCIENT_WATCHER = 42,
 							ANNOY_O_TRON = 43,
 							ANODIZED_ROBO_CUB = 44, // not done [Choose one]
@@ -161,7 +161,7 @@ public class MonsterCard extends PlayCard {
 							MURLOC_WARLEADER = 159, // not done
 							OGRE_BRUTE = 160, // not done
 							QUESTING_ADVENTURER = 161, // not done
-							RAGING_WORGEN = 162, // not done
+							RAGING_WORGEN = 162,	
 							RAID_LEADER = 163, // not completely done - area effect
 							RAZORFEN_HUNTER = 164,
 							BOAR = 165,
@@ -175,7 +175,7 @@ public class MonsterCard extends PlayCard {
 							SOUTHSEA_CAPTAIN = 173, // not done
 							SPIDER_TANK = 174,
 							STONESKIN_GARGOYLE = 175, // not done
-							TAUREN_WARRIOR = 176, // not done
+							TAUREN_WARRIOR = 176,
 							THRALLMAR_FARSEER = 177,
 							TINKERTOWN_TECHNICIAN = 178, // not done
 							TINKMASTER_OVERSPARK = 179, // not done
@@ -469,10 +469,10 @@ public class MonsterCard extends PlayCard {
 			initBasicStats(1, 2, 1);
 			battleCryEffect = new BuffSingleMinion(2, 0, false, false, false, false, true);
 		} else if (type == ANGRY_CHICKEN) {
-			// add enrage
 			name = "Angry Chicken";
 			minionType = Minion.BEAST;
 			initBasicStats(1, 1, 1);
+			enrageEffect = new BuffSingleMinionEnrageEffect(1, 0, false, false, false, false);
 		} else if (type == ARGENT_SQUIRE) {
 			name = "Argent Squire";
 			initBasicStats(1, 1, 1);
@@ -734,6 +734,10 @@ public class MonsterCard extends PlayCard {
 			name = "River Crocolisk";
 			minionType = Minion.BEAST;
 			initBasicStats(2, 2, 3);
+		} else if (type == AMANI_BERSERKER) {
+			name = "Amani Berserker";
+			initBasicStats(2, 2, 3);
+			enrageEffect = new BuffSingleMinionEnrageEffect(3, 0, false, false, false, false);
 		} else if (type == BLOODMAGE_THALNOS) {
 			name = "Bloodmage Thalnos";
 			initBasicStats(2, 1, 1);
@@ -786,6 +790,15 @@ public class MonsterCard extends PlayCard {
 			name = "Ironforge Rifleman";
 			initBasicStats(3, 2, 2);
 			battleCryEffect = new DealDamage(1);
+		} else if (type == TAUREN_WARRIOR) {
+			name = "Tauren Warrior";
+			initBasicStats(3, 2, 3);
+			taunt = true;
+			enrageEffect = new BuffSingleMinionEnrageEffect(3, 0, false, false, false, false);
+		} else if (type == RAGING_WORGEN) {
+			name = "Raging Worgen";
+			initBasicStats(3, 3, 3);
+			enrageEffect = new BuffSingleMinionEnrageEffect(1, 0, false, false, false, true);
 		} else if (type == DALARAN_MAGE) {
 			name = "Dalaran Mage";
 			initBasicStats(3, 1, 4);

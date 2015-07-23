@@ -133,7 +133,7 @@ public class Minion extends Character {
 	}
 
 	public void prepareMinion(boolean startOfTurn) {
-		attackAmount = (windfury ? 2 : 1);
+		attackAmount = (hasWindfury() ? 2 : 1);
 
 		if (stealthTemporary && startOfTurn) {
 			stealth = false;
@@ -189,7 +189,8 @@ public class Minion extends Character {
 		enrageTaunt = false;
 		enrageCharge = false;
 		enrageDivineShield = false;
-		enrageWindfury = false;
+
+		setEnrageWindfury(false);
 	}
 
 	public int attack() {
