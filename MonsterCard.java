@@ -302,7 +302,7 @@ public class MonsterCard extends PlayCard {
 							ANIMA_GOLEM = 300, // not done
 							ARCHMAGE = 301, // not done
 							ARGENT_COMMANDER = 302,
-							BOULDERFIST_OGRE = 303, // not done
+							BOULDERFIST_OGRE = 303,
 							CABAL_SHADOW_PRIEST = 304, // not done
 							CAIRNE_BLOODHOOF = 305,
 							BAINE_BLOODHOOF = 306,
@@ -331,7 +331,7 @@ public class MonsterCard extends PlayCard {
 							MOGOR_THE_OGRE = 329, // not done
 							PILOTED_SKY_GOLEM = 330, // not done
 							PRIESTESS_OF_ELUNE = 331,
-							RECKLESS_ROCKETEER = 332, // not done
+							RECKLESS_ROCKETEER = 332,
 							SAVANNAH_HIGHMANE = 333,
 							HYENA = 334,
 							SHIELDMAIDEN = 335,
@@ -367,9 +367,9 @@ public class MonsterCard extends PlayCard {
 							CHROMAGGUS = 365, // not done
 							FOE_REAPER_4000 = 366, // not done
 							FORCE_TANK_MAX = 367,
-							GROMMASH_HELLSCREAM = 368, // not done
+							GROMMASH_HELLSCREAM = 368,
 							GRUUL = 369,
-							IRONBARK_PROTECTOR = 370, // not done
+							IRONBARK_PROTECTOR = 370,
 							KELTHUZAD = 371,
 							RAGNAROS_THE_FIRELORD = 372,
 							SNEEDS_OLD_SHREDDER = 373, // not done
@@ -384,7 +384,7 @@ public class MonsterCard extends PlayCard {
 							MALYGOS = 382, // not completely done - spell dmg
 							MEGGINEER_THERMAPLUGG = 383, // not done
 							NEFARIAN = 384, // not done
-							NOZDORMU = 385, // not done - inte göra
+							NOZDORMU = 385, // not to be done? - inte göra
 							ONYXIA = 386,
 							WHELP = 387,
 							VOLCANIC_LUMBERER = 388, // not done
@@ -1090,6 +1090,10 @@ public class MonsterCard extends PlayCard {
 			minionType = Minion.BEAST;
 			initBasicStats(5, 7, 7);
 //==============================================================================
+		} else if (type == RECKLESS_ROCKETEER) {
+			name = "Reckless Rocketeer";
+			initBasicStats(6, 5, 2);
+			charge = true;
 		} else if (type == ARGENT_COMMANDER) {
 			name = "Argent Commander";
 			initBasicStats(6, 4, 2);
@@ -1142,6 +1146,9 @@ public class MonsterCard extends PlayCard {
 			name = "Shieldmaiden";
 			initBasicStats(6, 5, 5);
 			battleCryEffect = new AddArmor(5, true, false);
+		} else if (type == BOULDERFIST_OGRE) {
+			name = "Boulderfist Ogre";
+			initBasicStats(6, 6, 7);
 //==============================================================================
 		} else if (type == DR_BOOM) {
 			name = "Dr. Boom";
@@ -1202,6 +1209,19 @@ public class MonsterCard extends PlayCard {
 			minionType = Minion.MECH;
 			initBasicStats(8, 7, 7);
 			divineShield = true;
+		} else if (type == GROMMASH_HELLSCREAM) {
+			name = "Grommash Hellscream";
+			initBasicStats(8, 4, 9);
+			charge = true;
+			enrageEffect = new BuffSingleMinionEnrageEffect(6, 0, false, false, false, false);
+		} else if (type == IRONBARK_PROTECTOR) {
+			name = "Ironbark Protector";
+			initBasicStats(8, 8, 8);
+			taunt = true;
+		} else if (type == SNEEDS_OLD_SHREDDER) {
+			name = "Sneed's Old Shredder";
+			initBasicStats(6, 4, 5);
+			deathRattleEffect = new SummonMinions(new int[] {BAINE_BLOODHOOF}, null);
 //==============================================================================
 		} else if (type == ALEXSTRASZA) {
 			name = "Alexstrasza";
