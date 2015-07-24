@@ -47,7 +47,7 @@ public class MonsterCard extends PlayCard {
 							ARGENT_PROTECTOR = 45,
 							ARMORSMITH = 46, // not done [Dmg-effect]
 							BLOODFEN_RAPTOR = 47,
-							BLOODMAGE_THALNOS = 48, // not dcompletely one - dubbla effekter + spell dmg
+							BLOODMAGE_THALNOS = 48, // not completely one - dubbla effekter + spell dmg
 							BLOODSAIL_RAIDER = 49, // not done [Weapon-effect]
 							BLUEGILL_WARRIOR = 50,
 							CAPTAINS_PARROT = 51, // not done [Deathrattle]
@@ -71,7 +71,7 @@ public class MonsterCard extends PlayCard {
 							KOBOLD_GEOMANCER = 69, // not completely done - spell dmg
 							LIGHTWELL = 70, // not done
 							LOOT_HOARDER = 71,
-							LOREWALKER_CHO = 72, // not done
+							LOREWALKER_CHO = 72, // not completely done - spell-copying
 							MAD_BOMBER = 73, // not done
 							MAD_SCIENTIST = 74, // not done
 							MANA_ADDICT = 75, // not done
@@ -79,11 +79,11 @@ public class MonsterCard extends PlayCard {
 							MASTER_SWORDSMITH = 77, // not done
 							MECHWARPER = 78, // not done
 							MICRO_MACHINE = 79, // not done
-							MILLHOUSE_MANASTORM = 80, // not done
+							MILLHOUSE_MANASTORM = 80, // not completely done - spell-cost-next-turn
 							MISTRESS_OF_PAIN = 81, // not done
 							MURLOC_TIDEHUNTER = 82,
 							MURLOC_SCOUT = 83,
-							NAT_PAGLE = 84, // not done
+							NAT_PAGLE = 84, // not completely done - draw-chance-effect
 							NERUBAR_WEBLORD = 85, // not done
 							NERUBIAN_EGG = 86, // not done
 							NERUBIAN = 87, // not done
@@ -128,7 +128,7 @@ public class MonsterCard extends PlayCard {
 							DRUID_OF_THE_FLAME_FIRECAT_FORM = 126, // not done
 							DRUID_OF_THE_FLAME_FIRE_HAWK_FORM = 127, // not done
 							EARTHEN_RING_FARSEER = 128,
-							EDWIN_VANCLEEF = 129, // not done
+							EDWIN_VANCLEEF = 129, // not completely done - combo-buff
 							EMPEROR_COBRA = 130, // not done
 							FELGUARD = 131, // not done
 							FLAMEWALKER = 132, // not done
@@ -178,7 +178,7 @@ public class MonsterCard extends PlayCard {
 							TAUREN_WARRIOR = 176,
 							THRALLMAR_FARSEER = 177,
 							TINKERTOWN_TECHNICIAN = 178, // not done
-							TINKMASTER_OVERSPARK = 179, // not done
+							TINKMASTER_OVERSPARK = 179, // not completely done - transform-effect
 							UNBOUND_ELEMENTAL = 180, // not done
 							VOID_TERROR = 181, // not done
 							WARSONG_COMMANDER = 182, // not done
@@ -190,7 +190,7 @@ public class MonsterCard extends PlayCard {
 							ARCANE_NULLIFIER_X21 = 188, // not done
 							AUCHENAI_SOULPRIEST = 189, // not done
 							AXE_FLINGER = 190, // not done
-							BARON_RIVERDARE = 191, // not done
+							BARON_RIVERDARE = 191, // not completely done - double deathrattle
 							BURLY_ROCKJAW_TROGG = 192, // not done
 							CHILLWIND_YETI = 193,
 							CORE_RAGER = 194, // not done
@@ -222,7 +222,7 @@ public class MonsterCard extends PlayCard {
 							MOGUSHAN_WARDEN = 220, // not done
 							OASIS_SNAPJAW = 221, // not done
 							OGRE_MAGI = 222, // not done
-							OLD_MURK_EYE = 223, // not done
+							OLD_MURK_EYE = 223, // not completely done - murloc area buff
 							PILOTED_SHREDDER = 224, // not done
 							PIT_LORD = 225,
 							SCREWJANK_CLUNKER = 226, // not done
@@ -244,11 +244,11 @@ public class MonsterCard extends PlayCard {
 							ANTIQUE_HEALBOT = 242,
 							AZURE_DRAKE = 243, // not done
 							BLACKWING_CORRUPTOR = 244, // not done
-							BLINGTRON_3000 = 245, // not done
-							BOLVAR_FORDRAGON = 246, // not done
+							BLINGTRON_3000 = 245, // not completely done - weapon-battlecry
+							BOLVAR_FORDRAGON = 246, // not completely done - minions died-effect
 							BOMB_LOBBER = 247, // not done
 							BOOTY_BAY_BODYGUARD = 248,
-							CAPTAIN_GREENSKIN = 249, // not done
+							CAPTAIN_GREENSKIN = 249, // not completely done - weapon-battlecry
 							COBALT_GUARDIAN = 250, // not done
 							DARK_IRON_SKULKER = 251, // not done
 							DARKSCALE_HEALER = 252, // not done
@@ -260,23 +260,23 @@ public class MonsterCard extends PlayCard {
 							DRUID_OF_THE_FANG = 258, // not done
 							DRUID_OF_THE_FANG_VIPER_FORM = 259, // not done
 							EARTH_ELEMENTAL = 260, // not completely done - overload
-							ELITE_TAUREN_CHIEFTAIN = 261, // not done
+							ELITE_TAUREN_CHIEFTAIN = 261, // not completely done - rock-effect
 							FACELESS_MANIPULATOR = 262, // not done
 							FEL_REAVER = 263, // not done
 							FEN_CREEPER = 264,
-							FEUGEN = 265, // not done
+							FEUGEN = 265, // not completely done - thaddius-effect
 							FLOATING_WATCHER = 266, // not done
 							FROSTWOLF_WARLORD = 267,
 							GRIM_PATRON = 268,
 							GURUBASHI_BERSERKER = 269,
-							HARRISON_JONES = 270, // not done
-							HEMET_NESINGWARY = 271, // not done
+							HARRISON_JONES = 270, // not completely done - weapon-battlecry
+							HEMET_NESINGWARY = 271, // not completely done - destroy minion type
 							JUNKBOT = 272, // not done
 							KING_OF_BEASTS = 273, // not done
 							LEEROY_JENKINS = 274,
-							LOATHEB = 275, // not done
+							LOATHEB = 275, // not completely done - spell cost next turn
 							MADDER_BOMBER = 276, // not done
-							MIMIRONS_HEAD = 277, // not done
+							MIMIRONS_HEAD = 277, // not completely done - summon effect
 							V_07_TR_0N = 278, // not done
 							NIGHTBLADE = 279,
 							OGRE_NINJA = 280, // not done
@@ -289,7 +289,7 @@ public class MonsterCard extends PlayCard {
 							SLIME = 287,
 							SPECTRAL_KNIGHT = 288, // not done
 							SPITEFUL_SMITH = 289, // not done
-							STALAGG = 290, // not done
+							STALAGG = 290, // not completely done - thaddius-effect
 							THADDIUS = 291,
 							STAMPEDING_KODO = 292, // not done
 							STARVING_BUZZARD = 293, // not done
@@ -312,23 +312,23 @@ public class MonsterCard extends PlayCard {
 							FIRE_ELEMENTAL = 310,
 							FROST_ELEMENTAL = 311, // not done
 							GADGETZAN_AUCTIONEER = 312, // not done
-							GAZLOWE = 313, // not done
-							GELBIN_MEKKATORQUE = 314, // not done
+							GAZLOWE = 313, // not completely done - add mech card
+							GELBIN_MEKKATORQUE = 314, // not completely done - awesome invention
 							EMBOLDENER_3000 = 315, // not done
 							HOMING_CHICKEN = 316, // not done
 							POULTRYIZER = 317, // not done
 							REPAIR_BOT = 318, // not done
 							HOGGER = 319,
 							GNOLL = 320,
-							ILLIDAN_STORMRAGE = 321, // not done
+							ILLIDAN_STORMRAGE = 321, // not completely done - play summon effect
 							FLAME_OF_AZZINOTH = 322, // not done
-							IRON_JUGGERNAUT = 323, // not done
+							IRON_JUGGERNAUT = 323, // not completel done - mine battlecry effect
 							BURROWING_MINE = 324, // not done
 							KIDNAPPER = 325, // not done
 							LORD_OF_THE_ARENA = 326,
-							MAEXXNA = 327, // not done
+							MAEXXNA = 327, // not completely done - poision effect
 							MECH_BEAR_CAT = 328, // not done
-							MOGOR_THE_OGRE = 329, // not done
+							MOGOR_THE_OGRE = 329, // not completely done - attack chance effect
 							PILOTED_SKY_GOLEM = 330, // not done
 							PRIESTESS_OF_ELUNE = 331,
 							RECKLESS_ROCKETEER = 332,
@@ -340,50 +340,50 @@ public class MonsterCard extends PlayCard {
 							TEMPLE_ENFORCER = 338, // not done
 							THE_BEAST = 339,
 							FINKLE_EINHORN = 340,
-							THE_BLACK_KNIGHT = 341, // not done
-							TOSHLEY = 342, // not done
-							TRADE_PRINCE_GALLYWIX = 343, // not done
+							THE_BLACK_KNIGHT = 341, // not completely done - destroy taunt
+							TOSHLEY = 342, // not completely done - spare part 
+							TRADE_PRINCE_GALLYWIX = 343, // not completely done - coin effect
 							VOLCANIC_DRAKE = 344, // not done
 							WINDFURY_HARPY = 345,
 							ANCIENT_OF_LORE = 346, // not done
 							ANCIENT_OF_WAR = 347, // not done
-							ARCHMAGE_ANTONIDAS = 348, // not done
+							ARCHMAGE_ANTONIDAS = 348, // not completely done - fireball effect
 							BARON_GEDDON = 349,
 							CORE_HOUND = 350,
 							DR_BOOM = 351,
 							BOOM_BOT = 352,
-							FLAME_LEVIATHAN = 353, // not done
+							FLAME_LEVIATHAN = 353, // not completely done - draw effect
 							GAHZRILLA = 354,
 							GUARDIAN_OF_KINGS = 355, // not done
 							MALORNE = 356,
-							NEPTULON = 357, // not done
+							NEPTULON = 357, // not completely done - overload + murloc
 							PROPHET_VELEN = 358, // not completely done - double spell + hero -effect
 							RAVENHOLDT_ASSASSIN = 359,
-							REND_BLACKHAND = 360, // not done
+							REND_BLACKHAND = 360, // not completely done - hold card-destroy type 
 							STORMWIND_CHAMPION = 361, // not done
-							TROGGZOR_THE_EARTHINATOR = 362, // not done
+							TROGGZOR_THE_EARTHINATOR = 362, // not completely done - spell-summon-effect
 							WAR_GOLEM = 363,
 							ALAKIR_THE_WINDLORD = 364,
-							CHROMAGGUS = 365, // not done
-							FOE_REAPER_4000 = 366, // not done
+							CHROMAGGUS = 365, // not completely done - draw effect
+							FOE_REAPER_4000 = 366, // not completely done - close by-effect
 							FORCE_TANK_MAX = 367,
 							GROMMASH_HELLSCREAM = 368,
 							GRUUL = 369,
 							IRONBARK_PROTECTOR = 370,
 							KELTHUZAD = 371,
 							RAGNAROS_THE_FIRELORD = 372,
-							SNEEDS_OLD_SHREDDER = 373, // not done
-							TIRION_FORDRING = 374, // not done
+							SNEEDS_OLD_SHREDDER = 373,
+							TIRION_FORDRING = 374, // not completely done - weapon-deathrattle
 							ALEXSTRASZA = 375,
-							CENARIUS = 376, // not done
+							CENARIUS = 376, // not compleyely done - choose one
 							TREANT = 377, // not done
 							KING_KRUSH = 378,
-							LORD_JARAXXUS = 379, // not done
-							MAJORDOMO_EXECUTUS = 380, // not done
+							LORD_JARAXXUS = 379, // not compleyely done - hero
+							MAJORDOMO_EXECUTUS = 380, // not completely done - hero
 							MALGANIS = 381, // not completely done - immune & +2/+2 - demon
 							MALYGOS = 382, // not completely done - spell dmg
-							MEGGINEER_THERMAPLUGG = 383, // not done
-							NEFARIAN = 384, // not done
+							MEKGINEER_THERMAPLUGG = 383, // not completely done - die-effect
+							NEFARIAN = 384, // not completely done - nefarian-effect
 							NOZDORMU = 385, // not to be done? - inte göra
 							ONYXIA = 386,
 							WHELP = 387,
@@ -751,9 +751,22 @@ public class MonsterCard extends PlayCard {
 			initBasicStats(2, 2, 3);
 			enrageEffect = new BuffSingleMinionEnrageEffect(3, 0, false, false, false, false);
 		} else if (type == BLOODMAGE_THALNOS) {
+			// Add spell damage
 			name = "Bloodmage Thalnos";
 			initBasicStats(2, 1, 1);
 			deathRattleEffect = new DrawCards(1);
+		} else if (type == LOREWALKER_CHO) {
+			// Add spell-copying-effect
+			name = "Lorewalker Cho";
+			initBasicStats(2, 0, 4);
+		} else if (type == MILLHOUSE_MANASTORM) {
+			// Add spell-cost-0-next-turn-effect
+			name = "Millhouse Manastorm";
+			initBasicStats(2, 4, 4);
+		} else if (type == NAT_PAGLE) {
+			// Add draw-chance-effect
+			name = "Nat Pagle";
+			initBasicStats(2, 0, 4);
 		} else if (type == UNSTABLE_GHOUL) {
 			name = "Unstable Ghoul";
 			initBasicStats(2, 1, 3);
@@ -919,6 +932,14 @@ public class MonsterCard extends PlayCard {
 		} else if (type == FINKLE_EINHORN) {
 			name = "Finkle Einhorn";
 			initBasicStats(3, 3, 3);
+		} else if (type == EDWIN_VANCLEEF) {
+			// Add Combo-buff-effect
+			name = "Edwin VanCleef";
+			initBasicStats(3, 2, 2);
+		} else if (type == TINKMASTER_OVERSPARK) {
+			// Add transform-battlecry-effect
+			name = "Tinkmaster Overspark";
+			initBasicStats(3, 3, 3);
 //==============================================================================
 		} else if (type == WINDSPEAKER) {
 			name = "Windspeaker";
@@ -995,6 +1016,16 @@ public class MonsterCard extends PlayCard {
 			name = "Sen'jin Shieldmasta";
 			initBasicStats(4, 3, 5);
 			taunt = true;
+		} else if (type == BARON_RIVERDARE) {
+			// Add double deathrattle-effect
+			name = "Baron Riverdare";
+			initBasicStats(4, 1, 7);
+		} else if (type == OLD_MURK_EYE) {
+			// Add murloc area buff-effect
+			name = "Old Murk-Eye";
+			minionType = Minion.MURLOC;
+			initBasicStats(4, 2, 4);
+			charge = true;
 //==============================================================================
 		} else if (type == FEN_CREEPER) {
 			name = "Fen Creeper";
@@ -1026,10 +1057,6 @@ public class MonsterCard extends PlayCard {
 			name = "Frostwolf Warlord";
 			initBasicStats(5, 4, 4);
 			battleCryEffect = new BuffAccordingToBoard(1, 1, true, false, false, false);
-		} else if (type == HOGGER) {
-			name = "Hogger";
-			initBasicStats(5, 4, 4);
-			endTurnEffect = new SummonMinionTurnEffect(new int[] {GNOLL}, null, false);
 		} else if (type == LEEROY_JENKINS) {
 			name = "Leeroy Jenkins";
 			initBasicStats(5, 6, 2);
@@ -1089,7 +1116,54 @@ public class MonsterCard extends PlayCard {
 			name = "Druid of the Fang (viper)";
 			minionType = Minion.BEAST;
 			initBasicStats(5, 7, 7);
+		} else if (type == BLINGTRON_3000) {
+			// Add weapons-battlecry-effect
+			name = "Blingtron 3000";
+			minionType = Minion.MECH;
+			initBasicStats(5, 3, 4);
+		} else if (type == BOLVAR_FORDRAGON) {
+			// Add minions died-effect
+			name = "Bolvar Fordragon";
+			initBasicStats(5, 1, 7);
+		} else if (type == CAPTAIN_GREENSKIN) {
+			// Add weapon-battlecry-effect
+			name = "Captain Greenskin";
+			minionType = Minion.PIRATE;
+			initBasicStats(5, 5, 4);
+		} else if (type == ELITE_TAUREN_CHIEFTAIN) {
+			// Add "rock"-effect
+			name = "Elite Tauren Chieftain";
+			initBasicStats(5, 5, 5);
+		} else if (type == FEUGEN) {
+			// Add Thaddius-effect
+			name = "Feugen";
+			initBasicStats(5, 4, 7);
+		} else if (type == HARRISON_JONES) {
+			// Add weapon-battlecry-effect
+			name = "Harrison Jones";
+			initBasicStats(5, 5, 4);
+		} else if (type == HEMET_NESINGWARY) {
+			// Add destroy-type-effect
+			name = "Hemet Nesingwary";
+			initBasicStats(5, 6, 3);
+		} else if (type == LOATHEB) {
+			// Add spell-cost-next-turn-effect
+			name = "Loatheb";
+			initBasicStats(5, 5, 5);
+		} else if (type == MIMIRONS_HEAD) {
+			// Add summon-effect
+			name = "Mimiron's Head";
+			minionType = Minion.MECH;
+			initBasicStats(5, 4, 5);
+		} else if (type == STALAGG) {
+			// Add Thaddius-effect
+			name = "Stalagg";
+			initBasicStats(5, 7, 4);
 //==============================================================================
+		} else if (type == HOGGER) {
+			name = "Hogger";
+			initBasicStats(6, 4, 4);
+			endTurnEffect = new SummonMinionTurnEffect(new int[] {GNOLL}, null, false);
 		} else if (type == RECKLESS_ROCKETEER) {
 			name = "Reckless Rocketeer";
 			initBasicStats(6, 5, 2);
@@ -1149,6 +1223,44 @@ public class MonsterCard extends PlayCard {
 		} else if (type == BOULDERFIST_OGRE) {
 			name = "Boulderfist Ogre";
 			initBasicStats(6, 6, 7);
+		} else if (type == GAZLOWE) {
+			// Add add mech-effect
+			name = "Gazlowe";
+			initBasicStats(6, 3, 6);
+		} else if (type == GELBIN_MEKKATORQUE) {
+			// Add awesome invention-effect
+			name = "Gelbin Mekkatorque";
+			initBasicStats(6, 6, 6);
+		} else if (type == ILLIDAN_STORMRAGE) {
+			// Add play summon-effect
+			name = "Illidan Stormrage";
+			initBasicStats(6, 7, 5);
+		} else if (type == IRON_JUGGERNAUT) {
+			// Add mine-battlecry-effect
+			name = "Iron Juggernaut";
+			minionType = Minion.MECH;
+			initBasicStats(6, 6, 5);
+		} else if (type == MAEXXNA) {
+			// Add poison-effect
+			name = "Maexxna";
+			minionType = Minion.BEAST;
+			initBasicStats(6, 2, 8);
+		} else if (type == MOGOR_THE_OGRE) {
+			// Add attack chance-effect
+			name = "Mogor the Ogre";
+			initBasicStats(6, 7, 6);
+		} else if (type == THE_BLACK_KNIGHT) {
+			// Add destroy taunt-effect
+			name = "The Black Knight";
+			initBasicStats(6, 4, 5);
+		} else if (type == TOSHLEY) {
+			// Add spare part-effect
+			name = "Toshley";
+			initBasicStats(6, 5, 7);
+		} else if (type == TRADE_PRINCE_GALLYWIX) {
+			// Add coin-effect
+			name = "Trade Prince Gallywix";
+			initBasicStats(6, 5, 8);
 //==============================================================================
 		} else if (type == DR_BOOM) {
 			name = "Dr. Boom";
@@ -1176,12 +1288,39 @@ public class MonsterCard extends PlayCard {
 			name = "War Golem";
 			initBasicStats(7, 7, 7);
 		} else if (type == PROPHET_VELEN) {
+			// add hero power effect
 			name = "Prophet Velen";
 			initBasicStats(7, 7, 7);
 		} else if (type == CORE_HOUND) {
 			name = "Core Hound";
 			minionType = Minion.BEAST;
 			initBasicStats(7, 9, 5);
+		} else if (type == ARCHMAGE_ANTONIDAS) {
+			// Add fireball-effect
+			name = "Archmage Antonidas";
+			initBasicStats(7, 5, 7);
+		} else if (type == FLAME_LEVIATHAN) {
+			// Add draw-effect
+			name = "Flame Leviathan";
+			minionType = Minion.MECH;
+			initBasicStats(7, 7, 7);
+		} else if (type == MALORNE) {
+			name = "Malorne";
+			minionType = Minion.BEAST;
+			initBasicStats(7, 9, 7);
+			deathRattleEffect = new AddCardToDeck(new int[] {MALORNE}, null);
+		} else if (type == NEPTULON) {
+			// Add draw-effect
+			name = "Neptulon";
+			initBasicStats(7, 7, 7);
+		} else if (type == REND_BLACKHAND) {
+			// Add hold card-destroy type-effect
+			name = "Rend Blackhand";
+			initBasicStats(7, 8, 4);
+		} else if (type == TROGGZOR_THE_EARTHINATOR) {
+			// Add spell-summon-effect
+			name = "Troggzor the Earthinator";
+			initBasicStats(7, 6, 6);
 //==============================================================================
 		} else if (type == RAGNAROS_THE_FIRELORD) {
 			name = "Ragnaros the Firelord";
@@ -1195,11 +1334,6 @@ public class MonsterCard extends PlayCard {
 			taunt = true;
 			divineShield = true;
 			windfury = true;
-		} else if (type == KING_KRUSH) {
-			name = "King Krush";
-			minionType = Minion.BEAST;
-			initBasicStats(8, 8, 8);
-			charge = true;
 		} else if (type == KELTHUZAD) {
 			name = "Kel'Thuzad";
 			initBasicStats(8, 6, 8);
@@ -1218,11 +1352,50 @@ public class MonsterCard extends PlayCard {
 			name = "Ironbark Protector";
 			initBasicStats(8, 8, 8);
 			taunt = true;
+		} else if (type == CHROMAGGUS) {
+			// Add draw effect
+			name = "Chromaggus";
+			minionType = Minion.DRAGON;
+			initBasicStats(8, 6, 8);
+		} else if (type == FOE_REAPER_4000) {
+			// Add damage close by effect
+			name = "Foe Reaper 4000";
+			minionType = Minion.MECH;
+			initBasicStats(8, 6, 9);
+		} else if (type == TIRION_FORDRING) {
+			// Add weapon-deathrattle-effect
+			name = "Tirion Fordring";
+			minionType = Minion.DRAGON;
+			initBasicStats(8, 6, 6);
+			taunt = true;
+			divineShield = true;
 		} else if (type == SNEEDS_OLD_SHREDDER) {
 			name = "Sneed's Old Shredder";
-			initBasicStats(6, 4, 5);
-			deathRattleEffect = new SummonMinions(new int[] {BAINE_BLOODHOOF}, null);
+			minionType = Minion.MECH;
+			initBasicStats(8, 5, 7);
+			deathRattleEffect = new SummonRandomMinions(1, new int[] {	BLOODMAGE_THALNOS, LOREWALKER_CHO, MILLHOUSE_MANASTORM, NAT_PAGLE, 
+																		EDWIN_VANCLEEF, KING_MUKKLA, TINKMASTER_OVERSPARK, BARON_RIVERDARE,
+																		OLD_MURK_EYE, BLINGTRON_3000, BOLVAR_FORDRAGON, CAPTAIN_GREENSKIN,
+																		ELITE_TAUREN_CHIEFTAIN, FEUGEN, HARRISON_JONES, HEMET_NESINGWARY,
+																		LEEROY_JENKINS, LOATHEB, MIMIRONS_HEAD, STALAGG,
+																		VOLJIN, CAIRNE_BLOODHOOF, EMPEROR_THAURISSAN, GAZLOWE,
+																		GELBIN_MEKKATORQUE, HOGGER, ILLIDAN_STORMRAGE, IRON_JUGGERNAUT,
+																		MAEXXNA, MOGOR_THE_OGRE, SYLVANAS_WINDRUNNER, THE_BEAST,
+																		THE_BLACK_KNIGHT, TOSHLEY, TRADE_PRINCE_GALLYWIX, ARCHMAGE_ANTONIDAS,
+																		BARON_GEDDON, DR_BOOM, FLAME_LEVIATHAN, GAHZRILLA, 
+																		MALORNE, NEPTULON, PROPHET_VELEN, REND_BLACKHAND, 
+																		TROGGZOR_THE_EARTHINATOR, ALAKIR_THE_WINDLORD, CHROMAGGUS, FOE_REAPER_4000,
+																		GROMMASH_HELLSCREAM, GRUUL, KELTHUZAD, RAGNAROS_THE_FIRELORD,
+																		SNEEDS_OLD_SHREDDER, TIRION_FORDRING, ALEXSTRASZA, CENARIUS,
+																		KING_KRUSH, LORD_JARAXXUS, MAJORDOMO_EXECUTUS, MALGANIS,
+																		MALYGOS, MEKGINEER_THERMAPLUGG, NEFARIAN, NOZDORMU,
+																		ONYXIA, YSERA, DEATHWING}, 0, null);
 //==============================================================================
+		} else if (type == KING_KRUSH) {
+			name = "King Krush";
+			minionType = Minion.BEAST;
+			initBasicStats(9, 8, 8);
+			charge = true;
 		} else if (type == ALEXSTRASZA) {
 			name = "Alexstrasza";
 			minionType = Minion.DRAGON;
@@ -1233,16 +1406,13 @@ public class MonsterCard extends PlayCard {
 			minionType = Minion.DRAGON;
 			initBasicStats(9, 8, 8);
 			battleCryEffect = new SummonMinions(new int[] {WHELP, WHELP, WHELP, WHELP, WHELP, WHELP}, null);
-		} else if (type == MALORNE) {
-			name = "Malorne";
-			minionType = Minion.BEAST;
-			initBasicStats(9, 9, 7);
-			deathRattleEffect = new AddCardToDeck(new int[] {MALORNE}, null);
 		} else if (type == MALYGOS) {
+			// Add spell damageEffect
 			name = "Malygos";
 			minionType = Minion.DRAGON;
 			initBasicStats(9, 4, 12);
 		} else if (type == MALGANIS) {
+			// Add buff + immune-effect
 			name = "Mal'Ganis";
 			minionType = Minion.DEMON;
 			initBasicStats(9, 9, 7);
@@ -1251,6 +1421,34 @@ public class MonsterCard extends PlayCard {
 			minionType = Minion.DRAGON;
 			initBasicStats(9, 4, 12);
 			endTurnEffect = new AddDreamCardToHandTurnEffect(1, true, false, false);
+		} else if (type == CENARIUS) {
+			// Add choose one
+			name = "Cenarius";
+			initBasicStats(9, 5, 8);
+		} else if (type == LORD_JARAXXUS) {
+			// Add hero-effect
+			name = "Lord Jaraxxus";
+			minionType = Minion.DEMON;
+			initBasicStats(9, 3, 15);
+		} else if (type == MAJORDOMO_EXECUTUS) {
+			// Add hero-effect
+			name = "Majordomo Executus";
+			initBasicStats(9, 9, 7);
+		} else if (type == MEKGINEER_THERMAPLUGG) {
+			// Add die-effect
+			name = "Mekgineer Thermaplugg";
+			minionType = Minion.MECH;
+			initBasicStats(9, 9, 7);
+		} else if (type == NEFARIAN) {
+			// Add nefarian-effect
+			name = "Nefarian";
+			minionType = Minion.DRAGON;
+			initBasicStats(9, 8, 8);
+		} else if (type == NOZDORMU) {
+			// Add ???-effect???
+			name = "Nozdormu";
+			minionType = Minion.DRAGON;
+			initBasicStats(9, 8, 8);
 //==============================================================================
 		} else if (type == DEATHWING) {
 			name = "Deathwing";
