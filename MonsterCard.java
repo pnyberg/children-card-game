@@ -45,7 +45,7 @@ public class MonsterCard extends PlayCard {
 							ANNOY_O_TRON = 43,
 							ANODIZED_ROBO_CUB = 44, // not done [Choose one]
 							ARGENT_PROTECTOR = 45,
-							ARMORSMITH = 46, // not done [Dmg-effect]
+							ARMORSMITH = 46, // not completely done - [Dmg-effect]: damage on board-effect
 							BLOODFEN_RAPTOR = 47,
 							BLOODMAGE_THALNOS = 48, // not completely one - dubbla effekter + spell dmg
 							BLOODSAIL_RAIDER = 49, // not done [Weapon-effect]
@@ -60,14 +60,14 @@ public class MonsterCard extends PlayCard {
 							ECHOING_OOZE = 58, // not done [COPY-end turn effect]
 							EXPLOSIVE_SHEEP = 59,
 							FAERIE_DRAGON = 60,
-							FLAMETOUNGE_TOTEM = 61, // not done [NEXT TO + AREA-effect]
+							FLAMETOUNGE_TOTEM = 61, // not completely done - [NEXT TO + AREA-effect]
 							FROSTWOLF_GRUNT = 62,
 							GILBIN_STALKER = 63,
 							GOBLIN_AUTO_BARBER = 64, // not done
 							HAUNTED_CREEPER = 65,
 							SPECTRAL_SPIDER = 66,
 							IRONBEAK_OWL = 67,
-							KNIFE_JUGGLER = 68, // not done
+							KNIFE_JUGGLER = 68, // not completely done - board summon-effect
 							KOBOLD_GEOMANCER = 69, // not completely done - spell dmg
 							LIGHTWELL = 70, // not done
 							LOOT_HOARDER = 71,
@@ -808,6 +808,19 @@ public class MonsterCard extends PlayCard {
 			minionType = Minion.DRAGON;
 			initBasicStats(2, 3, 2);
 			noSpellTarget = true;
+		} else if (type == FLAMETOUNGE_TOTEM) {
+			// [NEXT TO + AREA-effect]
+			name = "Flametounge Totem";
+			minionType = Minion.TOTEM;
+			initBasicStats(2, 0, 3);
+		} else if (type == ARMORSMITH) {
+			// Add damage on board-effect
+			name = "Armorsmith";
+			initBasicStats(2, 1, 4);
+		} else if (type == KNIFE_JUGGLER) {
+			// Add board summon-effect
+			name = "Knife Juggler";
+			initBasicStats(2, 3, 2);
 		} else if (type == HYENA) {
 			// not playable
 			name = "Hyena";
