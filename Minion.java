@@ -27,6 +27,7 @@ public class Minion extends Character {
 	private boolean divineShield;
 	private boolean windfury;
 	private boolean cannotAttack;
+	private boolean noSpellTarget;
 	private boolean stealth;
 	private boolean stealthTemporary;
 
@@ -35,6 +36,7 @@ public class Minion extends Character {
 	private boolean originallyDivineShield;
 	private boolean originallyWindfury;
 	private boolean originallyCannotAttack;
+	private boolean originallyNoSpellTarget;
 	private boolean originallyStealth;
 	private boolean originallyStealthTemporary;
 
@@ -65,7 +67,7 @@ public class Minion extends Character {
 	private int attackAmount;
 	private boolean restoredThisTurn;
 
-	public Minion(int type, String name, int minionType, int attack, int health, boolean taunt, boolean charge, boolean divineShield, boolean windfury, boolean cannotAttack, boolean stealth, boolean stealthTemporary, DamageEffect damageEffect, EnrageEffect enrageEffect, SpellEffect battleCryEffect, SpellEffect deathRattleEffect, TurnEffect startTurnEffect, TurnEffect endTurnEffect) {
+	public Minion(int type, String name, int minionType, int attack, int health, boolean taunt, boolean charge, boolean divineShield, boolean windfury, boolean cannotAttack, boolean noSpellTarget, boolean stealth, boolean stealthTemporary, DamageEffect damageEffect, EnrageEffect enrageEffect, SpellEffect battleCryEffect, SpellEffect deathRattleEffect, TurnEffect startTurnEffect, TurnEffect endTurnEffect) {
 		this.type = type;
 
 		this.name = name;
@@ -79,6 +81,7 @@ public class Minion extends Character {
 		originallyDivineShield = divineShield;
 		originallyWindfury = windfury;
 		originallyCannotAttack = cannotAttack;
+		originallyNoSpellTarget = noSpellTarget;
 		originallyStealth = stealth;
 		originallyStealthTemporary = stealthTemporary;
 
@@ -116,6 +119,7 @@ public class Minion extends Character {
 		divineShield = originallyDivineShield;
 		windfury = originallyWindfury;
 		cannotAttack = originallyCannotAttack;
+		noSpellTarget = originallyNoSpellTarget;
 		stealth = originallyStealth;
 		stealthTemporary = originallyStealthTemporary;
 
@@ -166,6 +170,7 @@ public class Minion extends Character {
 		divineShield = false;
 		windfury = false;
 		cannotAttack = false;
+		noSpellTarget = false;
 		stealth = false;
 		stealthTemporary = false;
 
@@ -319,6 +324,10 @@ public class Minion extends Character {
 		this.cannotAttack = cannotAttack;
 	}
 
+	public void setNoSpellTarget(boolean noSpellTarget) {
+		this.noSpellTarget = noSpellTarget;
+	}
+
 	public void setStealth(boolean stealth) {
 		this.stealth = stealth;
 	}
@@ -425,6 +434,10 @@ public class Minion extends Character {
 
 	public boolean hasCannotAttack() {
 		return cannotAttack;
+	}
+
+	public boolean hasNoSpellTarget() {
+		return noSpellTarget;
 	}
 
 	public boolean hasStealth() {

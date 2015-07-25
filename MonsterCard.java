@@ -9,7 +9,7 @@ public class MonsterCard extends PlayCard {
 							BLOODSAIL_CORSAIR = 7, // not completely done [weapon-effect]
 							CLOCKWORK_GNOME = 8, // not completely done [Spare Part]
 							COGMASTER = 9, // not completely done [Board Area Effect]
-							DRAGON_EGG = 10, // not completely done [Dmg-effect]
+							DRAGON_EGG = 10,
 							BLACK_WHELP = 11,
 							DUST_DEVIL = 12, // not completely done [Overload]
 							ELVEN_ARCHER = 13,
@@ -59,7 +59,7 @@ public class MonsterCard extends PlayCard {
 							DOOMSAYER = 57,
 							ECHOING_OOZE = 58, // not done [COPY-end turn effect]
 							EXPLOSIVE_SHEEP = 59,
-							FAERIE_DRAGON = 60, // not done [NO TARGET-effect]
+							FAERIE_DRAGON = 60,
 							FLAMETOUNGE_TOTEM = 61, // not done [NEXT TO + AREA-effect]
 							FROSTWOLF_GRUNT = 62,
 							GILBIN_STALKER = 63,
@@ -287,7 +287,7 @@ public class MonsterCard extends PlayCard {
 							SQUIRE = 285,
 							SLUDGE_BELCHER = 286,
 							SLIME = 287,
-							SPECTRAL_KNIGHT = 288, // not done
+							SPECTRAL_KNIGHT = 288,
 							SPITEFUL_SMITH = 289, // not done
 							STALAGG = 290, // not completely done - thaddius-effect
 							THADDIUS = 291,
@@ -412,7 +412,7 @@ public class MonsterCard extends PlayCard {
 	private boolean cannotAttack;
 	private boolean stealth;
 	private boolean stealthTemporary;
-	//private boolean noSpellTarget;
+	private boolean noSpellTarget;
 
 	private SpellEffect costEffect;
 
@@ -439,6 +439,7 @@ public class MonsterCard extends PlayCard {
 		divineShield = false;
 		windfury = false;
 		cannotAttack = false;
+		noSpellTarget = false;
 		stealth = false;
 		stealthTemporary = false;
 
@@ -501,9 +502,9 @@ public class MonsterCard extends PlayCard {
 			name = "Cogmaster";
 			initBasicStats(1, 1, 2);
 		} else if (type == DRAGON_EGG) {
-			// add dmg-summon-effect
 			name = "Dragon Egg";
 			initBasicStats(1, 0, 2);
+			damageEffect = new SummonMinionsDamageEffect(new int[] {BLACK_WHELP}, null, false, false, false);
 		} else if (type == DUST_DEVIL) {
 			// add overload-effect
 			name = "Dust Devil";
@@ -802,11 +803,18 @@ public class MonsterCard extends PlayCard {
 			minionType = Minion.MECH;
 			initBasicStats(2, 2, 2);
 			divineShield = true;
+		} else if (type == FAERIE_DRAGON) {
+			name = "Faerie Dragon";
+			minionType = Minion.DRAGON;
+			initBasicStats(2, 3, 2);
+			noSpellTarget = true;
 		} else if (type == HYENA) {
+			// not playable
 			name = "Hyena";
 			minionType = Minion.BEAST;
 			initBasicStats(2, 2, 2);
 		} else if (type == GNOLL) {
+			// not playable
 			name = "Gnoll";
 			initBasicStats(2, 2, 2);
 			taunt = true;
@@ -1159,6 +1167,10 @@ public class MonsterCard extends PlayCard {
 			// Add Thaddius-effect
 			name = "Stalagg";
 			initBasicStats(5, 7, 4);
+		} else if (type == SPECTRAL_KNIGHT) {
+			name = "Faerie Dragon";
+			initBasicStats(5, 4, 6);
+			noSpellTarget = true;
 //==============================================================================
 		} else if (type == HOGGER) {
 			name = "Hogger";
@@ -1533,6 +1545,6 @@ public class MonsterCard extends PlayCard {
 	}
 
 	public Minion toMinion() {
-		return new Minion(type, name, minionType, attack, health, taunt, charge, divineShield, windfury, cannotAttack, stealth, stealthTemporary, damageEffect, enrageEffect, battleCryEffect, deathRattleEffect, startTurnEffect, endTurnEffect);
+		return new Minion(type, name, minionType, attack, health, taunt, charge, divineShield, windfury, cannotAttack, noSpellTarget, stealth, stealthTemporary, damageEffect, enrageEffect, battleCryEffect, deathRattleEffect, startTurnEffect, endTurnEffect);
 	}
 }

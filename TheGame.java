@@ -627,7 +627,7 @@ public class TheGame {
 	}
 
 	public void makeAttack(int attackerIndex, int targetIndex) {
-		if (targetStealthed(targetIndex, (turn + 1) % 2)) {
+		if (targetAttackable(targetIndex, (turn + 1) % 2)) {
 			System.out.println("You cannot attack that, that minion has stealth!");
 			return;
 		}
@@ -644,15 +644,15 @@ public class TheGame {
 		minionDuel(attackerIndex, targetIndex);
 	}
 
-	public boolean targetStealthed(int targetIndex, int turnIndex) {
+	public boolean targetAttackable(int targetIndex, int turnIndex) {
 		int enemyTurnNumber = (turn + 1) % 2;
 		LinkedList<Minion> minionList = getMinionList(turnIndex);
 
 		if (targetIndex != TARGETPLAYER && turnIndex == enemyTurnNumber && minionList.get(targetIndex).hasStealth()) {
-			return true;
+			return false;
 		}
 
-		return false;
+		return true;
 	}
 
 	public boolean validTarget(int targetIndex) {
