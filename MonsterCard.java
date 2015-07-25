@@ -291,15 +291,15 @@ public class MonsterCard extends PlayCard {
 							SPITEFUL_SMITH = 289, // not done
 							STALAGG = 290, // not completely done - thaddius-effect
 							THADDIUS = 291,
-							STAMPEDING_KODO = 292, // not done
+							STAMPEDING_KODO = 292, // not completely done - destroy based on attack-effect
 							STARVING_BUZZARD = 293, // not done
 							STORMPIKE_COMMANDO = 294,
 							STRANGLETHORN_TIGER = 295,
-							TUNDRA_RHINO = 296, // not done
+							TUNDRA_RHINO = 296, // not completely done - charge for type-effect
 							UPGRADED_REPAIR_BOT = 297, // not done
 							VENTURE_CO_MERCENARY = 298, // not done
 							VOLJIN = 299,
-							ANIMA_GOLEM = 300, // not done
+							ANIMA_GOLEM = 300, // not completely done - destroy if alone-effect
 							ARCHMAGE = 301, // not done
 							ARGENT_COMMANDER = 302,
 							BOULDERFIST_OGRE = 303,
@@ -1171,6 +1171,17 @@ public class MonsterCard extends PlayCard {
 			name = "Faerie Dragon";
 			initBasicStats(5, 4, 6);
 			noSpellTarget = true;
+		} else if (type == TUNDRA_RHINO) {
+			// Add charge for type-effect
+			name = "Tundra Rhino";
+			minionType = Minion.BEAST;
+			initBasicStats(5, 2, 5);
+			charge = true;
+		} else if (type == STAMPEDING_KODO) {
+			// Add destroy based on attack-effect
+			name = "Stampeding Kodo";
+			minionType = Minion.BEAST;
+			initBasicStats(5, 3, 5);
 //==============================================================================
 		} else if (type == HOGGER) {
 			name = "Hogger";
@@ -1273,6 +1284,10 @@ public class MonsterCard extends PlayCard {
 			// Add coin-effect
 			name = "Trade Prince Gallywix";
 			initBasicStats(6, 5, 8);
+		} else if (type == ANIMA_GOLEM) {
+			// Add destroy-if-alone-effect
+			name = "Anima Golem";
+			initBasicStats(6, 9, 9);
 //==============================================================================
 		} else if (type == DR_BOOM) {
 			name = "Dr. Boom";
