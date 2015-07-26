@@ -970,9 +970,9 @@ public class MonsterCard extends PlayCard {
 			name = "Tinkmaster Overspark";
 			initBasicStats(3, 3, 3);
 		} else if (type == FROTHING_BERSERKER) {
-			// Add board-damage-buff-effect
 			name = "Frothing Berserker";
 			initBasicStats(3, 2, 4);
+			damageEffect = new BuffMinionDamageEffect(1, 0, false, true, true);
 //==============================================================================
 		} else if (type == WINDSPEAKER) {
 			name = "Windspeaker";

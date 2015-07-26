@@ -91,10 +91,11 @@ public class TheGame {
 		deck2.add(new MonsterCard(MonsterCard.NOVICE_ENGINEER));
 		deck2.add(new MonsterCard(MonsterCard.LEEROY_JENKINS));
 
-		deck1.add(new MonsterCard(MonsterCard.RAGING_WORGEN));
+		deck1.add(new MonsterCard(MonsterCard.FROTHING_BERSERKER));
+		deck1.add(new MonsterCard(MonsterCard.SHATTERED_SUN_CLERIC));
 		deck1.add(new MonsterCard(MonsterCard.ELVEN_ARCHER));
 		deck1.add(new MonsterCard(MonsterCard.WARBOT));
-		deck1.add(new MonsterCard(MonsterCard.SHATTERED_SUN_CLERIC));
+		deck1.add(new MonsterCard(MonsterCard.RAGING_WORGEN));
 		deck1.add(new MonsterCard(MonsterCard.VODOO_DOCTOR));
 		deck1.add(new MonsterCard(MonsterCard.SPELLBREAKER));
 		deck1.add(new MonsterCard(MonsterCard.IMP_GANG_BOSS));
@@ -200,6 +201,7 @@ public class TheGame {
 		}
 	}
 
+//#200 
 	public void handleCostEffect(PlayCard card, int turnIndex) {
 		SpellEffect costEffect = card.getCostEffect();
 
@@ -251,7 +253,6 @@ public class TheGame {
 		}
 	}
 
-//#200 
 	public void handleBasicCommands(String[] str) {
 		if (str.length == 1 && str[0].equals("draw")) {
 			drawCard(turn);
@@ -301,6 +302,7 @@ public class TheGame {
 		return builder.toString();
 	}
 
+//#300
 	public void handleBattleCryCommands(String[] str) {
 		if (str.length == 2 && str[0].equals("show") && str[1].equals("board")) {
 			showBoard();
@@ -327,7 +329,6 @@ public class TheGame {
 		handleBattleCryEffectTargeting(str, battleCryEffect);
 	}
 
-//#300
 	public void handleBattleCryEffectTargeting(String[] str, SpellEffect battleCryEffect) {
 		String[] array;
 
@@ -362,7 +363,7 @@ public class TheGame {
 
 		/* HERE: target only friendly/enemy - check */
 
-		if (targetStealthed(minionIndex, turnIndex)) {
+		if (!targetAttackable(minionIndex, turnIndex)) {
 			System.out.println("You cannot target that, that minion has stealth!");
 			return;
 		}
@@ -449,6 +450,7 @@ public class TheGame {
 		}
 	}
 
+//#400
 	public void healCharacterEffect(HealCharacter healCharacter, int minionIndex, int turnIndex) {
 		Character character;
 
@@ -463,7 +465,6 @@ public class TheGame {
 		System.out.println(character.getName() + " got healed!");
 	}
 
-//#400
 	public boolean battleCryTargetInstanceOf(SpellEffect battleCryEffect) {
 		return 	battleCryEffect instanceof DealDamage || 
 				battleCryEffect instanceof SetStatsSingleMinion || 
@@ -627,7 +628,7 @@ public class TheGame {
 	}
 
 	public void makeAttack(int attackerIndex, int targetIndex) {
-		if (targetAttackable(targetIndex, (turn + 1) % 2)) {
+		if (!targetAttackable(targetIndex, (turn + 1) % 2)) {
 			System.out.println("You cannot attack that, that minion has stealth!");
 			return;
 		}
