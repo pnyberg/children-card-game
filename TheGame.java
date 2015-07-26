@@ -91,10 +91,11 @@ public class TheGame {
 		deck2.add(new MonsterCard(MonsterCard.NOVICE_ENGINEER));
 		deck2.add(new MonsterCard(MonsterCard.LEEROY_JENKINS));
 
+		deck1.add(new MonsterCard(MonsterCard.CLOCKWORK_GNOME));
+		deck1.add(new MonsterCard(MonsterCard.ELVEN_ARCHER));
 		deck1.add(new MonsterCard(MonsterCard.ARMORSMITH));
 		deck1.add(new MonsterCard(MonsterCard.FROTHING_BERSERKER));
 		deck1.add(new MonsterCard(MonsterCard.SHATTERED_SUN_CLERIC));
-		deck1.add(new MonsterCard(MonsterCard.ELVEN_ARCHER));
 		deck1.add(new MonsterCard(MonsterCard.WARBOT));
 		deck1.add(new MonsterCard(MonsterCard.RAGING_WORGEN));
 		deck1.add(new MonsterCard(MonsterCard.VODOO_DOCTOR));
@@ -1123,17 +1124,17 @@ public class TheGame {
 			DiscardCards discardCards = (DiscardCards)battleCryEffect;
 
 			discardCardsAmount = discardCards.getDiscardAmount();
-		} else if (battleCryEffect instanceof AddBananaCardToHand) {
-			AddBananaCardToHand addBananaCardToHand = (AddBananaCardToHand)battleCryEffect;
+		} else if (battleCryEffect instanceof AddRandomSpellCardToHand) {
+			AddRandomSpellCardToHand addRandomSpellCardToHand = (AddRandomSpellCardToHand)battleCryEffect;
 
-			if (addBananaCardToHand.giveSelf()) {
+			if (addRandomSpellCardToHand.giveSelf()) {
 				LinkedList<PlayCard> cardHand = getHand(turnIndex);
-				addBananaCardToHand.effect(cardHand);
+				addRandomSpellCardToHand.effect(cardHand, true);
 			}
 
-			if (addBananaCardToHand.giveEnemy()) {
+			if (addRandomSpellCardToHand.giveEnemy()) {
 				LinkedList<PlayCard> cardHand = getHand((turnIndex + 1) % 2);
-				addBananaCardToHand.effect(cardHand);
+				addRandomSpellCardToHand.effect(cardHand, false);
 			}
 		} else if (battleCryEffect instanceof DealDamageToAllCharacters) {
 			DealDamageToAllCharacters dealDamageToAllCharacters = (DealDamageToAllCharacters)battleCryEffect;
@@ -1202,6 +1203,19 @@ public class TheGame {
 			LinkedList<PlayCard> deck = getDeck(turnIndex);
 
 			drawCards.effect(cardHand, deck);
+		} else if (deathRattleEffect instanceof AddRandomSpellCardToHand) {
+			/*HERE*/
+			AddRandomSpellCardToHand addRandomSpellCardToHand = (AddRandomSpellCardToHand)deathRattleEffect;
+
+			if (addRandomSpellCardToHand.giveSelf()) {
+				LinkedList<PlayCard> cardHand = getHand(turnIndex);
+				addRandomSpellCardToHand.effect(cardHand, true);
+			}
+
+			if (addRandomSpellCardToHand.giveEnemy()) {
+				LinkedList<PlayCard> cardHand = getHand((turnIndex + 1) % 2);
+				addRandomSpellCardToHand.effect(cardHand, false);
+			}
 		} else if (deathRattleEffect instanceof AddCardToDeck) {
 			AddCardToDeck addCardToDeck = (AddCardToDeck)deathRattleEffect;
 			LinkedList<PlayCard> friendlyDeck = getDeck(turnIndex);

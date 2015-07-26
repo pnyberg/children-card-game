@@ -45,7 +45,7 @@ public class MonsterCard extends PlayCard {
 							ANNOY_O_TRON = 43,
 							ANODIZED_ROBO_CUB = 44, // not done [Choose one]
 							ARGENT_PROTECTOR = 45,
-							ARMORSMITH = 46, // not completely done - [Dmg-effect]: damage on board-effect
+							ARMORSMITH = 46,
 							BLOODFEN_RAPTOR = 47,
 							BLOODMAGE_THALNOS = 48, // not completely one - dubbla effekter + spell dmg
 							BLOODSAIL_RAIDER = 49, // not done [Weapon-effect]
@@ -493,10 +493,10 @@ public class MonsterCard extends PlayCard {
 			minionType = Minion.PIRATE;
 			initBasicStats(1, 1, 2);
 		} else if (type == CLOCKWORK_GNOME) {
-			// add spare part-deathrattle
 			name = "Clockwork Gnome";
 			minionType = Minion.MECH;
 			initBasicStats(1, 2, 1);
+			deathRattleEffect = new AddRandomSpellCardToHand(1, 0, new int[] {SpellCard.DRAGON_POWER});
 		} else if (type == COGMASTER) {
 			// add type-area-effect
 			name = "Cogmaster";
@@ -957,7 +957,7 @@ public class MonsterCard extends PlayCard {
 			name = "King Mukkla";
 			minionType = Minion.BEAST;
 			initBasicStats(3, 5, 5);
-			battleCryEffect = new AddBananaCardToHand(2, false, true, true);
+			battleCryEffect = new AddRandomSpellCardToHand(0, 2, new int[] {SpellCard.DRAGON_POWER});
 		} else if (type == FINKLE_EINHORN) {
 			name = "Finkle Einhorn";
 			initBasicStats(3, 3, 3);
