@@ -37,7 +37,7 @@ public class MonsterCard extends PlayCard {
 							WEBSPINNER = 35, // not completely done [Deathrattle]
 							WORGEN_INFILTRATOR = 36,
 							YOUNG_DRAGONHAWK = 37,
-							YOUNG_PRIESTESS = 38, // not completely done [endturn-buff]
+							YOUNG_PRIESTESS = 38,
 							ZOMBIE_CHOW = 39,
 							ACIDIC_SWAMP_OOZE = 40, // not completely done - weapon
 							AMANI_BERSERKER = 41,
@@ -76,7 +76,7 @@ public class MonsterCard extends PlayCard {
 							MAD_SCIENTIST = 74, // not done
 							MANA_ADDICT = 75, // not done
 							MANA_WRAITH = 76, // not done
-							MASTER_SWORDSMITH = 77, // not done
+							MASTER_SWORDSMITH = 77,
 							MECHWARPER = 78, // not done
 							MICRO_MACHINE = 79, // not done
 							MILLHOUSE_MANASTORM = 80, // not completely done - spell-cost-next-turn
@@ -482,11 +482,11 @@ public class MonsterCard extends PlayCard {
 			initBasicStats(1, 1, 1);
 			divineShield = true;
 		} else if (type == BLOOD_IMP) {
-			// add endturn-health-buff
 			name = "Blood Imp";
 			minionType = Minion.DEMON;
 			initBasicStats(1, 0, 1);
 			stealth = true;
+			endTurnEffect = new BuffMinionTurnEffect(0, 1, false, true);
 		} else if (type == BLOODSAIL_CORSAIR) {
 			// add weapon-battlecry-effect
 			name = "Bloodsail Corsair";
