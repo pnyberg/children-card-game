@@ -7,7 +7,7 @@ public class MonsterCard extends PlayCard {
 							ARGENT_SQUIRE = 5,
 							BLOOD_IMP = 6, // not completely done [endturn-buff]
 							BLOODSAIL_CORSAIR = 7, // not completely done [weapon-effect]
-							CLOCKWORK_GNOME = 8, // not completely done [Spare Part]
+							CLOCKWORK_GNOME = 8,
 							COGMASTER = 9, // not completely done [Board Area Effect]
 							DRAGON_EGG = 10,
 							BLACK_WHELP = 11,
@@ -50,7 +50,7 @@ public class MonsterCard extends PlayCard {
 							BLOODMAGE_THALNOS = 48, // not completely one - dubbla effekter + spell dmg
 							BLOODSAIL_RAIDER = 49, // not done [Weapon-effect]
 							BLUEGILL_WARRIOR = 50,
-							CAPTAINS_PARROT = 51, // not done [Deathrattle]
+							CAPTAINS_PARROT = 51, // not done [Deathrattle] - get spec card from deck
 							CRAZED_ALCHEMIST = 52,
 							CRUEL_TASKMASTER = 53, // not done [Buff-effect, double]
 							DEFIAS_RINGLEADER = 54, // not completely done - combo-summon-minion-effect
@@ -621,9 +621,9 @@ public class MonsterCard extends PlayCard {
 			initBasicStats(1, 1, 1);
 			windfury = true;
 		} else if (type == YOUNG_PRIESTESS) {
-			// add endturn-health-buff
 			name = "Young Priestess";
 			initBasicStats(1, 2, 1);
+			endTurnEffect = new BuffMinionTurnEffect(0, 1, false, true);
 		} else if (type == ZOMBIE_CHOW) {
 			name = "Zombie Chow";
 			initBasicStats(1, 2, 3);
@@ -848,7 +848,7 @@ public class MonsterCard extends PlayCard {
 			name = "Shade of Naxxramas";
 			initBasicStats(3, 2, 2);
 			stealth = true;
-			startTurnEffect = new BuffMinionTurnEffect(1, 1, true, false);
+			startTurnEffect = new BuffMinionTurnEffect(1, 1, false, false);
 		} else if (type == JUNGLE_PANTHER) {
 			name = "Jungle Panther";
 			minionType = Minion.BEAST;

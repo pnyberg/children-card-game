@@ -91,6 +91,8 @@ public class TheGame {
 		deck2.add(new MonsterCard(MonsterCard.NOVICE_ENGINEER));
 		deck2.add(new MonsterCard(MonsterCard.LEEROY_JENKINS));
 
+		deck1.add(new MonsterCard(MonsterCard.SHADE_OF_NAXXRAMAS));
+		deck1.add(new MonsterCard(MonsterCard.YOUNG_PRIESTESS));
 		deck1.add(new MonsterCard(MonsterCard.CLOCKWORK_GNOME));
 		deck1.add(new MonsterCard(MonsterCard.ELVEN_ARCHER));
 		deck1.add(new MonsterCard(MonsterCard.ARMORSMITH));
@@ -1376,6 +1378,19 @@ public class TheGame {
 			LinkedList<PlayCard> cardHand = getHand(turnIndex);
 
 			handCostTurnEffect.effect(cardHand);
+		} else if (endTurnEffect instanceof BuffMinionTurnEffect) {
+			BuffMinionTurnEffect buffMinionTurnEffect = (BuffMinionTurnEffect)endTurnEffect;
+			Minion minionToBeBuffed;
+
+			if (buffMinionTurnEffect.buffOtherMinions()) {
+				LinkedList<Minion> friendlyMinionList = getMinionList(turnIndex);
+				int index = (int)(Math.random() * 100) % friendlyMinionList.size();
+				minion = friendlyMinionList.get(index);
+			} else {
+				minionToBeBuffed = minion;
+			}
+
+			buffMinionTurnEffect.effect(minion);
 		} else if (endTurnEffect instanceof DealDamageToAllCharactersTurnEffect) {
 			DealDamageToAllCharactersTurnEffect dealDamageToAllCharactersTurnEffect = (DealDamageToAllCharactersTurnEffect)endTurnEffect;
 
