@@ -1,5 +1,4 @@
 === TODO ===
-* BattleCry (swap att/def)
 * Spell (heal)
 * Weapon
 * SpellDamage
@@ -9,6 +8,9 @@
 * SpellCast-effect (own / enemy / any + minion / player)
 
 * Multipla effecter
+
+* FIX
+- Baron Geddon + Grim Patron = loop?
 
 
 * Ordning på hantering (ex Boom Bot attackerar Boom Bot där båda träffar andra, som dör, t ex Boom Bots)
