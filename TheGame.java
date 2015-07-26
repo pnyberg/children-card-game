@@ -1331,7 +1331,10 @@ public class TheGame {
 
 			if (buffMinionTurnEffect.buffOtherMinions()) {
 				LinkedList<Minion> friendlyMinionList = getMinionList(turnIndex);
-				int index = (int)(Math.random() * 100) % friendlyMinionList.size();
+				int index = minionIndex;
+				while (index == minionIndex) {
+					index = (int)(Math.random() * 100) % friendlyMinionList.size();					
+				}
 				minion = friendlyMinionList.get(index);
 			} else {
 				minionToBeBuffed = minion;
@@ -1385,7 +1388,14 @@ public class TheGame {
 
 			if (buffMinionTurnEffect.buffOtherMinions()) {
 				LinkedList<Minion> friendlyMinionList = getMinionList(turnIndex);
-				int index = (int)(Math.random() * 100) % friendlyMinionList.size();
+				int index = 0;
+				while (true) {
+					index = (int)(Math.random() * 100) % friendlyMinionList.size();
+
+					if (index != minionIndex) {
+						break;
+					}
+				}
 				minion = friendlyMinionList.get(index);
 			} else {
 				minionToBeBuffed = minion;
