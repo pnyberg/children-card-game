@@ -5,7 +5,7 @@ public class MonsterCard extends PlayCard {
 							ABUSIVE_SERGEANT = 3,
 							ANGRY_CHICKEN = 4,
 							ARGENT_SQUIRE = 5,
-							BLOOD_IMP = 6, // not completely done [endturn-buff]
+							BLOOD_IMP = 6,
 							BLOODSAIL_CORSAIR = 7, // not completely done [weapon-effect]
 							CLOCKWORK_GNOME = 8,
 							COGMASTER = 9, // not completely done [Board Area Effect]
@@ -833,6 +833,10 @@ public class MonsterCard extends PlayCard {
 			name = "Master Swordsmith";
 			initBasicStats(2, 1, 3);
 			endTurnEffect = new BuffMinionTurnEffect(1, 0, false, true);
+		} else if (type == ECHOING_OOZE) {
+			name = "Echoing Ooze";
+			initBasicStats(2, 1, 2);
+			endTurnEffect = new CopyMinionTurnEffect(true, false);
 		} else if (type == HYENA) {
 			// not playable
 			name = "Hyena";

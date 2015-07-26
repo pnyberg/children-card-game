@@ -256,6 +256,8 @@ public class Minion extends Character {
 
 	public void setAttack(int newAttack) {
 		currentAttack = newAttack;
+		tempAttack = 0;
+		enrageAttack = 0;
 	}
 
 	public void addTempAttack(int attack) {
@@ -274,6 +276,10 @@ public class Minion extends Character {
 	public void setHealth(int newHealth) {
 		currentHealth = newHealth;
 		currentMaxHealth = newHealth;
+	}
+
+	private void setCurrentHealth(int newHealth) {
+		currentHealth = newHealth;
 	}
 
 	public void kill() {
@@ -344,12 +350,36 @@ public class Minion extends Character {
 		this.enraged = enraged;
 	}
 
+	public void setDamageEffect(DamageEffect damageEffect) {
+		this.damageEffect = damageEffect;
+	}
+
+	public void setEnrageEffect(EnrageEffect enrageEffect) {
+		this.enrageEffect = enrageEffect;
+	}
+
+	public void setBattleCryEffect(SpellEffect battleCryEffect) {
+		this.battleCryEffect = battleCryEffect;
+	}
+
+	public void setDeathRattleEffect(SpellEffect deathRattleEffect) {
+		this.deathRattleEffect = deathRattleEffect;
+	}
+
+	public void setStartTurnEffect(TurnEffect startTurnEffect) {
+		this.startTurnEffect = startTurnEffect;
+	}
+
+	public void setEndTurnEffect(TurnEffect endTurnEffect) {
+		this.endTurnEffect = endTurnEffect;
+	}
+
 	public boolean isAlive() {
 		return currentHealth > 0;
 	}
 
 	public boolean isBuffed() {
-		return normalAttack < getCurrentAttack() || normalMaxHealth < currentMaxHealth;
+		return normalAttack != getCurrentAttack() || normalMaxHealth != currentMaxHealth;
 	}
 
 	public String getName() {
@@ -493,4 +523,46 @@ public class Minion extends Character {
 		}
 		return damageEffect.friendlyBoardAreaEffect();
 	}
+
+	public Minion clone() {
+		Minion cloneMinion = new Minion(type, name, minionType, normalAttack, normalMaxHealth, originallyTaunt, originallyCharge, 
+			originallyDivineShield, originallyWindfury, originallyCannotAttack, originallyNoSpellTarget, originallyStealth, 
+			originallyStealthTemporary, originallyDamageEffect, originallyEnrageEffect, originallyBattleCryEffect, originallyDeathRattleEffect, 
+			originallyStartTurnEffect, originallyEndTurnEffect);
+
+		cloneMinion.setAttack(currentAttack);
+//		cloneMinion.addTempAttack(tempAttack);
+		cloneMinion.addEnrageAttack(enrageAttack);
+
+		cloneMinion.setHealth(currentMaxHealth);
+		cloneMinion.setCurrentHealth(currentHealth);
+
+		cloneMinion.setTaunt(taunt);
+		cloneMinion.setCharge(charge);
+		cloneMinion.setDivineShield(divineShield);
+		cloneMinion.setWindfury(windfury);
+		cloneMinion.setCannotAttack(cannotAttack);
+		cloneMinion.setNoSpellTarget(noSpellTarget);
+		cloneMinion.setStealth(stealth);
+		cloneMinion.setStealthTemporary(stealthTemporary);
+
+		cloneMinion.setEnrage(enraged);
+		cloneMinion.setEnrageTaunt(enrageTaunt);
+		cloneMinion.setEnrageCharge(enrageCharge);
+		cloneMinion.setEnrageDivineShield(enrageDivineShield);
+		cloneMinion.setEnrageWindfury(enrageWindfury);
+
+		cloneMinion.setDamageEffect(damageEffect);
+		cloneMinion.setEnrageEffect(enrageEffect);
+
+		cloneMinion.setBattleCryEffect(battleCryEffect);
+		cloneMinion.setDeathRattleEffect(deathRattleEffect);
+
+		cloneMinion.setStartTurnEffect(startTurnEffect);
+		cloneMinion.setEndTurnEffect(endTurnEffect);
+//		private int attackAmount;
+//		private boolean restoredThisTurn;
+
+		return cloneMinion;
+ 	}
 }

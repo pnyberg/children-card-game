@@ -11,7 +11,6 @@
 
 * FIX
 - Baron Geddon + Grim Patron = loop?
-- Master Swordsmith och Young Priestess kan buffa sig själva - DONT!
 
 
 * Ordning på hantering (ex Boom Bot attackerar Boom Bot där båda träffar andra, som dör, t ex Boom Bots)

@@ -91,6 +91,7 @@ public class TheGame {
 		deck2.add(new MonsterCard(MonsterCard.NOVICE_ENGINEER));
 		deck2.add(new MonsterCard(MonsterCard.LEEROY_JENKINS));
 
+		deck1.add(new MonsterCard(MonsterCard.ECHOING_OOZE));
 		deck1.add(new MonsterCard(MonsterCard.YOUNG_PRIESTESS));
 		deck1.add(new MonsterCard(MonsterCard.BLOOD_IMP));
 		deck1.add(new MonsterCard(MonsterCard.MASTER_SWORDSMITH));
@@ -1446,6 +1447,12 @@ public class TheGame {
 			LinkedList<Minion> enemyPlayerMinionTempList = getTempMinionList((turnIndex + 1) % 2);
 
 			summonMinionTurnEffect.effect(friendlyPlayerMinionTempList, enemyPlayerMinionTempList);
+		} else if (endTurnEffect instanceof CopyMinionTurnEffect) {
+			CopyMinionTurnEffect copyMinionTurnEffect = (CopyMinionTurnEffect)endTurnEffect;
+			LinkedList<Minion> friendlyPlayerMinionTempList = getTempMinionList(turnIndex);
+			LinkedList<Minion> enemyPlayerMinionTempList = getTempMinionList((turnIndex + 1) % 2);
+
+			copyMinionTurnEffect.effect(minion, friendlyPlayerMinionTempList);
 		}
 	}
 
