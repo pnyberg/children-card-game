@@ -814,9 +814,9 @@ public class MonsterCard extends PlayCard {
 			minionType = Minion.TOTEM;
 			initBasicStats(2, 0, 3);
 		} else if (type == ARMORSMITH) {
-			// Add damage on board-effect
 			name = "Armorsmith";
 			initBasicStats(2, 1, 4);
+			damageEffect = new ArmorDamageEffect(1, true, false);
 		} else if (type == KNIFE_JUGGLER) {
 			// Add board summon-effect
 			name = "Knife Juggler";

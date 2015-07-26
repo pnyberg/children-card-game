@@ -87,6 +87,11 @@ public class DamageHandler {
 			BuffMinionDamageEffect buffMinionDamageEffect = (BuffMinionDamageEffect)damageEffect;
 
 			buffMinionDamageEffect.effect(minion);
+		} else if (damageEffect instanceof ArmorDamageEffect) {
+			ArmorDamageEffect armorDamageEffect = (ArmorDamageEffect)damageEffect;
+			Player player = getPlayer(turnIndex);
+
+			armorDamageEffect.effect(player);
 		} else if (damageEffect instanceof SummonMinionsDamageEffect) {
 			SummonMinionsDamageEffect summonMinionsDamageEffect = (SummonMinionsDamageEffect)damageEffect;
 

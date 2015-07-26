@@ -91,6 +91,7 @@ public class TheGame {
 		deck2.add(new MonsterCard(MonsterCard.NOVICE_ENGINEER));
 		deck2.add(new MonsterCard(MonsterCard.LEEROY_JENKINS));
 
+		deck1.add(new MonsterCard(MonsterCard.ARMORSMITH));
 		deck1.add(new MonsterCard(MonsterCard.FROTHING_BERSERKER));
 		deck1.add(new MonsterCard(MonsterCard.SHATTERED_SUN_CLERIC));
 		deck1.add(new MonsterCard(MonsterCard.ELVEN_ARCHER));
