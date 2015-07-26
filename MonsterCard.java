@@ -53,7 +53,7 @@ public class MonsterCard extends PlayCard {
 							CAPTAINS_PARROT = 51, // not done [Deathrattle]
 							CRAZED_ALCHEMIST = 52,
 							CRUEL_TASKMASTER = 53, // not done [Buff-effect, double]
-							DEFIAS_RINGLEADER = 54, // not done [COMBO]
+							DEFIAS_RINGLEADER = 54, // not completely done - combo-summon-minion-effect
 							DEFIAS_BANDIT = 55,
 							DIRE_WOLF_ALPHA = 56, // not done [NEXT TO + AREA-effect]
 							DOOMSAYER = 57,
@@ -72,7 +72,7 @@ public class MonsterCard extends PlayCard {
 							LIGHTWELL = 70, // not done
 							LOOT_HOARDER = 71,
 							LOREWALKER_CHO = 72, // not completely done - spell-copying
-							MAD_BOMBER = 73, // not done
+							MAD_BOMBER = 73, // not completely done - random-damage-battlecry
 							MAD_SCIENTIST = 74, // not done
 							MANA_ADDICT = 75, // not done
 							MANA_WRAITH = 76, // not done
@@ -821,6 +821,14 @@ public class MonsterCard extends PlayCard {
 			// Add board summon-effect
 			name = "Knife Juggler";
 			initBasicStats(2, 3, 2);
+		} else if (type == DEFIAS_RINGLEADER) {
+			// Add combo-summon-minion-effect
+			name = "Defias Ringleader";
+			initBasicStats(2, 2, 2);
+		} else if (type == MAD_BOMBER) {
+			// Add random-damage-battlecry-effect
+			name = "Mad Bomber";
+			initBasicStats(2, 3, 2);
 		} else if (type == HYENA) {
 			// not playable
 			name = "Hyena";
@@ -961,6 +969,10 @@ public class MonsterCard extends PlayCard {
 			// Add transform-battlecry-effect
 			name = "Tinkmaster Overspark";
 			initBasicStats(3, 3, 3);
+		} else if (type == FROTHING_BERSERKER) {
+			// Add board-damage-buff-effect
+			name = "Frothing Berserker";
+			initBasicStats(3, 2, 4);
 //==============================================================================
 		} else if (type == WINDSPEAKER) {
 			name = "Windspeaker";
