@@ -93,6 +93,7 @@ public class TheGame {
 
 		deck1.add(new MonsterCard(MonsterCard.SHADE_OF_NAXXRAMAS));
 		deck1.add(new MonsterCard(MonsterCard.YOUNG_PRIESTESS));
+		deck1.add(new MonsterCard(MonsterCard.MASTER_SWORDSMITH));
 		deck1.add(new MonsterCard(MonsterCard.CLOCKWORK_GNOME));
 		deck1.add(new MonsterCard(MonsterCard.ELVEN_ARCHER));
 		deck1.add(new MonsterCard(MonsterCard.ARMORSMITH));

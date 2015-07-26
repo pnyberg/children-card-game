@@ -829,6 +829,10 @@ public class MonsterCard extends PlayCard {
 			// Add random-damage-battlecry-effect
 			name = "Mad Bomber";
 			initBasicStats(2, 3, 2);
+		} else if (type == MASTER_SWORDSMITH) {
+			name = "Master Swordsmith";
+			initBasicStats(2, 1, 3);
+			endTurnEffect = new BuffMinionTurnEffect(1, 0, false, true);
 		} else if (type == HYENA) {
 			// not playable
 			name = "Hyena";
