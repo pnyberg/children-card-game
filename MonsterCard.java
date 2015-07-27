@@ -47,7 +47,7 @@ public class MonsterCard extends PlayCard {
 							ARGENT_PROTECTOR = 45,
 							ARMORSMITH = 46,
 							BLOODFEN_RAPTOR = 47,
-							BLOODMAGE_THALNOS = 48, // not completely one - dubbla effekter + spell dmg
+							BLOODMAGE_THALNOS = 48,
 							BLOODSAIL_RAIDER = 49, // not done [Weapon-effect]
 							BLUEGILL_WARRIOR = 50,
 							CAPTAINS_PARROT = 51, // not done [Deathrattle] - get spec card from deck
@@ -68,7 +68,7 @@ public class MonsterCard extends PlayCard {
 							SPECTRAL_SPIDER = 66,
 							IRONBEAK_OWL = 67,
 							KNIFE_JUGGLER = 68, // not completely done - board summon-effect
-							KOBOLD_GEOMANCER = 69, // not completely done - spell dmg
+							KOBOLD_GEOMANCER = 69,
 							LIGHTWELL = 70,
 							LOOT_HOARDER = 71,
 							LOREWALKER_CHO = 72, // not completely done - spell-copying
@@ -119,7 +119,7 @@ public class MonsterCard extends PlayCard {
 							BLOOD_KNIGHT = 117,
 							COLDLIGHT_ORACLE = 118, // not done
 							COLDLIGHT_SEER = 119, // not done
-							DALARAN_MAGE = 120, // not completely done - spell dmg
+							DALARAN_MAGE = 120,
 							DANCING_SWORDS = 121, // not done
 							DARK_CULTIST = 122, // not done
 							DEATHLORD = 123,
@@ -381,7 +381,7 @@ public class MonsterCard extends PlayCard {
 							LORD_JARAXXUS = 379, // not compleyely done - hero
 							MAJORDOMO_EXECUTUS = 380, // not completely done - hero
 							MALGANIS = 381, // not completely done - immune & +2/+2 - demon
-							MALYGOS = 382, // not completely done - spell dmg
+							MALYGOS = 382,
 							MEKGINEER_THERMAPLUGG = 383, // not completely done - die-effect
 							NEFARIAN = 384, // not completely done - nefarian-effect
 							NOZDORMU = 385, // not to be done? - inte göra
@@ -747,6 +747,7 @@ public class MonsterCard extends PlayCard {
 		} else if (type == KOBOLD_GEOMANCER) {
 			name = "Kobold Geomancer";
 			initBasicStats(2, 2, 2);
+			spellDamage = 1;
 		} else if (type == RIVER_CROCOLISK) {
 			name = "River Crocolisk";
 			minionType = Minion.BEAST;
@@ -756,10 +757,10 @@ public class MonsterCard extends PlayCard {
 			initBasicStats(2, 2, 3);
 			enrageEffect = new BuffSingleMinionEnrageEffect(3, 0, false, false, false, false);
 		} else if (type == BLOODMAGE_THALNOS) {
-			// Add spell damage
 			name = "Bloodmage Thalnos";
 			initBasicStats(2, 1, 1);
 			deathRattleEffect = new DrawCards(1);
+			spellDamage = 1;
 		} else if (type == LOREWALKER_CHO) {
 			// Add spell-copying-effect
 			name = "Lorewalker Cho";
@@ -885,9 +886,9 @@ public class MonsterCard extends PlayCard {
 			initBasicStats(3, 3, 3);
 			enrageEffect = new BuffSingleMinionEnrageEffect(1, 0, false, false, false, true);
 		} else if (type == DALARAN_MAGE) {
-			// Add spell damage
 			name = "Dalaran Mage";
 			initBasicStats(3, 1, 4);
+			spellDamage = 1;
 		} else if (type == IRONFUR_GRIZZLY) {
 			name = "Ironfur Grizzly";
 			minionType = Minion.BEAST;
@@ -1485,10 +1486,10 @@ public class MonsterCard extends PlayCard {
 			initBasicStats(9, 8, 8);
 			battleCryEffect = new SummonMinions(new int[] {WHELP, WHELP, WHELP, WHELP, WHELP, WHELP}, null);
 		} else if (type == MALYGOS) {
-			// Add spell damageEffect
 			name = "Malygos";
 			minionType = Minion.DRAGON;
 			initBasicStats(9, 4, 12);
+			spellDamage = 5;
 		} else if (type == MALGANIS) {
 			// Add buff + immune-effect
 			name = "Mal'Ganis";
