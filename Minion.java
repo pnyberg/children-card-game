@@ -22,6 +22,8 @@ public class Minion extends Character {
 	private int currentMaxHealth;
 	private int currentHealth;
 
+	private int spellDamage;
+
 	private boolean taunt;
 	private boolean charge;
 	private boolean divineShield;
@@ -53,21 +55,21 @@ public class Minion extends Character {
 	private EnrageEffect originallyEnrageEffect;
 
 	private SpellEffect battleCryEffect;
-	private SpellEffect deathRattleEffect;
-
 	private SpellEffect originallyBattleCryEffect;
+
+	private SpellEffect deathRattleEffect;
 	private SpellEffect originallyDeathRattleEffect;
 
 	private TurnEffect startTurnEffect;
-	private TurnEffect endTurnEffect;
-
 	private TurnEffect originallyStartTurnEffect;
+
+	private TurnEffect endTurnEffect;
 	private TurnEffect originallyEndTurnEffect;
 
 	private int attackAmount;
 	private boolean restoredThisTurn;
 
-	public Minion(int type, String name, int minionType, int attack, int health, boolean taunt, boolean charge, boolean divineShield, boolean windfury, boolean cannotAttack, boolean noSpellTarget, boolean stealth, boolean stealthTemporary, DamageEffect damageEffect, EnrageEffect enrageEffect, SpellEffect battleCryEffect, SpellEffect deathRattleEffect, TurnEffect startTurnEffect, TurnEffect endTurnEffect) {
+	public Minion(int type, String name, int minionType, int attack, int health, int spellDamage, boolean taunt, boolean charge, boolean divineShield, boolean windfury, boolean cannotAttack, boolean noSpellTarget, boolean stealth, boolean stealthTemporary, DamageEffect damageEffect, EnrageEffect enrageEffect, SpellEffect battleCryEffect, SpellEffect deathRattleEffect, TurnEffect startTurnEffect, TurnEffect endTurnEffect) {
 		this.type = type;
 
 		this.name = name;
@@ -75,6 +77,8 @@ public class Minion extends Character {
 
 		normalAttack = attack;
 		normalMaxHealth = health;
+
+		this.spellDamage = spellDamage;
 
 		originallyTaunt = taunt;
 		originallyCharge = charge;
@@ -165,6 +169,8 @@ public class Minion extends Character {
 			attackAmount = 0;
 		}
 
+		spellDamage = 0;
+
 		taunt = false;
 		charge = false;
 		divineShield = false;
@@ -173,6 +179,12 @@ public class Minion extends Character {
 		noSpellTarget = false;
 		stealth = false;
 		stealthTemporary = false;
+
+		enraged = false;
+		enrageTaunt = false;
+		enrageCharge = false;
+		enrageDivineShield = false;
+		enrageWindfury = false;
 
 		damageEffect = null;
 
@@ -280,6 +292,14 @@ public class Minion extends Character {
 
 	private void setCurrentHealth(int newHealth) {
 		currentHealth = newHealth;
+	}
+
+	private void addSpellDamage(int addSpellDamage) {
+		spellDamage += addSpellDamage;
+	}
+
+	private void setSpellDamage(int newSpellDamage) {
+		spellDamage = newSpellDamage;
 	}
 
 	public void kill() {
@@ -422,6 +442,10 @@ public class Minion extends Character {
 		return currentHealth;
 	}
 
+	public int getSpellDamage() {
+		return spellDamage;
+	}
+
 	public DamageEffect getDamageEffect() {
 		return damageEffect;
 	}
@@ -525,13 +549,13 @@ public class Minion extends Character {
 	}
 
 	public Minion clone() {
-		Minion cloneMinion = new Minion(type, name, minionType, normalAttack, normalMaxHealth, originallyTaunt, originallyCharge, 
+		Minion cloneMinion = new Minion(type, name, minionType, normalAttack, normalMaxHealth, spellDamage, originallyTaunt, originallyCharge, 
 			originallyDivineShield, originallyWindfury, originallyCannotAttack, originallyNoSpellTarget, originallyStealth, 
 			originallyStealthTemporary, originallyDamageEffect, originallyEnrageEffect, originallyBattleCryEffect, originallyDeathRattleEffect, 
 			originallyStartTurnEffect, originallyEndTurnEffect);
 
 		cloneMinion.setAttack(currentAttack);
-//		cloneMinion.addTempAttack(tempAttack);
+		cloneMinion.addTempAttack(tempAttack);
 		cloneMinion.addEnrageAttack(enrageAttack);
 
 		cloneMinion.setHealth(currentMaxHealth);

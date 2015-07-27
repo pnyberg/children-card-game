@@ -69,7 +69,7 @@ public class MonsterCard extends PlayCard {
 							IRONBEAK_OWL = 67,
 							KNIFE_JUGGLER = 68, // not completely done - board summon-effect
 							KOBOLD_GEOMANCER = 69, // not completely done - spell dmg
-							LIGHTWELL = 70, // not done
+							LIGHTWELL = 70,
 							LOOT_HOARDER = 71,
 							LOREWALKER_CHO = 72, // not completely done - spell-copying
 							MAD_BOMBER = 73, // not completely done - random-damage-battlecry
@@ -187,7 +187,7 @@ public class MonsterCard extends PlayCard {
 							ANCIENT_MAGE = 185, // not done
 							ANUBAR_AMBUSHER = 186, // not done
 							ARATHI_WEAPONSMITH = 187, // not done
-							ARCANE_NULLIFIER_X21 = 188, // not done
+							ARCANE_NULLIFIER_X21 = 188,
 							AUCHENAI_SOULPRIEST = 189, // not done
 							AXE_FLINGER = 190, // not done
 							BARON_RIVERDARE = 191, // not completely done - double deathrattle
@@ -405,6 +405,8 @@ public class MonsterCard extends PlayCard {
 	private int attack;
 	private int health;
 
+	private int spellDamage;
+
 	private boolean taunt;
 	private boolean charge;
 	private boolean divineShield;
@@ -433,6 +435,8 @@ public class MonsterCard extends PlayCard {
 		this.type = type;
 
 		costEffect = null;
+
+		spellDamage = 0;
 
 		taunt = false;
 		charge = false;
@@ -1071,6 +1075,12 @@ public class MonsterCard extends PlayCard {
 			minionType = Minion.MURLOC;
 			initBasicStats(4, 2, 4);
 			charge = true;
+		} else if (type == ARCANE_NULLIFIER_X21) {
+			name = "Arcane Nullifier X21";
+			minionType = Minion.MECH;
+			initBasicStats(4, 2, 5);
+			taunt = true;
+			noSpellTarget = true;
 //==============================================================================
 		} else if (type == FEN_CREEPER) {
 			name = "Fen Creeper";
@@ -1601,6 +1611,6 @@ public class MonsterCard extends PlayCard {
 	}
 
 	public Minion toMinion() {
-		return new Minion(type, name, minionType, attack, health, taunt, charge, divineShield, windfury, cannotAttack, noSpellTarget, stealth, stealthTemporary, damageEffect, enrageEffect, battleCryEffect, deathRattleEffect, startTurnEffect, endTurnEffect);
+		return new Minion(type, name, minionType, attack, health, spellDamage, taunt, charge, divineShield, windfury, cannotAttack, noSpellTarget, stealth, stealthTemporary, damageEffect, enrageEffect, battleCryEffect, deathRattleEffect, startTurnEffect, endTurnEffect);
 	}
 }
