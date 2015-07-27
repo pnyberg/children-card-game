@@ -1088,6 +1088,10 @@ public class MonsterCard extends PlayCard {
 			initBasicStats(4, 2, 5);
 			taunt = true;
 			noSpellTarget = true;
+		} else if (type == OGRE_MAGI) {
+			name = "Ogre Magi";
+			initBasicStats(4, 4, 4);
+			spellDamage = 1;
 //==============================================================================
 		} else if (type == FEN_CREEPER) {
 			name = "Fen Creeper";
@@ -1335,9 +1339,10 @@ public class MonsterCard extends PlayCard {
 			name = "The Black Knight";
 			initBasicStats(6, 4, 5);
 		} else if (type == TOSHLEY) {
-			// Add spare part-effect
 			name = "Toshley";
 			initBasicStats(6, 5, 7);
+			battleCryEffect = new AddRandomSpellCardToHand(1, 0, new int[] {SpellCard.DRAGON_POWER});
+			deathRattleEffect = new AddRandomSpellCardToHand(1, 0, new int[] {SpellCard.DRAGON_POWER});
 		} else if (type == TRADE_PRINCE_GALLYWIX) {
 			// Add coin-effect
 			name = "Trade Prince Gallywix";
