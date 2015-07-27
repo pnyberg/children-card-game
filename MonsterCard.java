@@ -837,6 +837,10 @@ public class MonsterCard extends PlayCard {
 			name = "Echoing Ooze";
 			initBasicStats(2, 1, 2);
 			endTurnEffect = new CopyMinionTurnEffect(true, false);
+		} else if (type == LIGHTWELL) {
+			name = "Lightwell";
+			initBasicStats(2, 0, 5);
+			startTurnEffect = new HealRandomCharacterTurnEffect(3, true, false);
 		} else if (type == HYENA) {
 			// not playable
 			name = "Hyena";

@@ -91,6 +91,7 @@ public class TheGame {
 		deck2.add(new MonsterCard(MonsterCard.NOVICE_ENGINEER));
 		deck2.add(new MonsterCard(MonsterCard.LEEROY_JENKINS));
 
+		deck1.add(new MonsterCard(MonsterCard.LIGHTWELL));
 		deck1.add(new MonsterCard(MonsterCard.FACELESS_MANIPULATOR));
 		deck1.add(new MonsterCard(MonsterCard.ECHOING_OOZE));
 		deck1.add(new MonsterCard(MonsterCard.YOUNG_PRIESTESS));
@@ -1372,7 +1373,7 @@ public class TheGame {
 			buffMinionTurnEffect.effect(minion);
 		} else if (startTurnEffect instanceof HealRandomCharacterTurnEffect) {
 			HealRandomCharacterTurnEffect healRandomCharacterTurnEffect = (HealRandomCharacterTurnEffect)startTurnEffect;
-			Character characterToBeHealed;
+			Character character;
 			LinkedList<Minion> minionList;
 			int randomTurnIndex;
 
@@ -1386,13 +1387,13 @@ public class TheGame {
 			minionList = getMinionList(turnIndex);
 			int index = (int)(Math.random() * 100) % (minionList.size() + 1) - 1;
 
-			if (index == TARGETPLAYER) {
+			if (index == -1) {
 				character = getPlayer(turnIndex);
 			} else {
 				character = minionList.get(index);
 			}
 
-			healRandomCharacterTurnEffect.effect(characterToBeHealed);
+			healRandomCharacterTurnEffect.effect(character);
 		}
 
 		return false;
