@@ -1215,6 +1215,10 @@ public class MonsterCard extends PlayCard {
 			name = "Stampeding Kodo";
 			minionType = Minion.BEAST;
 			initBasicStats(5, 3, 5);
+		} else if (type == FACELESS_MANIPULATOR) {
+			name = "Faceless Manipulator";
+			initBasicStats(5, 3, 3);
+			battleCryEffect = new TransformIntoMinion();
 //==============================================================================
 		} else if (type == HOGGER) {
 			name = "Hogger";

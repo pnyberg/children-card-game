@@ -91,6 +91,7 @@ public class TheGame {
 		deck2.add(new MonsterCard(MonsterCard.NOVICE_ENGINEER));
 		deck2.add(new MonsterCard(MonsterCard.LEEROY_JENKINS));
 
+		deck1.add(new MonsterCard(MonsterCard.FACELESS_MANIPULATOR));
 		deck1.add(new MonsterCard(MonsterCard.ECHOING_OOZE));
 		deck1.add(new MonsterCard(MonsterCard.YOUNG_PRIESTESS));
 		deck1.add(new MonsterCard(MonsterCard.BLOOD_IMP));
@@ -353,6 +354,8 @@ public class TheGame {
 			array = new String[]{"set", "health"};
 		} else if (battleCryEffect instanceof Silence) {
 			array = new String[]{"silence"};
+		} else if (battleCryEffect instanceof TransformIntoMinion) {
+			array = new String[]{"transform", "to"};
 		} else {
 			return;
 		}
@@ -387,6 +390,21 @@ public class TheGame {
 			setHealthPlayer.effect(player);
 
 			System.out.println(player.getName() + " got changed health!");
+		} else if (battleCryEffect instanceof TransformIntoMinion) {
+			TransformIntoMinion transformIntoMinion = (TransformIntoMinion)battleCryEffect;
+			LinkedList<Minion> friendlyPlayerMinionTempList = getTempMinionList(turn);
+			Minion targetMinion = getMinion(minionIndex, turnIndex);
+
+			transformIntoMinion.effect(targetMinion, friendlyPlayerMinionTempList);
+
+			removeCardFromHand(minionTriedToPlayCardIndex, turn);
+
+			System.out.println(friendlyPlayerMinionTempList.size());
+			addSummonedMinions(turn);
+			System.out.println(friendlyPlayerMinionTempList.size());
+			handlingBattleCry = false;
+
+			return;
 		} else if (battleCryEffect instanceof DealDamage) {
 			DealDamage dealDamage = (DealDamage)battleCryEffect;
 
@@ -988,6 +1006,12 @@ public class TheGame {
 
 				System.out.println("Which minion do you want to target?");
 			}
+		} else if (battleCryEffect instanceof TransformIntoMinion) {
+			if (minionExists()) {
+				handlingBattleCry = true;
+
+				System.out.println("Which minion do you want to transform to?");
+			}
 		} else if (battleCryEffect instanceof BuffAccordingToBoard) {
 			BuffAccordingToBoard buffAccordingToBoard = (BuffAccordingToBoard)battleCryEffect;
 
@@ -1209,7 +1233,6 @@ public class TheGame {
 
 			drawCards.effect(cardHand, deck);
 		} else if (deathRattleEffect instanceof AddRandomSpellCardToHand) {
-			/*HERE*/
 			AddRandomSpellCardToHand addRandomSpellCardToHand = (AddRandomSpellCardToHand)deathRattleEffect;
 
 			if (addRandomSpellCardToHand.giveSelf()) {
