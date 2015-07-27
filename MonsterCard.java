@@ -217,11 +217,11 @@ public class MonsterCard extends PlayCard {
 							LIGHTSPAWN = 215, // not done
 							LOST_TALLSTRIDER = 216,
 							MASTER_OF_DISGUISE = 217, // not done
-							MECHANICAL_YETI = 218, // not done
+							MECHANICAL_YETI = 218,
 							MINI_MAGE = 219, // not done
 							MOGUSHAN_WARDEN = 220, // not done
 							OASIS_SNAPJAW = 221,
-							OGRE_MAGI = 222, // not done
+							OGRE_MAGI = 222,
 							OLD_MURK_EYE = 223, // not completely done - murloc area buff
 							PILOTED_SHREDDER = 224, // not done
 							PIT_LORD = 225,
@@ -242,7 +242,7 @@ public class MonsterCard extends PlayCard {
 							WINDSPEAKER = 240,
 							ABOMINATION = 241,
 							ANTIQUE_HEALBOT = 242,
-							AZURE_DRAKE = 243, // not done
+							AZURE_DRAKE = 243,
 							BLACKWING_CORRUPTOR = 244, // not done
 							BLINGTRON_3000 = 245, // not completely done - weapon-battlecry
 							BOLVAR_FORDRAGON = 246, // not completely done - minions died-effect
@@ -300,7 +300,7 @@ public class MonsterCard extends PlayCard {
 							VENTURE_CO_MERCENARY = 298, // not done
 							VOLJIN = 299,
 							ANIMA_GOLEM = 300, // not completely done - destroy if alone-effect
-							ARCHMAGE = 301, // not done
+							ARCHMAGE = 301,
 							ARGENT_COMMANDER = 302,
 							BOULDERFIST_OGRE = 303,
 							CABAL_SHADOW_PRIEST = 304, // not done
@@ -321,7 +321,7 @@ public class MonsterCard extends PlayCard {
 							HOGGER = 319,
 							GNOLL = 320,
 							ILLIDAN_STORMRAGE = 321, // not completely done - play summon effect
-							FLAME_OF_AZZINOTH = 322, // not done
+							FLAME_OF_AZZINOTH = 322,
 							IRON_JUGGERNAUT = 323, // not completel done - mine battlecry effect
 							BURROWING_MINE = 324, // not done
 							KIDNAPPER = 325, // not done
@@ -341,7 +341,7 @@ public class MonsterCard extends PlayCard {
 							THE_BEAST = 339,
 							FINKLE_EINHORN = 340,
 							THE_BLACK_KNIGHT = 341, // not completely done - destroy taunt
-							TOSHLEY = 342, // not completely done - spare part 
+							TOSHLEY = 342, 
 							TRADE_PRINCE_GALLYWIX = 343, // not completely done - coin effect
 							VOLCANIC_DRAKE = 344, // not done
 							WINDFURY_HARPY = 345,
@@ -354,7 +354,7 @@ public class MonsterCard extends PlayCard {
 							BOOM_BOT = 352,
 							FLAME_LEVIATHAN = 353, // not completely done - draw effect
 							GAHZRILLA = 354,
-							GUARDIAN_OF_KINGS = 355, // not done
+							GUARDIAN_OF_KINGS = 355,
 							MALORNE = 356,
 							NEPTULON = 357, // not completely done - overload + murloc
 							PROPHET_VELEN = 358, // not completely done - double spell + hero -effect
@@ -376,7 +376,7 @@ public class MonsterCard extends PlayCard {
 							TIRION_FORDRING = 374, // not completely done - weapon-deathrattle
 							ALEXSTRASZA = 375,
 							CENARIUS = 376, // not compleyely done - choose one
-							TREANT = 377, // not done
+							TREANT = 377,
 							KING_KRUSH = 378,
 							LORD_JARAXXUS = 379, // not compleyely done - hero
 							MAJORDOMO_EXECUTUS = 380, // not completely done - hero
@@ -691,6 +691,15 @@ public class MonsterCard extends PlayCard {
 			// not playable
 			name = "Squire";
 			initBasicStats(1, 2, 2);
+		} else if (type == TREANT) {
+			// not playable
+			name = "Treant";
+			initBasicStats(1, 2, 2);
+			taunt = true;
+		} else if (type == FLAME_OF_AZZINOTH) {
+			// not playable
+			name = "Flame of Azzinoth";
+			initBasicStats(1, 2, 1);
 //==============================================================================
 		} else if (type == ANCIENT_WATCHER) {
 			name = "Ancient Watcher";
@@ -1092,6 +1101,11 @@ public class MonsterCard extends PlayCard {
 			name = "Ogre Magi";
 			initBasicStats(4, 4, 4);
 			spellDamage = 1;
+		} else if (type == MECHANICAL_YETI) {
+			name = "Mechanical Yeti";
+			minionType = Minion.MECH;
+			initBasicStats(4, 4, 5);
+			deathRattleEffect = new AddRandomSpellCardToHand(1, 0, new int[] {SpellCard.DRAGON_POWER});
 //==============================================================================
 		} else if (type == FEN_CREEPER) {
 			name = "Fen Creeper";
@@ -1244,6 +1258,12 @@ public class MonsterCard extends PlayCard {
 			name = "Faceless Manipulator";
 			initBasicStats(5, 3, 3);
 			battleCryEffect = new TransformIntoMinion();
+		} else if (type == AZURE_DRAKE) {
+			name = "Azure Drake";
+			minionType = Minion.DRAGON;
+			initBasicStats(5, 4, 4);
+			battleCryEffect = new DrawCards(1);
+			spellDamage = 1;
 //==============================================================================
 		} else if (type == HOGGER) {
 			name = "Hogger";
@@ -1355,6 +1375,10 @@ public class MonsterCard extends PlayCard {
 			name = "Temple Enforcer";
 			initBasicStats(6, 6, 6);
 			battleCryEffect = new BuffSingleMinion(0, 3, false, false, false, false, false);
+		} else if (type == ARCHMAGE) {
+			name = "Ogre Magi";
+			initBasicStats(6, 4, 7);
+			spellDamage = 1;
 //==============================================================================
 		} else if (type == DR_BOOM) {
 			name = "Dr. Boom";
@@ -1415,6 +1439,10 @@ public class MonsterCard extends PlayCard {
 			// Add spell-summon-effect
 			name = "Troggzor the Earthinator";
 			initBasicStats(7, 6, 6);
+		} else if (type == GUARDIAN_OF_KINGS) {
+			name = "Guardian of Kings";
+			initBasicStats(7, 5, 6);
+			battleCryEffect = new HealCharacter(6, true, true);
 //==============================================================================
 		} else if (type == RAGNAROS_THE_FIRELORD) {
 			name = "Ragnaros the Firelord";
