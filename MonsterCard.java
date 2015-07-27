@@ -57,7 +57,7 @@ public class MonsterCard extends PlayCard {
 							DEFIAS_BANDIT = 55,
 							DIRE_WOLF_ALPHA = 56, // not done [NEXT TO + AREA-effect]
 							DOOMSAYER = 57,
-							ECHOING_OOZE = 58, // not done [COPY-end turn effect]
+							ECHOING_OOZE = 58,
 							EXPLOSIVE_SHEEP = 59,
 							FAERIE_DRAGON = 60,
 							FLAMETOUNGE_TOTEM = 61, // not completely done - [NEXT TO + AREA-effect]
@@ -261,7 +261,7 @@ public class MonsterCard extends PlayCard {
 							DRUID_OF_THE_FANG_VIPER_FORM = 259, // not done
 							EARTH_ELEMENTAL = 260, // not completely done - overload
 							ELITE_TAUREN_CHIEFTAIN = 261, // not completely done - rock-effect
-							FACELESS_MANIPULATOR = 262, // not done
+							FACELESS_MANIPULATOR = 262,
 							FEL_REAVER = 263, // not done
 							FEN_CREEPER = 264,
 							FEUGEN = 265, // not completely done - thaddius-effect

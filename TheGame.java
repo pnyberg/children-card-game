@@ -1356,9 +1356,13 @@ public class TheGame {
 
 			if (buffMinionTurnEffect.buffOtherMinions()) {
 				LinkedList<Minion> friendlyMinionList = getMinionList(turnIndex);
-				int index = minionIndex;
-				while (index == minionIndex) {
-					index = (int)(Math.random() * 100) % friendlyMinionList.size();					
+				int index = 0;
+				while (true) {
+					index = (int)(Math.random() * 100) % friendlyMinionList.size();
+
+					if (index != minionIndex) {
+						break;
+					}
 				}
 				minion = friendlyMinionList.get(index);
 			} else {
@@ -1366,6 +1370,29 @@ public class TheGame {
 			}
 
 			buffMinionTurnEffect.effect(minion);
+		} else if (startTurnEffect instanceof HealRandomCharacterTurnEffect) {
+			HealRandomCharacterTurnEffect healRandomCharacterTurnEffect = (HealRandomCharacterTurnEffect)startTurnEffect;
+			Character characterToBeHealed;
+			LinkedList<Minion> minionList;
+			int randomTurnIndex;
+
+			if (healRandomCharacterTurnEffect.onlyHealFriendly()) {
+				randomTurnIndex = turnIndex;
+			} else {
+				randomTurnIndex = (int)(Math.random() * 100) % 2;
+				minionList = getMinionList(randomTurnIndex);
+			}
+
+			minionList = getMinionList(turnIndex);
+			int index = (int)(Math.random() * 100) % (minionList.size() + 1) - 1;
+
+			if (index == TARGETPLAYER) {
+				character = getPlayer(turnIndex);
+			} else {
+				character = minionList.get(index);
+			}
+
+			healRandomCharacterTurnEffect.effect(characterToBeHealed);
 		}
 
 		return false;
