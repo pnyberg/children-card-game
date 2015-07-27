@@ -220,7 +220,7 @@ public class MonsterCard extends PlayCard {
 							MECHANICAL_YETI = 218, // not done
 							MINI_MAGE = 219, // not done
 							MOGUSHAN_WARDEN = 220, // not done
-							OASIS_SNAPJAW = 221, // not done
+							OASIS_SNAPJAW = 221,
 							OGRE_MAGI = 222, // not done
 							OLD_MURK_EYE = 223, // not completely done - murloc area buff
 							PILOTED_SHREDDER = 224, // not done
@@ -337,7 +337,7 @@ public class MonsterCard extends PlayCard {
 							SHIELDMAIDEN = 335,
 							SUNWALKER = 336,
 							SYLVANAS_WINDRUNNER = 337,
-							TEMPLE_ENFORCER = 338, // not done
+							TEMPLE_ENFORCER = 338,
 							THE_BEAST = 339,
 							FINKLE_EINHORN = 340,
 							THE_BLACK_KNIGHT = 341, // not completely done - destroy taunt
@@ -611,10 +611,16 @@ public class MonsterCard extends PlayCard {
 			initBasicStats(1, 1, 3);
 			enrageEffect = new BuffSingleMinionEnrageEffect(1, 0, false, false, false, false);
 		} else if (type == WEBSPINNER) {
-			// add random-spec-card-draw-deathrattle-effect
 			name = "Webspinner";
 			minionType = Minion.BEAST;
 			initBasicStats(1, 1, 1);
+			deathRattleEffect = new AddRandomMonsterCardToHand(1, 0, new int[] {ANGRY_CHICKEN, STONETUSK_BOAR, TIMBER_WOLF, WEBSPINNER,
+																				YOUNG_DRAGONHAWK, BLOODFEN_RAPTOR, RIVER_CROCOLISK, IRONBEAK_OWL,
+																				HAUNTED_CREEPER, JUNGLE_PANTHER, SILVERBACK_PATRIARCH, KING_MUKKLA, 
+																				IRONFUR_GRIZZLY, LOST_TALLSTRIDER, OASIS_SNAPJAW, KING_OF_BEASTS, 
+																				KING_KRUSH, THE_BEAST, STRANGLETHORN_TIGER, TUNDRA_RHINO, 
+																				STAMPEDING_KODO, MAEXXNA, SAVANNAH_HIGHMANE, CORE_HOUND,
+																				MALORNE, GAHZRILLA});
 		} else if (type == WORGEN_INFILTRATOR) {
 			name = "Worgen Infiltrator";
 			initBasicStats(1, 2, 1);
@@ -1340,6 +1346,10 @@ public class MonsterCard extends PlayCard {
 			// Add destroy-if-alone-effect
 			name = "Anima Golem";
 			initBasicStats(6, 9, 9);
+		} else if (type == TEMPLE_ENFORCER) {
+			name = "Temple Enforcer";
+			initBasicStats(6, 6, 6);
+			battleCryEffect = new BuffSingleMinion(0, 3, false, false, false, false, false);
 //==============================================================================
 		} else if (type == DR_BOOM) {
 			name = "Dr. Boom";
